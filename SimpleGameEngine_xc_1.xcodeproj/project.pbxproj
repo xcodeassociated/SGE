@@ -332,6 +332,7 @@
 					cocoa,
 					"-framework",
 					OpenGL,
+					"-lglew",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -361,6 +362,7 @@
 					cocoa,
 					"-framework",
 					OpenGL,
+					"-lglew",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

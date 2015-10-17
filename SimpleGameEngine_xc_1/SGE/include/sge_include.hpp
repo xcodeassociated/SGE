@@ -10,7 +10,19 @@
 #define SGE_include_h
 
 #include <GL/glew.h>
+#include <GLUT/GLUT.h>
 #include <OpenGL/OpenGL.h>
 #include <SDL2/SDL.h>
+
+#include <functional>
+#include <memory>
+#include <chrono>
+#include <thread>
+#include <string>
+#include <vector>
+#include <tuple>
+#include <fstream>
+#include <iostream>
+#include <cstdlib>
 
 #endif /* SGE_include_h */

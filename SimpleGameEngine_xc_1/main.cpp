@@ -8,18 +8,26 @@
 
 #include <iostream>
 
-#include "SGE/include/SGE_include.hpp"
-#include "SGE/MainGameWindow/MainGameWindow.hpp"
+#include "SGE/include/sge_include.hpp"
+#include "SGE/MainGameWindow/sge_mainGameWindow.hpp"
+#include "SGE/Sprite/sge_sprite.hpp"
 
 int main(int argc, const char * argv[]) {
     
-    SGE::MainGameWindow* mainWindow = new SGE::MainGameWindow();
+    SGE::MainGameWindow* mainWindow = new SGE::MainGameWindow(1024, 768);
     mainWindow->init();
     mainWindow->show();
+
+    SGE::Sprite* sprite0 = new SGE::Sprite();
+    sprite0->init(-1.0f, -1.0f, 1.0f, 1.0f);
+    mainWindow->addSprite(sprite0, 0);
+    
     mainWindow->gameLoop();
+
+    
     
     std::getchar();
-    delete mainWindow;
+    delete mainWindow; 
     
     return 0;
 }
