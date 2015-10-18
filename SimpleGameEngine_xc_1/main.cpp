@@ -19,11 +19,18 @@ int main(int argc, const char * argv[]) {
     mainWindow->show();
 
     SGE::Sprite* sprite0 = new SGE::Sprite();
-    sprite0->init(-0.5f, -0.5f, 1.0f, 1.0f);
+    sprite0->init(-1.0f, -1.0f, 1.0f, 1.0f,
+                  "/Users/Hamashy/Desktop/GameEngine.repo/SimpleGameEngine_xc_1/Resources/jimmyJump_pack/PNG/CharacterRight_Standing.png");
+    
+    SGE::Sprite* sprite1 = new SGE::Sprite();
+    sprite1->init(0.f, 0.f, 1.0f, 1.0f,
+                  "/Users/Hamashy/Desktop/GameEngine.repo/SimpleGameEngine_xc_1/Resources/jimmyJump_pack/PNG/CharacterRight_Standing.png");
+    
     mainWindow->addSprite(sprite0, 0);
+    mainWindow->addSprite(sprite1, 1);
+
     
     mainWindow->run();
-
     
     
     std::getchar();
@@ -31,3 +38,11 @@ int main(int argc, const char * argv[]) {
     
     return 0;
 }
+
+/**
+ 
+TODO:
+    
+    >>  With the singleton class memory management the ARC is required! - early implement try..
+
+*/

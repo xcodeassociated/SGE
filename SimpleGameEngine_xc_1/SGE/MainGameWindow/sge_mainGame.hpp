@@ -12,8 +12,6 @@
 #include "../include/sge_include.hpp"
 #include "../Sprite/sge_sprite.hpp"
 #include "../Shaders/sge_shader.hpp"
-#include "../TextureLoader/sge_glTexture.hpp"
-#include "../TextureLoader/sge_imageLoader.hpp"
 
 namespace SGE {
     
@@ -30,10 +28,9 @@ namespace SGE {
         int mainWindowPosX = 0, mainWindowPosY = 0;
         int mainWindowWidth = 0, mainWindowHeight = 0;
         bool isInited = false;
-        std::vector< std::tuple< SGE::Sprite*, size_t> > sprites;
         float time = 0;
         
-        SGE::GLTexture sampleTexture;
+        std::vector< std::tuple< SGE::Sprite*, size_t> > sprites;
         
         void processInput(){
             SDL_Event event;
@@ -65,7 +62,6 @@ namespace SGE {
             this->shaderProgram->use();
             
             glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, this->sampleTexture.id);
             GLint textureLocation = this->shaderProgram->getUniformLocation("mySampler");
             glUniform1i(textureLocation, 0);
             
@@ -75,8 +71,7 @@ namespace SGE {
             {
                 //draw all sprites
                 std::for_each(this->sprites.begin(), this->sprites.end(), [](std::tuple<SGE::Sprite*, size_t>& element){
-                    
-                    ( std::get<0>(element) )->draw();
+                    (std::get<0>(element))->draw();
                 });
             }
             
@@ -134,9 +129,6 @@ namespace SGE {
         void run(){
             this->initShader();
             
-            //load some textures
-            this->sampleTexture = SGE::ImageLoader::loadPNG("/Users/Hamashy/Desktop/GameEngine.repo/SimpleGameEngine_xc_1/Resources/jimmyJump_pack/PNG/CharacterRight_Standing.png");
-            
             while (this->gameState != GameState::EXIT){
                 this->processInput();
                 this->gameDrawer();
@@ -169,6 +161,10 @@ namespace SGE {
                 SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
                 glClearColor(0.f, 0.f, 1.f, 1.0f);
                 
+                GLuint VertexArrayID;
+                glGenVertexArrays(1 , &VertexArrayID);
+                glBindVertexArray(VertexArrayID);
+                
                 SDL_ShowWindow(this->mainWindow);
                 
             }else
@@ -178,7 +174,7 @@ namespace SGE {
         void addSprite(SGE::Sprite* _sprite, size_t _tag){
             if (_sprite == nullptr && _sprite->isInited()) throw "";
             
-            this->sprites.push_back( std::make_tuple(_sprite, _tag) );
+            this->sprites.push_back(std::make_tuple(_sprite, _tag));
         }
         
     };

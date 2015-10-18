@@ -1,0 +1,63 @@
+//
+//  sge_texture_cache.hpp
+//  SimpleGameEngine_xc_1
+//
+//  Created by Hamashy on 18.10.2015.
+//  Copyright © 2015 Hamashy. All rights reserved.
+//
+
+#ifndef sge_texture_cache_h
+#define sge_texture_cache_h
+
+#include "../include/sge_include.hpp"
+#include "../TextureLoader/sge_glTexture.hpp"
+#include "../TextureLoader/sge_imageLoader.hpp"
+
+namespace SGE {
+
+    class TextureCache{
+        
+        std::map<std::string, SGE::GLTexture> textureMap;
+        
+        TextureCache(){
+            std::cout << ">>    TextureCache c-tor" << std::endl;
+        };
+        TextureCache( const TextureCache & ){
+            std::cout << ">>    TextureCache c-tor" << std::endl;
+        };
+        
+    public:
+        static int arc;
+
+        ~TextureCache(){
+            std::cout << ">>    TextureCache singleton deleted" << std::endl;
+        }
+        
+        static TextureCache* getSingleton(){
+            static TextureCache* singleton = new TextureCache();
+            SGE::TextureCache::arc++;
+            
+            return singleton;
+        }
+      
+        SGE::GLTexture getTexture(const char* _key){
+            std::map<std::string, SGE::GLTexture>::iterator mit = this->textureMap.find(std::string(_key));
+            if (mit == this->textureMap.end()){
+                GLTexture newTexture = SGE::ImageLoader::loadPNG(_key);
+                
+                this->textureMap.insert(std::make_pair(_key, newTexture));
+                
+                std::cout << ">>    Loaded Non-Cache Texture!" << std::endl;
+
+                return newTexture;
+            }
+            
+            std::cout << ">>    Used Cache Texture!" << std::endl;
+            return mit->second;
+        }
+    };
+
+    int SGE::TextureCache::arc = 0;
+}
+
+#endif /* sge_texture_cache_h */
