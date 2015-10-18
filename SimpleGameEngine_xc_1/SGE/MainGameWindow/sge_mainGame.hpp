@@ -12,16 +12,18 @@
 #include "../include/sge_include.hpp"
 #include "../Sprite/sge_sprite.hpp"
 #include "../Shaders/sge_shader.hpp"
+#include "../TextureLoader/sge_glTexture.hpp"
+#include "../TextureLoader/sge_imageLoader.hpp"
 
 namespace SGE {
-
+    
     enum class GameState {
         PLAY,
         EXIT
     };
     
     class MainGameWindow{
-    //private:
+        //private:
         SDL_Window* mainWindow = nullptr;
         GameState gameState;
         SGE::Shader* shaderProgram = nullptr;
@@ -29,6 +31,9 @@ namespace SGE {
         int mainWindowWidth = 0, mainWindowHeight = 0;
         bool isInited = false;
         std::vector< std::tuple< SGE::Sprite*, size_t> > sprites;
+        float time = 0;
+        
+        SGE::GLTexture sampleTexture;
         
         void processInput(){
             SDL_Event event;
@@ -56,8 +61,17 @@ namespace SGE {
         void gameDrawer(){
             glClearDepth(1.0);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        
+            
             this->shaderProgram->use();
+            
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, this->sampleTexture.id);
+            GLint textureLocation = this->shaderProgram->getUniformLocation("mySampler");
+            glUniform1i(textureLocation, 0);
+            
+            //GLint timeLocation = this->shaderProgram->getUniformLocation("time");
+            //glUniform1f(timeLocation, this->time);
+            
             {
                 //draw all sprites
                 std::for_each(this->sprites.begin(), this->sprites.end(), [](std::tuple<SGE::Sprite*, size_t>& element){
@@ -65,6 +79,9 @@ namespace SGE {
                     ( std::get<0>(element) )->draw();
                 });
             }
+            
+            glBindTexture(GL_TEXTURE_2D, 0);
+            
             this->shaderProgram->unuse();
             
             SDL_GL_SwapWindow(this->mainWindow);
@@ -107,21 +124,28 @@ namespace SGE {
                                            "/Users/Hamashy/Desktop/GameEngine.repo/SimpleGameEngine_xc_1/SGE/Shaders/res/colorShader.frag");
             
             this->shaderProgram->addAttribute("vertexPosition");
+            this->shaderProgram->addAttribute("vertexColor");
+            this->shaderProgram->addAttribute("vertexUV");
+            
             this->shaderProgram->linkShaders();
         }
         
         
-        void gameLoop(){
+        void run(){
             this->initShader();
+            
+            //load some textures
+            this->sampleTexture = SGE::ImageLoader::loadPNG("/Users/Hamashy/Desktop/GameEngine.repo/SimpleGameEngine_xc_1/Resources/jimmyJump_pack/PNG/CharacterRight_Standing.png");
             
             while (this->gameState != GameState::EXIT){
                 this->processInput();
                 this->gameDrawer();
+                this->time += 0.01f;
                 
                 SDL_Delay(2);
             };
             
-           //do something with the window...
+            //do something with the window...
             
             std::cout << ">>    GameLoop brake" << std::endl;
         }
@@ -136,22 +160,21 @@ namespace SGE {
                 
                 SDL_GLContext glContext = SDL_GL_CreateContext(this->mainWindow);
                 if (glContext == nullptr) throw "";
-        
+                
                 glewExperimental = GL_TRUE;
                 GLenum glewCheck = glewInit();
                 if (glewCheck != GLEW_OK) throw "";
                 
-
                 
                 SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
                 glClearColor(0.f, 0.f, 1.f, 1.0f);
-
+                
                 SDL_ShowWindow(this->mainWindow);
-                            
+                
             }else
                 std::cout << ">>    init first!" << std::endl;
         }
-      
+        
         void addSprite(SGE::Sprite* _sprite, size_t _tag){
             if (_sprite == nullptr && _sprite->isInited()) throw "";
             

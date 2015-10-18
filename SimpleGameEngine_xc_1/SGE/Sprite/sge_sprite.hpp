@@ -10,6 +10,7 @@
 #define sprite_h
 
 #include "../include/sge_include.hpp"
+#include "sge_vertex.hpp"
 
 namespace SGE {
     
@@ -41,27 +42,36 @@ namespace SGE {
             this->height = _height;
             
             if (this->vboID == 0){
-                float vertexData[12];
+                SGE::Vertex vertexData[6];
 
                 //First triangle
-                vertexData[0] = this->x + this->width;
-                vertexData[1] = this->x + this->width;
+                vertexData[0].setPosition(this->x + this->width, this->x + this->width);
+                vertexData[0].setUV(1.0f, 1.0f);
                 
-                vertexData[2] = this->x;
-                vertexData[3] = this->y + this->height;
+                vertexData[1].setPosition(this->x, this->y + this->height);
+                vertexData[1].setUV(0.0f, 1.0f);
                 
-                vertexData[4] = this->x;
-                vertexData[5] = this->y;
+                vertexData[2].setPosition(this->x, this->y);
+                vertexData[2].setUV(0.0f, 0.0f);
                 
                 //Second triangle
-                vertexData[6] = this->x;
-                vertexData[7] = this->y;
+                vertexData[3].setPosition(this->x, this->y);
+                vertexData[3].setUV(0.0f, 0.0f);
                 
-                vertexData[8] = this->x + this->width;
-                vertexData[9] = this->y;
+                vertexData[4].setPosition(this->x + this->width, this->y);
+                vertexData[4].setUV(1.0f, 0.0f);
                 
-                vertexData[10] = this->x + this->width;
-                vertexData[11] = this->y + this->height;
+                vertexData[5].setPosition(this->x + this->width, this->y + this->height);
+                vertexData[5].setUV(1.0f, 1.0f);
+                
+                for (int i = 0; i < 6; i++)
+                    vertexData[i].setColor(255, 255, 255, 255); //vertexData[i].setColor(255, 0, 255, 255);
+                
+                
+                //vertexData[1].setColor(0, 0, 255, 255);
+                //vertexData[4].setColor(0, 255, 0, 255);
+
+
                 
                 GLuint VertexArrayID;
                 glGenVertexArrays(1, &VertexArrayID);
@@ -80,7 +90,10 @@ namespace SGE {
             glBindBuffer(GL_ARRAY_BUFFER, this->vboID);
             glEnableVertexAttribArray(0);
             
-            glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
+            glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(SGE::Vertex), (void*)offsetof(SGE::Vertex, position));
+            glVertexAttribPointer(1, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(SGE::Vertex), (void*)offsetof(SGE::Vertex, color));
+            glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(SGE::Vertex), (void*)offsetof(SGE::Vertex, uv));
+            
             glDrawArrays(GL_TRIANGLES, 0, 6);
             
             glDisableVertexAttribArray(0);

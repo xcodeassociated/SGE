@@ -58,6 +58,13 @@ namespace SGE {
             
         };
         
+        GLint getUniformLocation(const char* uniformName){
+            GLint location = glGetUniformLocation(this->programID, uniformName);
+            if (location == GL_INVALID_INDEX) throw "";
+            
+            return location;
+        }
+        
         void doShaders(const char* _vertexShaderFile, const char* _fragmentShaderFile){
         
             this->programID = glCreateProgram();
