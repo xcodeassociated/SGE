@@ -320,10 +320,12 @@
 				HEADER_SEARCH_PATHS = (
 					/Library/Frameworks,
 					/usr/local/Cellar/glew/1.12.0/include,
+					/usr/local/include,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					/Library/Frameworks,
 					/usr/local/Cellar/glew/1.12.0/lib,
+					/usr/local/lib,
 				);
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -350,10 +352,12 @@
 				HEADER_SEARCH_PATHS = (
 					/Library/Frameworks,
 					/usr/local/Cellar/glew/1.12.0/include,
+					/usr/local/include,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					/Library/Frameworks,
 					/usr/local/Cellar/glew/1.12.0/lib,
+					/usr/local/lib,
 				);
 				OTHER_LDFLAGS = (
 					"-framework",
