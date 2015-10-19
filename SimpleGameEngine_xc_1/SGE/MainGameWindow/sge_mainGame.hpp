@@ -28,7 +28,7 @@ namespace SGE {
         int mainWindowPosX = 0, mainWindowPosY = 0;
         int mainWindowWidth = 0, mainWindowHeight = 0;
         bool isInited = false;
-        float time = 0;
+        float time = 0, fps = 0, frameTime = 0, max_fps = 60;
         
         std::vector< std::tuple< SGE::Sprite*, size_t> > sprites;
         
@@ -82,6 +82,42 @@ namespace SGE {
             SDL_GL_SwapWindow(this->mainWindow);
         }
         
+        void calculateFPS(){
+            static const int NUM_SAMPLES = 10;
+            static float frameTimes[NUM_SAMPLES];
+            static int currentFrame = 0;
+            
+            static float prevTicks = SDL_GetTicks();
+            
+            float currentTick = SDL_GetTicks();
+            
+            //ok first take is gone be incorrect
+            this->frameTime = currentTick - prevTicks;
+            frameTimes[currentFrame % NUM_SAMPLES] = this->frameTime;
+            
+            prevTicks = currentTick;
+            
+            int count;
+            currentFrame++;
+            
+            if (currentFrame < NUM_SAMPLES)
+                count = currentFrame;
+            else
+                count = NUM_SAMPLES;
+            
+            float frameTimeAverage = 0;
+            for (int i = 0; i < count; i++)
+                frameTimeAverage += frameTimes[i];
+            
+            frameTimeAverage /= count;
+            
+            if (frameTimeAverage > 0)
+                this->fps = 1000.0f / frameTimeAverage;
+            else
+                this->fps = 60.0f;
+            
+        }
+        
     public:
         MainGameWindow(int res_x, int res_y) : mainWindowWidth(res_x), mainWindowHeight(res_y){
             std::cout << ">>    MainGameWindow constructed!" << std::endl;
@@ -130,11 +166,26 @@ namespace SGE {
             this->initShader();
             
             while (this->gameState != GameState::EXIT){
+                float startTicks = SDL_GetTicks();
+                
                 this->processInput();
                 this->gameDrawer();
                 this->time += 0.01f;
                 
-                SDL_Delay(2);
+                this->calculateFPS();
+                
+                static int frames = 0;
+                frames++;
+                
+                if (frames == 150){
+                    std::cout << "fps: " << this->fps << std::endl;
+                    frames = 0;
+                }
+                
+                float framesTicks = SDL_GetTicks() - startTicks;
+                
+                if ((1000.0f / this->max_fps) > framesTicks)
+                    SDL_Delay((1000.0f / this->max_fps) - framesTicks);
             };
             
             //do something with the window...
@@ -148,6 +199,7 @@ namespace SGE {
                 
                 if (this->mainWindow == nullptr) throw "error: ";
                 
+                SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
                 SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
                 
                 SDL_GLContext glContext = SDL_GL_CreateContext(this->mainWindow);
@@ -157,9 +209,14 @@ namespace SGE {
                 GLenum glewCheck = glewInit();
                 if (glewCheck != GLEW_OK) throw "";
                 
-                
-                SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
                 glClearColor(0.f, 0.f, 1.f, 1.0f);
+                
+                //vsync
+                SDL_GL_SetSwapInterval(1);
+                
+                const GLubyte* version = glGetString(GL_VERSION);
+                const char* glVersionChar = reinterpret_cast<const char*>(version);
+                std::cout << ">>    OpenGl version: " << glVersionChar << std::endl << std::endl;
                 
                 GLuint VertexArrayID;
                 glGenVertexArrays(1 , &VertexArrayID);
