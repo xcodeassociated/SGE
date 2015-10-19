@@ -145,7 +145,7 @@ namespace SGE {
             this->gameState = GameState::PLAY;
             this->isInited = true;
             
-            std::cout << ">>    GameEngine initialized, glew: " << glewGetString(GLEW_VERSION) << std::endl;
+            std::cout << ">>    GameEngine initialized, glew: " << glewGetString(GLEW_VERSION) << ", boost: " << BOOST_LIB_VERSION << std::endl;
         }
         
         void initShader(){

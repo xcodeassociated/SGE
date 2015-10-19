@@ -9,31 +9,44 @@
 #ifndef SGE_include_h
 #define SGE_include_h
 
-#include <GL/glew.h>
-#ifdef WIN32 //Windows specific includes
+// Windows specific includes
+#ifdef WIN32
 #include <GL\glut.h>
-#else
+#endif
+
+// !Windows specific includes
+#ifndef WIN32
+#include <GL/glew.h>
 #include <GLUT/GLUT.h>
 #include <OpenGL/OpenGL.h>
-#endif
 #include <SDL2/SDL.h>
+#endif
 
+//std utils
 #include <functional>
 #include <memory>
 #include <chrono>
 #include <thread>
-#include <algorithm> // MSVC requires explicit inclusion for for_each
+#include <algorithm> 
 
+//string
 #include <string>
 
+//std containers
 #include <vector>
 #include <map>
 #include <tuple>
 
+//stream
 #include <fstream>
 #include <iostream>
 
+//c libs
 #include <cstdlib>
 #include <cstddef>
+
+/** Boost includes: **/
+#include <boost/version.hpp>
+
 
 #endif /* SGE_include_h */
