@@ -31,6 +31,7 @@ namespace SGE {
         ~ResourceManager(){
             this->textureCache->kill();
             this->textureCache = nullptr;
+            SGE::ResourceManager::p_inst = nullptr;
         }
        
     public:

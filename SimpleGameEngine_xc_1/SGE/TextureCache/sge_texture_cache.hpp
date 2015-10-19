@@ -31,7 +31,7 @@ namespace SGE {
         };
         
         ~TextureCache(){
-        
+            SGE::TextureCache::p_inst = nullptr;
         }
         
     public:
@@ -53,13 +53,6 @@ namespace SGE {
                 delete this;
             }
         }
-        
-//        static TextureCache* getSingleton(){
-//            static TextureCache* singleton = new TextureCache();
-//            SGE::TextureCache::arc++;
-//            
-//            return singleton;
-//        }
       
         SGE::GLTexture getTexture(const char* _key){
             std::map<std::string, SGE::GLTexture>::iterator mit = this->textureMap.find(std::string(_key));
