@@ -30,6 +30,7 @@
 #include <chrono>
 #include <thread>
 #include <algorithm> 
+#include <condition_variable>
 
 //string
 #include <string>
@@ -56,7 +57,14 @@
 /** RapidJSON includes: **/
 #include <rapidjson/rapidjson.h>
 
-/** and.. final let's include "sio" - Socket.IO C++ client **/
+/** Socket.IO C++ client **/
+#include "../ThirdParty_Librarys/Socket_io-cpp-client/src/sio_client.cpp"
+#include "../ThirdParty_Librarys/Socket_io-cpp-client/src/sio_message.h"
+#include "../ThirdParty_Librarys/Socket_io-cpp-client/src/sio_socket.cpp"
+#include "../ThirdParty_Librarys/Socket_io-cpp-client/src/internal/sio_client_impl.cpp"
+#include "../ThirdParty_Librarys/Socket_io-cpp-client/src/internal/sio_packet.cpp"
+
 #include "../ThirdParty_Librarys/Socket_io-cpp-client/src/sio_client.h"
+
 
 #endif /* SGE_include_h */

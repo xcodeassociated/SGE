@@ -335,6 +335,7 @@
 					"-framework",
 					OpenGL,
 					"-lglew",
+					"-lboost_system",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -367,6 +368,7 @@
 					"-framework",
 					OpenGL,
 					"-lglew",
+					"-lboost_system",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

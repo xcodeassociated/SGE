@@ -16,6 +16,7 @@ namespace sio
     client::client():
         m_impl(new client_impl())
     {
+        
     }
     
     client::~client()

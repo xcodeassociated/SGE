@@ -151,6 +151,8 @@ namespace SGE {
                         << "    -> " << websocketpp::user_agent              << std::endl
                         << "    -> rapidJSON: " << RAPIDJSON_MAJOR_VERSION << "." << RAPIDJSON_MINOR_VERSION << std::endl
                         << std::endl;
+            
+            
         }
         
         void initShader(){
