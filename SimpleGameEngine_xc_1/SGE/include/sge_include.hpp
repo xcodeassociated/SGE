@@ -11,7 +11,9 @@
 
 // Windows specific includes
 #ifdef WIN32
+#include <GL\glew.h>
 #include <GL\glut.h>
+#include <SDL2\SDL.h>
 #endif
 
 // !Windows specific includes
