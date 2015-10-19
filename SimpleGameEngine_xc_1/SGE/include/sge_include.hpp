@@ -50,5 +50,13 @@
 /** Boost includes: **/
 #include <boost/version.hpp>
 
+/** WebSocketpp includes: **/
+#include <websocketpp/version.hpp>
+
+/** RapidJSON includes: **/
+#include <rapidjson/rapidjson.h>
+
+/** and.. final let's include "sio" - Socket.IO C++ client **/
+#include "../ThirdParty_Librarys/Socket_io-cpp-client/src/sio_client.h"
 
 #endif /* SGE_include_h */

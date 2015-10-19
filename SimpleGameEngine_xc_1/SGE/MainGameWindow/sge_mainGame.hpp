@@ -145,7 +145,12 @@ namespace SGE {
             this->gameState = GameState::PLAY;
             this->isInited = true;
             
-            std::cout << ">>    GameEngine initialized, glew: " << glewGetString(GLEW_VERSION) << ", boost: " << BOOST_LIB_VERSION << std::endl;
+            std::cout << ">>    GameEngine initialized: "                    << std::endl
+                        << "    -> glew: " << glewGetString(GLEW_VERSION)    << std::endl
+                        << "    -> boost: " << BOOST_LIB_VERSION             << std::endl
+                        << "    -> " << websocketpp::user_agent              << std::endl
+                        << "    -> rapidJSON: " << RAPIDJSON_MAJOR_VERSION << "." << RAPIDJSON_MINOR_VERSION << std::endl
+                        << std::endl;
         }
         
         void initShader(){
