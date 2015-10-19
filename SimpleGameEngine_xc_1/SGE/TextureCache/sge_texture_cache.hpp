@@ -18,27 +18,48 @@ namespace SGE {
     class TextureCache{
         
         std::map<std::string, SGE::GLTexture> textureMap;
-        
+
+        static TextureCache* p_inst;
+        static int arc;
+
         TextureCache(){
             std::cout << ">>    TextureCache c-tor" << std::endl;
         };
+        
         TextureCache( const TextureCache & ){
             std::cout << ">>    TextureCache c-tor" << std::endl;
         };
         
-    public:
-        static int arc;
-
         ~TextureCache(){
-            std::cout << ">>    TextureCache singleton deleted" << std::endl;
+        
         }
         
+    public:
         static TextureCache* getSingleton(){
-            static TextureCache* singleton = new TextureCache();
             SGE::TextureCache::arc++;
             
-            return singleton;
+            if (!p_inst){
+                TextureCache::p_inst = new TextureCache();
+            }
+            return p_inst;
         }
+
+        void kill(){
+            SGE::TextureCache::arc--;
+            
+            if (SGE::TextureCache::arc == 0){
+                std::cout << ">>    TextureCache singleton deleted" << std::endl;
+             
+                delete this;
+            }
+        }
+        
+//        static TextureCache* getSingleton(){
+//            static TextureCache* singleton = new TextureCache();
+//            SGE::TextureCache::arc++;
+//            
+//            return singleton;
+//        }
       
         SGE::GLTexture getTexture(const char* _key){
             std::map<std::string, SGE::GLTexture>::iterator mit = this->textureMap.find(std::string(_key));
@@ -58,6 +79,8 @@ namespace SGE {
     };
 
     int SGE::TextureCache::arc = 0;
+    SGE::TextureCache* SGE::TextureCache::p_inst = nullptr;
+
 }
 
 #endif /* sge_texture_cache_h */

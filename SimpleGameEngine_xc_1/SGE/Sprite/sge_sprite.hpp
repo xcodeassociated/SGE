@@ -35,7 +35,7 @@ namespace SGE {
             if (this->vboID != 0)
                 glDeleteBuffers(1, &(this->vboID));
             
-            delete this->resourceManager;
+            this->resourceManager->kill();
             
             std::cout << ">>>>    Sprite deleted!" << std::endl;
         };

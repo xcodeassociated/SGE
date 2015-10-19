@@ -12,12 +12,12 @@
 #include "SGE/MainGameWindow/sge_mainGame.hpp"
 #include "SGE/Sprite/sge_sprite.hpp"
 
-int main(int argc, const char * argv[]) {
+std::function<void(void)> game = []{
     
     SGE::MainGameWindow* mainWindow = new SGE::MainGameWindow(1024, 768);
     mainWindow->init();
     mainWindow->show();
-
+    
     SGE::Sprite* sprite0 = new SGE::Sprite();
     sprite0->init(-1.0f, -1.0f, 1.0f, 1.0f,
                   "/Users/Hamashy/Desktop/GameEngine.repo/SimpleGameEngine_xc_1/Resources/jimmyJump_pack/PNG/CharacterRight_Standing.png");
@@ -28,14 +28,24 @@ int main(int argc, const char * argv[]) {
     
     mainWindow->addSprite(sprite0, 0);
     mainWindow->addSprite(sprite1, 1);
-
+    
     
     mainWindow->run();
     
+    delete mainWindow;
     
-    std::getchar();
-    delete mainWindow; 
+};
+
+int main(int argc, const char * argv[]) {
+    std::cout.setf(std::ios::boolalpha);
+
+    std::cout << ">>    Game started!" << std::endl << std::endl;
     
+    //run game
+    game();
+    
+    
+    std::cout << std::endl << ">>    Game exit!" << std::endl;
     return 0;
 }
 

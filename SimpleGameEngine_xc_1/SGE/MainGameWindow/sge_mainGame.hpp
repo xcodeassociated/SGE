@@ -209,14 +209,21 @@ namespace SGE {
                 GLenum glewCheck = glewInit();
                 if (glewCheck != GLEW_OK) throw "";
                 
-                glClearColor(0.f, 0.f, 1.f, 1.0f);
+                glClearColor(0.f, 0.f, 0.f, 1.0f);
                 
                 //vsync
                 SDL_GL_SetSwapInterval(1);
                 
-                const GLubyte* version = glGetString(GL_VERSION);
-                const char* glVersionChar = reinterpret_cast<const char*>(version);
-                std::cout << ">>    OpenGl version: " << glVersionChar << std::endl << std::endl;
+                
+                    const GLubyte* version = glGetString(GL_VERSION);
+                    const char* glVersionChar = reinterpret_cast< const char* >(version);
+                    
+                    const GLubyte* render = glGetString (GL_RENDERER);
+                    const char* glRenderChar = reinterpret_cast< const char* >(render);
+                    
+                    std::cout << ">>    OpenGl version: " << glVersionChar << std::endl;
+                    std::cout << ">>    Render Device: " << glRenderChar << std::endl << std::endl;
+                
                 
                 GLuint VertexArrayID;
                 glGenVertexArrays(1 , &VertexArrayID);

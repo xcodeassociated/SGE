@@ -48,8 +48,8 @@ namespace SGE{
             glGenerateMipmap(GL_TEXTURE_2D);
             glBindTexture(GL_TEXTURE_2D, 0);
             
-            texture.width = (int)width;
-            texture.height = (int)height;
+            texture.width = (unsigned int)width;
+            texture.height = (unsigned int)height;
             
             return texture;
         }

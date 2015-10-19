@@ -17,29 +17,39 @@ namespace SGE {
     
     class ResourceManager{
         SGE::TextureCache* textureCache = nullptr;
-        
+    
+        static ResourceManager* p_inst;
+        static int arc;
+
         ResourceManager() : textureCache(SGE::TextureCache::getSingleton()){
             std::cout << ">>    ResourceManager c-tor" << std::endl;
         };
         ResourceManager( const ResourceManager & ) : textureCache(SGE::TextureCache::getSingleton()){
             std::cout << ">>    ResourceManager c-tor" << std::endl;
         };
+        
+        ~ResourceManager(){
+            this->textureCache->kill();
+            this->textureCache = nullptr;
+        }
        
     public:
-        static int arc;
-
         static ResourceManager* getSingleton(){
-            static ResourceManager* singleton = new ResourceManager();
             SGE::ResourceManager::arc++;
             
-            return singleton;
+            if (!p_inst){
+                ResourceManager::p_inst = new ResourceManager();
+            }
+            return p_inst;
         }
-
-        ~ResourceManager(){
+        
+        void kill(){
+            SGE::ResourceManager::arc--;
+            
             if (SGE::ResourceManager::arc == 0){
                 std::cout << ">>    ResourceManager singleton deleted!" << std::endl;
                 
-                delete this->textureCache;
+                delete this;
             }
             
         }
@@ -50,7 +60,9 @@ namespace SGE {
         
     };
     
-   int SGE::ResourceManager::arc = 0;
+    int SGE::ResourceManager::arc = 0;
+    SGE::ResourceManager* SGE::ResourceManager::p_inst = nullptr;
+
 }
 
 #endif /* sge_resource_manager_h */
