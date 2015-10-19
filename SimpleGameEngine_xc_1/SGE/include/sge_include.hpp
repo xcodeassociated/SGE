@@ -10,14 +10,19 @@
 #define SGE_include_h
 
 #include <GL/glew.h>
+#ifdef WIN32 //Windows specific includes
+#include <GL\glut.h>
+#else
 #include <GLUT/GLUT.h>
 #include <OpenGL/OpenGL.h>
+#endif
 #include <SDL2/SDL.h>
 
 #include <functional>
 #include <memory>
 #include <chrono>
 #include <thread>
+#include <algorithm> // MSVC requires explicit inclusion for for_each
 
 #include <string>
 

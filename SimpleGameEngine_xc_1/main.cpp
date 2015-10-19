@@ -36,7 +36,7 @@ std::function<void(void)> game = []{
     
 };
 
-int main(int argc, const char * argv[]) {
+int main(int argc, char * argv[]) {
     std::cout.setf(std::ios::boolalpha);
 
     std::cout << ">>    Game started!" << std::endl << std::endl;
