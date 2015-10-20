@@ -42,10 +42,12 @@ int main(int argc, char * argv[]) {
     std::cout << ">>    Game started!" << std::endl << std::endl;
     
     //socket.io - "make instance" test...
-    std::cout << ">>    Socket.IO > test: " << std::endl;
-    sio::client* s = new sio::client();
-    delete s;
-    std::cout << std::endl;
+    {
+        std::cout << ">>    Socket.IO > test: " << std::endl;
+        sio::client* s = new sio::client();
+        delete s;
+        std::cout << std::endl;
+    }
     
     //run game
     game();

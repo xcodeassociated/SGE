@@ -24,6 +24,9 @@
 #include <SDL2/SDL.h>
 #endif
 
+//GLM - Math GL library
+#include "../ThirdParty_Librarys/glm/glm/glm.hpp"
+
 //std utils
 #include <functional>
 #include <memory>

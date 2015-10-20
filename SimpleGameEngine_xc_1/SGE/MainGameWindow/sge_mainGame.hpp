@@ -147,11 +147,10 @@ namespace SGE {
             
             std::cout << ">>    GameEngine initialized: "                    << std::endl
                         << "    -> glew: " << glewGetString(GLEW_VERSION)    << std::endl
+                        << "    -> glm: " << GLM_VERSION_MAJOR << "." << GLM_VERSION_MINOR << "." << GLM_VERSION_PATCH << std::endl
                         << "    -> boost: " << BOOST_LIB_VERSION             << std::endl
                         << "    -> " << websocketpp::user_agent              << std::endl
-                        << "    -> rapidJSON: " << RAPIDJSON_MAJOR_VERSION << "." << RAPIDJSON_MINOR_VERSION << std::endl
-                        << std::endl;
-            
+                        << "    -> rapidJSON: " << RAPIDJSON_MAJOR_VERSION << "." << RAPIDJSON_MINOR_VERSION << std::endl << std::endl;
             
         }
         
@@ -228,8 +227,8 @@ namespace SGE {
                     const GLubyte* render = glGetString (GL_RENDERER);
                     const char* glRenderChar = reinterpret_cast< const char* >(render);
                     
-                    std::cout << ">>    OpenGl version: " << glVersionChar << std::endl;
-                    std::cout << ">>    Render Device: " << glRenderChar << std::endl << std::endl;
+                    std::cout << "    -> OpenGl version: " << glVersionChar << std::endl;
+                    std::cout << "    -> Render Device: " << glRenderChar << std::endl << std::endl;
                 
                 
                 GLuint VertexArrayID;
