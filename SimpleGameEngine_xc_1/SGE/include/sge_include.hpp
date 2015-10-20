@@ -52,6 +52,10 @@
 #include <boost/version.hpp>
 
 /** WebSocketpp includes: **/
+#ifdef WIN32 //VS 2015 compatibility fix
+#define _WEBSOCKETPP_NOEXCEPT_ 1
+#define _WEBSOCKETPP_CPP11_CHRONO_ 1 
+#endif
 #include <websocketpp/version.hpp>
 
 /** RapidJSON includes: **/
