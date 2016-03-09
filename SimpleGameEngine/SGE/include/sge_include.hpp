@@ -49,9 +49,6 @@
 #include <memory>
 #include <algorithm>
 #include <stdexcept>
-//#include <condition_variable>
-//#include <chrono>
-//#include <thread>
 
 #include <string>
 #include <vector>
@@ -81,13 +78,7 @@
 #include <rapidjson/rapidjson.h>
 
 /** Socket.IO C++ client **/
-#include "../ThirdParty_Librarys/Socket_io-cpp-client/src/sio_client.cpp"
-#include "../ThirdParty_Librarys/Socket_io-cpp-client/src/sio_message.h"
-#include "../ThirdParty_Librarys/Socket_io-cpp-client/src/sio_socket.cpp"
-#include "../ThirdParty_Librarys/Socket_io-cpp-client/src/internal/sio_client_impl.cpp"
-#include "../ThirdParty_Librarys/Socket_io-cpp-client/src/internal/sio_packet.cpp"
-
-#include "../ThirdParty_Librarys/Socket_io-cpp-client/src/sio_client.h"
+// TODO...
 
 
 #endif /* SGE_include_h */

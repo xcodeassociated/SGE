@@ -28,15 +28,6 @@ int main(int argc, char * argv[]) {
 
     std::cout << ">>    Game started!" << std::endl << std::endl;
     
-    //socket.io - "make instance" test...
-    auto socket = [&]{
-        std::cout << ">>    Socket.IO > test: " << std::endl;
-        sio::client* s = new sio::client();
-        delete s;
-        std::cout << std::endl;
-    };
-    //socket();
-    
     //run game
 	game();
     
