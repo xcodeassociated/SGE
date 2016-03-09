@@ -77,7 +77,7 @@ public:
     void checkTilePosition(const std::vector<std::string>& levelData, std::vector<glm::vec2>& collideTilePosition, float x, float y){
         glm::vec2 cornerPosition = glm::vec2(std::floor(x / (float)TILE_WIDTH), std::floor(y / (float)TILE_WIDTH));
         
-        if (cornerPosition.x < 0 || cornerPosition.x >= levelData[0].size() || cornerPosition.y < 0 || cornerPosition.y >= levelData.size()){
+        if (std::size_t(cornerPosition.x) < 0 || std::size_t(cornerPosition.x) >= levelData[0].size() || std::size_t(cornerPosition.y) < 0 || std::size_t(cornerPosition.y) >= levelData.size()){
             return;
         }
         
