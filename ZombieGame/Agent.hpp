@@ -36,7 +36,7 @@ public:
         
         glm::vec4 pos(this->position.x, this->position.y, AGENT_WITHD, AGENT_WITHD);
         static glm::vec4 uv(0.0f, 0.0f, 1.0f, 1.0f);
-        static SGE::GLTexture texture = rm->getTexture(PATH"ZombieGame/Textures/circle.png");
+        static SGE::GLTexture texture = rm->getTexture(PATH"ZombieGame/Resources/Textures/circle.png");
        
         spriteBatch->draw(pos, uv, texture.id, 0.0f, this->color);
     }

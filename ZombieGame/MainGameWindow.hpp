@@ -10,7 +10,6 @@
 #define MainGameWindow_h
 
 #include "../SimpleGameEngine/SGE/include/sge_include.hpp"
-//#include "../SimpleGameEngine/SGE/Sprite/sge_sprite.hpp"
 #include "../SimpleGameEngine/SGE/Shaders/sge_shader.hpp"
 #include "../SimpleGameEngine/SGE/Camera2d/sge_camera2d.hpp"
 #include "../SimpleGameEngine/SGE/SpriteBatch/SpriteBatch.hpp"
@@ -104,20 +103,6 @@ class MainGameWindow{
         
         const float CAMERA_SPEED = 2.0f;
         const float SCALE_SPEED = 0.1f;
-        
-//        if (this->inputManager->isKeyPressed(SDLK_s)) {
-//            this->camera->setPosition(this->camera->getPosition() + glm::vec2(0.0f, CAMERA_SPEED));
-//        }
-//        if (this->inputManager->isKeyPressed(SDLK_w)) {
-//            this->camera->setPosition(this->camera->getPosition() + glm::vec2(0.0f, -CAMERA_SPEED));
-//        }
-//        if (this->inputManager->isKeyPressed(SDLK_d)) {
-//            this->camera->setPosition(this->camera->getPosition() + glm::vec2(-CAMERA_SPEED, 0.0f));
-//        }
-//        if (this->inputManager->isKeyPressed(SDLK_a)) {
-//            this->camera->setPosition(this->camera->getPosition() + glm::vec2(CAMERA_SPEED, 0.0f));
-//        }
-        
         
         /* set camera scale */
         if (this->inputManager->isKeyPressed(SDLK_q)) {

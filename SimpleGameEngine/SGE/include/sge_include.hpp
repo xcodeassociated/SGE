@@ -35,8 +35,8 @@
 
 #endif
 
-#define FRAG PATH"SimpleGameEngine/SGE/Shaders/res/colorShader.frag"
-#define VERT PATH"SimpleGameEngine/SGE/Shaders/res/colorShader.vert"
+#define FRAG PATH "SimpleGameEngine/SGE/Shaders/res/colorShader.frag"
+#define VERT PATH "SimpleGameEngine/SGE/Shaders/res/colorShader.vert"
 
 //GLM - Math GL library
 #include "../ThirdParty_Librarys/glm/glm.hpp"

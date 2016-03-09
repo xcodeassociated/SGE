@@ -93,15 +93,15 @@ public:
                 switch (tile){
                     case 'B' :
                     case 'R' :{
-                        static SGE::GLTexture texture = rm->getTexture(PATH"ZombieGame/Textures/red_bricks.png");
+                        static SGE::GLTexture texture = rm->getTexture(PATH"ZombieGame/Resources/Textures/red_bricks.png");
                         spriteBatch->draw(destRect, uv, texture.id, 0.0f, color);
                     }break;
                     case 'G' :{
-                        static SGE::GLTexture texture = rm->getTexture(PATH"ZombieGame/Textures/glass.png");
+                        static SGE::GLTexture texture = rm->getTexture(PATH"ZombieGame/Resources/Textures/glass.png");
                         spriteBatch->draw(destRect, uv, texture.id, 0.0f, color);
                     }break;
                     case 'L' :{
-                        static SGE::GLTexture texture = rm->getTexture(PATH"ZombieGame/Textures/light_bricks.png");
+                        static SGE::GLTexture texture = rm->getTexture(PATH"ZombieGame/Resources/Textures/light_bricks.png");
                         spriteBatch->draw(destRect, uv, texture.id, 0.0f, color);
                     }break;
                     case '.':{

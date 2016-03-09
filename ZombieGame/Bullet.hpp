@@ -53,7 +53,7 @@ public:
         const glm::vec4 uvRect(0.0f, 0.0f, 1.0f, 1.0f);
         
         SGE::Color color(75, 75, 75, 255);
-        static SGE::GLTexture texture = rm->getTexture(PATH"ZombieGame/Textures/circle.png");
+        static SGE::GLTexture texture = rm->getTexture(PATH"ZombieGame/Resources/Textures/circle.png");
 
         
         spriteBatch->draw(destRect, uvRect, texture.id, 0.0f, color);

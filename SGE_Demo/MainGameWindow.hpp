@@ -9,16 +9,15 @@
 #ifndef MainGameWindow_h
 #define MainGameWindow_h
 
-#include "SGE/include/sge_include.hpp"
-//#include "SGE/Sprite/sge_sprite.hpp"
-#include "SGE/Shaders/sge_shader.hpp"
-#include "SGE/Camera2d/sge_camera2d.hpp"
-#include "SGE/SpriteBatch/SpriteBatch.hpp"
+#include "../SimpleGameEngine/SGE/include/sge_include.hpp"
+#include "../SimpleGameEngine/SGE/Shaders/sge_shader.hpp"
+#include "../SimpleGameEngine/SGE/Camera2d/sge_camera2d.hpp"
+#include "../SimpleGameEngine/SGE/SpriteBatch/SpriteBatch.hpp"
 
-#include "SGE/ResourceManager/sge_resource_manager.hpp"
-#include "SGE/TextureLoader/sge_glTexture.hpp"
-#include "SGE/InputManager/sge_input_manager.hpp"
-#include "SGE/Timing/sge_fps_limiter.hpp"
+#include "../SimpleGameEngine/SGE/ResourceManager/sge_resource_manager.hpp"
+#include "../SimpleGameEngine/SGE/TextureLoader/sge_glTexture.hpp"
+#include "../SimpleGameEngine/SGE/InputManager/sge_input_manager.hpp"
+#include "../SimpleGameEngine/SGE/Timing/sge_fps_limiter.hpp"
 
     
 enum class GameState {
@@ -129,7 +128,7 @@ class MainGameWindow{
         
                 glm::vec4 pos(0.0f, 0.0f, 50.0f, 50.0f);
                 glm::vec4 uv(0.0f, 0.0f, 1.0f, 1.0f);
-                static SGE::GLTexture texture = rm->getTexture(PATH"SimpleGameEngine/Resources/jimmyJump_pack/PNG/CharacterRight_Standing.png");
+                static SGE::GLTexture texture = rm->getTexture(PATH"SGE_Demo/Resources/jimmyJump_pack/PNG/CharacterRight_Standing.png");
                 SGE::Color color(255, 255, 255, 255);
             
             this->spriteBatch->draw(pos, uv, texture.id, 0.0f, color);

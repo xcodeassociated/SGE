@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1E0AA2C51C6EA5AA0025F774 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E0AA2C41C6EA5AA0025F774 /* main.cpp */; };
-		1E0AA2CB1C6EA8790025F774 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E0AA2CA1C6EA8790025F774 /* main.cpp */; };
 		1E0AA2CC1C6EAAB90025F774 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA7758C1BD06B3400488F1D /* OpenGL.framework */; };
+		1E6FB5B41C906679003308FA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E6FB5B11C906679003308FA /* main.cpp */; };
 		1EA7758D1BD06B3400488F1D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA7758C1BD06B3400488F1D /* OpenGL.framework */; };
 		1EE623211C7F0D120087721B /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EE623201C7F0D120087721B /* SDL2.framework */; };
 		1EE623221C7F0D120087721B /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EE623201C7F0D120087721B /* SDL2.framework */; };
@@ -40,11 +40,13 @@
 		1E0AA2C21C6EA5AA0025F774 /* ZombieGame */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ZombieGame; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E0AA2C41C6EA5AA0025F774 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		1E0AA2C91C6EA86B0025F774 /* SGE */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SGE; path = SimpleGameEngine/SGE; sourceTree = SOURCE_ROOT; };
-		1E0AA2CA1C6EA8790025F774 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = SimpleGameEngine/main.cpp; sourceTree = SOURCE_ROOT; };
 		1E0AA2CE1C6EAC000025F774 /* Bullet.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Bullet.hpp; sourceTree = "<group>"; };
-		1E0AA2D01C6EAE100025F774 /* MainGameWindow.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MainGameWindow.hpp; path = SimpleGameEngine/MainGameWindow.hpp; sourceTree = SOURCE_ROOT; };
 		1E0AA2D11C6EAEE70025F774 /* MainGameWindow.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MainGameWindow.hpp; sourceTree = "<group>"; };
 		1E4A46591C75F9070000A37B /* Gun.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Gun.hpp; sourceTree = "<group>"; };
+		1E6FB5B11C906679003308FA /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = SGE_Demo/main.cpp; sourceTree = "<group>"; };
+		1E6FB5B21C906679003308FA /* MainGameWindow.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MainGameWindow.hpp; path = SGE_Demo/MainGameWindow.hpp; sourceTree = "<group>"; };
+		1E6FB5B31C906679003308FA /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Resources; path = SGE_Demo/Resources; sourceTree = "<group>"; };
+		1E6FB5B51C906692003308FA /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
 		1E79648E1BD068EA0022EB3F /* SimpleGameEngine */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SimpleGameEngine; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EA7758C1BD06B3400488F1D /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		1EE623201C7F0D120087721B /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
@@ -84,23 +86,26 @@
 				1EFC0C621C73748F001B26E2 /* MainGame */,
 				1EFC0C611C737469001B26E2 /* Level */,
 				1EFC0C5E1C7373B9001B26E2 /* Objects */,
+				1E6FB5B51C906692003308FA /* Resources */,
 			);
 			path = ZombieGame;
 			sourceTree = "<group>";
 		};
-		1E0AA2CF1C6EAD8D0025F774 /* Demo */ = {
+		1E6FB5B01C90665C003308FA /* SGD_Demo */ = {
 			isa = PBXGroup;
 			children = (
-				1E0AA2D01C6EAE100025F774 /* MainGameWindow.hpp */,
-				1E0AA2CA1C6EA8790025F774 /* main.cpp */,
+				1E6FB5B11C906679003308FA /* main.cpp */,
+				1E6FB5B21C906679003308FA /* MainGameWindow.hpp */,
+				1E6FB5B31C906679003308FA /* Resources */,
 			);
-			name = Demo;
+			name = SGD_Demo;
 			sourceTree = "<group>";
 		};
 		1E7964851BD068EA0022EB3F = {
 			isa = PBXGroup;
 			children = (
 				1EA775901BD06BD300488F1D /* Frameworks */,
+				1E6FB5B01C90665C003308FA /* SGD_Demo */,
 				1E0AA2C31C6EA5AA0025F774 /* ZombieGame */,
 				1E7964901BD068EA0022EB3F /* SimpleGameEngine */,
 				1E79648F1BD068EA0022EB3F /* Products */,
@@ -119,7 +124,6 @@
 		1E7964901BD068EA0022EB3F /* SimpleGameEngine */ = {
 			isa = PBXGroup;
 			children = (
-				1E0AA2CF1C6EAD8D0025F774 /* Demo */,
 				1E0AA2C91C6EA86B0025F774 /* SGE */,
 			);
 			name = SimpleGameEngine;
@@ -267,7 +271,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E0AA2CB1C6EA8790025F774 /* main.cpp in Sources */,
+				1E6FB5B41C906679003308FA /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
