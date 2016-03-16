@@ -9,54 +9,79 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="Header Files\Camera2d">
+      <UniqueIdentifier>{b9bc956a-3f71-4c7e-bd06-485d39d17f1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\include">
+      <UniqueIdentifier>{39af33b8-d1dc-4f87-a773-9a907c16bd17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\InputManager">
+      <UniqueIdentifier>{823be2e4-e52e-41f4-a9b7-86827873fa5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\IOManager">
+      <UniqueIdentifier>{4b05ece2-7a33-4cba-a75d-5be3f00dfdba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ResourceManager">
+      <UniqueIdentifier>{f8df63bc-535f-4db1-8279-27055ab30b65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Shaders">
+      <UniqueIdentifier>{b09f521a-270a-4f2b-aec2-a1fcd58e7bf9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Sprite">
+      <UniqueIdentifier>{16fbcb81-10b6-47dc-a11b-34a1cbfa4171}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SpriteBatch">
+      <UniqueIdentifier>{f6cd49b6-78a9-41d2-a576-7a4a2e9cddc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\TextureCache">
+      <UniqueIdentifier>{3e1d87a4-782a-49d6-bcdd-cfef27ebf981}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\TextureLoader">
+      <UniqueIdentifier>{a9e5347c-6d5f-4c3e-bee9-7ad9cf51add7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Timing">
+      <UniqueIdentifier>{a130238d-589a-4eb7-a14e-69b5f2792d44}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\SimpleGameEngine\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\SimpleGameEngine\MainGameWindow.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\SimpleGameEngine\SGE\Camera2d\sge_camera2d.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Camera2d</Filter>
     </ClInclude>
     <ClInclude Include="..\..\SimpleGameEngine\SGE\include\sge_include.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\include</Filter>
     </ClInclude>
     <ClInclude Include="..\..\SimpleGameEngine\SGE\InputManager\sge_input_manager.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\InputManager</Filter>
     </ClInclude>
     <ClInclude Include="..\..\SimpleGameEngine\SGE\IOManager\sge_io_manager.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\IOManager</Filter>
     </ClInclude>
     <ClInclude Include="..\..\SimpleGameEngine\SGE\ResourceManager\sge_resource_manager.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\ResourceManager</Filter>
     </ClInclude>
     <ClInclude Include="..\..\SimpleGameEngine\SGE\Shaders\sge_shader.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Shaders</Filter>
     </ClInclude>
     <ClInclude Include="..\..\SimpleGameEngine\SGE\Sprite\sge_sprite.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="..\..\SimpleGameEngine\SGE\Sprite\sge_vertex.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="..\..\SimpleGameEngine\SGE\SpriteBatch\SpriteBatch.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\SpriteBatch</Filter>
     </ClInclude>
     <ClInclude Include="..\..\SimpleGameEngine\SGE\TextureCache\sge_texture_cache.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\SimpleGameEngine\SGE\TextureLoader\sge_glTexture.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\TextureCache</Filter>
     </ClInclude>
     <ClInclude Include="..\..\SimpleGameEngine\SGE\TextureLoader\sge_imageLoader.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\TextureLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SimpleGameEngine\SGE\TextureLoader\sge_glTexture.hpp">
+      <Filter>Header Files\TextureLoader</Filter>
     </ClInclude>
     <ClInclude Include="..\..\SimpleGameEngine\SGE\Timing\sge_fps_limiter.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Timing</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
