@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Action">
+      <UniqueIdentifier>{ccfb1a8f-5054-4ddd-938b-8bf71e784e15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BackgroundElement">
+      <UniqueIdentifier>{9d4c67f1-f545-4864-a472-2fb23a0875c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ID">
+      <UniqueIdentifier>{2884440a-ac1d-4757-9f12-e3bc8e374d30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{b0edacce-66b6-4e1c-84c0-b2ee8b1c43b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interface">
+      <UniqueIdentifier>{7d71f23b-7a2c-4992-9605-44147bbe711a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camera2D">
+      <UniqueIdentifier>{8797ee75-ed43-49d5-9fe5-c2d420e933d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Timing">
+      <UniqueIdentifier>{d3247c72-c14a-4985-972a-7511a51c870d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Director">
+      <UniqueIdentifier>{8c5d2881-5378-41bf-8f4a-4091b9d29ebe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TextureLoader">
+      <UniqueIdentifier>{3ce04c4a-4237-447a-853e-d9f0e723b140}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{cb4756ff-c750-4434-bc81-1376c1389fea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ObjectManager">
+      <UniqueIdentifier>{76437fd6-0acb-4c3a-bc36-eb559d4eb0e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="InputManager">
+      <UniqueIdentifier>{0ca5862e-1b6e-4376-b237-7916e9c50e35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IOManager">
+      <UniqueIdentifier>{55a6adee-da01-44b2-b0d5-768a75e20afd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{f443b195-11b6-442c-8fa0-77ab328a24a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ResourceManager">
+      <UniqueIdentifier>{6545c19f-58d9-4289-bf8c-78e2757a8946}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{0f3ac9e7-bf78-44ee-8ad6-4efb6bb3c4d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sprite">
+      <UniqueIdentifier>{5b2107fe-fc91-4e4f-b49a-de8a41469676}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TextureCache">
+      <UniqueIdentifier>{95f9fbc2-907f-4e6c-a6e8-a30cd9223805}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SpriteBatch">
+      <UniqueIdentifier>{88c6865a-a81b-4c55-9790-5498e547a4e6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Action\sge_action.hpp">
+      <Filter>Action</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\BackgroundElement\sge_background_element.hpp">
+      <Filter>BackgroundElement</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ID\sge_id.hpp">
+      <Filter>ID</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Reactive\sge_being.hpp">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Object\sge_object.hpp">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Reactive\sge_player.hpp">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Reactive\sge_reactive.hpp">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Interface\sge_button.hpp">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Interface\sge_interface.hpp">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Interface\sge_label.hpp">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Camera2d\sge_camera2d.hpp">
+      <Filter>Camera2D</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Timing\sge_fps_limiter.hpp">
+      <Filter>Timing</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Director\sge_director.hpp">
+      <Filter>Director</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\TextureLoader\sge_glTexture.hpp">
+      <Filter>TextureLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\TextureLoader\sge_imageLoader.hpp">
+      <Filter>TextureLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\include\sge_include.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\sge_object_manager.hpp">
+      <Filter>ObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\BackgroundElement\sge_world_element.hpp">
+      <Filter>BackgroundElement</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\InputManager\sge_input_manager.hpp">
+      <Filter>InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\IOManager\sge_io_manager.hpp">
+      <Filter>IOManager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Scene\sge_scene.hpp">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ResourceManager\sge_resource_manager.hpp">
+      <Filter>ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Shaders\sge_shader.hpp">
+      <Filter>Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Sprite\sge_sprite.hpp">
+      <Filter>Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\TextureCache\sge_texture_cache.hpp">
+      <Filter>TextureCache</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Sprite\sge_vertex.hpp">
+      <Filter>Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\SpriteBatch\SpriteBatch.hpp">
+      <Filter>SpriteBatch</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
