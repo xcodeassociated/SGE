@@ -7,9 +7,17 @@ namespace SGE {
 	class Relay;
 
     class Director final{
+	private:
+		Director() {} 
+		~Director(){} //Will prevent user form deleting Director, should be useful with ARC system in place.
 		
 	public:
-		static Director* getDirector();
+		static Director* getDirector()
+		{
+			static Director* director = new Director();
+			return director; //Can convert to ARC later.
+		}
+
 		Scene::ID addScene(Scene* s);
 		void deleteScene(Scene::ID s);
 		void showScene(Scene::ID s);

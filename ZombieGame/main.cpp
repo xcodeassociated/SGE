@@ -26,7 +26,10 @@ std::function<void(void)> game = []{
 
 int main(int argc, char * argv[]) {
     std::cout.setf(std::ios::boolalpha);
-    
+
+	SGE::Relay* r = SGE::Relay::getRelay(); //Testing 
+//	delete r; //this will not compile, user cannot delete Relay.
+
     game();
     
     return 0;

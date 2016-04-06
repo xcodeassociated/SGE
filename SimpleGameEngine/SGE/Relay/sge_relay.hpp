@@ -9,13 +9,12 @@ namespace SGE {
 	private:
 		ObjectManager* manager = nullptr;
 		Director* director = nullptr;
-		
+		Relay(ObjectManager* o, Director* d) : manager(o), director(d) {}
+		~Relay(){}
 
 	public:
-		Relay(ObjectManager* o, Director* d) : manager(o), director(d) {}
 		
-		Relay* getRelay()
-		{
+		static Relay* getRelay(){
 			static Relay* relay = new Relay(ObjectManager::getManager(), Director::getDirector());
 			return relay;
 		}

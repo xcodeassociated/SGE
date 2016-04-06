@@ -11,9 +11,13 @@ namespace SGE {
 	class Relay;
 
     class ObjectManager final{
-		
+	private:
+		ObjectManager() {};
 	public:
-		static ObjectManager* getManager();
+		static ObjectManager* getManager(){
+			static ObjectManager* manager = new ObjectManager();
+			return manager; //Can be converted to ARC later.
+		}
 		typename ObjectID addObject(Object* o, SceneID s);
 		void addScene(SceneID id);
 		void update(ObjectID id,const Action& action);
