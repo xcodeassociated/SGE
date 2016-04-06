@@ -58,6 +58,15 @@
     <Filter Include="SpriteBatch">
       <UniqueIdentifier>{88c6865a-a81b-4c55-9790-5498e547a4e6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Path">
+      <UniqueIdentifier>{3a0657bb-65a1-4e19-a012-95f62753a86a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Action\Actions">
+      <UniqueIdentifier>{ff81eb57-c681-4545-b650-270b8595dba9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Relay">
+      <UniqueIdentifier>{b4d01d06-30cb-4bd1-be19-e9f4e2c5443a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Action\sge_action.hpp">
@@ -140,6 +149,12 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\SpriteBatch\SpriteBatch.hpp">
       <Filter>SpriteBatch</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Path\sge_path.hpp">
+      <Filter>Path</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Relay\sge_relay.hpp">
+      <Filter>Relay</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

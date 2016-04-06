@@ -4,17 +4,23 @@
 #include "../ID/sge_id.hpp"
 
 namespace SGE {
-    
-    class Object{
-		
-	public:
-		class ID: public SGE::ID{
-			Object* obj;
-		public:
-			ID(Object* o) : obj(o){
-			}
+	class ObjectManager;
+
+	class ObjectID : public ID {
+		Object* obj;
+
+		Object* getObject() {
+			return obj;
 		}
-	
+	public:
+		ObjectID(Object* o) : obj(o) {
+		}
+	};
+
+    class Object{
+	public:
+		using ID = ObjectID;
+
 		virtual void update()=0;
 		virtual void draw()=0;
     };

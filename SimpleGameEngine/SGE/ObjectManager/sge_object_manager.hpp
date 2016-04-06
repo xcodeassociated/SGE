@@ -1,17 +1,22 @@
 #ifndef sge_object_manager_h
 #define sge_object_manager_h
 
-#include "../Object/sge_object.hpp"
-#include "../Action/sge_action.hpp"
-
 namespace SGE {
-    
+	class Object;
+	class ObjectID;
+	class Scene;
+	class SceneID;
+	class Action;
+
+	class Relay;
+
     class ObjectManager final{
 		
 	public:
 		static ObjectManager* getManager();
-		Object::ID addObject(Object* o, Scene::ID s);
-		void update(Object::ID id,const Action& action);
+		typename ObjectID addObject(Object* o, SceneID s);
+		void addScene(SceneID id);
+		void update(ObjectID id,const Action& action);
 		void cleanUp();
     };
     

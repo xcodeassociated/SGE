@@ -10,6 +10,8 @@
 
 #include "MainGameWindow.hpp"
 
+#include "../SimpleGameEngine/SGE/Relay/sge_relay.hpp"
+
 std::function<void(void)> game = []{
     float gameBox[] = {SCREEN_WIDTH, SCREEN_HEIGHT};
     

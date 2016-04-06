@@ -4,7 +4,8 @@
 #include "../Scene/sge_scene.hpp"
 
 namespace SGE {
-    
+	class Relay;
+
     class Director final{
 		
 	public:

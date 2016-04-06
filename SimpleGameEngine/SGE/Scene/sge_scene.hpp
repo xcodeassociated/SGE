@@ -4,13 +4,23 @@
 #include "../ID/sge_id.hpp"
 
 namespace SGE {
-    
-    class Scene{
-		
-	public:
-		class ID : public SGE::ID{
-			//todo
+	
+	class Director;
+
+	class SceneID final : public ID {
+		friend class director;
+		Scene* scene = nullptr;
+
+		Scene* getScene() {
+			return scene;
 		}
+	public:
+		SceneID(Scene* s) : scene(s) {};
+	};
+
+    class Scene{
+	public:
+		using ID = SceneID;
     };
     
 }
