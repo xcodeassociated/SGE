@@ -14,6 +14,7 @@
 
 // Windows specific includes
 #ifdef _WIN32
+#define GLEW_STATIC
 #include <GL/glew.h>
 #include <GL/glut.h>
 #include <SDL2/SDL.h>
