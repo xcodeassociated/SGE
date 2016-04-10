@@ -14,6 +14,11 @@ namespace SGE {
 		BackgroundElement(std::string path): path(path)
 		{
 		}
+
+		const std::string& getPath() const
+		{
+			return this->path;
+		}
     };
     
 }

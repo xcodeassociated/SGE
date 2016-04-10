@@ -23,11 +23,11 @@ namespace SGE {
         static int arc;
 
         TextureCache(){
-            std::cout << ">>    TextureCache c-tor" << std::endl;
+            //std::cout << ">>    TextureCache c-tor" << std::endl;
         };
         
         TextureCache( const TextureCache & ){
-            std::cout << ">>    TextureCache c-tor" << std::endl;
+            //std::cout << ">>    TextureCache c-tor" << std::endl;
         };
         
         ~TextureCache(){
@@ -48,7 +48,7 @@ namespace SGE {
             SGE::TextureCache::arc--;
             
             if (SGE::TextureCache::arc == 0){
-                std::cout << ">>    TextureCache singleton deleted" << std::endl;
+                //std::cout << ">>    TextureCache singleton deleted" << std::endl;
              
                 delete this;
             }
@@ -61,12 +61,12 @@ namespace SGE {
                 
                 this->textureMap.insert(std::make_pair(_key, newTexture));
                 
-                std::cout << ">>    Loaded Non-Cache Texture!" << std::endl;
+                //std::cout << ">>    Loaded Non-Cache Texture!" << std::endl;
 
                 return newTexture;
             }
             
-            std::cout << ">>    Used Cache Texture!" << std::endl;
+            //std::cout << ">>    Used Cache Texture!" << std::endl;
             return mit->second;
         }
     };

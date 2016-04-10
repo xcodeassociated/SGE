@@ -1,6 +1,8 @@
 #ifndef sge_relay_interface_h
 #define sge_relay_interface_h
 
+#include <utility>
+
 namespace SGE {
 	class Object;
 	class Scene;
@@ -18,6 +20,8 @@ namespace SGE {
 
 	public:
 		static Relay* getRelay();
+		
+		std::pair<int, int> relayGetResolution();
 		void registerManager(ObjectManager* m);
 		void registerDirector(Director* d);
 		void relayScene(SceneID s);

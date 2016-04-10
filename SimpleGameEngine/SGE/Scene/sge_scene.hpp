@@ -42,6 +42,11 @@ namespace SGE {
 			this->TextureLoaded = true;
 		}
 
+		virtual std::vector<BackgroundElement>& getBackground() final
+		{
+			return this->background;
+		}
+
 		virtual void finalize() = 0;
 		virtual void onDraw() = 0;
     };

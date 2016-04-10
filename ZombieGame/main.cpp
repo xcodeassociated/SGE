@@ -7,6 +7,8 @@
 //
 
 #include <iostream>
+#include <thread>
+#include <chrono>
 
 #include "MainGameWindow.hpp"
 
@@ -44,15 +46,24 @@ public:
 int main(int argc, char * argv[]) {
     std::cout.setf(std::ios::boolalpha);
 
-	SGE::Director* director = SGE::Director::getDirector();
+	SGE::Director* director = SGE::Director::getDirector(1024,768);
 	SGE::ObjectManager* manager = SGE::ObjectManager::getManager();
 
-		float gameBox[] = { SCREEN_WIDTH, SCREEN_HEIGHT };
-		MainGameWindow* mainWindow = new MainGameWindow(gameBox[0], gameBox[1]);
+//		float gameBox[] = { SCREEN_WIDTH, SCREEN_HEIGHT };
+//		MainGameWindow* mainWindow = new MainGameWindow(gameBox[0], gameBox[1]);
 
 	SGE::Scene::ID S1 = director->addScene(new MainScene);
 
+	director->showScene(S1);
 
+	//std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+	std::string t;
+	std::getline(std::cin, t);
+
+	director->deleteScene(S1);
+	
+	manager->finalize();
+	director->finalize();
 
 /*	manager->_init([mainWindow]() {
 		mainWindow->init();

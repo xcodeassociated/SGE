@@ -54,11 +54,16 @@ namespace SGE {
 
 	void Relay::relayDeleteScene(Scene::ID s)
 	{
-	//	this->manager->deleteScene(s);
+		this->manager->deleteScene(s);
 	}
 
 	long Relay::getNextCounter() {
 		return manager->counter++;
+	}
+
+	std::pair<int, int> Relay::relayGetResolution()
+	{
+		return this->director->getResolution();
 	}
 }
 

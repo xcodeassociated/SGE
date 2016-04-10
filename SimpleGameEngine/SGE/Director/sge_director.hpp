@@ -12,9 +12,10 @@ namespace SGE {
     class Director final{
 	private:
 		Relay* relay = nullptr;
+		int Width = 0;
+		int Height = 0;
 
-		Director() {
-			this->relay = SGE::Relay::getRelay();
+		Director(int w, int h):relay(SGE::Relay::getRelay()), Width(w), Height(h) {
 			this->relay->registerDirector(this);
 		}
 		~Director(){} //Will prevent user form deleting Director, should be useful with ARC system in place.
@@ -22,10 +23,15 @@ namespace SGE {
 		std::vector<SceneID> scenes;
 
 	public:
-		static Director* getDirector()
+		static Director* getDirector(int w = 0, int h = 0)
 		{
-			static Director* director = new Director();
+			static Director* director = new Director(w,h);
 			return director; //Can convert to ARC later.
+		}
+
+		std::pair<int, int> getResolution()
+		{
+			return std::make_pair(this->Width, this->Height);
 		}
 
 		Scene::ID addScene(Scene* scene) {
@@ -42,7 +48,6 @@ namespace SGE {
 			{
 				this->scenes.erase(sceneIt);
 				this->relay->relayDeleteScene(scene);
-				delete scene.scene;
 			}
 		}
 
@@ -63,7 +68,8 @@ namespace SGE {
 			}
 			this->relay->relaySwapScene(scene);
 		}
-		void cleanUp();
+		void finalize()
+		{}
     };
     
 }

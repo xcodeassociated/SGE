@@ -22,10 +22,10 @@ namespace SGE {
         static int arc;
 
         ResourceManager() : textureCache(SGE::TextureCache::getSingleton()){
-            std::cout << ">>    ResourceManager c-tor" << std::endl;
+            //std::cout << ">>    ResourceManager c-tor" << std::endl;
         };
         ResourceManager( const ResourceManager & ) : textureCache(SGE::TextureCache::getSingleton()){
-            std::cout << ">>    ResourceManager c-tor" << std::endl;
+            //std::cout << ">>    ResourceManager c-tor" << std::endl;
         };
         
         ~ResourceManager(){
@@ -48,7 +48,7 @@ namespace SGE {
             SGE::ResourceManager::arc--;
             
             if (SGE::ResourceManager::arc == 0){
-                std::cout << ">>    ResourceManager singleton deleted!" << std::endl;
+                //std::cout << ">>    ResourceManager singleton deleted!" << std::endl;
                 
                 delete this;
             }
