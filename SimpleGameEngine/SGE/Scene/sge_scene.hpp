@@ -5,22 +5,25 @@
 
 namespace SGE {
 	
+	class Scene;
 	class Director;
+	class ObjectManager;
 
 	class SceneID final : public ID {
-		friend class director;
-		Scene* scene = nullptr;
+		friend class Director;
+		friend class ObjectManager;
 
-		Scene* getScene() {
-			return scene;
-		}
+		Scene* scene;
+
 	public:
-		SceneID(Scene* s) : scene(s) {};
+		SceneID(const long id, Scene* s) : ID(id), scene(s) {};
 	};
 
     class Scene{
 	public:
 		using ID = SceneID;
+
+		virtual void onDraw();
     };
     
 }

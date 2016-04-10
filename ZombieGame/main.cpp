@@ -10,27 +10,33 @@
 
 #include "MainGameWindow.hpp"
 
-#include "../SimpleGameEngine/SGE/Relay/sge_relay.hpp"
+#include "../SimpleGameEngine/SGE/SGE.hpp"
 
 std::function<void(void)> game = []{
-    float gameBox[] = {SCREEN_WIDTH, SCREEN_HEIGHT};
     
-    MainGameWindow* mainWindow = new MainGameWindow(gameBox[0], gameBox[1]);
-    mainWindow->init();
-    mainWindow->show();
-    
-    mainWindow->run();
-    
-    delete mainWindow;
 };
 
 int main(int argc, char * argv[]) {
     std::cout.setf(std::ios::boolalpha);
 
-	SGE::Relay* r = SGE::Relay::getRelay(); //Testing 
-//	delete r; //this will not compile, user cannot delete Relay.
+	SGE::Director* director = SGE::Director::getDirector();
+	SGE::ObjectManager* manager = SGE::ObjectManager::getManager();
 
-    game();
+		float gameBox[] = { SCREEN_WIDTH, SCREEN_HEIGHT };
+		MainGameWindow* mainWindow = new MainGameWindow(gameBox[0], gameBox[1]);
+
+	SGE::Scene::ID S1 = director->addScene(new SGE::Scene);
+
+	manager->_init([mainWindow]() {
+		mainWindow->init();
+		mainWindow->show();
+	});
+
+	manager->_play([mainWindow]() {
+		mainWindow->run();
+		//delete mainWindow;
+	});
+    //game();
     
     return 0;
 }

@@ -7,13 +7,10 @@ namespace SGE {
 	class ObjectManager;
 
 	class ObjectID : public ID {
-		Object* obj;
+		friend class ObjectManager;
 
-		Object* getObject() {
-			return obj;
-		}
 	public:
-		ObjectID(Object* o) : obj(o) {
+		ObjectID(const long id) : ID(id) {
 		}
 	};
 
