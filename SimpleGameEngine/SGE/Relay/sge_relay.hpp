@@ -1,7 +1,7 @@
 #ifndef sge_relay_h
 #define sge_relay_h
 
-#include "sge_relay.hpp"
+#include "sge_relay_interface.hpp"
 
 namespace SGE {
 	class Object;
@@ -12,8 +12,9 @@ namespace SGE {
 	class ObjectID;
 
 	Relay::Relay(ObjectManager* o, Director* d): manager(o), director(d) {}
+	Relay::~Relay() {}
 
-	static Relay* Relay::getRelay()
+	Relay* Relay::getRelay()
 	{
 		static Relay* relay = new Relay(ObjectManager::getManager(), Director::getDirector());
 		return relay;

@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <algorithm>
-#include "../Relay/sge_relay_inteface.hpp"
+#include "../Relay/sge_relay_interface.hpp"
 
 namespace SGE {
 	class Relay;

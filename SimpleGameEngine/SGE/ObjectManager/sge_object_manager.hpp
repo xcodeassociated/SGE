@@ -10,7 +10,7 @@
 #include "../InputManager/sge_input_manager.hpp"
 #include "../Timing/sge_fps_limiter.hpp"
 
-#include "../Relay/sge_relay_inteface.hpp"
+#include "../Relay/sge_relay_interface.hpp"
 
 #include <initializer_list>
 #include <algorithm>

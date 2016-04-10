@@ -14,7 +14,7 @@ namespace SGE {
 		ObjectManager* manager = nullptr;
 		Director* director = nullptr;
 		Relay(ObjectManager* o, Director* d);
-		~Relay() {}
+		~Relay();
 
 	public:
 		static Relay* getRelay();

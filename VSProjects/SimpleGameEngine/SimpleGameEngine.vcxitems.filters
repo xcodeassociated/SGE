@@ -157,7 +157,7 @@
       <Filter>Relay</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\SGE.hpp" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\sge_relay_interface.hpp">
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Relay\sge_relay_interface.hpp">
       <Filter>Relay</Filter>
     </ClInclude>
   </ItemGroup>

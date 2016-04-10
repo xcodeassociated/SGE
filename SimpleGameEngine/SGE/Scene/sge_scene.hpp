@@ -23,7 +23,10 @@ namespace SGE {
 	public:
 		using ID = SceneID;
 
-		virtual void onDraw();
+		virtual void onDraw()
+		{
+
+		}
     };
     
 }
