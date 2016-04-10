@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <stdexcept>
 #include "../Relay/sge_relay_interface.hpp"
 
 namespace SGE {
@@ -10,9 +11,12 @@ namespace SGE {
 
     class Director final{
 	private:
-		Relay* relay = Relay::getRelay();
+		Relay* relay = nullptr;
 
-		Director() {} 
+		Director() {
+			this->relay = SGE::Relay::getRelay();
+			this->relay->registerDirector(this);
+		}
 		~Director(){} //Will prevent user form deleting Director, should be useful with ARC system in place.
 		
 		std::vector<SceneID> scenes;
@@ -24,29 +28,41 @@ namespace SGE {
 			return director; //Can convert to ARC later.
 		}
 
-		Scene::ID addScene(Scene* s) {
-			SceneID id(relay->getNextCounter(),s);
+		Scene::ID addScene(Scene* scene) {
+			SceneID id(relay->getNextCounter(),scene);
 			this->scenes.push_back(id);
 			relay->relayScene(id);
 			return id;
 		}
 
-		void deleteScene(Scene::ID s)
+		void deleteScene(Scene::ID scene)
 		{
-			auto sceneIt = std::find(this->scenes.begin(), this->scenes.end(),s);
+			auto sceneIt = std::find(this->scenes.begin(), this->scenes.end(),scene);
 			if(sceneIt!=this->scenes.end())
 			{
 				this->scenes.erase(sceneIt);
-				this->relay->relayDeleteScene(s);
-				delete s.scene;
+				this->relay->relayDeleteScene(scene);
+				delete scene.scene;
 			}
 		}
 
-		void showScene(Scene::ID s)
+		void showScene(Scene::ID scene)
 		{
-
+			if (!scene.scene->TextureLoaded)
+			{
+				throw std::runtime_error("You are an idiot");
+			}
+			this->relay->relayShowScene(scene);
 		}
-		void swapScene(Scene::ID s);
+
+		void swapScene(Scene::ID scene)
+		{
+			if (!scene.scene->TextureLoaded)
+			{
+				throw std::runtime_error("You are an idiot");
+			}
+			this->relay->relaySwapScene(scene);
+		}
 		void cleanUp();
     };
     

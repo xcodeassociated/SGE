@@ -6,6 +6,8 @@
 namespace SGE {
     
     class WorldElement : public BackgroundElement{
+	
+	public:
     };
     
 }

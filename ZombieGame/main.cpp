@@ -16,6 +16,31 @@ std::function<void(void)> game = []{
     
 };
 
+class MainScene :public SGE::Scene
+{
+public:
+	MainScene() {
+		std::string path = SGE::getPath() + "level1.txt";
+		std::map<char, std::string> mask = {
+			{'R',PATH"ZombieGame/Resources/Textures/red_bricks.png"},
+			{'B',PATH"ZombieGame/Resources/Textures/red_bricks.png"},
+			{'G',PATH"ZombieGame/Resources/Textures/glass.png"},
+			{'L',PATH"ZombieGame/Resources/Textures/light_bricks.png"} };
+
+		this->loadLevel(path.c_str(), mask);
+	}
+
+	void finalize()
+	{
+
+	}
+
+	void onDraw()
+	{
+
+	}
+};
+
 int main(int argc, char * argv[]) {
     std::cout.setf(std::ios::boolalpha);
 
@@ -25,9 +50,11 @@ int main(int argc, char * argv[]) {
 		float gameBox[] = { SCREEN_WIDTH, SCREEN_HEIGHT };
 		MainGameWindow* mainWindow = new MainGameWindow(gameBox[0], gameBox[1]);
 
-	SGE::Scene::ID S1 = director->addScene(new SGE::Scene);
+	SGE::Scene::ID S1 = director->addScene(new MainScene);
 
-	manager->_init([mainWindow]() {
+
+
+/*	manager->_init([mainWindow]() {
 		mainWindow->init();
 		mainWindow->show();
 	});
@@ -37,6 +64,6 @@ int main(int argc, char * argv[]) {
 		//delete mainWindow;
 	});
     //game();
-    
+ */   
     return 0;
 }

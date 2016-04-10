@@ -13,12 +13,16 @@ namespace SGE {
 	private:
 		ObjectManager* manager = nullptr;
 		Director* director = nullptr;
-		Relay(ObjectManager* o, Director* d);
+		Relay();
 		~Relay();
 
 	public:
 		static Relay* getRelay();
+		void registerManager(ObjectManager* m);
+		void registerDirector(Director* d);
 		void relayScene(SceneID s);
+		void relayShowScene(SceneID s);
+		void relaySwapScene(SceneID s);
 		void relayDeleteScene(SceneID s);
 		long getNextCounter();
 	};

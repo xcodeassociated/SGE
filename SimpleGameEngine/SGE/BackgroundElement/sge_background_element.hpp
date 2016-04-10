@@ -2,10 +2,18 @@
 #define sge_background_element_h
 
 #include "../Object/sge_object.hpp"
+#include "../TextureLoader/sge_glTexture.hpp"
 
 namespace SGE {
     
     class BackgroundElement : public Object{
+	protected:
+		std::string path;
+
+	public:
+		BackgroundElement(std::string path): path(path)
+		{
+		}
     };
     
 }

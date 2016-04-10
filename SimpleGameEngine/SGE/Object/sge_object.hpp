@@ -17,9 +17,6 @@ namespace SGE {
     class Object{
 	public:
 		using ID = ObjectID;
-
-		virtual void update()=0;
-		virtual void draw()=0;
     };
     
 }

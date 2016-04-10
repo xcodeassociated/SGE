@@ -8,7 +8,7 @@ namespace SGE {
 		static std::string base_path = []()->std::string{
 			char* path = SDL_GetBasePath();
 			std::string ret;
-			if(path == nullptr)
+			if(path)
 			{
 				ret = std::string(path);
 				SDL_free(path);

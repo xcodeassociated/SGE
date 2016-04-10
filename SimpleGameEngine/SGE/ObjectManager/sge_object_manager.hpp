@@ -40,17 +40,49 @@ namespace SGE {
 		};
 
 	private:
+		bool OnScene = false;
 		long counter = 0;
 		std::map<ObjectID, Object*> objects;
 		std::map<SceneID, std::vector<ObjectID>> sceneObjects;
 
-		Relay* relay = Relay::getRelay();
+		Relay* relay = nullptr;
 
-		ObjectManager() {}
+		ObjectManager() {
+			this->relay = Relay::getRelay();
+			this->relay->registerManager(this);
+		}
 
-		void addScene(SceneID id)
+		void addScene(SceneID s)
 		{
-			this->sceneObjects.emplace(id,std::vector<ObjectID>());
+			this->sceneObjects.emplace(s,std::vector<ObjectID>());
+		}
+
+		void deleteScene(SceneID s)
+		{
+			if (this->sceneObjects.erase(s) != 0)
+			{
+				s.scene->finalize();
+				delete s.scene;
+			}
+		}
+
+		bool isOnScene()
+		{
+			return this->OnScene;
+		}
+
+		void showScene(SceneID s)
+		{
+			auto sceneObjectsIt = this->sceneObjects.find(s);
+			if (sceneObjectsIt == this->sceneObjects.end()) throw std::runtime_error("Scene not Loaded");
+			s.scene->onDraw();
+
+			this->OnScene = true;
+		}
+
+		void swapScene(SceneID s)
+		{
+
 		}
 
 		void init() {

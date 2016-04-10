@@ -67,6 +67,12 @@
     <Filter Include="Relay">
       <UniqueIdentifier>{b4d01d06-30cb-4bd1-be19-e9f4e2c5443a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level">
+      <UniqueIdentifier>{363c5304-02d2-40c1-8758-7bfcbe87df3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LevelParser">
+      <UniqueIdentifier>{d9321507-c46d-4e9e-bfa1-14b1148e714d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Action\sge_action.hpp">
@@ -159,6 +165,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\SGE.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Relay\sge_relay_interface.hpp">
       <Filter>Relay</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\LevelParser\sge_level_parser.hpp">
+      <Filter>LevelParser</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
