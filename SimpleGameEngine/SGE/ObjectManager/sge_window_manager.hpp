@@ -35,7 +35,7 @@ namespace SGE {
         GLenum glewCheck = glewInit();
         if (glewCheck != GLEW_OK) throw "";
         
-        glClearColor(.7f, .7f, .7f, 1.0f);
+           /* !!!! sene should be able to pick a background color !!!*/ glClearColor(.7f, .7f, .7f, 1.0f);
         
         SDL_GL_SetSwapInterval(1);
         

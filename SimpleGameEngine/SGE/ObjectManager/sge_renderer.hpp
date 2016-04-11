@@ -33,10 +33,9 @@ namespace SGE
 
 	void ObjectManager::Renderer::initCamera() {
 		this->camera = new Camera2d(width, height);
-
-		GLint pLocation = this->shaderProgram->getUniformLocation("P");
-		glm::mat4 cameraMatrix = this->camera->getCameraMatrix();
-		glUniformMatrix4fv(pLocation, 1, GL_FALSE, &(cameraMatrix[0][0]));
+        
+        this->camera->setScale(0.05f);
+        this->camera->setPosition(glm::vec2(0, 0));
 	}
 
 	void ObjectManager::Renderer::spriteBatchInit() {
@@ -56,6 +55,10 @@ namespace SGE
 		glActiveTexture(GL_TEXTURE0);
 		GLint textureLocation = this->shaderProgram->getUniformLocation("mySampler");
 		glUniform1i(textureLocation, 0);
+        
+        GLint pLocation = this->shaderProgram->getUniformLocation("P");
+        glm::mat4 cameraMatrix = this->camera->getCameraMatrix();
+        glUniformMatrix4fv(pLocation, 1, GL_FALSE, &(cameraMatrix[0][0]));
 
 		this->sceneBatch->begin();
 		{
@@ -88,19 +91,17 @@ namespace SGE
 			for (int x = 0; x < 112; x++) {
 				glm::vec4 destRect(x * TILE_WIDTH, y * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
 
-				BackgroundElement& e = this->background->at(0);
-				/* static */ GLTexture texture = this->rManager->getTexture(e.getPath().c_str());
+				BackgroundElement& e = this->background->at(20);
+                GLTexture texture = this->rManager->getTexture(e.getPath().c_str());
 				this->sceneBatch->draw(destRect, uv, texture.id, 0.0f, color);
 
 			}
 		}
-
+        
 	}
 
 	void ObjectManager::Renderer::renderObjects() {
-		this->camera->update();
-		this->camera->setPosition(glm::vec2(0,0));
-		//this->camera->setPosition(this->camera->screenToWorld(glm::vec2(0, 0)));
+        this->camera->update();
 	}
 }
 
