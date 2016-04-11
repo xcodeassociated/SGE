@@ -87,14 +87,13 @@ namespace SGE
 		static SGE::Color color(255, 255, 255, 255);
 		const int TILE_WIDTH = 64;
 
-		for (int y = 0; y < 32; y++) {
-			for (int x = 0; x < 112; x++) {
+		for (int y = 0; y < 32; ++y) {
+			for (int x = 0; x < 112; ++x) {
 				glm::vec4 destRect(x * TILE_WIDTH, y * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
-
-				BackgroundElement& e = this->background->at(20);
+				BackgroundElement& e = this->background->operator[](112*y+x);
+				if(e.getPath().compare(".")==0) continue;
                 GLTexture texture = this->rManager->getTexture(e.getPath().c_str());
 				this->sceneBatch->draw(destRect, uv, texture.id, 0.0f, color);
-
 			}
 		}
         

@@ -178,5 +178,11 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\sge_action_handler.hpp">
       <Filter>ObjectManager</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\sge_input_handler.hpp">
+      <Filter>ObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\sge_window_manager.hpp">
+      <Filter>ObjectManager</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

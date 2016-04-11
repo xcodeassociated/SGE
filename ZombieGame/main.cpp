@@ -24,6 +24,7 @@ public:
 	MainScene() {
 		std::string path = SGE::getPath() + "level1.txt";
 		std::map<char, std::string> mask = {
+			{'.',"."},{'Z',"."},{'@',"."},
 			{'R',PATH"ZombieGame/Resources/Textures/red_bricks.png"},
 			{'B',PATH"ZombieGame/Resources/Textures/red_bricks.png"},
 			{'G',PATH"ZombieGame/Resources/Textures/glass.png"},
