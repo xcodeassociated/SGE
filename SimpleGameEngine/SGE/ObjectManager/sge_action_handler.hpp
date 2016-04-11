@@ -1,0 +1,9 @@
+#ifndef SGE_ACTION_HANDLER_HPP
+#define SGE_ACTION_HANDLER_HPP
+
+namespace SGE
+{
+
+}
+
+#endif // !SGE_ACTION_HANDLER_HPP

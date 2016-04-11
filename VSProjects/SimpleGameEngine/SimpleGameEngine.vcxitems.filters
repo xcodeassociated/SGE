@@ -169,5 +169,14 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\LevelParser\sge_level_parser.hpp">
       <Filter>LevelParser</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\sge_game.hpp">
+      <Filter>ObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\sge_renderer.hpp">
+      <Filter>ObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\sge_action_handler.hpp">
+      <Filter>ObjectManager</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

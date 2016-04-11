@@ -27,7 +27,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Interface\sge_label.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\IOManager\sge_io_manager.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\LevelParser\sge_level_parser.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\sge_action_handler.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\sge_game.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\sge_object_manager.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\sge_renderer.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Object\sge_object.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Path\sge_path.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Reactive\sge_being.hpp" />
