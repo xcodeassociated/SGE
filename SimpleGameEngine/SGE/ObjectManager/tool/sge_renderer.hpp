@@ -5,9 +5,14 @@ namespace SGE
 {
     class WindowManager;
     
-	ObjectManager::Renderer::Renderer(std::pair<int, int> res, ObjectManager* m, WindowManager* w) : width(res.first), height(res.second), oManager(m), window_manager(w)
+	ObjectManager::Renderer::Renderer(std::pair<int, int> res, ObjectManager* m, WindowManager* w, CameraHandler* c) noexcept :
+        width(res.first),
+        height(res.second),
+        oManager(m),
+        window_manager(w),
+        camera_handler(c)
 	{
-
+        ;
 	}
 
 	void ObjectManager::Renderer::setBackground(std::vector<BackgroundElement>* b)
@@ -31,12 +36,12 @@ namespace SGE
 		this->shaderProgram->linkShaders();
 	}
 
-	void ObjectManager::Renderer::initCamera() {
-		this->camera = new Camera2d(width, height);
-        
-        this->camera->setScale(0.05f);
-        this->camera->setPosition(glm::vec2(0, 0));
-	}
+//	void ObjectManager::Renderer::initCamera() {
+//		this->camera = new Camera2d(width, height);
+//        
+//        this->camera->setScale(0.05f);
+//        this->camera->setPosition(glm::vec2(0, 0));
+//	}
 
 	void ObjectManager::Renderer::spriteBatchInit() {
 		this->sceneBatch = new SpriteBatch;
@@ -57,7 +62,7 @@ namespace SGE
 		glUniform1i(textureLocation, 0);
         
         GLint pLocation = this->shaderProgram->getUniformLocation("P");
-        glm::mat4 cameraMatrix = this->camera->getCameraMatrix();
+        glm::mat4 cameraMatrix = this->camera_handler->getCameraMatrix();
         glUniformMatrix4fv(pLocation, 1, GL_FALSE, &(cameraMatrix[0][0]));
 
 		this->sceneBatch->begin();
@@ -100,7 +105,7 @@ namespace SGE
 	}
 
 	void ObjectManager::Renderer::renderObjects() {
-        this->camera->update();
+        this->camera_handler->updateCamera();
 	}
 }
 

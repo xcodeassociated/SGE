@@ -11,7 +11,7 @@
 
 namespace SGE {
     
-    ObjectManager::InputHandler::InputHandler(ObjectManager* m) noexcept : manager(m) {
+    ObjectManager::InputHandler::InputHandler(ObjectManager* m) noexcept : manager(m), input_manager(new InputManager) {
         ;
     }
     

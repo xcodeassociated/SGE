@@ -5,9 +5,10 @@ namespace SGE
 {
     class InputHandler;
     
-	ObjectManager::Game::Game(ObjectManager* m):
+	ObjectManager::Game::Game(ObjectManager* m, ActionHandler* ah):
 		manager(m),
-		limiter(new FpsLimiter())
+		limiter(new FpsLimiter()),
+        action_handler(ah)
 	{
 		this->limiter->init(60);
 	}
@@ -19,10 +20,12 @@ namespace SGE
 		{
 			this->limiter->begin();
 			{
+                this->performActions();
+                
 				this->draw();
 
                 //SDL input processing
-                (*(this->input_handler))();
+                ( *(this->input_handler) )();
     
                 
 				this->time += 0.01f;
@@ -36,9 +39,12 @@ namespace SGE
 				frameCounter = 0;
 			}
 		}
-        
 
 	}
+    
+    void ObjectManager::Game::performActions(void){
+        this->action_handler->performAllActions();
+    }
 
 	void ObjectManager::Game::stop()
 	{
@@ -49,7 +55,8 @@ namespace SGE
 		this->manager->renderer->render();
 	}
     
-    void ObjectManager::Game::setInputHandler(ObjectManager::InputHandler* e){
+    void ObjectManager::Game::setInputHandler(ObjectManager::InputHandler* e)
+    {
         (e != nullptr) ? this->input_handler = e : throw std::runtime_error("");
     }
 }

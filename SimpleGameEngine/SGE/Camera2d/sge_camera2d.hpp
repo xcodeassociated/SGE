@@ -50,7 +50,7 @@ namespace SGE {
             return this->scale;
         }
         
-        const glm::mat4 getCameraMatrix(){
+        const glm::mat4& getCameraMatrix(){
             return this->cameraMatrix;
         }
         
@@ -66,7 +66,7 @@ namespace SGE {
             }
         }
         
-        const glm::vec2 screenToWorld(glm::vec2 _screenCoords){
+        const glm::vec2& screenToWorld(glm::vec2 _screenCoords){
             //invert y axis
             _screenCoords.y = SCREEN_HEIGHT - _screenCoords.y;
             
