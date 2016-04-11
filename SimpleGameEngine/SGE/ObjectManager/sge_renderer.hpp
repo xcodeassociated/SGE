@@ -3,7 +3,9 @@
 
 namespace SGE
 {
-	ObjectManager::Renderer::Renderer(std::pair<int, int> res, ObjectManager* m) : width(res.first), height(res.second), oManager(m)
+    class WindowManager;
+    
+	ObjectManager::Renderer::Renderer(std::pair<int, int> res, ObjectManager* m, WindowManager* w) : width(res.first), height(res.second), oManager(m), window_manager(w)
 	{
 
 	}
@@ -45,53 +47,6 @@ namespace SGE
 		this->objecBatch->init();
 	}
 
-	void ObjectManager::Renderer::createWindow()
-	{
-		if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
-			throw "error:    SDL_init";
-	}
-
-	void ObjectManager::Renderer::showWindow() {
-		this->window = SDL_CreateWindow("SGE", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, this->width, this->height, SDL_WINDOW_OPENGL);
-
-		if (this->window == nullptr)
-			throw "error: ";
-
-		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-
-		SDL_GLContext glContext = SDL_GL_CreateContext(this->window);
-		if (glContext == nullptr) throw "";
-
-		glewExperimental = GL_TRUE;
-		GLenum glewCheck = glewInit();
-		if (glewCheck != GLEW_OK) throw "";
-
-		glClearColor(.7f, .7f, .7f, 1.0f);
-
-		SDL_GL_SetSwapInterval(1);
-
-		const GLubyte* version = glGetString(GL_VERSION);
-		const char* glVersionChar = reinterpret_cast< const char* >(version);
-
-		const GLubyte* render = glGetString(GL_RENDERER);
-		const char* glRenderChar = reinterpret_cast< const char* >(render);
-
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-		GLuint VertexArrayID;
-		glGenVertexArrays(1, &VertexArrayID);
-		glBindVertexArray(VertexArrayID);
-
-		SDL_ShowWindow(this->window);
-	}
-
-	void ObjectManager::Renderer::finalizeWindow() {
-		SDL_DestroyWindow(this->window);
-		SDL_Quit();
-	}
-
 	void ObjectManager::Renderer::render() {
 		glClearDepth(1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -118,7 +73,8 @@ namespace SGE
 
 		glBindTexture(GL_TEXTURE_2D, 0);
 		this->shaderProgram->unuse();
-		SDL_GL_SwapWindow(this->window);
+        
+		SDL_GL_SwapWindow( this->window_manager->getWindow() );
 	}
 
 	void ObjectManager::Renderer::renderLevel() {
@@ -143,8 +99,8 @@ namespace SGE
 
 	void ObjectManager::Renderer::renderObjects() {
 		this->camera->update();
-		//this->camera->setPosition(glm::vec2(0,0));
-		this->camera->setPosition(this->camera->screenToWorld(glm::vec2(0, 0)));
+		this->camera->setPosition(glm::vec2(0,0));
+		//this->camera->setPosition(this->camera->screenToWorld(glm::vec2(0, 0)));
 	}
 }
 

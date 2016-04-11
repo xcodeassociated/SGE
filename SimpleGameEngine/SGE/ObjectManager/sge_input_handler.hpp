@@ -11,11 +11,11 @@
 
 namespace SGE {
     
-    ObjectManager::InputHandler::InputHandler(ObjectManager* m) : manager(m) {
+    ObjectManager::InputHandler::InputHandler(ObjectManager* m) noexcept : manager(m) {
         ;
     }
     
-    void ObjectManager::InputHandler::operator()(void) {
+    void ObjectManager::InputHandler::operator()(void) noexcept {
         
         SDL_Event event;
         while (SDL_PollEvent(&event)){

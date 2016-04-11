@@ -35,31 +35,28 @@ namespace SGE {
 
 		//Declarations of nested classes
 		class ActionHandler {
-
+            ;
 		};
-
+        
+        class WindowManager;
 		class Renderer {
-			int width=0;
-			int height=0;
+			int width = 0, height = 0;
 			ObjectManager* oManager = nullptr;
 			SpriteBatch* sceneBatch = nullptr;
 			SpriteBatch* objecBatch = nullptr;
 			ResourceManager* rManager = nullptr;
 			Camera2d* camera = nullptr;
-			SDL_Window* window = nullptr;
 			Shader* shaderProgram = nullptr;
 			std::vector<BackgroundElement>* background = nullptr;
-
+            WindowManager* window_manager = nullptr;
+            
 		public:
-			Renderer(std::pair<int, int>, ObjectManager*);
+			Renderer(std::pair<int, int>, ObjectManager*, WindowManager*);
 			void setBackground(std::vector<BackgroundElement>*);
 			void initResourceManager(void);
 			void initShader(void);
 			void initCamera(void);
 			void spriteBatchInit(void);
-			void createWindow(void);
-			void showWindow(void);
-			void finalizeWindow(void);
 			void render(void);
 			void renderLevel(void);
 			void renderObjects(void);
@@ -85,10 +82,24 @@ namespace SGE {
         
         class InputHandler{
             ObjectManager* manager = nullptr;
+            InputManager* input_manager = nullptr;
             
         public:
-            InputHandler(ObjectManager*);
-            void operator()(void);
+            InputHandler(ObjectManager*) noexcept;
+            void operator()(void) noexcept;
+        };
+        
+        class WindowManager{
+            ObjectManager* manager = nullptr;
+            SDL_Window* window = nullptr;
+            int width = 0, height = 0;
+            
+        public:
+            WindowManager(std::pair<int, int>, ObjectManager*) noexcept;
+            void createWindow(void) noexcept;
+            void showWindow(void) noexcept;
+            void finalizeWindow(void) noexcept;
+            SDL_Window* getWindow(void) noexcept;
         };
 
 	private:
@@ -101,7 +112,8 @@ namespace SGE {
 		Renderer* renderer = nullptr;
 		Game* game = nullptr;
         InputHandler* input_handler = nullptr;
-
+        WindowManager* window_manager = nullptr;
+        
 		ObjectManager() {
 			this->relay = Relay::getRelay();
 			this->relay->registerManager(this);
@@ -111,11 +123,16 @@ namespace SGE {
 		{
 			if (this->renderer == nullptr)
 			{
-				this->renderer = new Renderer(this->relay->relayGetResolution(), this);
+                std::pair<int, int> resolution = this->relay->relayGetResolution();
+                
+                this->window_manager = new WindowManager(resolution, this);
+                
+				this->renderer = new Renderer(resolution, this, this->window_manager);
 				this->game = new Game(this);
                 
                 this->input_handler = new InputHandler(this);
-                this->game->setInputHandler(input_handler);
+                this->game->setInputHandler(this->input_handler);
+                
 			}
 			this->sceneObjects.emplace(s,std::vector<ObjectID>());
 		}
@@ -141,15 +158,16 @@ namespace SGE {
 			s.scene->onDraw();
 			this->OnScene = true;
 
-			this->renderer->createWindow();
-			this->renderer->showWindow();
+			this->window_manager->createWindow();
+			this->window_manager->showWindow();
 
 			this->renderer->initShader();
 			this->renderer->initResourceManager();
 			this->renderer->spriteBatchInit();
+            
 			this->renderer->initCamera();
 
-			this->renderer->setBackground(&s.scene->getBackground());
+			this->renderer->setBackground( &(s.scene->getBackground()) );
 
 			this->game->run();
 		}
@@ -247,6 +265,7 @@ namespace SGE {
 
 //Implementation of ObjectManager nested classes
 #include "sge_action_handler.hpp"
+#include "sge_window_manager.hpp"
 #include "sge_renderer.hpp"
 #include "sge_game.hpp"
 #include "sge_input_handler.hpp"
