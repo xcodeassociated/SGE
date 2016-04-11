@@ -8,4 +8,4 @@
 #include "Relay/sge_relay.hpp"
 #include "Path/sge_path.hpp"
 
-#endif SGE_HPP
+#endif //SGE_HPP

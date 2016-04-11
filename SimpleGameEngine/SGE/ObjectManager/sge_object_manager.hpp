@@ -51,33 +51,45 @@ namespace SGE {
 			std::vector<BackgroundElement>* background = nullptr;
 
 		public:
-			Renderer(std::pair<int, int> res, ObjectManager* m);
-			void setBackground(std::vector<BackgroundElement>* b);
-			void initResourceManager();
-			void initShader();
-			void initCamera();
-			void spriteBatchInit();
-			void createWindow();
-			void showWindow();
-			void finalizeWindow();
-			void render();
-			void renderLevel();
-			void renderObjects();
+			Renderer(std::pair<int, int>, ObjectManager*);
+			void setBackground(std::vector<BackgroundElement>*);
+			void initResourceManager(void);
+			void initShader(void);
+			void initCamera(void);
+			void spriteBatchInit(void);
+			void createWindow(void);
+			void showWindow(void);
+			void finalizeWindow(void);
+			void render(void);
+			void renderLevel(void);
+			void renderObjects(void);
 		};
-
-		class Game
-		{
+        
+        class InputHandler;
+		class Game{
 			ObjectManager* manager = nullptr;
 			FpsLimiter* limiter = nullptr;
 			bool playing = false;
 			float time = 0, fps = 0;
-
+            InputHandler* input_handler = nullptr;
+            
+            void processInputs(void);
+            
 		public:
-			Game(ObjectManager* m);
-			void run();
-			void stop();
-			void draw();
+			Game(ObjectManager*);
+			void run(void);
+			void stop(void);
+			void draw(void);
+            void setInputHandler(InputHandler*);
 		};
+        
+        class InputHandler{
+            ObjectManager* manager = nullptr;
+            
+        public:
+            InputHandler(ObjectManager*);
+            void operator()(void);
+        };
 
 	private:
 		bool OnScene = false;
@@ -88,6 +100,7 @@ namespace SGE {
 		Relay* relay = nullptr;
 		Renderer* renderer = nullptr;
 		Game* game = nullptr;
+        InputHandler* input_handler = nullptr;
 
 		ObjectManager() {
 			this->relay = Relay::getRelay();
@@ -100,6 +113,9 @@ namespace SGE {
 			{
 				this->renderer = new Renderer(this->relay->relayGetResolution(), this);
 				this->game = new Game(this);
+                
+                this->input_handler = new InputHandler(this);
+                this->game->setInputHandler(input_handler);
 			}
 			this->sceneObjects.emplace(s,std::vector<ObjectID>());
 		}
@@ -210,9 +226,21 @@ namespace SGE {
 			}
 		}
 
-		void update(ObjectID id,const Action& action);
+        void update(ObjectID id,const Action& action)
+        {
+            ;
+        }
+        
 		void finalize()
-		{}
+		{
+            ;
+        }
+        
+        void windowClosing()
+        {
+            /* Handle window close action... */
+            std::cerr << "SDL Window is trying to close!" << std::endl;
+        }
     };
     
 }
@@ -221,5 +249,6 @@ namespace SGE {
 #include "sge_action_handler.hpp"
 #include "sge_renderer.hpp"
 #include "sge_game.hpp"
+#include "sge_input_handler.hpp"
 
 #endif /* sge_object_manager_h */
