@@ -5,7 +5,8 @@
 #include<string>
 #include<fstream>
 
-#include"../BackgroundElement/sge_background_element.hpp"
+#include "../BackgroundElement/sge_background_element.hpp"
+#include "../Level/sge_level.hpp"
 
 namespace SGE {
 	class LevelParser {
@@ -29,20 +30,20 @@ namespace SGE {
 			}
 		}
 
-		std::vector<BackgroundElement> parse()
+		Level parse()
 		{
-			std::vector<BackgroundElement> elems;
+			Level lev(this->levelData[0].size(), this->levelData.size());
 			for (int y = 0; y < this->levelData.size(); y++) {
 				for (int x = 0; x < this->levelData[y].size(); x++) {
 					char tile = this->levelData[y][x];
 					auto it = this->levelMask.find(tile);
 					if (it != this->levelMask.end())
 					{
-						elems.emplace_back(it->second);
+						lev.getBackground().emplace_back(it->second);
 					}
 				}
 			}
-			return elems;
+			return lev;
 		}
 	};
 }

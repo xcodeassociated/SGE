@@ -202,5 +202,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Reactive\sge_reactive.hpp">
       <Filter>Reactive</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Level\sge_level.hpp">
+      <Filter>Level</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

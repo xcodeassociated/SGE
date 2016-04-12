@@ -15,9 +15,9 @@ namespace SGE
         ;
 	}
 
-	void ObjectManager::Renderer::setBackground(std::vector<BackgroundElement>* b)
+	void ObjectManager::Renderer::setLevel(Level* l)
 	{
-		this->background = b;
+		this->level = l;
 	}
 
 	void ObjectManager::Renderer::initResourceManager() {
@@ -86,16 +86,20 @@ namespace SGE
 	}
 
 	void ObjectManager::Renderer::renderLevel() {
-		assert(this->background && !this->background->empty());
+		assert(this->level && !this->level->getBackground().empty());
 
 		static glm::vec4 uv(0.0f, 0.0f, 1.0f, 1.0f);
 		static SGE::Color color(255, 255, 255, 255);
-		const int TILE_WIDTH = 64;
+		static const int TILE_WIDTH = 64;
+		
+		const size_t X = this->level->getWidth();
+		const size_t Y = this->level->getHeight();
+		std::vector<BackgroundElement>& background = this->level->getBackground();
 
-		for (int y = 0; y < 32; ++y) {
-			for (int x = 0; x < 112; ++x) {
+		for (int y = 0; y < Y; ++y) {
+			for (int x = 0; x < X; ++x) {
 				glm::vec4 destRect(x * TILE_WIDTH, y * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
-				BackgroundElement& e = this->background->operator[](112*y+x);
+				BackgroundElement& e = background[112 * y + x];
 				if(e.getPath().compare(".")==0) continue;
                 GLTexture texture = this->rManager->getTexture(e.getPath().c_str());
 				this->sceneBatch->draw(destRect, uv, texture.id, 0.0f, color);

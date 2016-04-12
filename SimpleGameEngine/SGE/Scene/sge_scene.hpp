@@ -27,7 +27,7 @@ namespace SGE {
 
     class Scene{
 	private:
-		std::vector<BackgroundElement> background;
+		Level level;
 																						
 	public:
 		bool TextureLoaded = false;
@@ -38,13 +38,13 @@ namespace SGE {
 		virtual void loadLevel(const char* path, std::map<char, std::string> levelMask) final
 		{
 			LevelParser parser(path, levelMask);
-			this->background = std::move(parser.parse());
+			this->level = parser.parse();
 			this->TextureLoaded = true;
 		}
 
-		virtual std::vector<BackgroundElement>& getBackground() final
+		virtual Level& getLevel() final
 		{
-			return this->background;
+			return this->level;
 		}
 
 		virtual void finalize() = 0;

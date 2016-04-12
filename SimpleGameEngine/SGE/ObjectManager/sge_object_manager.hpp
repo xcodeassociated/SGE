@@ -49,7 +49,7 @@ namespace SGE {
 			ResourceManager* rManager = nullptr;
             CameraHandler* camera_handler = nullptr;
 			Shader* shaderProgram = nullptr;
-			std::vector<BackgroundElement>* background = nullptr;
+			Level* level = nullptr;
             WindowManager* window_manager = nullptr;
             
             void renderLevel(void);
@@ -57,7 +57,7 @@ namespace SGE {
             
 		public:
 			Renderer(std::pair<int, int>, ObjectManager*, WindowManager*, CameraHandler*) noexcept;
-			void setBackground(std::vector<BackgroundElement>*);
+			void setLevel(Level*);
 			void initResourceManager(void);
 			void initShader(void);
 			void spriteBatchInit(void);
@@ -74,7 +74,7 @@ namespace SGE {
             InputHandler* input_handler = nullptr;
             ActionHandler* action_handler = nullptr;
             
-            void processInputs(void);
+            void processInputs(void); // Not used now - a candidate for deletion
             void performActions(void);
             
 		public:
@@ -198,7 +198,7 @@ namespace SGE {
 			this->renderer->initResourceManager();
 			this->renderer->spriteBatchInit();
             
-			this->renderer->setBackground( &(s.scene->getBackground()) );
+			this->renderer->setLevel( &(s.scene->getLevel()) );
 
             s.scene->onDraw();
             
@@ -211,9 +211,9 @@ namespace SGE {
 
 		}
 		
-		std::vector<BackgroundElement>& getSceneData(SceneID s)
+		Level& getSceneData(SceneID s)
 		{
-			return s.scene->getBackground();
+			return s.scene->getLevel();
 		}
 
 	public:
