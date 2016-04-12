@@ -73,6 +73,12 @@
     <Filter Include="LevelParser">
       <UniqueIdentifier>{d9321507-c46d-4e9e-bfa1-14b1148e714d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ObjectManager\tool">
+      <UniqueIdentifier>{562212bf-dceb-4c5c-bd87-7b6ac4320faa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Reactive">
+      <UniqueIdentifier>{7377d631-0b36-469c-bed7-223ee0eeede1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Action\sge_action.hpp">
@@ -84,16 +90,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ID\sge_id.hpp">
       <Filter>ID</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Reactive\sge_being.hpp">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Object\sge_object.hpp">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Reactive\sge_player.hpp">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Reactive\sge_reactive.hpp">
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Interface\sge_button.hpp">
@@ -122,9 +119,6 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\include\sge_include.hpp">
       <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\sge_object_manager.hpp">
-      <Filter>ObjectManager</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\BackgroundElement\sge_world_element.hpp">
       <Filter>BackgroundElement</Filter>
@@ -169,20 +163,44 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\LevelParser\sge_level_parser.hpp">
       <Filter>LevelParser</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\sge_game.hpp">
-      <Filter>ObjectManager</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\sge_renderer.hpp">
-      <Filter>ObjectManager</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\sge_action_handler.hpp">
       <Filter>ObjectManager</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\sge_input_handler.hpp">
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\sge_object_manager.hpp">
       <Filter>ObjectManager</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\sge_window_manager.hpp">
-      <Filter>ObjectManager</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\tool\sge_camera_handler.hpp">
+      <Filter>ObjectManager\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\tool\sge_game.hpp">
+      <Filter>ObjectManager\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\tool\sge_input_handler.hpp">
+      <Filter>ObjectManager\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\tool\sge_renderer.hpp">
+      <Filter>ObjectManager\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\tool\sge_window_manager.hpp">
+      <Filter>ObjectManager\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Action\Actions\sge_action_move.hpp">
+      <Filter>Action\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Action\Actions\sge_action_rotate.hpp">
+      <Filter>Action\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Action\Actions\sge_action_scale.hpp">
+      <Filter>Action\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Reactive\sge_being.hpp">
+      <Filter>Reactive</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Reactive\sge_player.hpp">
+      <Filter>Reactive</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Reactive\sge_reactive.hpp">
+      <Filter>Reactive</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

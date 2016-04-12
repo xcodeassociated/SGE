@@ -37,7 +37,7 @@ namespace SGE {
             this->matUpdate = true;
         }
         
-        const glm::vec2 getPosition(){
+        const glm::vec2& getPosition(){
             return this->position;
         }
         
@@ -66,7 +66,7 @@ namespace SGE {
             }
         }
         
-        const glm::vec2& screenToWorld(glm::vec2 _screenCoords){
+        glm::vec2 screenToWorld(glm::vec2 _screenCoords){
             //invert y axis
             _screenCoords.y = SCREEN_HEIGHT - _screenCoords.y;
             

@@ -14,6 +14,9 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Action\Actions\sge_action_move.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Action\Actions\sge_action_rotate.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Action\Actions\sge_action_scale.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Action\sge_action.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\BackgroundElement\sge_background_element.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\BackgroundElement\sge_world_element.hpp" />
@@ -28,11 +31,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\IOManager\sge_io_manager.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\LevelParser\sge_level_parser.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\sge_action_handler.hpp" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\sge_game.hpp" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\sge_input_handler.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\sge_object_manager.hpp" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\sge_renderer.hpp" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\sge_window_manager.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\tool\sge_camera_handler.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\tool\sge_game.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\tool\sge_input_handler.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\tool\sge_renderer.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ObjectManager\tool\sge_window_manager.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Object\sge_object.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Path\sge_path.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Reactive\sge_being.hpp" />

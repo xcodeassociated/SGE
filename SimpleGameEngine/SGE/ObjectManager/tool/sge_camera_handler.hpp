@@ -35,11 +35,11 @@ namespace SGE {
         this->setPosition(pos.x, pos.y);
     }
     
-    const glm::vec2& ObjectManager::CameraHandler::getScreenToWorld(glm::vec2 pos) const noexcept {
+    glm::vec2 ObjectManager::CameraHandler::getScreenToWorld(glm::vec2 pos) const noexcept {
         return this->camera->screenToWorld(pos);
     }
     
-    const glm::vec2& ObjectManager::CameraHandler::getScreenToWorld(int _x, int _y) const noexcept {
+    glm::vec2 ObjectManager::CameraHandler::getScreenToWorld(int _x, int _y) const noexcept {
         return this->getScreenToWorld({_x, _y});
     }
 

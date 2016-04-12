@@ -19,6 +19,7 @@
 #include <map>
 #include <stdexcept>
 
+#include <unordered_set>
 #include <random>
 #include <ctime>
 
@@ -28,6 +29,7 @@ namespace SGE {
 	class Scene;
 	class SceneID;
 	class Action;
+	class ActionID;
 	class BackgroundElement;
 	class WorldElement;
     
@@ -86,10 +88,15 @@ namespace SGE {
         class InputHandler{
             ObjectManager* manager = nullptr;
             InputManager* input_manager = nullptr;
-            
+			std::unordered_map<Key, ActionBinder::Bind> keyMap;
+
+			void pressKey(Key k);
+
         public:
             InputHandler(ObjectManager*) noexcept;
             void operator()(void) noexcept;
+			void mapAction(const ActionBinder& bind);
+			void unmapAction(const ActionBinder& bind);
         };
         
         class WindowManager{
@@ -118,8 +125,8 @@ namespace SGE {
             void setPosition(glm::vec2) noexcept;
             void updateCamera(void) const noexcept;
             const glm::mat4& getCameraMatrix(void) const noexcept;
-            const glm::vec2& getScreenToWorld(glm::vec2) const noexcept;
-            const glm::vec2& getScreenToWorld(int, int) const noexcept;
+            glm::vec2 getScreenToWorld(glm::vec2) const noexcept;
+            glm::vec2 getScreenToWorld(int, int) const noexcept;
         };
 
 	private:
@@ -215,10 +222,19 @@ namespace SGE {
 			return manager; //Can be converted to ARC later.
 		}
 
-        void addAction(Action* a){
-            //debug only:
-            
-            this->action_handler->addAction(a);
+
+		void mapAction(const ActionBinder& bind)
+		{
+			this->input_handler->mapAction(bind);
+		}
+		void unmapAction(const ActionBinder& bind)
+		{
+			this->input_handler->unmapAction(bind);
+		}
+
+        Action::ID addAction(Action* action){
+			ActionID actionID(this->counter++, action);
+			return actionID;
         }
         
 		void interrupt()

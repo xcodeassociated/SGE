@@ -64,7 +64,7 @@ public:
          */
         SGE::Action* move = new SGE::ACTION::Move;
         move->setObjectManager(this->manager->getActionHandler());
-        this->manager->addAction(move);
+        //SGE::Action::ID a1 = this->manager->addAction(move);
 
 	}
 };
@@ -76,17 +76,18 @@ int main(int argc, char * argv[]) {
 	SGE::ObjectManager* manager = SGE::ObjectManager::getManager();
 
 	SGE::Scene::ID S1 = director->addScene(new MainScene(manager));
+	SGE::Action::ID A1 = manager->addAction(new SGE::ACTION::Move);
 
+	SGE::Object::ID Dummy = manager->addObject(nullptr);
+	SGE::ActionBinder B1(Dummy, A1, SGE::Key::W);
+
+	manager->mapAction(B1);
         /*
             look... we are able to perform an action on objects without any scene loaded.
             so we can move object, setting up the scene objects and so on... in the background.
          
             we need to be able to get action id! >>> SGE::Action::ID <<<
          */
-        SGE::Action* move = new SGE::ACTION::Move;
-        move->setObjectManager(manager->getActionHandler());
-        manager->addAction(move);
-    
     
 	director->showScene(S1);
     

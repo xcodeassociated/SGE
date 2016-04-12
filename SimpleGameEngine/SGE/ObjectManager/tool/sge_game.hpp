@@ -25,8 +25,8 @@ namespace SGE
 				this->draw();
 
                 //SDL input processing
-                ( *(this->input_handler) )();
-    
+            //	( *(this->input_handler) )();
+				this->input_handler->operator()();
                 
 				this->time += 0.01f;
 			}
