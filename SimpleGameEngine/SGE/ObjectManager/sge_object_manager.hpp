@@ -45,7 +45,7 @@ namespace SGE {
 			int width = 0, height = 0;
 			ObjectManager* oManager = nullptr;
 			SpriteBatch* sceneBatch = nullptr;
-			SpriteBatch* objecBatch = nullptr;
+			SpriteBatch* objectBatch = nullptr;
 			ResourceManager* rManager = nullptr;
             CameraHandler* camera_handler = nullptr;
 			Shader* shaderProgram = nullptr;

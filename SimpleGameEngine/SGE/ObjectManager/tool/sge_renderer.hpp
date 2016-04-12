@@ -45,10 +45,10 @@ namespace SGE
 
 	void ObjectManager::Renderer::spriteBatchInit() {
 		this->sceneBatch = new SpriteBatch;
-		this->objecBatch = new SpriteBatch;
+		this->objectBatch = new SpriteBatch;
 
 		this->sceneBatch->init();
-		this->objecBatch->init();
+		this->objectBatch->init();
 	}
 
 	void ObjectManager::Renderer::render() {
@@ -72,12 +72,12 @@ namespace SGE
 		this->sceneBatch->end();
 		this->sceneBatch->renderBatch();
 
-		this->objecBatch->begin();
+		this->objectBatch->begin();
 		{
 			this->renderObjects();
 		}
-		this->objecBatch->end();
-		this->objecBatch->renderBatch();
+		this->objectBatch->end();
+		this->objectBatch->renderBatch();
 
 		glBindTexture(GL_TEXTURE_2D, 0);
 		this->shaderProgram->unuse();
