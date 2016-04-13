@@ -16,9 +16,11 @@ namespace SGE {
 
     class Object{
 	public:
+		virtual ~Object() = 0;
 		using ID = ObjectID;
     };
     
+	Object::~Object(){}
 }
 
 #endif /* sge_object_h */
