@@ -6,12 +6,15 @@ namespace SGE {
     class ID{
 		long id;
 
-	protected:
+	public:
 		long getID() const {
 			return id;
 		}
 
 	public:
+        ID(const ID&) = default;
+        ID& operator=(const ID&) = default;
+        
 		ID(const long _id) : id(_id) {}
 		bool operator<(const ID& _id) const {
 			return id < _id.id;

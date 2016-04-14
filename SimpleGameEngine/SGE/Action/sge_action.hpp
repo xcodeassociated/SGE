@@ -4,6 +4,7 @@
 #include "../ID/sge_id.hpp"
 
 namespace SGE {
+    class Object;
     class ActionHandler;
 	class Action;
 
@@ -28,13 +29,14 @@ namespace SGE {
     protected:
         double duration = 0;
         ActionHandler* action_handler = nullptr;
+        Action(double _d) : duration(_d) {};
         
     public:
 		using ID = ActionID;
 
-        virtual void action_begin(void) noexcept = 0;
-        virtual void action_main(void) noexcept = 0;
-        virtual void action_ends(void) noexcept = 0;
+        virtual void action_begin(Object*) noexcept = 0;
+        virtual void action_main(Object*) noexcept = 0;
+        virtual void action_ends(Object*) noexcept = 0;
 
         virtual void setObjectManager(ActionHandler*) noexcept = 0;
         

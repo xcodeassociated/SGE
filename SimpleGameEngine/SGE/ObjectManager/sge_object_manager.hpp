@@ -35,7 +35,7 @@ namespace SGE {
     
     class ObjectManager final{
 		friend class Relay;
-        
+        friend class ActionHandler;
         
     private:
         class CameraHandler;
@@ -112,7 +112,7 @@ namespace SGE {
             SDL_Window* getWindow(void) noexcept;
         };
         
-        class CameraHandler{
+        class CameraHandler : public Object {
             Camera2d* camera = nullptr;
             ObjectManager* manager = nullptr;
             int x = 0, y = 0;
@@ -120,6 +120,7 @@ namespace SGE {
             
         public:
             CameraHandler(std::pair<int, int>, ObjectManager*) noexcept;
+            Camera2d* getCamera();
             void setScale(double) noexcept;
             void setPosition(int, int) noexcept;
             void setPosition(glm::vec2) noexcept;
@@ -127,11 +128,12 @@ namespace SGE {
             const glm::mat4& getCameraMatrix(void) const noexcept;
             glm::vec2 getScreenToWorld(glm::vec2) const noexcept;
             glm::vec2 getScreenToWorld(int, int) const noexcept;
+            
         };
 
 	private:
 		bool OnScene = false;
-		long counter = 0;
+		long counter = 1;
 		std::map< ObjectID, Object* > objects;
 		std::map< SceneID, std::vector<ObjectID> > sceneObjects;
 
@@ -216,6 +218,21 @@ namespace SGE {
 			return s.scene->getLevel();
 		}
 
+        Camera2d* getCamera()
+        {
+            return this->camera_handler->getCamera();
+        }
+        
+        Object* getObjectPtr(ObjectID id)
+        {
+            return this->objects[id];
+        }
+        
+        void registerCamera(Camera2d* c)
+        {
+            this->objects.emplace(this->getCameraID(),c);
+        }
+        
 	public:
 		static ObjectManager* getManager(){
 			static ObjectManager* manager = new ObjectManager();
@@ -311,6 +328,10 @@ namespace SGE {
         
         ActionHandler* getActionHandler(){
             return this->action_handler;
+        }
+        
+        Object::ID getCameraID(void) {
+            return ObjectID(0);
         }
     };
     

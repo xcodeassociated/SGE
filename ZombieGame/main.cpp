@@ -62,7 +62,7 @@ public:
         /*
             so we, can also add an action here, just before the game loop starts.
          */
-        SGE::Action* move = new SGE::ACTION::Move;
+        SGE::Action* move = new SGE::ACTION::Move(100, 100, 2);
         move->setObjectManager(this->manager->getActionHandler());
         //SGE::Action::ID a1 = this->manager->addAction(move);
 
@@ -75,13 +75,25 @@ int main(int argc, char * argv[]) {
 	SGE::Director* director = SGE::Director::getDirector(1024,768);
 	SGE::ObjectManager* manager = SGE::ObjectManager::getManager();
 
+    SGE::Object::ID camID = manager->getCameraID();
+    
 	SGE::Scene::ID S1 = director->addScene(new MainScene(manager));
-	SGE::Action::ID A1 = manager->addAction(new SGE::ACTION::Move);
-
-	SGE::Object::ID Dummy = manager->addObject(nullptr);
-	SGE::ActionBinder B1(Dummy, A1, SGE::Key::W);
+    SGE::Action::ID AW = manager->addAction(new SGE::ACTION::Move(0, 1000.f, 0));
+    SGE::Action::ID AA = manager->addAction(new SGE::ACTION::Move(-1000.f, 0, 0));
+    SGE::Action::ID AS = manager->addAction(new SGE::ACTION::Move(0, -1000.f, 0));
+    SGE::Action::ID AD = manager->addAction(new SGE::ACTION::Move(1000.f, 0, 0));
+    
+//	SGE::Object::ID Dummy = manager->addObject(nullptr);
+    SGE::ActionBinder B1(camID, AW, SGE::Key::W);
+    SGE::ActionBinder B2(camID, AS, SGE::Key::S);
+    SGE::ActionBinder B3(camID, AA, SGE::Key::A);
+    SGE::ActionBinder B4(camID, AD, SGE::Key::D);
 
 	manager->mapAction(B1);
+    manager->mapAction(B2);
+    manager->mapAction(B3);
+    manager->mapAction(B4);
+    
         /*
             look... we are able to perform an action on objects without any scene loaded.
             so we can move object, setting up the scene objects and so on... in the background.

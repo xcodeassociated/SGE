@@ -16,18 +16,31 @@ namespace SGE {
     namespace ACTION {
         class Move : virtual public Action {
         
-            virtual void action_begin(void) noexcept {
+            float destX, destY;
+            
+        public:
+            
+            Move(float _x, float _y, double _duration) : Action{_duration}, destX(_x), destY(_y) {
                 ;
             }
             
-            virtual void action_main(void) noexcept {
+        private:
+            
+            virtual void action_begin(Object* obj) noexcept override {
+                ;
+            }
+            
+            virtual void action_main(Object* obj) noexcept override {
                 //TODO...
                 
                 //debug only:
                 this->action_handler->foo();
+                std::cout << obj->getX() << ' ' << obj->getY() << std::endl;
+                obj->setPosition(obj->getX()+this->destX,obj->getY()+this->destY);
+                std::cout << obj->getX() << ' ' << obj->getY() << std::endl;
             }
             
-            virtual void action_ends(void) noexcept {
+            virtual void action_ends(Object* obj) noexcept override {
                 ;
             }
             

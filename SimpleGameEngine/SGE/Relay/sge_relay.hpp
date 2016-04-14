@@ -33,6 +33,12 @@ namespace SGE {
 	void Relay::relayScene(Scene::ID s) {
 		this->manager->addScene(s);
 	}
+    
+    
+    void Relay::registerActionHandler(ActionHandler* h)
+    {
+        this->handler = h;
+    }
 
 	void Relay::relayShowScene(SceneID s)
 	{
@@ -60,11 +66,22 @@ namespace SGE {
 	long Relay::getNextCounter() {
 		return manager->counter++;
 	}
-
+    
 	std::pair<int, int> Relay::relayGetResolution()
 	{
 		return this->director->getResolution();
 	}
+    
+    Camera2d* Relay::getCamera()
+    {
+        return this->getCamera();
+    }
+    
+    Object* Relay::getObjectPtr(ObjectID id)
+    {
+        return this->manager->getObjectPtr(id);
+    }
+    
 }
 
 

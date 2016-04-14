@@ -9,12 +9,12 @@
 #ifndef sge_camera2d_h
 #define sge_camera2d_h
 
+#include "../Object/sge_object.hpp"
 #include "../include/sge_include.hpp"
 
 namespace SGE {
     
-    class Camera2d{
-        glm::vec2 position;
+    class Camera2d final : public Object{
         glm::mat4 cameraMatrix;
         glm::mat4 orthoMatrix;
         float scale = 1.0f;
@@ -22,7 +22,7 @@ namespace SGE {
         int box[2];
         
     public:
-        Camera2d(unsigned int _width, unsigned int _height) : position(0.f, 0.f), cameraMatrix(1.f), matUpdate(true){
+        Camera2d(unsigned int _width, unsigned int _height) : Object(0.f, 0.f), cameraMatrix(1.f), matUpdate(true){
             this->box[0] = _width;
             this->box[1] = _height;
             
@@ -32,13 +32,19 @@ namespace SGE {
         ~Camera2d(){
         }
         
-        void setPosition(glm::vec2 _position){
-            this->position = _position;
+        void setPosition(float x, float y){
+            this->Object::setPosition(x,y);
             this->matUpdate = true;
         }
         
-        const glm::vec2& getPosition(){
-            return this->position;
+        void setPosition(glm::vec2 _position){
+            this->Y = _position.y;
+            this->X = _position.x;
+            this->matUpdate = true;
+        }
+        
+        glm::vec2 getPosition(){
+            return glm::vec2{this->X,this->Y};
         }
         
         void setScale(float _scale){
@@ -56,7 +62,7 @@ namespace SGE {
         
         void update(){
             if (this->matUpdate){
-                glm::vec3 translate( - this->position.x + (this->box[0] / 2),  - this->position.y + (this->box[1] / 2), 0.0f );
+                glm::vec3 translate( - this->X + (this->box[0] / 2),  - this->Y + (this->box[1] / 2), 0.0f );
                 this->cameraMatrix = glm::translate(this->orthoMatrix, translate);
                 
                 glm::vec3 scale_vec(this->scale, this->scale, 0.0f);
@@ -73,7 +79,8 @@ namespace SGE {
             //0 is center & scaling & set position
             _screenCoords -= glm::vec2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
             _screenCoords /= this->scale;
-            _screenCoords += this->position;
+            _screenCoords.x += this->X;
+            _screenCoords.y += this->Y;
             
             return _screenCoords;
         }

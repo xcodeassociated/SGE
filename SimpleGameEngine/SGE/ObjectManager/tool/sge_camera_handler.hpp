@@ -13,6 +13,12 @@ namespace SGE {
     
     ObjectManager::CameraHandler::CameraHandler(std::pair<int, int> resolution, ObjectManager* m) noexcept : manager(m) {
         this->camera = new Camera2d(resolution.first, resolution.second);
+        this->manager->registerCamera(this->camera);
+    }
+    
+    Camera2d* ObjectManager::CameraHandler::getCamera()
+    {
+        return this->camera;
     }
     
     void ObjectManager::CameraHandler::setScale(double _scale) noexcept {

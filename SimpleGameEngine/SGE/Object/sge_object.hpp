@@ -8,16 +8,38 @@ namespace SGE {
 
 	class ObjectID : public ID {
 		friend class ObjectManager;
-
 	public:
 		ObjectID(const long id) : ID(id) {
 		}
+        ObjectID(const ObjectID&) = default;
+        ObjectID& operator=(const ObjectID&) = default;
 	};
 
     class Object{
+    protected:
+        float X;
+        float Y;
+        
 	public:
+        Object() = default;
+        Object(float x, float y): X(x), Y(y){}
 		virtual ~Object() = 0;
 		using ID = ObjectID;
+        
+        virtual float& getX() final
+        {
+            return this->X;
+        }
+        
+        virtual float& getY() final
+        {
+            return this->Y;
+        }
+        
+        virtual void setPosition(float x, float y){
+            this->X=x;
+            this->Y=y;
+        }
     };
     
 	Object::~Object(){}
