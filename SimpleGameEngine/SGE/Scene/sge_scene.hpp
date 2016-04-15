@@ -3,7 +3,7 @@
 
 #include "../ID/sge_id.hpp"
 #include "../Sprite/sge_vertex.hpp"
-#include "../BackgroundElement/sge_background_element.hpp"
+#include "../Object/BackgroundElement/sge_background_element.hpp"
 #include "../LevelParser/sge_level_parser.hpp"
 #include <map>
 #include <string>

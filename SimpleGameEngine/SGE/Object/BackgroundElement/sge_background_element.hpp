@@ -1,8 +1,8 @@
 #ifndef sge_background_element_h
 #define sge_background_element_h
 
-#include "../Object/sge_object.hpp"
-#include "../TextureLoader/sge_glTexture.hpp"
+#include "../sge_object.hpp"
+#include "../../TextureLoader/sge_glTexture.hpp"
 
 namespace SGE {
     

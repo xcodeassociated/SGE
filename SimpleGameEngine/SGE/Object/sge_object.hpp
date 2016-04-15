@@ -19,7 +19,8 @@ namespace SGE {
     protected:
         float X;
         float Y;
-        
+        bool drawable = false;
+
 	public:
         Object() = default;
         Object(float x, float y): X(x), Y(y){}
@@ -34,6 +35,14 @@ namespace SGE {
         virtual float& getY() final
         {
             return this->Y;
+        }
+        
+        virtual void setDrawable(bool e) final{
+            this->drawable = e;
+        }
+        
+        virtual bool getDrawable(void) const final {
+            return this->drawable;
         }
         
         virtual void setPosition(float x, float y){

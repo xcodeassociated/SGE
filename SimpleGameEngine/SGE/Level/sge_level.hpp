@@ -1,7 +1,7 @@
 #ifndef SGE_LEVEL_HPP
 #define SGE_LEVEL_HPP
 
-#include "../BackgroundElement/sge_background_element.hpp"
+#include "../Object/BackgroundElement/sge_background_element.hpp"
 
 namespace SGE
 {

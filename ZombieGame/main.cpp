@@ -59,9 +59,6 @@ public:
         //debug only:
         std::cerr << "onDraw!" << std::endl;
         
-        /*
-            so we, can also add an action here, just before the game loop starts.
-         */
         SGE::Action* move = new SGE::ACTION::Move(100, 100, 2);
         move->setObjectManager(this->manager->getActionHandler());
         //SGE::Action::ID a1 = this->manager->addAction(move);
@@ -83,7 +80,6 @@ int main(int argc, char * argv[]) {
     SGE::Action::ID AS = manager->addAction(new SGE::ACTION::Move(0, -1000.f, 0));
     SGE::Action::ID AD = manager->addAction(new SGE::ACTION::Move(1000.f, 0, 0));
     
-//	SGE::Object::ID Dummy = manager->addObject(nullptr);
     SGE::ActionBinder B1(camID, AW, SGE::Key::W);
     SGE::ActionBinder B2(camID, AS, SGE::Key::S);
     SGE::ActionBinder B3(camID, AA, SGE::Key::A);
@@ -94,12 +90,6 @@ int main(int argc, char * argv[]) {
     manager->mapAction(B3);
     manager->mapAction(B4);
     
-        /*
-            look... we are able to perform an action on objects without any scene loaded.
-            so we can move object, setting up the scene objects and so on... in the background.
-         
-            we need to be able to get action id! >>> SGE::Action::ID <<<
-         */
     
 	director->showScene(S1);
     

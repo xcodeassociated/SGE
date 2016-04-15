@@ -2,6 +2,7 @@
 #define SGE_HPP
 
 #include "Object/sge_object.hpp"
+#include "Object/Reactive/sge_reactive.hpp"
 #include "Scene/sge_scene.hpp"
 #include "ObjectManager/sge_object_manager.hpp"
 #include "Director/sge_director.hpp"
