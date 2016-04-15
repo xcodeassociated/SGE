@@ -21,6 +21,7 @@ namespace SGE {
         return this->camera;
     }
     
+	//should be float or change scale to duble
     void ObjectManager::CameraHandler::setScale(double _scale) noexcept {
         this->camera->setScale(_scale);
     }

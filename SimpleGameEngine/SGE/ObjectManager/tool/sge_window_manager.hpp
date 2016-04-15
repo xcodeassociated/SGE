@@ -10,7 +10,8 @@
 #define sge_window_h
 
 namespace SGE {
-    
+	
+	// multiple noexcepts in function that throw
     ObjectManager::WindowManager::WindowManager(std::pair<int, int> resolution, ObjectManager* m) noexcept : width(resolution.first), height(resolution.second) {
         this->manager = m;
     }
