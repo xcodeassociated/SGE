@@ -4,17 +4,11 @@
     <Filter Include="Action">
       <UniqueIdentifier>{ccfb1a8f-5054-4ddd-938b-8bf71e784e15}</UniqueIdentifier>
     </Filter>
-    <Filter Include="BackgroundElement">
-      <UniqueIdentifier>{9d4c67f1-f545-4864-a472-2fb23a0875c7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ID">
       <UniqueIdentifier>{2884440a-ac1d-4757-9f12-e3bc8e374d30}</UniqueIdentifier>
     </Filter>
     <Filter Include="Object">
       <UniqueIdentifier>{b0edacce-66b6-4e1c-84c0-b2ee8b1c43b2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Interface">
-      <UniqueIdentifier>{7d71f23b-7a2c-4992-9605-44147bbe711a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Camera2D">
       <UniqueIdentifier>{8797ee75-ed43-49d5-9fe5-c2d420e933d7}</UniqueIdentifier>
@@ -76,8 +70,23 @@
     <Filter Include="ObjectManager\tool">
       <UniqueIdentifier>{562212bf-dceb-4c5c-bd87-7b6ac4320faa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Reactive">
-      <UniqueIdentifier>{7377d631-0b36-469c-bed7-223ee0eeede1}</UniqueIdentifier>
+    <Filter Include="Logic">
+      <UniqueIdentifier>{42780f95-b06b-4ef6-b115-3da3f2aeaa7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic\Logics">
+      <UniqueIdentifier>{ebb9c487-e0b6-4131-a8ed-d97051e3a454}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic\Logics\Colliders">
+      <UniqueIdentifier>{decfc747-a4ab-4bd0-8973-a23235a63577}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Interface">
+      <UniqueIdentifier>{76af1a7c-72ee-4560-b251-9892f72d0210}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Reactive">
+      <UniqueIdentifier>{3ea33c24-2fae-4ee5-9e53-ab28e6a79ee4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\BackgroundElement">
+      <UniqueIdentifier>{9d4c67f1-f545-4864-a472-2fb23a0875c7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -85,22 +94,13 @@
       <Filter>Action</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\BackgroundElement\sge_background_element.hpp">
-      <Filter>BackgroundElement</Filter>
+      <Filter>Object\BackgroundElement</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ID\sge_id.hpp">
       <Filter>ID</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Object\sge_object.hpp">
       <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Interface\sge_button.hpp">
-      <Filter>Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Interface\sge_interface.hpp">
-      <Filter>Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Interface\sge_label.hpp">
-      <Filter>Interface</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Camera2d\sge_camera2d.hpp">
       <Filter>Camera2D</Filter>
@@ -121,7 +121,7 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\BackgroundElement\sge_world_element.hpp">
-      <Filter>BackgroundElement</Filter>
+      <Filter>Object\BackgroundElement</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\InputManager\sge_input_manager.hpp">
       <Filter>InputManager</Filter>
@@ -193,14 +193,32 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Action\Actions\sge_action_scale.hpp">
       <Filter>Action\Actions</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Reactive\sge_being.hpp">
-      <Filter>Reactive</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Logic\sge_logic.hpp">
+      <Filter>Logic</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Reactive\sge_player.hpp">
-      <Filter>Reactive</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Logic\Logics\sge_logic_collide.hpp">
+      <Filter>Logic\Logics</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Reactive\sge_reactive.hpp">
-      <Filter>Reactive</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Logic\Logics\Colliders\sge_logic_collide_basic.hpp">
+      <Filter>Logic\Logics\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Object\Interface\sge_button.hpp">
+      <Filter>Object\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Object\Interface\sge_interface.hpp">
+      <Filter>Object\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Object\Interface\sge_label.hpp">
+      <Filter>Object\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Object\Reactive\sge_being.hpp">
+      <Filter>Object\Reactive</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Object\Reactive\sge_player.hpp">
+      <Filter>Object\Reactive</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Object\Reactive\sge_reactive.hpp">
+      <Filter>Object\Reactive</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Level\sge_level.hpp">
       <Filter>Level</Filter>
