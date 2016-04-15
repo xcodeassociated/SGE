@@ -20,7 +20,7 @@ namespace SGE {
             
         public:
             
-            Move(float _x, float _y, double _duration) : Action{_duration}, destX(_x), destY(_y) {
+            Move(float _x, float _y, double _duration) : Action(_duration), destX(_x), destY(_y) {
                 ;
             }
             
