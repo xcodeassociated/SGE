@@ -32,6 +32,7 @@ namespace SGE {
 	class ActionID;
 	class BackgroundElement;
 	class WorldElement;
+    class Logic;
     
     class ObjectManager final{
 		friend class Relay;
@@ -73,6 +74,8 @@ namespace SGE {
 			float time = 0, fps = 0;
             InputHandler* input_handler = nullptr;
             ActionHandler* action_handler = nullptr;
+            
+            std::vector<Logic*> logics;
             
             void processInputs(void); // Not used now - a candidate for deletion
             void performActions(void);
