@@ -52,7 +52,7 @@ namespace SGE {
             this->matUpdate = true;
         }
         
-        const float getScale(){
+        float getScale(){
             return this->scale;
         }
         
