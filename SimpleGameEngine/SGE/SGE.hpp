@@ -11,6 +11,6 @@
 #include "Path/sge_path.hpp"
 
 //Logic includes
-#include "Logic/Actions/Colliders/sge_logic_collide_basic.hpp"
+#include "Logic/Logics/Colliders/sge_logic_collide_basic.hpp"
 
 #endif //SGE_HPP
