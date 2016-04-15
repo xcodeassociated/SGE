@@ -12,8 +12,22 @@
 namespace SGE {
     
     class Logic{
+    protected:
+        bool isOn;
         
+    public:
         
+        virtual void performLogic(void) = 0;
+        
+        virtual void setOn(bool e) final {
+            this->isOn = e;
+        }
+        
+        virtual bool getOn(void) final {
+            return this->isOn;
+        }
+        
+        virtual ~Logic() = 0;
         
     };
     

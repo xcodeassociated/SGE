@@ -12,13 +12,17 @@
 #include "../sge_logic.hpp"
 
 namespace SGE {
+    class Object;
+    class ObjectID;
     
     namespace Logics{
         
-        class Collide{
+        class Collide : public Logic{
+        protected:
             
-            
-            
+            Object* getObjectPointer(ObjectID) {
+                return nullptr;
+            }
         };
         
     }
