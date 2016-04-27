@@ -16,10 +16,14 @@ namespace SGE {
     namespace Logics{
         
         class BasicCollider : Collide {
-          
-            
-            
-            
+			ObjectID obj;
+		public:
+			BasicCollider(Object::ID obj): obj(obj) {}
+
+			void performLogic(Object* obj)
+			{
+				Object* obj2 = this->obj.getObject();
+			}
         };
         
     }

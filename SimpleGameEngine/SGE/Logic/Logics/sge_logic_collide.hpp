@@ -18,11 +18,6 @@ namespace SGE {
     namespace Logics{
         
         class Collide : public Logic{
-        protected:
-            
-            Object* getObjectPointer(ObjectID) {
-                return nullptr;
-            }
         };
         
     }

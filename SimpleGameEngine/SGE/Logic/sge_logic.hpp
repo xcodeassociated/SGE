@@ -11,17 +11,22 @@
 
 namespace SGE {
 	class Logic;
+	class ActionHandler;
+	class ObjectManager;
 
 	class LogicID : public ID
 	{
+	friend class ObjectManager;
 		Logic* logic;
 	public:
 		LogicID(const long id, Logic* logic) : ID(id), logic(logic) {}
 	};
 
     class Logic{
-		friend class Game;
+		friend class ObjectManager;
     protected:
+		static ActionHandler* aHandler;
+
         bool isOn;
         
 		virtual void performLogic(Object* obj) = 0;
@@ -35,6 +40,22 @@ namespace SGE {
 			ObjectID object;
 		public:
 			Binder(Logic::ID logic, Object::ID object) : logic(logic), object(object) {}
+
+			LogicID getLogic()
+			{
+				return this->logic;
+			}
+
+			ObjectID getObject()
+			{
+				return this->object;
+			}
+
+			bool operator==(const Binder& b)
+			{
+				return logic == b.logic&&object == b.object;
+			}
+    		
 		};
        
         virtual void setOn(bool e) final {
@@ -49,6 +70,7 @@ namespace SGE {
         
     };
     
+	ActionHandler* Logic::aHandler = nullptr;
 }
 
 

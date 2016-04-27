@@ -77,7 +77,7 @@ namespace SGE {
             
             void processInputs(void); // Not used now - a candidate for deletion
             void performActions(void);
-			void performLogic(void);
+			void performLogics(void);
             
 		public:
 			Game(ObjectManager*, ActionHandler*);
@@ -136,7 +136,7 @@ namespace SGE {
 	private:
 		bool OnScene = false;
 		long counter = 1;
-		std::map< ObjectID, Object* > objects;
+		std::vector<ObjectID> objects;
 		std::map< SceneID, std::vector<ObjectID> > sceneObjects;
 
 		Relay* relay = nullptr;
@@ -149,29 +149,36 @@ namespace SGE {
 		Scene* currentScene = nullptr;
 
         ObjectManager() noexcept : action_handler(new ActionHandler) {
+			Logic::aHandler = this->action_handler;
 			this->relay = Relay::getRelay();
 			this->relay->registerManager(this);
 		}
         
+		bool init()
+		{
+			std::pair<int, int> resolution = this->relay->relayGetResolution();
+
+			this->window_manager = new WindowManager(resolution, this);
+
+			this->camera_handler = new CameraHandler(resolution, this);
+			this->camera_handler->setPosition(this->camera_handler->getScreenToWorld(0, 0));
+			this->camera_handler->setScale(.05f);
+
+			this->renderer = new Renderer(resolution, this, this->window_manager, this->camera_handler);
+			this->game = new Game(this, this->action_handler);
+
+			this->input_handler = new InputHandler(this);
+			this->game->setInputHandler(this->input_handler);
+			return true;
+		}
+
 		void addScene(SceneID s)
 		{
-			if (this->renderer == nullptr)
+		/*	if(this->renderer == nullptr)
 			{
-                std::pair<int, int> resolution = this->relay->relayGetResolution();
-                
-                this->window_manager = new WindowManager(resolution, this);
-                
-                this->camera_handler = new CameraHandler(resolution, this);
-                this->camera_handler->setPosition( this->camera_handler->getScreenToWorld(0, 0) );
-                this->camera_handler->setScale(.05f);
-                
-				this->renderer = new Renderer(resolution, this, this->window_manager, this->camera_handler);
-				this->game = new Game(this, this->action_handler);
-                
-                this->input_handler = new InputHandler(this);
-                this->game->setInputHandler(this->input_handler);
-                
-			}
+				this->init();
+			}*/
+			static bool init = this->init();
 			this->sceneObjects.emplace(s, std::vector<ObjectID>());
 		}
 
@@ -229,12 +236,22 @@ namespace SGE {
         
         Object* getObjectPtr(ObjectID id)
         {
-            return this->objects[id];
+            return id.obj;
         }
+
+		Scene* getScenePtr(SceneID id)
+		{
+			return id.scene;
+		}
+
+		Logic* getLogicPtr(LogicID id)
+		{
+			return id.logic;
+		}
         
         void registerCamera(Camera2d* c)
         {
-            this->objects.emplace(this->getCameraID(),c);
+            this->objects.emplace_back(this->getCameraID());
         }
         
 	public:
@@ -273,15 +290,15 @@ namespace SGE {
 
 		Object::ID addObject(Object* o)
 		{
-			ObjectID id(counter++);
-			this->objects.insert(std::make_pair(id,o));
+			ObjectID id(counter++,o);
+			this->objects.emplace_back(id);
 			return id;
 		}
 
 		Object::ID addObject(Object* o, Scene::ID s)
 		{
 			ObjectID id(counter++);
-			this->objects.emplace(id, o);
+			this->objects.emplace_back(id);
 			auto ObjectVectorIt = this->sceneObjects.find(s);
 			if (ObjectVectorIt != this->sceneObjects.end())
 			{

@@ -7,6 +7,12 @@ namespace SGE {
 	class ObjectManager;
 	class Object;
 
+	enum class Shape : char{
+		Circle,
+		Rectangle,
+		None
+	};
+
 	class ObjectID : public ID {
 		friend class ObjectManager;
 		Object* obj = nullptr;
@@ -14,6 +20,11 @@ namespace SGE {
 		ObjectID(const long id) : ID(id) {
 		}
 		ObjectID(const long id, Object* o) : ID(id), obj(o) {
+		}
+
+		Object* getObject() const
+		{
+			return this->obj;
 		}
 
         ObjectID(const ObjectID&) = default;
@@ -25,11 +36,12 @@ namespace SGE {
         float X;
         float Y;
         bool drawable = false;
+		Shape shape = Shape::None;
 
 	public:
-        Object() = default;
-        Object(float x, float y): X(x), Y(y){}
-		Object(float x, float y, bool draw) : X(x), Y(y), drawable(draw) {}
+		Object() = default;
+        Object(float x, float y, Shape s = Shape::None): X(x), Y(y), shape(s){}
+		Object(float x, float y, bool draw, Shape s = Shape::None) : X(x), Y(y), drawable(draw), shape(s){}
 		virtual ~Object() = 0;
 		using ID = ObjectID;
         

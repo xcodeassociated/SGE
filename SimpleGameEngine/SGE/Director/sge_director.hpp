@@ -56,6 +56,18 @@ namespace SGE {
 			scene.scene->getLogics().push_back(logic);
 		}
 
+		void addLogicBinder(Scene::ID scene, Object::ID obj, Logic::ID logic)
+		{
+			scene.scene->getLogics().push_back(Logic::Binder(logic, obj));
+		}
+
+		void unbindLogic(Scene::ID scene, Object::ID obj, Logic::ID logic)
+		{
+			auto it = std::find(scene.scene->getLogics().begin(), scene.scene->getLogics().end(), Logic::Binder(logic, obj));
+			if (it == scene.scene->getLogics().end()) return;
+			scene.scene->getLogics().erase(it);
+		}
+
 		void showScene(Scene::ID scene)
 		{
 			if (!scene.scene->TextureLoaded)
