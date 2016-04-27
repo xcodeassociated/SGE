@@ -88,6 +88,9 @@
     <Filter Include="Object\BackgroundElement">
       <UniqueIdentifier>{9d4c67f1-f545-4864-a472-2fb23a0875c7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Shape">
+      <UniqueIdentifier>{a91f7058-4918-4ccc-873d-082e7b57a490}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Action\sge_action.hpp">
@@ -222,6 +225,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Object\BackgroundElement\sge_world_element.hpp">
       <Filter>Object\BackgroundElement</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Object\Shape\sge_shape.hpp">
+      <Filter>Object\Shape</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,16 +2,11 @@
 #define sge_object_h
 
 #include "../ID/sge_id.hpp"
+#include "Shape/sge_shape.hpp"
 
 namespace SGE {
 	class ObjectManager;
 	class Object;
-
-	enum class Shape : char{
-		Circle,
-		Rectangle,
-		None
-	};
 
 	class ObjectID : public ID {
 		friend class ObjectManager;
@@ -31,17 +26,20 @@ namespace SGE {
         ObjectID& operator=(const ObjectID&) = default;
 	};
 
-    class Object{
-    protected:
-        float X;
-        float Y;
-        bool drawable = false;
-		Shape shape = Shape::None;
+	class Object
+	{
+	protected:
+		float X;
+		float Y;
+		bool drawable = false;
+		Shape* shape = getShapeless();
 
 	public:
 		Object() = default;
-        Object(float x, float y, Shape s = Shape::None): X(x), Y(y), shape(s){}
-		Object(float x, float y, bool draw, Shape s = Shape::None) : X(x), Y(y), drawable(draw), shape(s){}
+		Object(float x, float y) : X(x), Y(y){}
+        Object(float x, float y, Shape* shape): X(x), Y(y), shape(shape){}
+		Object(float x, float y, bool draw) : X(x), Y(y), drawable(draw){}
+		Object(float x, float y, bool draw, Shape* shape) : X(x), Y(y), drawable(draw), shape(shape){}
 		virtual ~Object() = 0;
 		using ID = ObjectID;
         
@@ -68,8 +66,11 @@ namespace SGE {
             this->Y=y;
         }
     };
-    
-	Object::~Object(){}
+
+	inline Object::~Object()
+	{
+		if(this->shape->isDisposable()) delete this->shape;
+	}
 }
 
 #endif /* sge_object_h */
