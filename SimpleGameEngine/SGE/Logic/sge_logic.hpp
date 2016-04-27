@@ -10,15 +10,33 @@
 #define sge_logic_h
 
 namespace SGE {
-    
+	class Logic;
+
+	class LogicID : public ID
+	{
+		Logic* logic;
+	public:
+		LogicID(const long id, Logic* logic) : ID(id), logic(logic) {}
+	};
+
     class Logic{
+		friend class Game;
     protected:
         bool isOn;
         
+		virtual void performLogic(Object* obj) = 0;
+
     public:
-        
-        virtual void performLogic(void) = 0;
-        
+		using ID = LogicID;
+
+		class Binder
+		{
+			LogicID logic;
+			ObjectID object;
+		public:
+			Binder(Logic::ID logic, Object::ID object) : logic(logic), object(object) {}
+		};
+       
         virtual void setOn(bool e) final {
             this->isOn = e;
         }

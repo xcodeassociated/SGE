@@ -75,10 +75,9 @@ namespace SGE {
             InputHandler* input_handler = nullptr;
             ActionHandler* action_handler = nullptr;
             
-            std::vector<Logic*> logics;
-            
             void processInputs(void); // Not used now - a candidate for deletion
             void performActions(void);
+			void performLogic(void);
             
 		public:
 			Game(ObjectManager*, ActionHandler*);
@@ -147,7 +146,8 @@ namespace SGE {
         WindowManager* window_manager = nullptr;
         CameraHandler* camera_handler = nullptr;
         ActionHandler* action_handler = nullptr;
-        
+		Scene* currentScene = nullptr;
+
         ObjectManager() noexcept : action_handler(new ActionHandler) {
 			this->relay = Relay::getRelay();
 			this->relay->registerManager(this);
@@ -191,6 +191,7 @@ namespace SGE {
 
 		void showScene(SceneID s)
 		{
+			this->currentScene = s.scene;
 			auto sceneObjectsIt = this->sceneObjects.find(s);
 			if (sceneObjectsIt == this->sceneObjects.end()) throw std::runtime_error("Scene not Loaded");
 			
@@ -247,15 +248,20 @@ namespace SGE {
 		{
 			this->input_handler->mapAction(bind);
 		}
+
 		void unmapAction(const ActionBinder& bind)
 		{
 			this->input_handler->unmapAction(bind);
 		}
 
         Action::ID addAction(Action* action){
-			ActionID actionID(this->counter++, action);
-			return actionID;
+			return ActionID(this->counter++, action);
         }
+
+		Logic::ID addLogic(Logic* logic)
+		{
+			return LogicID(this->counter++, logic);
+		}
         
 		void interrupt()
 		{

@@ -27,11 +27,19 @@ namespace SGE {
 
     class Scene{
 	private:
+		using LogicVector = std::vector<Logic::Binder>;
+
 		Level level;
-																						
+		LogicVector Logics;
+
 	public:
 		bool TextureLoaded = false;
 		using ID = SceneID;
+
+		LogicVector& getLogics()
+		{
+			return this->Logics;
+		}
 
 		virtual ~Scene() = default;
 

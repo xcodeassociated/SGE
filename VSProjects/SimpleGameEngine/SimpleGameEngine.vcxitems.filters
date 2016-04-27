@@ -93,9 +93,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Action\sge_action.hpp">
       <Filter>Action</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\BackgroundElement\sge_background_element.hpp">
-      <Filter>Object\BackgroundElement</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ID\sge_id.hpp">
       <Filter>ID</Filter>
     </ClInclude>
@@ -119,9 +116,6 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\include\sge_include.hpp">
       <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\BackgroundElement\sge_world_element.hpp">
-      <Filter>Object\BackgroundElement</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\InputManager\sge_input_manager.hpp">
       <Filter>InputManager</Filter>
@@ -222,6 +216,12 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Level\sge_level.hpp">
       <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Object\BackgroundElement\sge_background_element.hpp">
+      <Filter>Object\BackgroundElement</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Object\BackgroundElement\sge_world_element.hpp">
+      <Filter>Object\BackgroundElement</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

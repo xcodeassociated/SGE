@@ -46,6 +46,11 @@ namespace SGE
         this->action_handler->performAllActions();
     }
 
+	void ObjectManager::Game::performLogic(void)
+	{
+
+	}
+
 	void ObjectManager::Game::stop()
 	{
 		this->playing = false;

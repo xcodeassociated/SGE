@@ -51,6 +51,11 @@ namespace SGE {
 			}
 		}
 
+		void addLogicBinder(Scene::ID scene, Logic::Binder logic)
+		{
+			scene.scene->getLogics().push_back(logic);
+		}
+
 		void showScene(Scene::ID scene)
 		{
 			if (!scene.scene->TextureLoaded)
@@ -68,6 +73,7 @@ namespace SGE {
 			}
 			this->relay->relaySwapScene(scene);
 		}
+
 		void finalize()
 		{}
     };

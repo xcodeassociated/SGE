@@ -18,8 +18,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Action\Actions\sge_action_rotate.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Action\Actions\sge_action_scale.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Action\sge_action.hpp" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\BackgroundElement\sge_background_element.hpp" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\BackgroundElement\sge_world_element.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Object\BackgroundElement\sge_background_element.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Object\BackgroundElement\sge_world_element.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Camera2d\sge_camera2d.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Director\sge_director.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\ID\sge_id.hpp" />
