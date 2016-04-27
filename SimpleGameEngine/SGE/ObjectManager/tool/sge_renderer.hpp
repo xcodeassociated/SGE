@@ -1,6 +1,8 @@
 #ifndef SGE_RENDERER_HPP
 #define SGE_RENDERER_HPP
 
+#include <algorithm>
+
 namespace SGE
 {
     class WindowManager;
@@ -96,7 +98,7 @@ namespace SGE
 		const size_t Y = this->level->getHeight();
 		std::vector<BackgroundElement>& background = this->level->getBackground();
 
-		for (int y = 0; y < Y; ++y) {
+		/*for (int y = 0; y < Y; ++y) {
 			for (int x = 0; x < X; ++x) {
 				glm::vec4 destRect(x * TILE_WIDTH, y * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
 				BackgroundElement& e = background[112 * y + x];
@@ -104,8 +106,14 @@ namespace SGE
                 GLTexture texture = this->rManager->getTexture(e.getPath().c_str());
 				this->sceneBatch->draw(destRect, uv, texture.id, 0.0f, color);
 			}
-		}
+		}*/
         
+		std::for_each(background.begin(),background.end(),[=](BackgroundElement& e){
+				glm::vec4 destRect(e.getX() * TILE_WIDTH, e.getY() * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
+				if (e.getPath().compare(".") == 0) return;
+				GLTexture texture = this->rManager->getTexture(e.getPath().c_str());
+				this->sceneBatch->draw(destRect, uv, texture.id, 0.0f, color);
+			});
 	}
 
 	void ObjectManager::Renderer::renderObjects() {

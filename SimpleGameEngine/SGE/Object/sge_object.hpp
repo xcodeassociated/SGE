@@ -5,12 +5,17 @@
 
 namespace SGE {
 	class ObjectManager;
+	class Object;
 
 	class ObjectID : public ID {
 		friend class ObjectManager;
+		Object* obj = nullptr;
 	public:
 		ObjectID(const long id) : ID(id) {
 		}
+		ObjectID(const long id, Object* o) : ID(id), obj(o) {
+		}
+
         ObjectID(const ObjectID&) = default;
         ObjectID& operator=(const ObjectID&) = default;
 	};
@@ -24,6 +29,7 @@ namespace SGE {
 	public:
         Object() = default;
         Object(float x, float y): X(x), Y(y){}
+		Object(float x, float y, bool draw) : X(x), Y(y), drawable(draw) {}
 		virtual ~Object() = 0;
 		using ID = ObjectID;
         
