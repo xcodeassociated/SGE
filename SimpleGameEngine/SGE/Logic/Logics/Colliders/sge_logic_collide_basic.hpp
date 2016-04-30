@@ -40,8 +40,10 @@ namespace SGE {
                 else
                     collision = this->collideWithDifferentShape(self, oponent);
                 
-                if (collision)
-                    this->onCollision(obj, _obj);
+                if (collision){
+                    ActionID aid = this->onCollision(obj, _obj);
+                    
+                }
 			}
         };
         
