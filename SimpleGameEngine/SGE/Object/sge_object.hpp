@@ -8,6 +8,15 @@ namespace SGE {
 	class ObjectManager;
 	class Object;
 
+	enum class LogicPriority
+	{
+		Highest = 0,
+		High,
+		Mid,
+		Low,
+		None
+	};
+
 	class ObjectID : public ID {
 		friend class ObjectManager;
 		Object* obj = nullptr;
@@ -33,6 +42,7 @@ namespace SGE {
 		float Y;
 		bool drawable = false;
 		Shape* shape = getShapeless();
+		LogicPriority lock = LogicPriority::None;
 
 	public:
 		Object() = default;
@@ -43,21 +53,21 @@ namespace SGE {
 		virtual ~Object() = 0;
 		using ID = ObjectID;
         
-        virtual float& getX() final
+        virtual float& getX() noexcept final
         {
             return this->X;
         }
         
-        virtual float& getY() final
+        virtual float& getY() noexcept final
         {
             return this->Y;
         }
         
-        virtual void setDrawable(bool e) final{
+        virtual void setDrawable(bool e) noexcept final{
             this->drawable = e;
         }
         
-        virtual bool getDrawable(void) const final {
+        virtual bool getDrawable(void) const noexcept final {
             return this->drawable;
         }
         
@@ -69,6 +79,16 @@ namespace SGE {
         virtual Shape* getShape() noexcept final {
             return this->shape;
         }
+
+		virtual LogicPriority getLock() const noexcept final
+		{
+			return lock;
+		}
+
+		virtual void setLock(const LogicPriority lock) noexcept final
+		{
+			this->lock = lock;
+		}
     };
 
 	inline Object::~Object()

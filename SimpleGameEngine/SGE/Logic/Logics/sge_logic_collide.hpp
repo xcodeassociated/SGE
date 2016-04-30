@@ -27,9 +27,6 @@ namespace SGE {
                 
                 ShapeType commonShape = self->getShape()->getType();
                 
-                if (commonShape == ShapeType::None)
-                    return false;
-                    
                 switch (commonShape){
                     case ShapeType::Circle:{
                         
@@ -38,6 +35,11 @@ namespace SGE {
                     case ShapeType::Rectangle:{
                         
                     }break;
+
+					case ShapeType::None:
+					{
+						return false;
+					}
                 }
                 
                 return 0;
@@ -61,7 +63,7 @@ namespace SGE {
             
             collisionFunc onCollision;
             
-            Collide(collisionFunc e) : onCollision(e) {
+            Collide(collisionFunc e) : Logic(Priority::Highest), onCollision(e) {
                 ;
             }
             

@@ -17,6 +17,8 @@ namespace SGE {
 	class LogicID : public ID
 	{
 	friend class ObjectManager;
+	friend class Logic;
+
 		Logic* logic;
 	public:
 		LogicID(const long id, Logic* logic) : ID(id), logic(logic) {}
@@ -24,15 +26,21 @@ namespace SGE {
 
     class Logic{
 		friend class ObjectManager;
+	public:
+		using Priority = LogicPriority;
     protected:
-		static ActionHandler* aHandler;
+		static ActionHandler* action_handler;
 
-        bool isOn;
-        
+		Logic(Priority _p): priority(_p){}
+
+        bool isOn = true;
+		Priority priority = Priority::Low;
+
         virtual void performLogic(Object::ID obj) = 0;
 
     public:
 		using ID = LogicID;
+
 
 		class Binder
 		{
@@ -55,6 +63,15 @@ namespace SGE {
 			{
 				return logic == b.logic&&object == b.object;
 			}
+
+			bool operator<(const Binder& other)
+			{
+				if(object.getID()==other.object.getID())
+				{
+					return logic.logic->priority < other.logic.logic->priority;
+				}
+				return object.getID() < other.object.getID();
+			}
     		
 		};
        
@@ -70,7 +87,7 @@ namespace SGE {
         
     };
     
-	ActionHandler* Logic::aHandler = nullptr;
+	ActionHandler* Logic::action_handler = nullptr;
 }
 
 
