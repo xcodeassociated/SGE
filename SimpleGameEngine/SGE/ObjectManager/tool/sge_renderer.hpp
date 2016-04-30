@@ -88,7 +88,7 @@ namespace SGE
 	}
 
 	void ObjectManager::Renderer::renderLevel() {
-		assert(this->level && !this->level->getBackground().empty());
+		assert(this->level);
 
 		static glm::vec4 uv(0.0f, 0.0f, 1.0f, 1.0f);
 		static SGE::Color color(255, 255, 255, 255);
@@ -97,6 +97,7 @@ namespace SGE
 		const size_t X = this->level->getWidth();
 		const size_t Y = this->level->getHeight();
 		std::vector<BackgroundElement>& background = this->level->getBackground();
+        std::vector<WorldElement>& world = this->level->getWorld();
 
 		/*for (int y = 0; y < Y; ++y) {
 			for (int x = 0; x < X; ++x) {
@@ -114,6 +115,13 @@ namespace SGE
 				GLTexture texture = this->rManager->getTexture(e.getPath().c_str());
 				this->sceneBatch->draw(destRect, uv, texture.id, 0.0f, color);
 			});
+        
+        std::for_each(world.begin(),world.end(),[=](WorldElement& e){
+            glm::vec4 destRect(e.getX() * TILE_WIDTH, e.getY() * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
+            if (e.getPath().compare(".") == 0) return;
+            GLTexture texture = this->rManager->getTexture(e.getPath().c_str());
+            this->sceneBatch->draw(destRect, uv, texture.id, 0.0f, color);
+        });
 	}
 
 	void ObjectManager::Renderer::renderObjects() {

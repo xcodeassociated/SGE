@@ -65,6 +65,10 @@ namespace SGE {
             this->X=x;
             this->Y=y;
         }
+        
+        virtual Shape* getShape() noexcept final {
+            return this->shape;
+        }
     };
 
 	inline Object::~Object()

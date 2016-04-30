@@ -71,10 +71,11 @@ int main(int argc, char * argv[]) {
 
 	SGE::Director* director = SGE::Director::getDirector(1024,768);
 	SGE::ObjectManager* manager = SGE::ObjectManager::getManager();
-
-    SGE::Object::ID camID = manager->getCameraID();
     
 	SGE::Scene::ID S1 = director->addScene(new MainScene(manager));
+    
+    SGE::Object::ID camID = manager->getCameraID();
+    
     SGE::Action::ID AW = manager->addAction(new SGE::ACTION::Move(0, 1000.f, 0));
     SGE::Action::ID AA = manager->addAction(new SGE::ACTION::Move(-1000.f, 0, 0));
     SGE::Action::ID AS = manager->addAction(new SGE::ACTION::Move(0, -1000.f, 0));

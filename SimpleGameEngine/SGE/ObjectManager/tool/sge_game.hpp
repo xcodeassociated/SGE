@@ -52,7 +52,7 @@ namespace SGE
 		auto lVec = this->manager->currentScene->getLogics();
 		for(auto it = lVec.begin(), end = lVec.end(); it != end; ++it)
 		{
-			 it->getLogic().logic->performLogic(it->getObject().obj);
+			 it->getLogic().logic->performLogic(it->getObject());
 		}
 	}
 

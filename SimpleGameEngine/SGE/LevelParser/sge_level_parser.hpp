@@ -55,7 +55,8 @@ namespace SGE {
 					auto it = this->levelMask.find(tile);
 					if (it != this->levelMask.end())
 					{
-						lev.getBackground().emplace_back(x,y,it->second);
+                        if(std::isupper(tile)) lev.getWorld().emplace_back(x,y,it->second);
+                        else lev.getBackground().emplace_back(x,y,it->second);
 					}
 				}
 			}

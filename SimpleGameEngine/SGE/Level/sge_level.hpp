@@ -2,6 +2,7 @@
 #define SGE_LEVEL_HPP
 
 #include "../Object/BackgroundElement/sge_background_element.hpp"
+#include "../Object/BackgroundElement/sge_world_element.hpp"
 
 namespace SGE
 {
@@ -11,6 +12,7 @@ namespace SGE
 		size_t height = 0;
 		size_t width = 0;
 		std::vector<BackgroundElement> background;
+        std::vector<WorldElement> world;
 	public:
 		Level() = default;
 		Level(size_t x, size_t y) : height(y),width(x){}
@@ -31,6 +33,11 @@ namespace SGE
 		{
 			return this->background;
 		}
+        
+        std::vector<WorldElement>& getWorld()
+        {
+            return this->world;
+        }
 	};
 }
 

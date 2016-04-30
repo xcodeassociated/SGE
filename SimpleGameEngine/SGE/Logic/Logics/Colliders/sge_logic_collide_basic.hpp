@@ -17,12 +17,31 @@ namespace SGE {
         
         class BasicCollider : Collide {
 			ObjectID obj;
+            
+        protected:
+            ;;
+            
 		public:
-			BasicCollider(Object::ID obj): obj(obj) {}
+            
+			BasicCollider(Object::ID obj, collisionFunc _onCollision) : Collide(_onCollision), obj(obj) {}
 
-			void performLogic(Object* obj)
+			void performLogic(ObjectID _obj)
 			{
-				Object* obj2 = this->obj.getObject();
+				Object* self = this->obj.getObject();
+                Object* oponent = _obj.getObject();
+                
+                Shape* selfShape = self->getShape();
+                Shape* oponentShape = oponent->getShape();
+                
+                bool collision = false;
+                
+                if (selfShape->getType() == oponentShape->getType())
+                    collision = this->collideWithSameShape(self, oponent);
+                else
+                    collision = this->collideWithDifferentShape(self, oponent);
+                
+                if (collision)
+                    this->onCollision(obj, _obj);
 			}
         };
         

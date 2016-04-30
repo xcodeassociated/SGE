@@ -18,6 +18,53 @@ namespace SGE {
     namespace Logics{
         
         class Collide : public Logic{
+        public:
+            using collisionFunc = std::function<Action::ID(Object::ID, Object::ID)>;
+
+        protected:
+            
+            virtual bool collideWithSameShape(Object* self, Object* oponent){
+                
+                ShapeType commonShape = self->getShape()->getType();
+                
+                if (commonShape == ShapeType::None)
+                    return false;
+                    
+                switch (commonShape){
+                    case ShapeType::Circle:{
+                        
+                    }break;
+                        
+                    case ShapeType::Rectangle:{
+                        
+                    }break;
+                }
+                
+                return 0;
+            }
+            
+            virtual bool collideWithDifferentShape(Object* self, Object* oponent){
+                
+                ShapeType selfShapeType = self->getShape()->getType();
+                ShapeType oponentShapeType = oponent->getShape()->getType();
+                
+                if (selfShapeType == ShapeType::None || oponentShapeType == ShapeType::None)
+                    return false;
+                
+                if ((selfShapeType == ShapeType::Circle && oponentShapeType == ShapeType::Rectangle) || (selfShapeType == ShapeType::Rectangle && oponentShapeType == ShapeType::Circle))
+                {
+                    
+                    
+                }
+                return false;
+            }
+            
+            collisionFunc onCollision;
+            
+            Collide(collisionFunc e) : onCollision(e) {
+                ;
+            }
+            
         };
         
     }

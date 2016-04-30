@@ -171,8 +171,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "23"
             endingLineNumber = "23"
-            landmarkName = "class Object"
-            landmarkType = "3">
+            landmarkName = "getObject()"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -187,7 +187,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "26"
             endingLineNumber = "26"
-            landmarkName = "class Object"
+            landmarkName = "class ObjectID"
             landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
@@ -203,7 +203,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "25"
             endingLineNumber = "25"
-            landmarkName = "class Object"
+            landmarkName = "class ObjectID"
             landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>

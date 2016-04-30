@@ -29,7 +29,7 @@ namespace SGE {
 
         bool isOn;
         
-		virtual void performLogic(Object* obj) = 0;
+        virtual void performLogic(Object::ID obj) = 0;
 
     public:
 		using ID = LogicID;

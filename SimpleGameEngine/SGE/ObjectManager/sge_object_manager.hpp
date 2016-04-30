@@ -249,10 +249,10 @@ namespace SGE {
 			return id.logic;
 		}
         
-        void registerCamera(Camera2d* c)
-        {
-            this->objects.emplace_back(this->getCameraID());
-        }
+//        void registerCamera(Camera2d* c)
+//        {
+//            this->objects.emplace_back(this->getCameraID());
+//        }
         
 	public:
 		static ObjectManager* getManager(){
@@ -357,7 +357,7 @@ namespace SGE {
         }
         
         Object::ID getCameraID(void) {
-            return ObjectID(0);
+            return ObjectID(0,this->camera_handler->getCamera());
         }
     };
     
