@@ -15,12 +15,13 @@ namespace SGE
 
 	void ObjectManager::Game::run()
 	{
-		Logic::aHandler = this->manager->action_handler;
+		Logic::action_handler = this->manager->action_handler;
 		this->playing = true;
 		while (this->playing)
 		{
 			this->limiter->begin();
 			{
+				this->performLogics();
                 this->performActions();
                 
 				this->draw();
@@ -52,6 +53,7 @@ namespace SGE
 		auto lVec = this->manager->currentScene->getLogics();
 		for(auto it = lVec.begin(), end = lVec.end(); it != end; ++it)
 		{
+			if(it->getLogic().logic->getOn())
 			 it->getLogic().logic->performLogic(it->getObject());
 		}
 	}

@@ -149,7 +149,7 @@ namespace SGE {
 		Scene* currentScene = nullptr;
 
         ObjectManager() noexcept : action_handler(new ActionHandler) {
-			Logic::aHandler = this->action_handler;
+			Logic::action_handler = this->action_handler;
 			this->relay = Relay::getRelay();
 			this->relay->registerManager(this);
 		}
