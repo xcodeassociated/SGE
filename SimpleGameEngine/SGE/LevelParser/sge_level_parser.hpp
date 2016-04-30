@@ -4,6 +4,7 @@
 #include<map>
 #include<string>
 #include<fstream>
+#include<cctype>
 
 #include "../Object/BackgroundElement/sge_background_element.hpp"
 #include "../Level/sge_level.hpp"
