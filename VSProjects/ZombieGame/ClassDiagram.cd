@@ -1,2 +1,444 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access" MembersFormat="FullSignature">
+  <Class Name="MainScene">
+    <Position X="8" Y="21.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAEEAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\ZombieGame\main.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bullet" Collapsed="true">
+    <Position X="34.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAQAAAoAAAAAIAICAAAAAAAQAEAAIAAAAUAAA=</HashCode>
+      <FileName>C:\Dev\SGE\ZombieGame\Bullet.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gun" Collapsed="true">
+    <Position X="31.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAIAAABAAAAAgACACAAGEAAABAAAAAAEAAA=</HashCode>
+      <FileName>C:\Dev\SGE\ZombieGame\Gun.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Level" Collapsed="true">
+    <Position X="34.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RACAACAAAIIgAAAAAAAACAAAAAAAAAABAAoABAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\ZombieGame\Level.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MainGameWindow" Collapsed="true">
+    <Position X="31.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BACBAsIABsACAQAAAAAAAiAABAFAAAIhBBAgAAgAAQA=</HashCode>
+      <FileName>C:\Dev\SGE\ZombieGame\MainGameWindow.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::ACTION::Move">
+    <Position X="18.25" Y="11.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAIAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Action\Actions\sge_action_move.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::Object">
+    <Position X="7.75" Y="7.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEQAAAAAgAAAAAAAAAAAAAAAAAAAAAIAAZAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Object\sge_object.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::ActionHandler" Collapsed="true">
+    <Position X="33" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gCAAAACgAAAAACQAAAAgAAIAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\ObjectManager\sge_action_handler.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::Action">
+    <Position X="18.25" Y="8.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIgAAAgAAAAAgACAAAAAAAAAAAAABAAAAAAAAQ=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Action\sge_action.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::ActionID">
+    <Position X="12" Y="4" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAgAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Action\sge_action.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::BackgroundElement">
+    <Position X="13.75" Y="11.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAACAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Object\BackgroundElement\sge_background_element.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::WorldElement">
+    <Position X="14.75" Y="14.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Object\BackgroundElement\sge_world_element.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::Camera2d">
+    <Position X="1.75" Y="11.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAIAAQAAAAAAAAAEAAQgACAAAgCAACAAAAABAEAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Camera2d\sge_camera2d.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::Relay" Collapsed="true">
+    <Position X="34.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAREEAiAAAAQIAAgAAAAAAAEAABAAAAAgAAACAIACAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Relay\sge_relay_interface.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::Director" Collapsed="true">
+    <Position X="36.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAABQgFAAAAAQAAAAAANAAAAAQAAgIAIAAAAAAEAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Director\sge_director.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::ID">
+    <Position X="6.75" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgACAAAAAAQAAAAAAAAAAAAAgAAAAAgA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\ID\sge_id.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::InputManager" Collapsed="true">
+    <Position X="33" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAAAgAhIAMBAAAAIAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\InputManager\sge_input_manager.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::LevelParser" Collapsed="true">
+    <Position X="38.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAESAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\LevelParser\sge_level_parser.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::Level" Collapsed="true">
+    <Position X="36.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAEAAAAAAAAAQAQAAAAAIAAAAAQAEBAAAgAAAAIAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Level\sge_level.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::ObjectID">
+    <Position X="5" Y="4" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAQCAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Object\sge_object.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::Logic">
+    <Position X="2.25" Y="16.5" Width="2.5" />
+    <NestedTypes>
+      <Class Name="SGE::Logic::Binder" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>C:\Dev\SGE\SimpleGameEngine\SGE\Logic\sge_logic.hpp</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>ACAgAEAAABQAAAAAAAABAAIAAAAAAAAAADAAAAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Logic\sge_logic.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::ObjectManager" Collapsed="true">
+    <Position X="33" Y="2.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="SGE::ObjectManager::CameraHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>C:\Dev\SGE\SimpleGameEngine\SGE\ObjectManager\sge_object_manager.hpp</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="SGE::ObjectManager::WindowManager" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>C:\Dev\SGE\SimpleGameEngine\SGE\ObjectManager\sge_object_manager.hpp</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="SGE::ObjectManager::Renderer" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>C:\Dev\SGE\SimpleGameEngine\SGE\ObjectManager\sge_object_manager.hpp</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="SGE::ObjectManager::InputHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>C:\Dev\SGE\SimpleGameEngine\SGE\ObjectManager\sge_object_manager.hpp</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="SGE::ObjectManager::Game" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>C:\Dev\SGE\SimpleGameEngine\SGE\ObjectManager\sge_object_manager.hpp</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>ACMAAAQgUAIAAA5gAAAEgjAAAQACAAuIJJMMAAMEgAQ=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\ObjectManager\sge_object_manager.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::LogicID">
+    <Position X="8.75" Y="4" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Logic\sge_logic.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::ActionBinder" Collapsed="true">
+    <Position X="31.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAIAABAAQBAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\ObjectManager\sge_action_handler.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::Scene">
+    <Position X="7.25" Y="17.5" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAEAAAAUAAAgAQAEAAAAAAKAAAAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Scene\sge_scene.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::SceneID">
+    <Position X="1.75" Y="4" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Scene\sge_scene.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::Button">
+    <Position X="6" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Object\Interface\sge_button.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::Interface">
+    <Position X="7.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Object\Interface\sge_interface.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::Label">
+    <Position X="8.25" Y="13.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAgAAAAAAACAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Object\Interface\sge_label.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::Being">
+    <Position X="11.5" Y="14.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Object\Reactive\sge_being.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::Player">
+    <Position X="11.5" Y="16" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Object\Reactive\sge_player.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::Reactive">
+    <Position X="11.25" Y="11.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAAgAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Object\Reactive\sge_reactive.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::Shape">
+    <Position X="18.5" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAABAAFAQABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Object\Shape\sge_shape.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::Shapeless">
+    <Position X="15.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Object\Shape\sge_shape.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::Circle">
+    <Position X="17.75" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAAgAAAAACIAAAAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Object\Shape\sge_shape.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::Rectangle">
+    <Position X="21" Y="4.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>QAAABAAAAAAAAAQAQAAAAAAAAAAgQAAEAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Object\Shape\sge_shape.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::ResourceManager" Collapsed="true">
+    <Position X="38.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAwAAEAAAAgBAAAAAEAAAgAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\ResourceManager\sge_resource_manager.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::Shader" Collapsed="true">
+    <Position X="31.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QgAAAAAQAAAAAAAAAAIQAAAAAEgAQAAABAIAEIAAYAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Shaders\sge_shader.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::RenderBatch" Collapsed="true">
+    <Position X="36.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAIAAABAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\SpriteBatch\SpriteBatch.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::SpriteBatch" Collapsed="true">
+    <Position X="34.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACgAAAACAAAAAAAAAFIgQAAQAAACAAICQAQEEAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\SpriteBatch\SpriteBatch.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::Sprite" Collapsed="true">
+    <Position X="33" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAI=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Sprite\sge_sprite.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::TextureCache" Collapsed="true">
+    <Position X="36.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAEAAAAgBBAAAAAAAAgAAAAAAAAAAAEAAAAAI=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\TextureCache\sge_texture_cache.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::FpsLimiter" Collapsed="true">
+    <Position X="38.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgABACAAQQIAAAAAAAAAAQAAAAAAYAAAGAAAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Timing\sge_fps_limiter.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::Logics::BasicCollider">
+    <Position X="1.75" Y="23" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Logic\Logics\Colliders\sge_logic_collide_basic.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGE::Logics::Collide">
+    <Position X="1.25" Y="20.5" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAQAAAAAAAAIAAAAACAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Logic\Logics\sge_logic_collide.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="SGE::IOManager" Collapsed="true">
+    <Position X="38.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\IOManager\sge_io_manager.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SGE::Glyph" Collapsed="true">
+    <Position X="34.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAEAAAgAAAAAAIAIAEAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\SpriteBatch\SpriteBatch.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SGE::Position" Collapsed="true">
+    <Position X="31.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAABAAAAAABgAAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Sprite\sge_vertex.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SGE::Color" Collapsed="true">
+    <Position X="31.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAoAQABgAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Sprite\sge_vertex.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SGE::UV" Collapsed="true">
+    <Position X="33" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAJIAAAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Sprite\sge_vertex.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SGE::Vertex" Collapsed="true">
+    <Position X="34.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAABAAAAAAAAIAASAAAAAACAAAAAAAAIAgA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Sprite\sge_vertex.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SGE::GLTexture" Collapsed="true">
+    <Position X="33" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAQAAAAAAAAAAAAQAAAAAAAAIAAgA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\TextureLoader\sge_glTexture.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SGE::ImageLoader" Collapsed="true">
+    <Position X="36.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\TextureLoader\sge_imageLoader.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="GameState" Collapsed="true">
+    <Position X="31.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\ZombieGame\MainGameWindow.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SGE::Key" Collapsed="true">
+    <Position X="34.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BURrBGIQAJD/AUAIgEEgCwgHEgwkEhiKCATCv//fZ0M=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\ObjectManager\sge_action_handler.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SGE::LogicPriority" Collapsed="true">
+    <Position X="36.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEgAAAAAAAAgAAAAAAAAAAAUAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Object\sge_object.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SGE::ShapeType" Collapsed="true">
+    <Position X="38.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAggAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\Object\Shape\sge_shape.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SGE::GlyphSortType" Collapsed="true">
+    <Position X="33" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAABAAAAAAAAAAAAAAggA=</HashCode>
+      <FileName>C:\Dev\SGE\SimpleGameEngine\SGE\SpriteBatch\SpriteBatch.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
