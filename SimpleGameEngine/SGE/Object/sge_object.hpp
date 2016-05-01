@@ -35,6 +35,8 @@ namespace SGE {
         ObjectID& operator=(const ObjectID&) = default;
 	};
 
+    class GLTexture;
+    
 	class Object
 	{
 	protected:
@@ -52,6 +54,8 @@ namespace SGE {
 		Object(float x, float y, bool draw, Shape* shape) : X(x), Y(y), drawable(draw), shape(shape){}
 		virtual ~Object() = 0;
 		using ID = ObjectID;
+        
+        GLTexture* texture = nullptr;
         
         virtual float& getX() noexcept final
         {

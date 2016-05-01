@@ -12,5 +12,6 @@
 
 //Logic includes
 #include "Logic/Logics/Colliders/sge_logic_collide_basic.hpp"
+#include "Logic/Logics/Colliders/sge_logic_collide_group.hpp"
 
 #endif //SGE_HPP
