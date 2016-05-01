@@ -166,7 +166,13 @@ namespace SGE{
 
     class ActionHandler {
         Relay* relay = Relay::getRelay();
-        std::vector<Action*> actions; //TODO: queue instead of vector !!!
+        std::vector<ActionBinder::Bind> actions; //TODO: queue instead of vector !!!
+        
+        void triggerAction(Action* a, Object* o){
+            a->action_begin(o);
+            a->action_main(o);
+            a->action_ends(o);
+        }
         
     public:
 
@@ -184,21 +190,35 @@ namespace SGE{
 			std::cerr << "Input handled\n";
 		}
 
-        void addAction(ActionID ){
+        void addAction(ActionBinder::Bind bind){
+            this->actions.push_back(bind);
         }
         
         void performAllActions(){
-            for (auto& act : this->actions){
-                act->action_begin(nullptr);
-                act->action_main(nullptr);
-                act->action_ends(nullptr);
+            Action* a = nullptr;
+            Object* o = nullptr;
+            
+            for (ActionBinder::Bind& act : this->actions){
+                a = act.second.getAction();
+                o = act.first.getObject();
+                this->triggerAction(a, o);
             }
-            this->actions.erase(actions.begin(), actions.end());
+            //this->actions.erase(actions.begin(), actions.end());
         }
         
         void foo(){
             std::cerr << "ACTION!" << std::endl;
         }
+        
+        void performSingleAction(ActionBinder::Bind bind, bool flag){
+            if (flag){
+                Object* o = bind.first.getObject();
+                Action* a = bind.second.getAction();
+                this->triggerAction(a, o);
+            }else
+                this->actions.push_back(bind);
+        }
+        
     };
 
 }

@@ -22,7 +22,7 @@ namespace SGE {
 		Logic* logic;
 	public:
 		LogicID(const long id, Logic* logic) : ID(id), logic(logic) {}
-	};
+    };
 
     class Logic{
 		friend class ObjectManager;
@@ -59,12 +59,12 @@ namespace SGE {
 				return this->object;
 			}
 
-			bool operator==(const Binder& b)
+			bool operator==(const Binder& b) const
 			{
 				return logic == b.logic&&object == b.object;
 			}
 
-			bool operator<(const Binder& other)
+			bool operator<(const Binder& other) const
 			{
 				if(object.getID()==other.object.getID())
 				{
@@ -72,8 +72,11 @@ namespace SGE {
 				}
 				return object.getID() < other.object.getID();
 			}
-    		
 		};
+        
+        const Priority getPriority() const{
+            return this->priority;
+        }
        
         virtual void setOn(bool e) final {
             this->isOn = e;

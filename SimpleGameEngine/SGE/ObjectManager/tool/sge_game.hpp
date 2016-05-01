@@ -51,10 +51,19 @@ namespace SGE
 	void ObjectManager::Game::performLogics(void)
 	{
 		auto lVec = this->manager->currentScene->getLogics();
+        
+        LogicPriority objectCurrentLogicP = LogicPriority::None;
+        LogicPriority nextLogicP = LogicPriority::None;
+        
 		for(auto it = lVec.begin(), end = lVec.end(); it != end; ++it)
 		{
-			if(it->getLogic().logic->getOn())
-			 it->getLogic().logic->performLogic(it->getObject());
+            objectCurrentLogicP = it->getObject().getObject()->getLock();
+            nextLogicP = it->getLogic().logic->getPriority();
+            
+            if (objectCurrentLogicP <= nextLogicP) {
+                if(it->getLogic().logic->getOn())
+                    it->getLogic().logic->performLogic(it->getObject());
+            }
 		}
 	}
 
