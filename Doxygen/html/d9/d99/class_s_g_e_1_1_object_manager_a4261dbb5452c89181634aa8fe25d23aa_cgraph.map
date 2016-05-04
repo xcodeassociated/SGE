@@ -1,0 +1,13 @@
+<map id="SGE::ObjectManager::init" name="SGE::ObjectManager::init">
+<area shape="rect" id="node2" href="$dd/dc9/class_s_g_e_1_1_relay.html#a8e66c2aec10c39e2c82d166020ddc816" title="SGE::Relay::relayGetResolution" alt="" coords="200,5,409,32"/>
+<area shape="rect" id="node4" href="$d5/d6e/class_s_g_e_1_1_object_manager_1_1_camera_handler.html#aeb4f5f24fbd2436de6c47f3263123f3c" title="SGE::ObjectManager\l::CameraHandler::setPosition" alt="" coords="209,57,401,98"/>
+<area shape="rect" id="node7" href="$d5/d6e/class_s_g_e_1_1_object_manager_1_1_camera_handler.html#a120e92ce460ff6df7a72807f3c53f916" title="SGE::ObjectManager\l::CameraHandler::getScreen\lToWorld" alt="" coords="211,123,398,179"/>
+<area shape="rect" id="node9" href="$d5/d6e/class_s_g_e_1_1_object_manager_1_1_camera_handler.html#a272bac5f5e96156c7f9c0b70b3d822fe" title="SGE::ObjectManager\l::CameraHandler::setScale" alt="" coords="215,203,394,245"/>
+<area shape="rect" id="node11" href="$d6/d53/class_s_g_e_1_1_object_manager_1_1_renderer.html#a52b54fd983b58926a731f9c796b8dbc3" title="SGE::ObjectManager\l::Renderer::Renderer" alt="" coords="231,269,378,310"/>
+<area shape="rect" id="node12" href="$d3/d31/class_s_g_e_1_1_object_manager_1_1_game.html#a11e1614158935052fcc4a435518bff22" title="SGE::ObjectManager\l::Game::setInputHandler" alt="" coords="223,334,386,375"/>
+<area shape="rect" id="node3" href="$d2/da0/class_s_g_e_1_1_director.html#a8a39ce109f650f669d5589f8baff208c" title="SGE::Director::getResolution" alt="" coords="468,5,659,32"/>
+<area shape="rect" id="node5" href="$d5/d25/class_s_g_e_1_1_camera2d.html#af7aae6b9ef4b667a0356887f2d7ea86c" title="SGE::Camera2d::setPosition" alt="" coords="468,64,659,91"/>
+<area shape="rect" id="node6" href="$d0/d43/class_s_g_e_1_1_object.html#a83ee1b3666e8830af1463d3d2a88a363" title="SGE::Object::setPosition" alt="" coords="717,64,887,91"/>
+<area shape="rect" id="node8" href="$d5/d25/class_s_g_e_1_1_camera2d.html#adbbb488c5973cc86ea80e1d481b1c3e6" title="SGE::Camera2d::screenToWorld" alt="" coords="457,137,669,164"/>
+<area shape="rect" id="node10" href="$d5/d25/class_s_g_e_1_1_camera2d.html#a3a62ba3153c1556babb00a03192005b3" title="SGE::Camera2d::setScale" alt="" coords="475,211,651,237"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="SGE::Scene::loadLevel" name="SGE::Scene::loadLevel">
+<area shape="rect" id="node2" href="$d6/d82/class_s_g_e_1_1_level_parser.html#a901aa83bfe64afe3398680a8373e922f" title="SGE::LevelParser::parse" alt="" coords="209,5,375,32"/>
+<area shape="rect" id="node3" href="$d0/ddc/class_s_g_e_1_1_level.html#a89e4679830cc037b8ad6a57d80ad285a" title="SGE::Level::getWorld" alt="" coords="423,5,569,32"/>
+</map>

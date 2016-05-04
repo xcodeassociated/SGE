@@ -1,0 +1,4 @@
+<map id="SGE::Logics::Collide::collideWithDifferentShape" name="SGE::Logics::Collide::collideWithDifferentShape">
+<area shape="rect" id="node2" href="$d0/d43/class_s_g_e_1_1_object.html#a8eefb2c90d5dda9e182126d3691dd5c6" title="SGE::Object::getShape" alt="" coords="232,5,391,32"/>
+<area shape="rect" id="node3" href="$df/d0d/class_s_g_e_1_1_shape.html#a03c8124772fda32502ba2d6671cee8a9" title="SGE::Shape::getType" alt="" coords="237,56,386,83"/>
+</map>

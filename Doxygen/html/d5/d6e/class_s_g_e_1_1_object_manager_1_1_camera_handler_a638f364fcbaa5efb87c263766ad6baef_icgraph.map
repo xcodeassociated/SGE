@@ -1,0 +1,9 @@
+<map id="SGE::ObjectManager::CameraHandler::updateCamera" name="SGE::ObjectManager::CameraHandler::updateCamera">
+<area shape="rect" id="node2" href="$d6/d53/class_s_g_e_1_1_object_manager_1_1_renderer.html#a6c23bcdf05cf0ee7c75c2a40c901d252" title="SGE::ObjectManager\l::Renderer::renderObjects" alt="" coords="264,5,435,47"/>
+<area shape="rect" id="node3" href="$d6/d53/class_s_g_e_1_1_object_manager_1_1_renderer.html#a75e6e43c258407876bf5c9c1cab175eb" title="SGE::ObjectManager\l::Renderer::render" alt="" coords="483,5,629,47"/>
+<area shape="rect" id="node4" href="$d3/d31/class_s_g_e_1_1_object_manager_1_1_game.html#af4068317ad1a2215d1af057bda4e4f4a" title="SGE::ObjectManager\l::Game::draw" alt="" coords="677,5,824,47"/>
+<area shape="rect" id="node5" href="$d3/d31/class_s_g_e_1_1_object_manager_1_1_game.html#a272f74de47261183df97562143bd73f3" title="SGE::ObjectManager\l::Game::run" alt="" coords="872,5,1019,47"/>
+<area shape="rect" id="node6" href="$d9/d99/class_s_g_e_1_1_object_manager.html#a486ba3aa8531cf6e15a1760aaefae9e7" title="SGE::ObjectManager\l::showScene" alt="" coords="1067,5,1213,47"/>
+<area shape="rect" id="node7" href="$dd/dc9/class_s_g_e_1_1_relay.html#abc1e8d403f6672edb167104b41a12b63" title="SGE::Relay::relayShowScene" alt="" coords="1261,13,1457,39"/>
+<area shape="rect" id="node8" href="$d2/da0/class_s_g_e_1_1_director.html#ae30b2af7750bb13601b684c79b9a1e0f" title="SGE::Director::showScene" alt="" coords="1505,13,1684,39"/>
+</map>

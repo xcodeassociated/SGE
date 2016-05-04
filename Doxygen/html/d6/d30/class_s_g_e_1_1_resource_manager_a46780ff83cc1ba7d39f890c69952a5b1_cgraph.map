@@ -1,0 +1,5 @@
+<map id="SGE::ResourceManager::getTexture" name="SGE::ResourceManager::getTexture">
+<area shape="rect" id="node2" href="$db/d2f/class_s_g_e_1_1_texture_cache.html#a3163861c9b5329ea753df97ac1064318" title="SGE::TextureCache::\lgetTexture" alt="" coords="216,5,363,47"/>
+<area shape="rect" id="node3" href="$da/d28/struct_s_g_e_1_1_image_loader.html#af762503a9cb00ef1d8cc08c3050c91bb" title="SGE::ImageLoader::loadPNG" alt="" coords="411,13,603,39"/>
+<area shape="rect" id="node4" href="$dd/d43/struct_s_g_e_1_1_i_o_manager.html#ad55994c6fedf094fdb038a491d765906" title="SGE::IOManager::readFile\lToBuffer" alt="" coords="651,5,825,47"/>
+</map>

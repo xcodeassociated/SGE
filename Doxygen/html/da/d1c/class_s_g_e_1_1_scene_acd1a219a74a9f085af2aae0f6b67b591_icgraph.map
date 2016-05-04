@@ -1,0 +1,5 @@
+<map id="SGE::Scene::finalize" name="SGE::Scene::finalize">
+<area shape="rect" id="node2" href="$d9/d99/class_s_g_e_1_1_object_manager.html#aaa035a9ebb68d5973acc39c560a1ae28" title="SGE::ObjectManager\l::deleteScene" alt="" coords="196,5,343,47"/>
+<area shape="rect" id="node3" href="$dd/dc9/class_s_g_e_1_1_relay.html#ac6c22875cc48b033b5f0bbc53e1a2116" title="SGE::Relay::relayDeleteScene" alt="" coords="391,13,592,39"/>
+<area shape="rect" id="node4" href="$d2/da0/class_s_g_e_1_1_director.html#aa2dcdf3928776ad1100ae87825af447b" title="SGE::Director::deleteScene" alt="" coords="640,13,823,39"/>
+</map>

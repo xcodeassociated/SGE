@@ -1,0 +1,13 @@
+<map id="C:/Dev/SGE/SimpleGameEngine/SGE/Object/sge_object.hpp" name="C:/Dev/SGE/SimpleGameEngine/SGE/Object/sge_object.hpp">
+<area shape="rect" id="node2" href="$d0/d6d/sge__camera2d_8hpp.html" title="C:/Dev/SGE/SimpleGameEngine\l/SGE/Camera2d/sge_camera2d.hpp" alt="" coords="5,102,236,143"/>
+<area shape="rect" id="node4" href="$de/dff/_s_g_e_8hpp.html" title="C:/Dev/SGE/SimpleGameEngine\l/SGE/SGE.hpp" alt="" coords="281,600,491,641"/>
+<area shape="rect" id="node5" href="$dd/dc3/sge__background__element_8hpp.html" title="C:/Dev/SGE/SimpleGameEngine\l/SGE/Object/BackgroundElement\l/sge_background_element.hpp" alt="" coords="363,95,580,151"/>
+<area shape="rect" id="node10" href="$d0/d79/sge__reactive_8hpp.html" title="C:/Dev/SGE/SimpleGameEngine\l/SGE/Object/Reactive/sge\l_reactive.hpp" alt="" coords="614,95,825,151"/>
+<area shape="rect" id="node3" href="$d9/da1/sge__object__manager_8hpp.html" title="C:/Dev/SGE/SimpleGameEngine\l/SGE/ObjectManager/sge_object\l_manager.hpp" alt="" coords="21,407,234,463"/>
+<area shape="rect" id="node6" href="$d9/d61/sge__level_8hpp.html" title="C:/Dev/SGE/SimpleGameEngine\l/SGE/Level/sge_level.hpp" alt="" coords="366,310,577,351"/>
+<area shape="rect" id="node7" href="$d7/d8c/sge__level__parser_8hpp.html" title="C:/Dev/SGE/SimpleGameEngine\l/SGE/LevelParser/sge_level\l_parser.hpp" alt="" coords="394,407,605,463"/>
+<area shape="rect" id="node8" href="$d0/d68/sge__scene_8hpp.html" title="C:/Dev/SGE/SimpleGameEngine\l/SGE/Scene/sge_scene.hpp" alt="" coords="394,511,605,552"/>
+<area shape="rect" id="node9" href="$dd/d45/sge__world__element_8hpp.html" title="C:/Dev/SGE/SimpleGameEngine\l/SGE/Object/BackgroundElement\l/sge_world_element.hpp" alt="" coords="363,199,580,255"/>
+<area shape="rect" id="node11" href="$d7/dc3/sge__being_8hpp.html" title="C:/Dev/SGE/SimpleGameEngine\l/SGE/Object/Reactive/sge\l_being.hpp" alt="" coords="757,199,967,255"/>
+<area shape="rect" id="node12" href="$d3/dd2/sge__player_8hpp.html" title="C:/Dev/SGE/SimpleGameEngine\l/SGE/Object/Reactive/sge\l_player.hpp" alt="" coords="757,303,967,359"/>
+</map>

@@ -80,11 +80,16 @@ namespace SGE {
             this->Y=y;
         }
         
-        virtual Shape* getShape() noexcept final {
+		virtual glm::vec2 getPosition() const noexcept
+		{
+			return glm::vec2(this->X, this->Y);
+		}
+
+        virtual Shape* getShape(void) noexcept final {
             return this->shape;
         }
 
-		virtual LogicPriority getLock() const noexcept final
+		virtual LogicPriority getLock(void) const noexcept final
 		{
 			return lock;
 		}
