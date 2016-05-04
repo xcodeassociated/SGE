@@ -84,8 +84,8 @@ namespace SGE {
 						rectPos = self->getPosition();
 					}
 					//Quick AABB-AABB test;
-					if (std::abs(circlePos.x - rectPos.x) * 2 < 2 * circle->getRadius() + rect->getWidth()
-						&& std::abs(circlePos.y - rectPos.y) * 2 < 2 * circle->getRadius() + rect->getHeight())
+					if (std::abs(circlePos.x - rectPos.x) < circle->getRadius() + rect->getWidth()*.5f
+						&& std::abs(circlePos.y - rectPos.y) < circle->getRadius() + rect->getHeight()*.5f)
 					{
 						glm::vec2 halfs(rect->getWidth()*.5f,rect->getHeight()*.5f);
 						glm::vec2 difference = circlePos - rectPos;
