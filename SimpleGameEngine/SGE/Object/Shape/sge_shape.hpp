@@ -108,11 +108,6 @@ namespace SGE
 		{
 			this->height = height;
 		}
-
-		float getRadius() const
-		{
-			return std::sqrt(width*width + height*height)*0.5f;
-		}
 	};
 }
 

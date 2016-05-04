@@ -68,6 +68,7 @@ namespace SGE {
 
                 if ((selfShapeType == ShapeType::Circle && oponentShapeType == ShapeType::Rectangle) || (selfShapeType == ShapeType::Rectangle && oponentShapeType == ShapeType::Circle))
                 {
+					//Set up data for collision;
 					if (selfShapeType == ShapeType::Circle)
 					{
 						circle = reinterpret_cast<Circle*>(self->getShape());
@@ -82,15 +83,16 @@ namespace SGE {
 						circlePos = oponent->getPosition();
 						rectPos = self->getPosition();
 					}
+					//Quick AABB-AABB test;
 					if (std::abs(circlePos.x - rectPos.x) * 2 < 2 * circle->getRadius() + rect->getWidth()
 						&& std::abs(circlePos.y - rectPos.y) * 2 < 2 * circle->getRadius() + rect->getHeight())
 					{
-						/* Invalid
-						if (glm::length(circlePos-rectPos) < circle->getRadius+rect->getRadius())
-						{
-							return true;
-						}
-						*/
+						glm::vec2 halfs(rect->getWidth()*.5f,rect->getHeight()*.5f);
+						glm::vec2 difference = circlePos - rectPos;
+						glm::vec2 clamps = glm::clamp(difference, -halfs, halfs);
+						halfs = rectPos + clamps;
+						difference = halfs - circlePos;
+						return glm::length(difference) < circle->getRadius();
 					}
                 }
                 return false;
