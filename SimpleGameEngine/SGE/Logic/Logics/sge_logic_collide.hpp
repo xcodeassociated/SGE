@@ -45,7 +45,7 @@ namespace SGE {
 						Rectangle* selfRect = reinterpret_cast<Rectangle*>(self->getShape());
 						Rectangle* oponRect = reinterpret_cast<Rectangle*>(oponent->getShape());
 						return (std::abs(self->getX() - oponent->getX()) * 2 < selfRect->getWidth() + oponRect->getWidth()
-							&& std::abs(self->getY() - oponent->getY()) * 2 < selfRect->getHeight() + oponRect->getHeight())
+							&& std::abs(self->getY() - oponent->getY()) * 2 < selfRect->getHeight() + oponRect->getHeight());
                     }break;
 
 					case ShapeType::None: {}

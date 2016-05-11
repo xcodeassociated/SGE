@@ -19,12 +19,12 @@ namespace SGE
 		Level(Level&&) = default;
 		Level& operator=(Level&&) = default;
 
-		const size_t& getHeight()
+		const size_t& getHeight() const
 		{
 			return this->height;
 		}
 
-		const size_t& getWidth()
+		const size_t& getWidth() const
 		{
 			return this->width;
 		}
