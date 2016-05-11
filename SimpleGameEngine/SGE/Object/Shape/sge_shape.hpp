@@ -24,7 +24,7 @@ namespace SGE
 		
 		// Shape can be abstract, to prevent creation of shape objects. 
 	public:
-		~Shape(){}
+		virtual ~Shape() {}
 
 		//Should not be overidden
 		ShapeType getType() const
