@@ -109,6 +109,12 @@ namespace SGE
 			this->height = height;
 		}
 	};
+
+	Shape* getBaseTileShape()
+	{
+		static Rectangle tile(64, 64, 0);
+		return &tile;
+	}
 }
 
 #endif // !SGE_SHAPE_HPP

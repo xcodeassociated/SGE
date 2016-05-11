@@ -55,7 +55,7 @@ namespace SGE {
             
         }
         
-        SGE::GLTexture getTexture(const char* texture){
+        SGE::GLTexture* getTexture(const char* texture){
             return this->textureCache->getTexture(texture);
         }
         

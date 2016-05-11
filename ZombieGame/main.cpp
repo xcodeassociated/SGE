@@ -10,7 +10,7 @@
 #include <thread>
 #include <chrono>
 
-#include "MainGameWindow.hpp"
+//#include "MainGameWindow.hpp"
 
 #include "../SimpleGameEngine/SGE/SGE.hpp"
 
@@ -18,16 +18,16 @@
 
 /* ===================================================================================== */
 
-std::function<void(void)> nonSGE = []{
-    float gameBox[] = { SCREEN_WIDTH, SCREEN_HEIGHT };
-    MainGameWindow* mainWindow = new MainGameWindow(gameBox[0], gameBox[1]);
-
-    mainWindow->init();
-    mainWindow->show();
-
-    mainWindow->run();
-    delete mainWindow;
-};
+//std::function<void(void)> nonSGE = []{
+//    float gameBox[] = { SCREEN_WIDTH, SCREEN_HEIGHT };
+//    MainGameWindow* mainWindow = new MainGameWindow(gameBox[0], gameBox[1]);
+//
+//    mainWindow->init();
+//    mainWindow->show();
+//
+//    mainWindow->run();
+//    delete mainWindow;
+//};
 
 /* ===================================================================================== */
 
@@ -68,6 +68,10 @@ public:
 
 int main(int argc, char * argv[]) {
     std::cout.setf(std::ios::boolalpha);
+
+//	SGE::Rectangle* tile = (SGE::Rectangle*)(SGE::getBaseTileShape());
+//	tile->setHeight(256); //This works nicely
+//	tile->setWidth(256);
 
 	SGE::Director* director = SGE::Director::getDirector(1024,768);
 	SGE::ObjectManager* manager = SGE::ObjectManager::getManager();

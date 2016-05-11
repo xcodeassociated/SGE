@@ -5,7 +5,8 @@
 #include "../../TextureLoader/sge_glTexture.hpp"
 
 namespace SGE {
-    
+	Shape* getBaseTileShape();
+
     class BackgroundElement : public Object{
 	protected:
 		std::string path;

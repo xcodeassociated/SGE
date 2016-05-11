@@ -89,7 +89,6 @@ namespace SGE
 
 		static glm::vec4 uv(0.0f, 0.0f, 1.0f, 1.0f);
 		static SGE::Color color(255, 255, 255, 255);
-		static const int TILE_WIDTH = 64;
 		
 		std::vector<BackgroundElement>& background = this->current->getLevel().getBackground();
         std::vector<WorldElement>& world = this->current->getLevel().getWorld();
@@ -103,19 +102,21 @@ namespace SGE
 				this->sceneBatch->draw(destRect, uv, texture.id, 0.0f, color);
 			}
 		}*/
-        
-		std::for_each(background.begin(),background.end(),[=](BackgroundElement& e){
-				glm::vec4 destRect(e.getX() * TILE_WIDTH, e.getY() * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
-				//if (e.getPath().compare(".") == 0) return;
-				//GLTexture texture = this->rManager->getTexture(e.getPath().c_str());
+		Rectangle* tile = reinterpret_cast<Rectangle*>(getBaseTileShape());
+		const float width = tile->getWidth();
+		const float height = tile->getHeight();
 
-				this->sceneBatch->draw(destRect, uv, e.texture->id, 0.0f, color);
-			});
+		std::for_each(background.begin(),background.end(),[=](BackgroundElement& e){
+			glm::vec4 destRect(e.getX() - width*.5f , e.getY()-height*.5f, width, height);
+			//if (e.getPath().compare(".") == 0) return;
+			//GLTexture texture = this->rManager->getTexture(e.getPath().c_str());
+			this->sceneBatch->draw(destRect, uv, e.texture->id, 0.0f, color);
+		});
         
         std::for_each(world.begin(),world.end(),[=](WorldElement& e){
-            glm::vec4 destRect(e.getX() * TILE_WIDTH, e.getY() * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
+			glm::vec4 destRect(e.getX() - width*.5f, e.getY() - height*.5f, width, height);
             //if (e.getPath().compare(".") == 0) return;
-            //GLTexture texture = this->rManager->getTexture(e.getPath().c_str());
+            e.texture = this->rManager->getTexture(e.getPath().c_str());
             this->sceneBatch->draw(destRect, uv, e.texture->id, 0.0f, color);
         });
 	}

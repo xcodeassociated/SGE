@@ -1,6 +1,7 @@
 #ifndef sge_object_h
 #define sge_object_h
 
+#include "../ThirdParty_Librarys/glm/vec2.hpp" //Forgot to include it before. 
 #include "../ID/sge_id.hpp"
 #include "Shape/sge_shape.hpp"
 
