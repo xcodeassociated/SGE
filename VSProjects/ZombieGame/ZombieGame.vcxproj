@@ -101,6 +101,7 @@
       <AdditionalOptions> -D_SCL_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
       <DisableIntelLangExtensions>true</DisableIntelLangExtensions>
       <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <DisableSpecificWarnings>663;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -121,6 +122,7 @@
       <BrowseInformation>true</BrowseInformation>
       <DisableIntelLangExtensions>true</DisableIntelLangExtensions>
       <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <DisableSpecificWarnings>663;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -144,6 +146,7 @@
       <SDLCheck>true</SDLCheck>
       <DisableIntelLangExtensions>true</DisableIntelLangExtensions>
       <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <DisableSpecificWarnings>663;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -166,6 +169,7 @@
       <SDLCheck>true</SDLCheck>
       <DisableIntelLangExtensions>true</DisableIntelLangExtensions>
       <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <DisableSpecificWarnings>663;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

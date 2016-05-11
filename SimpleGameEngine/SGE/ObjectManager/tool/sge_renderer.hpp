@@ -17,11 +17,6 @@ namespace SGE
         ;
 	}
 
-	void ObjectManager::Renderer::setLevel(Level* l)
-	{
-		this->level = l;
-	}
-
 	void ObjectManager::Renderer::initResourceManager() {
 		this->rManager = ResourceManager::getSingleton();
 	}
@@ -54,6 +49,8 @@ namespace SGE
 	}
 
 	void ObjectManager::Renderer::render() {
+		this->current = this->oManager->currentScene;
+
 		glClearDepth(1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -88,16 +85,14 @@ namespace SGE
 	}
 
 	void ObjectManager::Renderer::renderLevel() {
-		assert(this->level);
+		assert(this->current);
 
 		static glm::vec4 uv(0.0f, 0.0f, 1.0f, 1.0f);
 		static SGE::Color color(255, 255, 255, 255);
 		static const int TILE_WIDTH = 64;
 		
-		const size_t X = this->level->getWidth();
-		const size_t Y = this->level->getHeight();
-		std::vector<BackgroundElement>& background = this->level->getBackground();
-        std::vector<WorldElement>& world = this->level->getWorld();
+		std::vector<BackgroundElement>& background = this->current->getLevel().getBackground();
+        std::vector<WorldElement>& world = this->current->getLevel().getWorld();
 
 		/*for (int y = 0; y < Y; ++y) {
 			for (int x = 0; x < X; ++x) {
@@ -111,16 +106,17 @@ namespace SGE
         
 		std::for_each(background.begin(),background.end(),[=](BackgroundElement& e){
 				glm::vec4 destRect(e.getX() * TILE_WIDTH, e.getY() * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
-				if (e.getPath().compare(".") == 0) return;
-				GLTexture texture = this->rManager->getTexture(e.getPath().c_str());
-				this->sceneBatch->draw(destRect, uv, texture.id, 0.0f, color);
+				//if (e.getPath().compare(".") == 0) return;
+				//GLTexture texture = this->rManager->getTexture(e.getPath().c_str());
+
+				this->sceneBatch->draw(destRect, uv, e.texture->id, 0.0f, color);
 			});
         
         std::for_each(world.begin(),world.end(),[=](WorldElement& e){
             glm::vec4 destRect(e.getX() * TILE_WIDTH, e.getY() * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
-            if (e.getPath().compare(".") == 0) return;
-            GLTexture texture = this->rManager->getTexture(e.getPath().c_str());
-            this->sceneBatch->draw(destRect, uv, texture.id, 0.0f, color);
+            //if (e.getPath().compare(".") == 0) return;
+            //GLTexture texture = this->rManager->getTexture(e.getPath().c_str());
+            this->sceneBatch->draw(destRect, uv, e.texture->id, 0.0f, color);
         });
 	}
 

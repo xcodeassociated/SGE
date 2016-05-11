@@ -50,15 +50,14 @@ namespace SGE {
 			ResourceManager* rManager = nullptr;
             CameraHandler* camera_handler = nullptr;
 			Shader* shaderProgram = nullptr;
-			Level* level = nullptr;
             WindowManager* window_manager = nullptr;
+			Scene* current = nullptr;
             
             void renderLevel(void);
             void renderObjects(void);
             
 		public:
 			Renderer(std::pair<int, int>, ObjectManager*, WindowManager*, CameraHandler*) noexcept;
-			void setLevel(Level*);
 			void initResourceManager(void);
 			void initShader(void);
 			void spriteBatchInit(void);
@@ -210,8 +209,6 @@ namespace SGE {
 			this->renderer->initShader();
 			this->renderer->initResourceManager();
 			this->renderer->spriteBatchInit();
-            
-			this->renderer->setLevel( &(s.scene->getLevel()) );
 
             s.scene->onDraw();
             
