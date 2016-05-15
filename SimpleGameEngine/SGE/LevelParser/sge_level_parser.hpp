@@ -8,12 +8,14 @@
 
 //#include "../Object/Shape/sge_shape.hpp"
 #include "../Level/sge_level.hpp"
+//#include "../ObjectManager/sge_object_manager.hpp"
 
 namespace SGE {
 	class LevelParser {
 		//const char* path;
-		std::map<char, std::string> levelMask;
+        std::map<char, std::string> levelMask;
 		std::vector<std::string> levelData;
+        
 	public:
 		LevelParser(const char* path, const std::map<char, std::string>& mask) : levelMask(mask)
 		{

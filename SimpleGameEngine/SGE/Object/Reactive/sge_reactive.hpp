@@ -8,16 +8,10 @@ namespace SGE {
     class Reactive : public Object{
     protected:
         double lifeTime = 0;
-        std::string texture_path;
         
     public:
-        Reactive(std::string s) : texture_path(s) {
-            ;
-        }
+        using Object::Object;
         
-        virtual const std::string& getPath(void) const noexcept final {
-            return this->getPath();
-        }
     };
     
 }

@@ -110,14 +110,14 @@ namespace SGE
 			glm::vec4 destRect(e.getX() - width*.5f , e.getY()-height*.5f, width, height);
 			//if (e.getPath().compare(".") == 0) return;
 			//GLTexture texture = this->rManager->getTexture(e.getPath().c_str());
-			this->sceneBatch->draw(destRect, uv, e.texture->id, 0.0f, color);
+			this->sceneBatch->draw(destRect, uv, e.texture.id, 0.0f, color);
 		});
         
         std::for_each(world.begin(),world.end(),[=](WorldElement& e){
 			glm::vec4 destRect(e.getX() - width*.5f, e.getY() - height*.5f, width, height);
             //if (e.getPath().compare(".") == 0) return;
             e.texture = this->rManager->getTexture(e.getPath().c_str());
-            this->sceneBatch->draw(destRect, uv, e.texture->id, 0.0f, color);
+            this->sceneBatch->draw(destRect, uv, e.texture.id, 0.0f, color);
         });
 	}
 

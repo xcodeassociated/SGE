@@ -21,7 +21,7 @@ namespace SGE {
             
         }
     };
-        
+    
 	enum class LogicPriority
 	{
 		Highest = 0,
@@ -69,7 +69,7 @@ namespace SGE {
 		virtual ~Object() = 0;
 		using ID = ObjectID;
         
-        GLTexture* texture = nullptr;
+        GLTexture texture;
         
         virtual float& getX() noexcept final
         {

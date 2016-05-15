@@ -5,6 +5,7 @@
 #include "../Sprite/sge_vertex.hpp"
 #include "../Object/BackgroundElement/sge_background_element.hpp"
 #include "../LevelParser/sge_level_parser.hpp"
+
 #include <map>
 #include <string>
 #include <vector>
@@ -56,7 +57,10 @@ namespace SGE {
 		}
 
 		virtual void finalize() = 0;
-		virtual void onDraw() = 0;
+        virtual void onDraw() = 0;
+        
+    protected:
+        ;; //??
     };
     
 }

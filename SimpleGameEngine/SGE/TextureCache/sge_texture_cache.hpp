@@ -54,20 +54,20 @@ namespace SGE {
             }
         }
       
-        SGE::GLTexture* getTexture(const char* _key){
+        SGE::GLTexture getTexture(const char* _key){
             std::map<std::string, SGE::GLTexture>::iterator mit = this->textureMap.find(std::string(_key));
             if (mit == this->textureMap.end()){
                 GLTexture newTexture = SGE::ImageLoader::loadPNG(_key);
                 
-                auto pair = this->textureMap.insert(std::make_pair(_key, newTexture));
+                this->textureMap.insert(std::make_pair(_key, newTexture));
                 
                 //std::cout << ">>    Loaded Non-Cache Texture!" << std::endl;
 
-                return &pair.first->second;
+                return newTexture;
             }
             
             //std::cout << ">>    Used Cache Texture!" << std::endl;
-            return &mit->second;
+            return mit->second;
         }
     };
 

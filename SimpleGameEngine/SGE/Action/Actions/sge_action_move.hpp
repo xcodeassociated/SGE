@@ -45,7 +45,7 @@ namespace SGE {
             }
             
         public:
-            void setObjectManager(ActionHandler* _action_handler) noexcept {
+            void setObjectManager(ActionHandler* _action_handler) noexcept override {
                 this->action_handler = _action_handler;
             }
         };

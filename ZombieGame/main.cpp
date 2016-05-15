@@ -66,6 +66,16 @@ public:
 	}
 };
 
+class TestObject : public SGE::Reactive {
+    
+public:
+    TestObject() : SGE::Reactive(0, 0, true, new SGE::Circle(32)) {
+        
+    }
+    
+    ~TestObject() {}
+};
+
 int main(int argc, char * argv[]) {
     std::cout.setf(std::ios::boolalpha);
 
@@ -94,6 +104,26 @@ int main(int argc, char * argv[]) {
     manager->mapAction(B2);
     manager->mapAction(B3);
     manager->mapAction(B4);
+    
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+    SGE::Object::ID testObj0 = manager->addObject(new TestObject, S1);
+    
+//    SGE::Action::ID AW = manager->addAction(new SGE::ACTION::Move(0, 1000.f, 0));
+//    SGE::Action::ID AA = manager->addAction(new SGE::ACTION::Move(-1000.f, 0, 0));
+//    SGE::Action::ID AS = manager->addAction(new SGE::ACTION::Move(0, -1000.f, 0));
+//    SGE::Action::ID AD = manager->addAction(new SGE::ACTION::Move(1000.f, 0, 0));
+    
+    SGE::ActionBinder tb0(testObj0, AW, SGE::Key::Up);
+    SGE::ActionBinder tb1(testObj0, AS, SGE::Key::Down);
+    SGE::ActionBinder tb2(testObj0, AA, SGE::Key::Left);
+    SGE::ActionBinder tb3(testObj0, AD, SGE::Key::Right);
+    
+    manager->mapAction(tb0);
+    manager->mapAction(tb1);
+    manager->mapAction(tb2);
+    manager->mapAction(tb3);
+    
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
     
     
 	director->showScene(S1);
