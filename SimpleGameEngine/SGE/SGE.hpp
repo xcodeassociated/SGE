@@ -11,6 +11,9 @@
 #include "Relay/sge_relay.hpp"
 #include "Path/sge_path.hpp"
 
+//Actions
+#include "Action/Actions/sge_action_move.hpp"
+
 //Logic includes
 #include "Logic/Logics/Colliders/sge_logic_collide_basic.hpp"
 #include "Logic/Logics/Colliders/sge_logic_collide_group.hpp"

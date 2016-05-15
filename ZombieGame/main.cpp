@@ -83,9 +83,8 @@ public:
 class TestObject : public SGE::Reactive {
     
 public:
-    TestObject() : SGE::Reactive(0, 0, true, new SGE::Circle(32)) {
-        
-    }
+    TestObject() : SGE::Reactive(64,64, true, new SGE::Circle(32)) {}
+    TestObject(const float x, const float y) : SGE::Reactive(x,y, true, new SGE::Circle(32)) {}
     
     ~TestObject() {}
 };
@@ -121,7 +120,8 @@ int main(int argc, char * argv[]) {
     manager->mapAction(B4);
     
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-    SGE::Object::ID testObj0 = manager->addObject(new TestObject, S1, PATH"ZombieGame/Resources/Textures/circle.png");
+    SGE::Object::ID testObj0 = manager->addObject(new TestObject(128,128), S1, PATH"ZombieGame/Resources/Textures/circle.png");
+    SGE::Object::ID testObj1 = manager->addObject(new TestObject, S1, PATH"ZombieGame/Resources/Textures/circle.png");
     
     SGE::Action::ID oW = manager->addAction(new SGE::ACTION::Move(0, 4.f, 0));
     SGE::Action::ID oA = manager->addAction(new SGE::ACTION::Move(-4.f, 0, 0));
@@ -140,11 +140,12 @@ int main(int argc, char * argv[]) {
     
     SGE::Action::ID Signal = manager->addAction(new Sig());
     
-    auto L1 = manager->addLogic(new SGE::Logics::BasicLevelCollider(manager->getScenePtr(S1)->getLevel().getWorld(),
-                      [Signal](SGE::Object::ID a,SGE::Object::ID b)->SGE::Action::ID{
-                          return Signal;
-                      }));
+    auto L1 = manager->addLogic(new SGE::Logics::BasicLevelCollider(manager->getScenePtr(S1)->getLevel().getWorld(),&SGE::Logics::Collide::CircleToRectCollisionVec));
+    auto L2 = manager->addLogic(new SGE::Logics::BasicCollider(testObj1,&SGE::Logics::Collide::CircleCollisionVec));
+
     director->addLogicBinder(S1, testObj0, L1);
+    director->addLogicBinder(S1, testObj0, L2);
+    
     
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
     

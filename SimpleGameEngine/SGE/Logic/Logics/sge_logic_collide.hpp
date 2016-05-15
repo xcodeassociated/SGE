@@ -20,10 +20,41 @@ namespace SGE {
         class Collide : public Logic{
         public:
             using collisionFunc = std::function<Action::ID(Object::ID, Object::ID)>;
-
-        protected:
             
-
+            static ActionID RectangleCollisionVec(Object::ID still ,Object::ID toMove)
+            {
+                float vx = toMove.getObject()->getX()-still.getObject()->getX();
+                float vy = toMove.getObject()->getY()-still.getObject()->getY();
+                float penx = (reinterpret_cast<Rectangle*>(toMove.getObject()->getShape())->getWidth()+reinterpret_cast<Rectangle*>(still.getObject()->getShape())->getWidth())*0.5f-std::abs(vx);
+                float peny = (reinterpret_cast<Rectangle*>(toMove.getObject()->getShape())->getHeight()+reinterpret_cast<Rectangle*>(still.getObject()->getShape())->getHeight())*0.5f-std::abs(vy);
+                if(penx<peny)
+                    return ActionID(0,new ACTION::Move((vx>0?penx:-penx),0,0));
+                else
+                    return ActionID(0,new ACTION::Move(0,(vy>0?peny:-peny),0));
+            }
+            
+            static ActionID CircleCollisionVec(Object::ID still ,Object::ID toMove)
+            {
+                glm::vec2 pen = toMove.getObject()->getPosition()-still.getObject()->getPosition();
+                float dist = reinterpret_cast<Circle*>(toMove.getObject()->getShape())->getRadius()+reinterpret_cast<Circle*>(still.getObject()->getShape())->getRadius();
+                float l = glm::length(pen);
+                pen*=( (dist-l)/l );
+                return ActionID(0,new ACTION::Move(pen.x,pen.y,0));
+            }
+            
+            static ActionID CircleToRectCollisionVec(Object::ID still ,Object::ID toMove)
+            {
+                glm::vec2 halfs(reinterpret_cast<Rectangle*>(still.getObject()->getShape())->getWidth()*.5f,reinterpret_cast<Rectangle*>(still.getObject()->getShape())->getHeight()*.5f);
+                glm::vec2 difference = toMove.getObject()->getPosition() - still.getObject()->getPosition();
+                glm::vec2 clamps = glm::clamp(difference, -halfs, halfs);
+                halfs = still.getObject()->getPosition() + clamps;
+                difference = toMove.getObject()->getPosition() - halfs;
+                const float l = glm::length(difference);
+                difference *= ((reinterpret_cast<Circle*>(toMove.getObject()->getShape())->getRadius()-l)/l );
+                return ActionID(0,new ACTION::Move(difference.x,difference.y,0));
+            }
+            
+        protected:
 
             virtual bool collideWithSameShape(Object* self, Object* oponent){
                 
@@ -91,7 +122,7 @@ namespace SGE {
                         glm::vec2 difference = circlePos - rectPos;
                         glm::vec2 clamps = glm::clamp(difference, -halfs, halfs);
                         halfs = rectPos + clamps;
-                        difference = halfs - circlePos;
+                        difference = circlePos - halfs;
                         return glm::length(difference) < circle->getRadius();
                     }
                 }
