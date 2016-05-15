@@ -69,7 +69,7 @@ public:
 class TestObject : public SGE::Reactive {
     
 public:
-    TestObject() : SGE::Reactive(0, 0, true, new SGE::Circle(32)) {
+    TestObject() : SGE::Reactive(0, 0, true, new SGE::Circle(512)) {
         
     }
     
@@ -106,7 +106,7 @@ int main(int argc, char * argv[]) {
     manager->mapAction(B4);
     
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-    SGE::Object::ID testObj0 = manager->addObject(new TestObject, S1);
+    SGE::Object::ID testObj0 = manager->addObject(new TestObject, S1, PATH"ZombieGame/Resources/Textures/circle.png");
     
 //    SGE::Action::ID AW = manager->addAction(new SGE::ACTION::Move(0, 1000.f, 0));
 //    SGE::Action::ID AA = manager->addAction(new SGE::ACTION::Move(-1000.f, 0, 0));

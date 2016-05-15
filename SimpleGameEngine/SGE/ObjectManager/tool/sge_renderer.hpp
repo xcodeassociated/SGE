@@ -17,9 +17,6 @@ namespace SGE
         ;
 	}
 
-	void ObjectManager::Renderer::initResourceManager() {
-		this->rManager = ResourceManager::getSingleton();
-	}
 
 	void ObjectManager::Renderer::initShader() {
 		this->shaderProgram = new Shader();
@@ -116,13 +113,46 @@ namespace SGE
         std::for_each(world.begin(),world.end(),[=](WorldElement& e){
 			glm::vec4 destRect(e.getX() - width*.5f, e.getY() - height*.5f, width, height);
             //if (e.getPath().compare(".") == 0) return;
-            e.texture = this->rManager->getTexture(e.getPath().c_str());
+            e.texture = this->oManager->rManager->getTexture(e.getPath().c_str());
             this->sceneBatch->draw(destRect, uv, e.texture.id, 0.0f, color);
         });
 	}
 
 	void ObjectManager::Renderer::renderObjects() {
         this->camera_handler->updateCamera();
+        
+        static glm::vec4 uv(0.0f, 0.0f, 1.0f, 1.0f);
+        static SGE::Color color(255, 255, 255, 255);
+        
+        std::vector<ObjectID>& objects = this->current->getObjects();
+        Rectangle* rect = nullptr;
+        Circle* circle = nullptr;
+        
+//        glm::vec4 destRect(id.obj->getX() - rect->getWidth()*.5f, id.obj->getY() - rect->getHeight()*.5f, rect->getWidth(), rect->getHeight());
+        glm::vec4 destRect(.0f,.0f,.0f,.0f);
+        
+        for(auto id : objects)
+        {
+            switch (id.obj->getShape()->getType()) {
+                case ShapeType::Circle:
+                {
+                    circle=reinterpret_cast<Circle*>(id.obj->getShape());
+                    const float radius = circle->getRadius();
+                    destRect = {id.obj->getX() - radius, id.obj->getY() - radius, radius, radius};
+                    this->objectBatch->draw(destRect, uv, id.obj->texture.id, .0f, color);
+                }break;
+                    
+                case ShapeType::Rectangle:
+                {
+                    rect=reinterpret_cast<Rectangle*>(id.obj->getShape());
+                    destRect = {id.obj->getX() - rect->getWidth()*.5f, id.obj->getY() - rect->getHeight()*.5f, rect->getWidth(), rect->getHeight()};
+                    this->objectBatch->draw(destRect, uv, id.obj->texture.id, .0f, color);
+                }break;
+                    
+                default:
+                    break;
+            }
+        }
 	}
 }
 

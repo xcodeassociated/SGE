@@ -46,7 +46,6 @@ namespace SGE {
 			ObjectManager* oManager = nullptr;
 			SpriteBatch* sceneBatch = nullptr;
 			SpriteBatch* objectBatch = nullptr;
-			ResourceManager* rManager = nullptr;
             CameraHandler* camera_handler = nullptr;
 			Shader* shaderProgram = nullptr;
             WindowManager* window_manager = nullptr;
@@ -57,7 +56,6 @@ namespace SGE {
             
 		public:
 			Renderer(std::pair<int, int>, ObjectManager*, WindowManager*, CameraHandler*) noexcept;
-			void initResourceManager(void);
 			void initShader(void);
 			void spriteBatchInit(void);
 			void render(void);
@@ -132,6 +130,7 @@ namespace SGE {
         };
 
 	private:
+        ResourceManager* rManager = ResourceManager::getSingleton();
 		bool OnScene = false;
 		long counter = 1;
 		std::vector<ObjectID> objects;
@@ -157,12 +156,14 @@ namespace SGE {
 			std::pair<int, int> resolution = this->relay->relayGetResolution();
 
 			this->window_manager = new WindowManager(resolution, this);
-
+            this->window_manager->createWindow();
+            
 			this->camera_handler = new CameraHandler(resolution, this);
 			this->camera_handler->setPosition(this->camera_handler->getScreenToWorld(0, 0));
 			this->camera_handler->setScale(.05f);
 
 			this->renderer = new Renderer(resolution, this, this->window_manager, this->camera_handler);
+           // this->renderer->initShader();
 			this->game = new Game(this, this->action_handler);
 
 			this->input_handler = new InputHandler(this);
@@ -199,14 +200,15 @@ namespace SGE {
 			this->currentScene = s.scene;
 			auto sceneObjectsIt = this->sceneObjects.find(s);
 			if (sceneObjectsIt == this->sceneObjects.end()) throw std::runtime_error("Scene not Loaded");
-			
+            s.scene->BindObjects(&sceneObjectsIt->second);
+            
 			this->OnScene = true;
 
-			this->window_manager->createWindow();
+			//this->window_manager->createWindow();
 			this->window_manager->showWindow();
 
 			this->renderer->initShader();
-			this->renderer->initResourceManager();
+
 			this->renderer->spriteBatchInit();
 
             s.scene->onDraw();
@@ -217,7 +219,7 @@ namespace SGE {
 
 		void swapScene(SceneID s)
 		{
-
+            //TODO
 		}
 		
 		Level& getSceneData(SceneID s)
@@ -284,16 +286,19 @@ namespace SGE {
 			}
 		}
 
-		Object::ID addObject(Object* o)
+        Object::ID addObject(Object* o, std::string path = "")
 		{
 			ObjectID id(counter++,o);
 			this->objects.emplace_back(id);
+            
+            if(!path.empty()) o->texture = this->rManager->getTexture(path.c_str());
+            
 			return id;
 		}
 
-		Object::ID addObject(Object* o, Scene::ID s)
+        Object::ID addObject(Object* o, Scene::ID s, std::string path = "")
 		{
-			ObjectID id(counter++);
+			ObjectID id(counter++,o);
 			this->objects.emplace_back(id);
 			auto ObjectVectorIt = this->sceneObjects.find(s);
 			if (ObjectVectorIt != this->sceneObjects.end())
@@ -304,6 +309,9 @@ namespace SGE {
 			{
 				throw std::runtime_error("Scene does not exist"); //Todo: replace
 			}
+            
+            if(!path.empty()) o->texture = this->rManager->getTexture(path.c_str());
+            
 			return id;
 		}
 		

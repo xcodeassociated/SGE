@@ -18,9 +18,7 @@ namespace SGE {
     
     void ObjectManager::WindowManager::createWindow(void) noexcept{
         if (SDL_Init(SDL_INIT_EVERYTHING) != 0) throw "error:    SDL_init";
-    }
-    
-    void ObjectManager::WindowManager::showWindow(void) noexcept{
+        
         this->window = SDL_CreateWindow("SGE", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, this->width, this->height, SDL_WINDOW_OPENGL);
         
         if (this->window == nullptr)
@@ -36,7 +34,7 @@ namespace SGE {
         GLenum glewCheck = glewInit();
         if (glewCheck != GLEW_OK) throw "";
         
-           /* !!!! sene should be able to pick a background color !!!*/ glClearColor(.7f, .7f, .7f, 1.0f);
+        /* !!!! sene should be able to pick a background color !!!*/ glClearColor(.7f, .7f, .7f, 1.0f);
         
         SDL_GL_SetSwapInterval(1);
         
@@ -53,6 +51,10 @@ namespace SGE {
         glGenVertexArrays(1, &VertexArrayID);
         glBindVertexArray(VertexArrayID);
         
+        
+    }
+    
+    void ObjectManager::WindowManager::showWindow(void) noexcept{
         SDL_ShowWindow(this->window);
     }
     

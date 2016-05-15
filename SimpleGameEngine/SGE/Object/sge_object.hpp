@@ -13,13 +13,6 @@ namespace SGE {
         GLuint id;
         unsigned int width;
         unsigned int height;
-        
-        GLTexture(){
-            
-        }
-        ~GLTexture(){
-            
-        }
     };
     
 	enum class LogicPriority
@@ -69,7 +62,7 @@ namespace SGE {
 		virtual ~Object() = 0;
 		using ID = ObjectID;
         
-        GLTexture texture;
+        GLTexture texture = {0,0,0};
         
         virtual float& getX() noexcept final
         {

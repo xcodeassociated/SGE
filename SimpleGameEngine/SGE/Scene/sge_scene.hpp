@@ -29,9 +29,11 @@ namespace SGE {
     class Scene{
 	private:
 		using LogicVector = std::vector<Logic::Binder>;
-
+        using ObjectVector= std::vector<ObjectID>;
+        
 		Level level;
 		LogicVector Logics;
+        ObjectVector* Objects = nullptr;
 
 	public:
 		bool TextureLoaded = false;
@@ -55,6 +57,16 @@ namespace SGE {
 		{
 			return this->level;
 		}
+        
+        virtual void BindObjects(ObjectVector* obj) final
+        {
+            this->Objects=obj;
+        }
+        
+        virtual ObjectVector& getObjects() final
+        {
+            return *this->Objects;
+        }
 
 		virtual void finalize() = 0;
         virtual void onDraw() = 0;

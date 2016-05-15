@@ -19,7 +19,7 @@ namespace SGE{
     struct ImageLoader{
         
         static SGE::GLTexture loadPNG(const char* filePath) {
-            GLTexture texture = {};
+            GLTexture texture = {0,0,0};
             
             std::vector<unsigned char> in;
             std::vector<unsigned char> out;
