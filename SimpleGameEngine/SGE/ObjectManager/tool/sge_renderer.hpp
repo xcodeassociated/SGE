@@ -138,7 +138,7 @@ namespace SGE
                 {
                     circle=reinterpret_cast<Circle*>(id.obj->getShape());
                     const float radius = circle->getRadius();
-                    destRect = {id.obj->getX() - radius, id.obj->getY() - radius, radius, radius};
+                    destRect = {id.obj->getX() - radius, id.obj->getY() - radius, radius*2.f, radius*2.f};
                     this->objectBatch->draw(destRect, uv, id.obj->texture.id, .0f, color);
                 }break;
                     

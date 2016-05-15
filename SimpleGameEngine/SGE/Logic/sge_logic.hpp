@@ -90,6 +90,8 @@ namespace SGE {
         
     };
     
+    Logic::~Logic(){}
+    
 	ActionHandler* Logic::action_handler = nullptr;
 }
 

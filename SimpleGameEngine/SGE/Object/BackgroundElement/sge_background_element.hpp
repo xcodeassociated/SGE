@@ -11,7 +11,7 @@ namespace SGE {
 		std::string path;
 
 	public:
-		BackgroundElement(float x,float y,std::string path): Object(x,y,true), path(path)
+		BackgroundElement(float x,float y,std::string path): Object(x,y,true,getBaseTileShape()), path(path)
 		{
 		}
 

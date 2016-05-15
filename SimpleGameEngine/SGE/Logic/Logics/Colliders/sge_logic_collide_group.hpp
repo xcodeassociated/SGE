@@ -15,7 +15,7 @@ namespace SGE {
     
     namespace Logics{
         
-        class BasicColliderGroup : Collide {
+        class BasicColliderGroup : public Collide {
             std::vector<ObjectID> objs;
             
         protected:

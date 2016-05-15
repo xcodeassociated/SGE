@@ -61,6 +61,50 @@ namespace SGE {
                 
                 if (selfShapeType == ShapeType::None || oponentShapeType == ShapeType::None)
                     return false;
+                Circle* circle = nullptr;
+                glm::vec2 circlePos;
+                Rectangle* rect = nullptr;
+                glm::vec2 rectPos;
+                
+                if ((selfShapeType == ShapeType::Circle && oponentShapeType == ShapeType::Rectangle) || (selfShapeType == ShapeType::Rectangle && oponentShapeType == ShapeType::Circle))
+                {
+                    //Set up data for collision;
+                    if (selfShapeType == ShapeType::Circle)
+                    {
+                        circle = reinterpret_cast<Circle*>(self->getShape());
+                        rect = reinterpret_cast<Rectangle*>(oponent->getShape());
+                        circlePos = self->getPosition();
+                        rectPos = oponent->getPosition();
+                    }
+                    else
+                    {
+                        circle = reinterpret_cast<Circle*>(oponent->getShape());
+                        rect = reinterpret_cast<Rectangle*>(self->getShape());
+                        circlePos = oponent->getPosition();
+                        rectPos = self->getPosition();
+                    }
+                    //Quick AABB-AABB test;
+                    if (std::abs(circlePos.x - rectPos.x) < circle->getRadius() + rect->getWidth()*.5f
+                        && std::abs(circlePos.y - rectPos.y) < circle->getRadius() + rect->getHeight()*.5f)
+                    {
+                        glm::vec2 halfs(rect->getWidth()*.5f,rect->getHeight()*.5f);
+                        glm::vec2 difference = circlePos - rectPos;
+                        glm::vec2 clamps = glm::clamp(difference, -halfs, halfs);
+                        halfs = rectPos + clamps;
+                        difference = halfs - circlePos;
+                        return glm::length(difference) < circle->getRadius();
+                    }
+                }
+                return false;
+            }
+            
+            virtual bool collideWithEdgesDifferentShape(Object* self, Object* oponent){
+                
+                ShapeType selfShapeType = self->getShape()->getType();
+                ShapeType oponentShapeType = oponent->getShape()->getType();
+                
+                if (selfShapeType == ShapeType::None || oponentShapeType == ShapeType::None)
+                    return false;
 				Circle* circle = nullptr;
 				glm::vec2 circlePos;
 				Rectangle* rect = nullptr;
@@ -84,15 +128,15 @@ namespace SGE {
 						rectPos = self->getPosition();
 					}
 					//Quick AABB-AABB test;
-					if (std::abs(circlePos.x - rectPos.x) < circle->getRadius() + rect->getWidth()*.5f
-						&& std::abs(circlePos.y - rectPos.y) < circle->getRadius() + rect->getHeight()*.5f)
+					if (std::abs(circlePos.x - rectPos.x) <= circle->getRadius() + rect->getWidth()*.5f
+						&& std::abs(circlePos.y - rectPos.y) <= circle->getRadius() + rect->getHeight()*.5f)
 					{
 						glm::vec2 halfs(rect->getWidth()*.5f,rect->getHeight()*.5f);
 						glm::vec2 difference = circlePos - rectPos;
 						glm::vec2 clamps = glm::clamp(difference, -halfs, halfs);
 						halfs = rectPos + clamps;
 						difference = halfs - circlePos;
-						return glm::length(difference) < circle->getRadius();
+						return glm::length(difference) <= circle->getRadius();
 					}
                 }
                 return false;

@@ -160,7 +160,7 @@ namespace SGE {
             
 			this->camera_handler = new CameraHandler(resolution, this);
 			this->camera_handler->setPosition(this->camera_handler->getScreenToWorld(0, 0));
-			this->camera_handler->setScale(.05f);
+			this->camera_handler->setScale(.5f);
 
 			this->renderer = new Renderer(resolution, this, this->window_manager, this->camera_handler);
            // this->renderer->initShader();
@@ -232,20 +232,6 @@ namespace SGE {
             return this->camera_handler->getCamera();
         }
         
-        Object* getObjectPtr(ObjectID id)
-        {
-            return id.obj;
-        }
-
-		Scene* getScenePtr(SceneID id)
-		{
-			return id.scene;
-		}
-
-		Logic* getLogicPtr(LogicID id)
-		{
-			return id.logic;
-		}
         
 //        void registerCamera(Camera2d* c)
 //        {
@@ -258,7 +244,21 @@ namespace SGE {
 			return manager; //Can be converted to ARC later.
 		}
 
-
+        Object* getObjectPtr(ObjectID id)
+        {
+            return id.obj;
+        }
+        
+        Scene* getScenePtr(SceneID id)
+        {
+            return id.scene;
+        }
+        
+        Logic* getLogicPtr(LogicID id)
+        {
+            return id.logic;
+        }
+        
 		void mapAction(const ActionBinder& bind)
 		{
 			this->input_handler->mapAction(bind);

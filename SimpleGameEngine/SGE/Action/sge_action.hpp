@@ -38,7 +38,10 @@ namespace SGE {
         virtual void action_main(Object*) noexcept = 0;
         virtual void action_ends(Object*) noexcept = 0;
 
-        virtual void setObjectManager(ActionHandler*) noexcept = 0;
+        virtual void setActionHandler(ActionHandler* _action_handler) noexcept
+        {
+            this->action_handler = _action_handler;
+        };
         
     };
     

@@ -46,6 +46,8 @@ namespace SGE {
     
 	class Object
 	{
+    private:
+        
 	protected:
 		float X;
 		float Y;
@@ -63,6 +65,7 @@ namespace SGE {
 		using ID = ObjectID;
         
         GLTexture texture = {0,0,0};
+        const char* path = nullptr;
         
         virtual float& getX() noexcept final
         {

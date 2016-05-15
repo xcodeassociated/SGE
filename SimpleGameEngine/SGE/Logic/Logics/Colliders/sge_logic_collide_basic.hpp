@@ -15,7 +15,7 @@ namespace SGE {
     
     namespace Logics{
         
-        class BasicCollider : Collide {
+        class BasicCollider : public Collide {
 			ObjectID obj;
             
         protected:

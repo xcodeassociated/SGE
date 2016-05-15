@@ -187,7 +187,7 @@ namespace SGE{
             
             act_ptr->action_main(obj_ptr);
             
-			std::cerr << "Input handled\n";
+			//std::cerr << "Input handled\n";
 		}
 
         void addAction(ActionBinder::Bind bind){

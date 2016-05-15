@@ -34,19 +34,14 @@ namespace SGE {
                 //TODO...
                 
                 //debug only:
-                this->action_handler->foo();
-                std::cout << obj->getX() << ' ' << obj->getY() << std::endl;
+                //this->action_handler->foo();
+                //std::cout << obj->getX() << ' ' << obj->getY() << std::endl;
                 obj->setPosition(obj->getX()+this->destX,obj->getY()+this->destY);
-                std::cout << obj->getX() << ' ' << obj->getY() << std::endl;
+                //std::cout << obj->getX() << ' ' << obj->getY() << std::endl;
             }
             
             virtual void action_ends(Object* obj) noexcept override {
                 ;
-            }
-            
-        public:
-            void setObjectManager(ActionHandler* _action_handler) noexcept override {
-                this->action_handler = _action_handler;
             }
         };
     }

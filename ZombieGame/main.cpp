@@ -60,16 +60,30 @@ public:
         std::cerr << "onDraw!" << std::endl;
         
         SGE::Action* move = new SGE::ACTION::Move(100, 100, 2);
-        move->setObjectManager(this->manager->getActionHandler());
+        move->setActionHandler(this->manager->getActionHandler());
         //SGE::Action::ID a1 = this->manager->addAction(move);
 
 	}
 };
 
+class Sig : public SGE::Action
+{
+public:
+    Sig(): Action(0.){};
+    ~Sig(){};
+    virtual void action_begin(SGE::Object*) noexcept override{}
+    virtual void action_ends(SGE::Object*) noexcept override{}
+    
+    virtual void action_main(SGE::Object*) noexcept override
+    {
+        std::cout << "collided" << std::endl;
+    }
+};
+
 class TestObject : public SGE::Reactive {
     
 public:
-    TestObject() : SGE::Reactive(0, 0, true, new SGE::Circle(512)) {
+    TestObject() : SGE::Reactive(0, 0, true, new SGE::Circle(32)) {
         
     }
     
@@ -78,6 +92,7 @@ public:
 
 int main(int argc, char * argv[]) {
     std::cout.setf(std::ios::boolalpha);
+    std::cout.sync_with_stdio(0);
 
 //	SGE::Rectangle* tile = (SGE::Rectangle*)(SGE::getBaseTileShape());
 //	tile->setHeight(256); //This works nicely
@@ -108,23 +123,30 @@ int main(int argc, char * argv[]) {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
     SGE::Object::ID testObj0 = manager->addObject(new TestObject, S1, PATH"ZombieGame/Resources/Textures/circle.png");
     
-//    SGE::Action::ID AW = manager->addAction(new SGE::ACTION::Move(0, 1000.f, 0));
-//    SGE::Action::ID AA = manager->addAction(new SGE::ACTION::Move(-1000.f, 0, 0));
-//    SGE::Action::ID AS = manager->addAction(new SGE::ACTION::Move(0, -1000.f, 0));
-//    SGE::Action::ID AD = manager->addAction(new SGE::ACTION::Move(1000.f, 0, 0));
+    SGE::Action::ID oW = manager->addAction(new SGE::ACTION::Move(0, 4.f, 0));
+    SGE::Action::ID oA = manager->addAction(new SGE::ACTION::Move(-4.f, 0, 0));
+    SGE::Action::ID oS = manager->addAction(new SGE::ACTION::Move(0, -4.f, 0));
+    SGE::Action::ID oD = manager->addAction(new SGE::ACTION::Move(4.f, 0, 0));
     
-    SGE::ActionBinder tb0(testObj0, AW, SGE::Key::Up);
-    SGE::ActionBinder tb1(testObj0, AS, SGE::Key::Down);
-    SGE::ActionBinder tb2(testObj0, AA, SGE::Key::Left);
-    SGE::ActionBinder tb3(testObj0, AD, SGE::Key::Right);
+    SGE::ActionBinder tb0(testObj0, oW, SGE::Key::Up);
+    SGE::ActionBinder tb1(testObj0, oS, SGE::Key::Down);
+    SGE::ActionBinder tb2(testObj0, oA, SGE::Key::Left);
+    SGE::ActionBinder tb3(testObj0, oD, SGE::Key::Right);
     
     manager->mapAction(tb0);
     manager->mapAction(tb1);
     manager->mapAction(tb2);
     manager->mapAction(tb3);
     
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+    SGE::Action::ID Signal = manager->addAction(new Sig());
     
+    auto L1 = manager->addLogic(new SGE::Logics::BasicLevelCollider(manager->getScenePtr(S1)->getLevel().getWorld(),
+                      [Signal](SGE::Object::ID a,SGE::Object::ID b)->SGE::Action::ID{
+                          return Signal;
+                      }));
+    director->addLogicBinder(S1, testObj0, L1);
+    
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
     
 	director->showScene(S1);
     
