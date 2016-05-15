@@ -1,6 +1,7 @@
 #ifndef SGE_HPP
 #define SGE_HPP
 
+#include "include/sge_include.hpp"
 #include "Object/sge_object.hpp"
 #include "Object/Reactive/sge_reactive.hpp"
 #include "Logic/sge_logic.hpp"

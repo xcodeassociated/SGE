@@ -12,7 +12,7 @@
 #include "../include/sge_include.hpp"
 #include "../ThirdParty_Librarys/PicoPNG/picopng.cpp"
 #include "../IOManager/sge_io_manager.hpp"
-#include "sge_glTexture.hpp"
+
 
 namespace SGE{
     

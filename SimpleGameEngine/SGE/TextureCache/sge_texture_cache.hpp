@@ -10,7 +10,7 @@
 #define sge_texture_cache_h
 
 #include "../include/sge_include.hpp"
-#include "../TextureLoader/sge_glTexture.hpp"
+
 #include "../TextureLoader/sge_imageLoader.hpp"
 
 namespace SGE {

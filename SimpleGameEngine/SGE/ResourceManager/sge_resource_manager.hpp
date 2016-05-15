@@ -11,7 +11,7 @@
 
 #include "../include/sge_include.hpp"
 #include "../TextureCache/sge_texture_cache.hpp"
-#include "../TextureLoader/sge_glTexture.hpp"
+
 
 namespace SGE {
     

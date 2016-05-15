@@ -166,11 +166,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SimpleGameEngine/SGE/Object/sge_object.hpp"
-            timestampString = "482333955.628779"
+            timestampString = "485004322.35105"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
             landmarkName = "class ObjectID"
             landmarkType = "3">
          </BreakpointContent>
@@ -182,12 +182,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SimpleGameEngine/SGE/Object/sge_object.hpp"
-            timestampString = "482332151.787589"
+            timestampString = "485004322.35105"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "ObjectID(const long id, Object* o)"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "ObjectID(const long id)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -198,11 +198,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SimpleGameEngine/SGE/Object/sge_object.hpp"
-            timestampString = "482332152.173751"
+            timestampString = "485004322.35105"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
             landmarkName = "ObjectID(const long id)"
             landmarkType = "5">
          </BreakpointContent>
@@ -272,7 +272,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SimpleGameEngine/SGE/Camera2d/sge_camera2d.hpp"

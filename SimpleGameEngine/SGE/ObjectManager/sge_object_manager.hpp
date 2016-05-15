@@ -6,7 +6,6 @@
 #include "../Camera2d/sge_camera2d.hpp"
 #include "../SpriteBatch/SpriteBatch.hpp"
 #include "../ResourceManager/sge_resource_manager.hpp"
-#include "../TextureLoader/sge_glTexture.hpp"
 #include "../InputManager/sge_input_manager.hpp"
 #include "../Timing/sge_fps_limiter.hpp"
 

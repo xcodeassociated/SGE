@@ -2,7 +2,6 @@
 #define sge_background_element_h
 
 #include "../sge_object.hpp"
-#include "../../TextureLoader/sge_glTexture.hpp"
 
 namespace SGE {
 	Shape* getBaseTileShape();

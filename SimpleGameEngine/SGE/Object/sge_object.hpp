@@ -8,7 +8,20 @@
 namespace SGE {
 	class ObjectManager;
 	class Object;
-
+        
+    struct GLTexture {
+        GLuint id;
+        unsigned int width;
+        unsigned int height;
+        
+        GLTexture(){
+            
+        }
+        ~GLTexture(){
+            
+        }
+    };
+        
 	enum class LogicPriority
 	{
 		Highest = 0,
