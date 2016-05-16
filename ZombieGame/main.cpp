@@ -89,6 +89,30 @@ public:
     ~TestObject() {}
 };
 
+bool isPressed(SGE::Key key)
+{
+	static const Uint8* const state = SDL_GetKeyboardState(nullptr);
+	return state[SDL_GetScancodeFromKey(SDL_Keycode(key))];
+}
+
+class Move : public SGE::Logic
+{
+	float speed = 0;
+public:
+	Move(float speed) : Logic(SGE::LogicPriority::Highest), speed(speed){}
+	~Move() = default;
+
+	void performLogic(SGE::Object::ID obj) override
+	{
+		glm::vec2 move = { 0,0 };
+		if(isPressed(SGE::Key::Up)) move.y+=speed;
+		if(isPressed(SGE::Key::Down)) move.y -= speed;
+		if(isPressed(SGE::Key::Right)) move.x += speed;
+		if(isPressed(SGE::Key::Left)) move.x -= speed;
+		this->sendAction(obj, SGE::Action::ID(0, new SGE::ACTION::Move(move.x, move.y, 0)));
+	}
+};
+
 int main(int argc, char * argv[]) {
     std::cout.setf(std::ios::boolalpha);
     std::cout.sync_with_stdio(0);
@@ -120,7 +144,7 @@ int main(int argc, char * argv[]) {
     manager->mapAction(B4);
     
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-    SGE::Object::ID testObj0 = manager->addObject(new TestObject(128,128), S1, PATH"ZombieGame/Resources/Textures/circle.png");
+    SGE::Object::ID testObj0 = manager->addObject(new TestObject(128,64), S1, PATH"ZombieGame/Resources/Textures/circle.png");
     SGE::Object::ID testObj1 = manager->addObject(new TestObject, S1, PATH"ZombieGame/Resources/Textures/circle.png");
     
     SGE::Action::ID oW = manager->addAction(new SGE::ACTION::Move(0, 4.f, 0));
@@ -133,18 +157,23 @@ int main(int argc, char * argv[]) {
     SGE::ActionBinder tb2(testObj0, oA, SGE::Key::Left);
     SGE::ActionBinder tb3(testObj0, oD, SGE::Key::Right);
     
-    manager->mapAction(tb0);
-    manager->mapAction(tb1);
-    manager->mapAction(tb2);
-    manager->mapAction(tb3);
+	manager->mapAction(tb0);
+	manager->mapAction(tb1);
+	manager->mapAction(tb2);
+	manager->mapAction(tb3);
     
     SGE::Action::ID Signal = manager->addAction(new Sig());
     
     auto L1 = manager->addLogic(new SGE::Logics::BasicLevelCollider(manager->getScenePtr(S1)->getLevel().getWorld(),&SGE::Logics::Collide::CircleToRectCollisionVec));
-    auto L2 = manager->addLogic(new SGE::Logics::BasicCollider(testObj1,&SGE::Logics::Collide::CircleCollisionVec));
+    auto L2a = manager->addLogic(new SGE::Logics::BasicCollider(testObj1,&SGE::Logics::Collide::CircleCollisionVec));
+	auto L2b = manager->addLogic(new SGE::Logics::BasicCollider(testObj0, &SGE::Logics::Collide::CircleCollisionVec));
+	auto L3 = manager->addLogic(new Move(4.f));
 
-    director->addLogicBinder(S1, testObj0, L1);
-    director->addLogicBinder(S1, testObj0, L2);
+    director->addLogicBinder(S1, testObj0, L2a);
+	director->addLogicBinder(S1, testObj1, L2b);
+	director->addLogicBinder(S1, testObj1, L3);
+	director->addLogicBinder(S1, testObj0, L1);
+	director->addLogicBinder(S1, testObj1, L1);
     
     
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//

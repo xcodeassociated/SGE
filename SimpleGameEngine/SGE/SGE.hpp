@@ -3,6 +3,7 @@
 
 #include "include/sge_include.hpp"
 #include "Object/sge_object.hpp"
+#include "Action/sge_action.hpp"
 #include "Object/Reactive/sge_reactive.hpp"
 #include "Logic/sge_logic.hpp"
 #include "Scene/sge_scene.hpp"

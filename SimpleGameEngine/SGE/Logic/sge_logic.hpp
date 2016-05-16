@@ -9,6 +9,8 @@
 #ifndef sge_logic_h
 #define sge_logic_h
 
+#include "../ObjectManager/sge_action_handler.hpp"
+
 namespace SGE {
 	class Logic;
 	class ActionHandler;
@@ -35,6 +37,11 @@ namespace SGE {
 
         bool isOn = true;
 		Priority priority = Priority::Low;
+
+		void sendAction(Object::ID obj,Action::ID action) const
+		{
+			action_handler->performSingleAction(std::make_pair(obj, action), (this->priority == LogicPriority::Highest));
+		}
 
         virtual void performLogic(Object::ID obj) = 0;
 

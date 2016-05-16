@@ -10,7 +10,6 @@
 #include "../Timing/sge_fps_limiter.hpp"
 
 #include "../Relay/sge_relay_interface.hpp"
-#include "sge_action_handler.hpp"
 
 #include <initializer_list>
 #include <algorithm>
