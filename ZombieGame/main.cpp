@@ -95,21 +95,54 @@ bool isPressed(SGE::Key key)
 	return state[SDL_GetScancodeFromKey(SDL_Keycode(key))];
 }
 
-class Move : public SGE::Logic
+class SimpleMove : public SGE::Logic
 {
-	float speed = 0;
+	const float speed = 0;
+	const SGE::Key up, down, left, right;
 public:
-	Move(float speed) : Logic(SGE::LogicPriority::Highest), speed(speed){}
-	~Move() = default;
+	SimpleMove(const float speed, const SGE::Key up, const SGE::Key down, const SGE::Key left, const SGE::Key right)
+		:Logic(SGE::LogicPriority::Highest), speed(speed), up(up), down(down), left(left), right(right){}
+	~SimpleMove() = default;
 
 	void performLogic(SGE::Object::ID obj) override
 	{
 		glm::vec2 move = { 0,0 };
-		if(isPressed(SGE::Key::Up)) move.y+=speed;
-		if(isPressed(SGE::Key::Down)) move.y -= speed;
-		if(isPressed(SGE::Key::Right)) move.x += speed;
-		if(isPressed(SGE::Key::Left)) move.x -= speed;
+		if(isPressed(this->up)) move.y+= this->speed;
+		if(isPressed(this->down)) move.y -= this->speed;
+		if(isPressed(this->right)) move.x += this->speed;
+		if(isPressed(this->left)) move.x -= this->speed;
 		this->sendAction(obj, SGE::Action::ID(0, new SGE::ACTION::Move(move.x, move.y, 0)));
+	}
+};
+
+class SnapCamera : public SGE::Logic
+{
+	const float speed = 0;
+	const SGE::Key up, down, left, right, snapKey;
+	bool snapped = true;
+	SGE::Object::ID snapTo;
+public:
+	SnapCamera(const float speed, const SGE::Key up, const SGE::Key down, const SGE::Key left, const SGE::Key right, const SGE::Key snapKey, SGE::Object::ID snapTo)
+		:Logic(SGE::LogicPriority::Highest), speed(speed), up(up), down(down), left(left), right(right), snapKey(snapKey) ,snapTo(snapTo){}
+	~SnapCamera() = default;
+
+	void performLogic(SGE::Object::ID obj) override
+	{
+		this->snapped = isPressed(snapKey); //We need to be able to send signals to actions, like sending actions to objects
+		glm::vec2 move = { 0,0 };
+		if(!this->snapped)
+		{
+			move = this->snapTo.getObject()->getPosition();
+			obj.getObject()->setPosition(move.x, move.y); //Replace with action, i.e. GoTo
+		}
+		else
+		{
+			if(isPressed(this->up)) move.y += this->speed;
+			if(isPressed(this->down)) move.y -= this->speed;
+			if(isPressed(this->right)) move.x += this->speed;
+			if(isPressed(this->left)) move.x -= this->speed;
+			this->sendAction(obj, SGE::Action::ID(0, new SGE::ACTION::Move(move.x, move.y, 0)));
+		}
 	}
 };
 
@@ -127,22 +160,7 @@ int main(int argc, char * argv[]) {
 	SGE::Scene::ID S1 = director->addScene(new MainScene(manager));
     
     SGE::Object::ID camID = manager->getCameraID();
-    
-    SGE::Action::ID AW = manager->addAction(new SGE::ACTION::Move(0, 1000.f, 0));
-    SGE::Action::ID AA = manager->addAction(new SGE::ACTION::Move(-1000.f, 0, 0));
-    SGE::Action::ID AS = manager->addAction(new SGE::ACTION::Move(0, -1000.f, 0));
-    SGE::Action::ID AD = manager->addAction(new SGE::ACTION::Move(1000.f, 0, 0));
-    
-    SGE::ActionBinder B1(camID, AW, SGE::Key::W);
-    SGE::ActionBinder B2(camID, AS, SGE::Key::S);
-    SGE::ActionBinder B3(camID, AA, SGE::Key::A);
-    SGE::ActionBinder B4(camID, AD, SGE::Key::D);
-
-	manager->mapAction(B1);
-    manager->mapAction(B2);
-    manager->mapAction(B3);
-    manager->mapAction(B4);
-    
+        
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
     SGE::Object::ID testObj0 = manager->addObject(new TestObject(128,64), S1, PATH"ZombieGame/Resources/Textures/circle.png");
     SGE::Object::ID testObj1 = manager->addObject(new TestObject, S1, PATH"ZombieGame/Resources/Textures/circle.png");
@@ -161,20 +179,20 @@ int main(int argc, char * argv[]) {
 	manager->mapAction(tb1);
 	manager->mapAction(tb2);
 	manager->mapAction(tb3);
-    
-    SGE::Action::ID Signal = manager->addAction(new Sig());
-    
-    auto L1 = manager->addLogic(new SGE::Logics::BasicLevelCollider(manager->getScenePtr(S1)->getLevel().getWorld(),&SGE::Logics::Collide::CircleToRectCollisionVec));
-    auto L2a = manager->addLogic(new SGE::Logics::BasicCollider(testObj1,&SGE::Logics::Collide::CircleCollisionVec));
+        
+    auto L1 = manager->addLogic(new SGE::Logics::BasicLevelCollider(manager->getScenePtr(S1)->getLevel().getWorld(), &SGE::Logics::Collide::CircleToRectCollisionVec));
+    auto L2a = manager->addLogic(new SGE::Logics::BasicCollider(testObj1, &SGE::Logics::Collide::CircleCollisionVec));
 	auto L2b = manager->addLogic(new SGE::Logics::BasicCollider(testObj0, &SGE::Logics::Collide::CircleCollisionVec));
-	auto L3 = manager->addLogic(new Move(4.f));
+	auto L3 = manager->addLogic(new SimpleMove(4.f,SGE::Key::W,SGE::Key::S, SGE::Key::A, SGE::Key::D));
+
+	auto camLogic = manager->addLogic(new SnapCamera(8, SGE::Key::Up, SGE::Key::Down, SGE::Key::Left, SGE::Key::Right, SGE::Key::Space, testObj1));
 
     director->addLogicBinder(S1, testObj0, L2a);
 	director->addLogicBinder(S1, testObj1, L2b);
 	director->addLogicBinder(S1, testObj1, L3);
 	director->addLogicBinder(S1, testObj0, L1);
 	director->addLogicBinder(S1, testObj1, L1);
-    
+	director->addLogicBinder(S1, camID, camLogic);
     
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
     
