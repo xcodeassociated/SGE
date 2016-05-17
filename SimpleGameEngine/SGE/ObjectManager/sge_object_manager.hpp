@@ -103,7 +103,7 @@ namespace SGE {
             
         public:
             WindowManager(std::pair<int, int>, ObjectManager*) noexcept;
-            void createWindow(void) noexcept;
+            void createWindow(void);
             void showWindow(void) noexcept;
             void finalizeWindow(void) noexcept;
             SDL_Window* getWindow(void) noexcept;

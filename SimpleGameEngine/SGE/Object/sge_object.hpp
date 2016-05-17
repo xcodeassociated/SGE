@@ -42,7 +42,6 @@ namespace SGE {
         ObjectID& operator=(const ObjectID&) = default;
 	};
 
-    class GLTexture;
     
 	class Object
 	{

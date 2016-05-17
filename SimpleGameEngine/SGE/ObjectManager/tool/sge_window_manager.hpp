@@ -16,7 +16,7 @@ namespace SGE {
         this->manager = m;
     }
     
-    void ObjectManager::WindowManager::createWindow(void) noexcept{
+    void ObjectManager::WindowManager::createWindow(void){
         if (SDL_Init(SDL_INIT_EVERYTHING) != 0) throw "error:    SDL_init";
         
         this->window = SDL_CreateWindow("SGE", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, this->width, this->height, SDL_WINDOW_OPENGL);

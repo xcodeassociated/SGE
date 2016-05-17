@@ -81,7 +81,7 @@ namespace SGE {
 			}
 		};
         
-        const Priority getPriority() const{
+        Priority getPriority() const{
             return this->priority;
         }
        
