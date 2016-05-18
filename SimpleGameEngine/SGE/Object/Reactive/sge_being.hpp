@@ -6,6 +6,8 @@
 namespace SGE {
     
     class Being : public Reactive{
+	public:
+		using Reactive::Reactive;
     };
     
 }

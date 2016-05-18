@@ -11,6 +11,8 @@
 
 #include "../ObjectManager/sge_action_handler.hpp"
 
+class DynamicVectorLogic;
+
 namespace SGE {
 	class Logic;
 	class ActionHandler;
@@ -28,6 +30,8 @@ namespace SGE {
 
     class Logic{
 		friend class ObjectManager;
+		friend class DynamicVectorLogic;
+
 	public:
 		using Priority = LogicPriority;
     protected:

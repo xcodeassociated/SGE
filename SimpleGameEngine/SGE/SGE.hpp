@@ -4,7 +4,6 @@
 #include "include/sge_include.hpp"
 #include "Object/sge_object.hpp"
 #include "Action/sge_action.hpp"
-#include "Object/Reactive/sge_reactive.hpp"
 #include "Logic/sge_logic.hpp"
 #include "Scene/sge_scene.hpp"
 #include "ObjectManager/sge_object_manager.hpp"
@@ -12,6 +11,15 @@
 #include "Relay/sge_relay.hpp"
 #include "Path/sge_path.hpp"
 #include "KeyboardState/sge_keyboard_state.hpp"
+
+//Objects
+#include "Object/Reactive/sge_reactive.hpp"
+#include "Object/Reactive/sge_being.hpp"
+#include "Object/Reactive/sge_player.hpp"
+
+#include "Object/Interface/sge_interface.hpp"
+#include "Object/Interface/sge_button.hpp"
+#include "Object/Interface/sge_label.hpp"
 
 //Actions
 #include "Action/Actions/sge_action_move.hpp"

@@ -89,6 +89,83 @@ public:
     ~TestObject() {}
 };
 
+SGE::Shape* getCircle()
+{
+	static SGE::Circle c(32, false);
+	return &c;
+}
+
+class Human : public SGE::Being
+{
+	glm::vec2 velocity = {0.f,0.f};
+	unsigned int counter = 0;
+	unsigned int maxCount = 0;
+public:
+	Human(const float x, const float y) : Being(x,y,true,getCircle())
+	{}
+	Human(const float x, const float y, const unsigned int max) : Being(x, y, true, getCircle()), maxCount(max)
+	{}
+
+	void setMaxCount(const unsigned int max)
+	{
+		this->maxCount = max;
+	}
+
+	unsigned int getCounter()
+	{
+		if (this->counter) return --this->counter;
+		else return (this->counter = this->maxCount);
+	}
+
+	glm::vec2 getVelocity() const
+	{
+		return this->velocity;
+	}
+
+	void setVelocity(const glm::vec2 vel)
+	{
+		this->velocity = vel;
+	}
+};
+
+class HumanRandomMovement : public SGE::Logic
+{
+	std::default_random_engine engine;
+	std::uniform_real_distribution<float> angle;
+	float speed;
+	glm::vec2 velocity;
+public:
+	HumanRandomMovement() :Logic(SGE::LogicPriority::Mid), angle(0, 360) {}
+
+	void performLogic(SGE::Object::ID humanID)
+	{
+		auto human = reinterpret_cast<Human*>(humanID.getObject());
+		velocity = human->getVelocity();
+		if (human->getCounter() == 0)
+		{
+			velocity = glm::rotate(velocity,angle(engine));
+		}
+		this->sendAction(humanID, SGE::ActionID(0,new SGE::ACTION::Move(velocity.x, velocity.y,0)));
+	}
+};
+
+class DynamicVectorLogic : public SGE::Logic
+{
+	std::vector<SGE::Object::ID>& vec;
+	SGE::Logic* logic;
+public:
+	DynamicVectorLogic(std::vector<SGE::Object::ID>& vector, SGE::Logic* logic): Logic(logic->getPriority()), vec(vector), logic(logic)
+	{}
+
+	void performLogic(SGE::Object::ID)
+	{
+		for (size_t i = 0; i < vec.size(); ++i)
+		{
+			logic->performLogic(vec[i]);
+		}
+	}
+};
+
 class SnapCamera : public SGE::Logic
 {
 	const float speed = 0;
@@ -160,7 +237,7 @@ int main(int argc, char * argv[]) {
 	auto L3 = manager->addLogic(new SGE::Logics::SimpleMove(4.f,SGE::Key::W,SGE::Key::S, SGE::Key::A, SGE::Key::D));
 
 	auto camLogic = manager->addLogic(new SnapCamera(8, SGE::Key::Up, SGE::Key::Down, SGE::Key::Left, SGE::Key::Right, SGE::Key::Space, testObj1));
-	auto camZoom = manager->addLogic(new SGE::Logics::CameraZoom(0.1f,1.f,0.2f,SGE::Key::Q, SGE::Key::E));
+	auto camZoom = manager->addLogic(new SGE::Logics::CameraZoom(0.01f,1.f,0.2f,SGE::Key::Q, SGE::Key::E));
 
     director->addLogicBinder(S1, testObj0, L2a);
 	director->addLogicBinder(S1, testObj1, L2b);
