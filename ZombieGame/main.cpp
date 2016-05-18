@@ -52,12 +52,12 @@ public:
 		this->loadLevel(path.c_str(), mask);
 	}
 
-	void finalize()
+	void finalize() override
 	{
         ;
 	}
     
-	void onDraw()
+	void onDraw() override
 	{
         //debug only:
         std::cerr << "onDraw!" << std::endl;
@@ -100,7 +100,7 @@ SGE::Shape* getCircle()
 
 class Human : public SGE::Being
 {
-	glm::vec2 velocity = {-0.1f,-0.01f};
+	glm::vec2 velocity = {3.f,0.f};
 	unsigned int counter = 1;
 	unsigned int maxCount = 0;
 public:
@@ -138,16 +138,19 @@ class HumanRandomMovement : public SGE::Logic
 	float speed;
 	glm::vec2 velocity;
 public:
-	HumanRandomMovement() :Logic(SGE::LogicPriority::Mid), angle(0, glm::radians(360)) {}
+	HumanRandomMovement() :Logic(SGE::LogicPriority::Highest), angle(glm::radians(-90.f), glm::radians(90.f)) {}
 
 	void performLogic(SGE::Object::ID humanID)
 	{
+		
 		auto human = reinterpret_cast<Human*>(humanID.getObject());
 		velocity = human->getVelocity();
 		if (human->getCounter() == 0)
 		{
-			velocity = glm::normalize(glm::rotate(velocity,angle(engine)));
+//			std::cout << velocity.x << ' ' << velocity.y << " | ";
+			velocity = glm::rotate(velocity,angle(engine));
 			human->setVelocity(velocity);
+//			std::cout << velocity.x << ' ' << velocity.y << std::endl;
 		}
 		this->sendAction(humanID, SGE::ActionID(0,new SGE::ACTION::Move(velocity.x, velocity.y,0)));
 	}
@@ -257,7 +260,7 @@ int main(int argc, char * argv[]) {
     std::fstream is;
     is.open(path);
     std::string s;
-    
+	is >> s;
     while (is >> s){
         l.push_back(s);
     }
@@ -288,7 +291,7 @@ int main(int argc, char * argv[]) {
     std::vector<SGE::Object::ID> humans_id;
     for (const int& e : r){
         std::pair<float, float> pos = free.at(e);
-        SGE::Object::ID temp = manager->addObject(new Human(pos.first, pos.second,10), S1, PATH"ZombieGame/Resources/Textures/circle.png");
+        SGE::Object::ID temp = manager->addObject(new Human(pos.first, pos.second,120), S1, PATH"ZombieGame/Resources/Textures/circle.png");
         humans_id.push_back(temp);
        
         std::cout << free.at(e).first << ", " << free.at(e).second << std::endl;
@@ -302,12 +305,6 @@ int main(int argc, char * argv[]) {
 	director->addLogicBinder(S1, testObj0, CollideLevelHumans);
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-    
-	glm::vec2 vec = { 0,1 };
-
-	vec = glm::rotate(vec, glm::radians(180.f));
-
-	std::cout << vec.x << ' ' << vec.y << std::endl;
 
 	director->showScene(S1);
     
