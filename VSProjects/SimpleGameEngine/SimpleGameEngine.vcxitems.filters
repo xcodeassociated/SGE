@@ -91,6 +91,9 @@
     <Filter Include="Object\Shape">
       <UniqueIdentifier>{a91f7058-4918-4ccc-873d-082e7b57a490}</UniqueIdentifier>
     </Filter>
+    <Filter Include="KeyboardState">
+      <UniqueIdentifier>{aec0e41d-c13d-4850-92b2-afaaaaf68e76}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Action\sge_action.hpp">
@@ -228,6 +231,12 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Object\Shape\sge_shape.hpp">
       <Filter>Object\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Logic\Logics\Movers\sge_logic_move.hpp">
+      <Filter>Logic\Logics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\KeyboardState\sge_keyboard_state.hpp">
+      <Filter>KeyboardState</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

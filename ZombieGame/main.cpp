@@ -89,32 +89,6 @@ public:
     ~TestObject() {}
 };
 
-bool isPressed(SGE::Key key)
-{
-	static const Uint8* const state = SDL_GetKeyboardState(nullptr);
-	return state[SDL_GetScancodeFromKey(SDL_Keycode(key))];
-}
-
-class SimpleMove : public SGE::Logic
-{
-	const float speed = 0;
-	const SGE::Key up, down, left, right;
-public:
-	SimpleMove(const float speed, const SGE::Key up, const SGE::Key down, const SGE::Key left, const SGE::Key right)
-		:Logic(SGE::LogicPriority::Highest), speed(speed), up(up), down(down), left(left), right(right){}
-	~SimpleMove() = default;
-
-	void performLogic(SGE::Object::ID obj) override
-	{
-		glm::vec2 move = { 0,0 };
-		if(isPressed(this->up)) move.y+= this->speed;
-		if(isPressed(this->down)) move.y -= this->speed;
-		if(isPressed(this->right)) move.x += this->speed;
-		if(isPressed(this->left)) move.x -= this->speed;
-		this->sendAction(obj, SGE::Action::ID(0, new SGE::ACTION::Move(move.x, move.y, 0)));
-	}
-};
-
 class SnapCamera : public SGE::Logic
 {
 	const float speed = 0;
@@ -183,7 +157,7 @@ int main(int argc, char * argv[]) {
     auto L1 = manager->addLogic(new SGE::Logics::BasicLevelCollider(manager->getScenePtr(S1)->getLevel().getWorld(), &SGE::Logics::Collide::CircleToRectCollisionVec));
     auto L2a = manager->addLogic(new SGE::Logics::BasicCollider(testObj1, &SGE::Logics::Collide::CircleCollisionVec));
 	auto L2b = manager->addLogic(new SGE::Logics::BasicCollider(testObj0, &SGE::Logics::Collide::CircleCollisionVec));
-	auto L3 = manager->addLogic(new SimpleMove(4.f,SGE::Key::W,SGE::Key::S, SGE::Key::A, SGE::Key::D));
+	auto L3 = manager->addLogic(new SGE::Logics::SimpleMove(4.f,SGE::Key::W,SGE::Key::S, SGE::Key::A, SGE::Key::D));
 
 	auto camLogic = manager->addLogic(new SnapCamera(8, SGE::Key::Up, SGE::Key::Down, SGE::Key::Left, SGE::Key::Right, SGE::Key::Space, testObj1));
 
