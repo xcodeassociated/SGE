@@ -29,4 +29,4 @@ namespace SGE
 	}
 }
 
-#endif
+#endif //!sge_logic_move_h

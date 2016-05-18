@@ -202,22 +202,36 @@ namespace SGE{
             for (ActionBinder::Bind& act : this->actions){
                 a = act.second.getAction();
                 o = act.first.getObject();
+				o->setLock(LogicPriority::None);
                 this->triggerAction(a, o);
             }
-            //this->actions.erase(actions.begin(), actions.end());
+			auto last = std::remove_if(actions.begin(), actions.end(), [](const ActionBinder::Bind& b)
+            {
+				if(b.second.getAction()->getDuration() <= 0)
+				{
+					delete b.second.getAction(); //deletes managed action
+					return true;
+				}
+				return false; //"removes" actions that ended.
+            });
+            this->actions.erase(last, actions.end());//Actually removes managed actions that ended.
         }
         
         void foo(){
             std::cerr << "ACTION!" << std::endl;
         }
         
-        void performSingleAction(ActionBinder::Bind bind, bool flag){
-            if (flag){
+        void performSingleAction(ActionBinder::Bind bind, LogicPriority priority){
+			if(priority == LogicPriority::Highest)
+			{
                 Object* o = bind.first.getObject();
                 Action* a = bind.second.getAction();
                 this->triggerAction(a, o);
             }else
-                this->actions.push_back(bind);
+			{
+				this->actions.push_back(bind);
+				bind.first.getObject()->setLock(priority);
+			}
         }
         
     };

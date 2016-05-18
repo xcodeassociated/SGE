@@ -42,7 +42,8 @@ namespace SGE {
                 
                 if (collision){
                     ActionID aid = this->onCollision(obj, _obj);
-                    action_handler->performSingleAction(std::make_pair(_obj, aid), (this->priority == LogicPriority::Highest) );
+					this->sendAction(_obj, aid);
+					//action_handler->performSingleAction(std::make_pair(_obj, aid), (this->priority == LogicPriority::Highest) );
                 }
 			}
         };

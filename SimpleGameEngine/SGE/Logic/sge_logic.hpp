@@ -44,7 +44,7 @@ namespace SGE {
 
 		void sendAction(Object::ID obj,Action::ID action) const
 		{
-			action_handler->performSingleAction(std::make_pair(obj, action), (this->priority == LogicPriority::Highest));
+			action_handler->performSingleAction(std::make_pair(obj, action), this->priority);
 		}
 
         virtual void performLogic(Object::ID obj) = 0;

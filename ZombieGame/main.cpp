@@ -138,7 +138,7 @@ class HumanRandomMovement : public SGE::Logic
 	float speed;
 	glm::vec2 velocity;
 public:
-	HumanRandomMovement() :Logic(SGE::LogicPriority::Highest), angle(glm::radians(-90.f), glm::radians(90.f)) {}
+	HumanRandomMovement() :Logic(SGE::LogicPriority::Mid), angle(glm::radians(-90.f), glm::radians(90.f)) {}
 
 	void performLogic(SGE::Object::ID humanID)
 	{
@@ -152,7 +152,8 @@ public:
 			human->setVelocity(velocity);
 //			std::cout << velocity.x << ' ' << velocity.y << std::endl;
 		}
-		this->sendAction(humanID, SGE::ActionID(0,new SGE::ACTION::Move(velocity.x, velocity.y,0)));
+		//this->sendAction(humanID, SGE::ActionID(0,new SGE::ACTION::Move(velocity.x, velocity.y,0)));
+		human->setPosition(human->getX()+velocity.x, human->getY()+velocity.y);
 	}
 };
 
@@ -299,10 +300,12 @@ int main(int argc, char * argv[]) {
 
 	auto MoveHumans = manager->addLogic(new DynamicVectorLogic(humans_id,new HumanRandomMovement()));
 	auto CollideLevelHumans = manager->addLogic(new DynamicVectorLogic(humans_id,manager->getLogicPtr(L1)));
-
+	auto CollidePlayer = manager->addLogic(new DynamicVectorLogic(humans_id, manager->getLogicPtr(L2a)));
 
 	director->addLogicBinder(S1, testObj0, MoveHumans);
 	director->addLogicBinder(S1, testObj0, CollideLevelHumans);
+	director->addLogicBinder(S1, testObj1, CollidePlayer);
+
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 

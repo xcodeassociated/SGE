@@ -147,6 +147,7 @@
       <DisableIntelLangExtensions>true</DisableIntelLangExtensions>
       <DisableLanguageExtensions>true</DisableLanguageExtensions>
       <DisableSpecificWarnings>663;</DisableSpecificWarnings>
+      <ShowIncludes>true</ShowIncludes>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

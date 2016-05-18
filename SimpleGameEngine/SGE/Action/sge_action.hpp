@@ -19,6 +19,7 @@ namespace SGE {
 			return this->action;
 		}
 	public:
+		ActionID(Action* a) : ID(-1L), action(a){}
 		ActionID(long id, Action* a):
 			ID(id),
 			action(a)
@@ -34,6 +35,11 @@ namespace SGE {
     public:
 		using ID = ActionID;
 
+		double getDuration() const
+		{
+			return this->duration;
+		}
+		virtual ~Action() = default;
         virtual void action_begin(Object*) noexcept = 0;
         virtual void action_main(Object*) noexcept = 0;
         virtual void action_ends(Object*) noexcept = 0;
