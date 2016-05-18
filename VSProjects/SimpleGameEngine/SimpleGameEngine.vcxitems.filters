@@ -94,6 +94,9 @@
     <Filter Include="KeyboardState">
       <UniqueIdentifier>{aec0e41d-c13d-4850-92b2-afaaaaf68e76}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Logic\Logics\Camera">
+      <UniqueIdentifier>{d362aa6c-ab53-4fc0-9b73-49588eabe48b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Action\sge_action.hpp">
@@ -237,6 +240,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\KeyboardState\sge_keyboard_state.hpp">
       <Filter>KeyboardState</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Logic\Logics\Camera\sge_logic_camera_zoom.hpp">
+      <Filter>Logic\Logics\Camera</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

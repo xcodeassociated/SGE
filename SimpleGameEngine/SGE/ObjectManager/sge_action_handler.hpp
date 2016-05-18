@@ -25,6 +25,7 @@ namespace SGE{
 		N = SDLK_n,
 		O = SDLK_o,
 		P = SDLK_p,
+		Q = SDLK_q,
 		R = SDLK_r,
 		S = SDLK_s,
 		T = SDLK_t,

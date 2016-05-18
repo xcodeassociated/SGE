@@ -160,6 +160,7 @@ int main(int argc, char * argv[]) {
 	auto L3 = manager->addLogic(new SGE::Logics::SimpleMove(4.f,SGE::Key::W,SGE::Key::S, SGE::Key::A, SGE::Key::D));
 
 	auto camLogic = manager->addLogic(new SnapCamera(8, SGE::Key::Up, SGE::Key::Down, SGE::Key::Left, SGE::Key::Right, SGE::Key::Space, testObj1));
+	auto camZoom = manager->addLogic(new SGE::Logics::CameraZoom(0.1f,1.f,0.2f,SGE::Key::Q, SGE::Key::E));
 
     director->addLogicBinder(S1, testObj0, L2a);
 	director->addLogicBinder(S1, testObj1, L2b);
@@ -167,7 +168,8 @@ int main(int argc, char * argv[]) {
 	director->addLogicBinder(S1, testObj0, L1);
 	director->addLogicBinder(S1, testObj1, L1);
 	director->addLogicBinder(S1, camID, camLogic);
-    
+	director->addLogicBinder(S1, camID, camZoom);
+
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
     
 	director->showScene(S1);

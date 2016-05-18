@@ -20,6 +20,9 @@
 #include "Logic/Logics/Colliders/sge_logic_collide_basic.hpp"
 #include "Logic/Logics/Colliders/sge_logic_collide_group.hpp"
 #include "Logic/Logics/Colliders/sge_logic_collide_level.hpp"
+
+#include "Logic/Logics/Camera/sge_logic_camera_zoom.hpp"
+
 #include "Logic/Logics/Movers/sge_logic_move.hpp"
 
 #endif //SGE_HPP
