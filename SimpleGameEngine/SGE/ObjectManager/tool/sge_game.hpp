@@ -21,10 +21,9 @@ namespace SGE
 		{
 			this->limiter->begin();
 			{
+				this->performActions();
 				this->performLogics();
-                this->performActions();
-                
-				this->draw();
+   				this->draw();
 
                 //SDL input processing
             //	( *(this->input_handler) )();

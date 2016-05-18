@@ -16,6 +16,9 @@
 
 #include "../SimpleGameEngine/SGE/Action/Actions/sge_action_move.hpp"
 
+#include <set>
+#include <time.h>       /* time */
+
 /* ===================================================================================== */
 
 //std::function<void(void)> nonSGE = []{
@@ -97,8 +100,8 @@ SGE::Shape* getCircle()
 
 class Human : public SGE::Being
 {
-	glm::vec2 velocity = {0.f,0.f};
-	unsigned int counter = 0;
+	glm::vec2 velocity = {-0.1f,-0.01f};
+	unsigned int counter = 1;
 	unsigned int maxCount = 0;
 public:
 	Human(const float x, const float y) : Being(x,y,true,getCircle())
@@ -135,7 +138,7 @@ class HumanRandomMovement : public SGE::Logic
 	float speed;
 	glm::vec2 velocity;
 public:
-	HumanRandomMovement() :Logic(SGE::LogicPriority::Mid), angle(0, 360) {}
+	HumanRandomMovement() :Logic(SGE::LogicPriority::Mid), angle(0, glm::radians(360)) {}
 
 	void performLogic(SGE::Object::ID humanID)
 	{
@@ -143,7 +146,8 @@ public:
 		velocity = human->getVelocity();
 		if (human->getCounter() == 0)
 		{
-			velocity = glm::rotate(velocity,angle(engine));
+			velocity = glm::normalize(glm::rotate(velocity,angle(engine)));
+			human->setVelocity(velocity);
 		}
 		this->sendAction(humanID, SGE::ActionID(0,new SGE::ACTION::Move(velocity.x, velocity.y,0)));
 	}
@@ -237,7 +241,7 @@ int main(int argc, char * argv[]) {
 	auto L3 = manager->addLogic(new SGE::Logics::SimpleMove(4.f,SGE::Key::W,SGE::Key::S, SGE::Key::A, SGE::Key::D));
 
 	auto camLogic = manager->addLogic(new SnapCamera(8, SGE::Key::Up, SGE::Key::Down, SGE::Key::Left, SGE::Key::Right, SGE::Key::Space, testObj1));
-	auto camZoom = manager->addLogic(new SGE::Logics::CameraZoom(0.01f,1.f,0.2f,SGE::Key::Q, SGE::Key::E));
+	auto camZoom = manager->addLogic(new SGE::Logics::CameraZoom(0.1f,1.f,0.15f,SGE::Key::Q, SGE::Key::E));
 
     director->addLogicBinder(S1, testObj0, L2a);
 	director->addLogicBinder(S1, testObj1, L2b);
@@ -247,8 +251,64 @@ int main(int argc, char * argv[]) {
 	director->addLogicBinder(S1, camID, camLogic);
 	director->addLogicBinder(S1, camID, camZoom);
 
+    
+    std::string path = SGE::getPath() + "level1.txt";
+    std::vector<std::string> l;
+    std::fstream is;
+    is.open(path);
+    std::string s;
+    
+    while (is >> s){
+        l.push_back(s);
+    }
+    
+    std::vector<std::pair<float, float>> free;
+    
+    int x = 0, y = 0; const int w = 64, h = 64;
+    
+    for (auto& ee : l){
+        for (auto& e : ee){
+            if (e == '.'){
+                free.push_back(std::make_pair(x * w, (y * h) ));
+            }x++;
+        }y++;
+        x = 0;
+    }
+    
+    const int humans = 100;
+    srand(time(NULL));
+
+    std::set<int> r;
+    for (int i = 0; i < humans; i++){
+        int index = rand() % free.size();
+        r.insert(index);
+        std::cout << index << std::endl;
+    }
+    
+    std::vector<SGE::Object::ID> humans_id;
+    for (const int& e : r){
+        std::pair<float, float> pos = free.at(e);
+        SGE::Object::ID temp = manager->addObject(new Human(pos.first, pos.second,10), S1, PATH"ZombieGame/Resources/Textures/circle.png");
+        humans_id.push_back(temp);
+       
+        std::cout << free.at(e).first << ", " << free.at(e).second << std::endl;
+    }
+
+	auto MoveHumans = manager->addLogic(new DynamicVectorLogic(humans_id,new HumanRandomMovement()));
+	auto CollideLevelHumans = manager->addLogic(new DynamicVectorLogic(humans_id,manager->getLogicPtr(L1)));
+
+
+	director->addLogicBinder(S1, testObj0, MoveHumans);
+	director->addLogicBinder(S1, testObj0, CollideLevelHumans);
+
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
     
+	glm::vec2 vec = { 0,1 };
+
+	vec = glm::rotate(vec, glm::radians(180.f));
+
+	std::cout << vec.x << ' ' << vec.y << std::endl;
+
 	director->showScene(S1);
     
         std::string t;
