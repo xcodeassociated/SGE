@@ -69,17 +69,16 @@ public:
 	}
 };
 
-class Sig : public SGE::Action
+class GOTO : public SGE::Action
 {
 public:
-    Sig(): Action(0.){};
-    ~Sig(){};
+    GOTO(): Action(0.){};
     virtual void action_begin(SGE::Object*) noexcept override{}
     virtual void action_ends(SGE::Object*) noexcept override{}
     
-    virtual void action_main(SGE::Object*) noexcept override
+    virtual void action_main(SGE::Object* o) noexcept override
     {
-        std::cout << "collided" << std::endl;
+		o->setPosition(200, 200);
     }
 };
 
@@ -152,8 +151,8 @@ public:
 			human->setVelocity(velocity);
 //			std::cout << velocity.x << ' ' << velocity.y << std::endl;
 		}
-		//this->sendAction(humanID, SGE::ActionID(0,new SGE::ACTION::Move(velocity.x, velocity.y,0)));
-		human->setPosition(human->getX()+velocity.x, human->getY()+velocity.y);
+		this->sendAction(humanID, SGE::ActionID(0,new SGE::ACTION::Move(velocity.x, velocity.y,0)));
+		//human->setPosition(human->getX()+velocity.x, human->getY()+velocity.y);
 	}
 };
 
@@ -221,8 +220,8 @@ int main(int argc, char * argv[]) {
     SGE::Object::ID camID = manager->getCameraID();
         
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-    SGE::Object::ID testObj0 = manager->addObject(new TestObject(128,64), S1, PATH"ZombieGame/Resources/Textures/circle.png");
-    SGE::Object::ID testObj1 = manager->addObject(new TestObject, S1, PATH"ZombieGame/Resources/Textures/circle.png");
+    SGE::Object::ID testObj0 = manager->addObject(new TestObject, S1, PATH"ZombieGame/Resources/Textures/circle.png");
+    SGE::Object::ID testObj1 = manager->addObject(new TestObject(200,200), S1, PATH"ZombieGame/Resources/Textures/circle.png");
     
     SGE::Action::ID oW = manager->addAction(new SGE::ACTION::Move(0, 4.f, 0));
     SGE::Action::ID oA = manager->addAction(new SGE::ACTION::Move(-4.f, 0, 0));
@@ -238,11 +237,14 @@ int main(int argc, char * argv[]) {
 	manager->mapAction(tb1);
 	manager->mapAction(tb2);
 	manager->mapAction(tb3);
-        
-    auto L1 = manager->addLogic(new SGE::Logics::BasicLevelCollider(manager->getScenePtr(S1)->getLevel().getWorld(), &SGE::Logics::Collide::CircleToRectCollisionVec));
-    auto L2a = manager->addLogic(new SGE::Logics::BasicCollider(testObj1, &SGE::Logics::Collide::CircleCollisionVec));
+
+    //auto L1 = manager->addLogic(new SGE::Logics::BasicLevelCollider(manager->getScenePtr(S1)->getLevel().getWorld(), &SGE::Logics::Collide::CircleToRectCollisionVec));
+	auto L1 = manager->addLogic(new SGE::Logics::PreciseLevelCollider(manager->getScenePtr(S1)->getLevel().getWorld()));
+	
+	auto L2a = manager->addLogic(new SGE::Logics::BasicCollider(testObj1, &SGE::Logics::Collide::CircleCollisionVec));
 	auto L2b = manager->addLogic(new SGE::Logics::BasicCollider(testObj0, &SGE::Logics::Collide::CircleCollisionVec));
 	auto L3 = manager->addLogic(new SGE::Logics::SimpleMove(4.f,SGE::Key::W,SGE::Key::S, SGE::Key::A, SGE::Key::D));
+
 
 	auto camLogic = manager->addLogic(new SnapCamera(8, SGE::Key::Up, SGE::Key::Down, SGE::Key::Left, SGE::Key::Right, SGE::Key::Space, testObj1));
 	auto camZoom = manager->addLogic(new SGE::Logics::CameraZoom(0.1f,1.f,0.15f,SGE::Key::Q, SGE::Key::E));
@@ -255,7 +257,18 @@ int main(int argc, char * argv[]) {
 	director->addLogicBinder(S1, camID, camLogic);
 	director->addLogicBinder(S1, camID, camZoom);
 
-    
+    //Testing collisions - move tile to create space too tight for circle to enter.
+	auto testTile = SGE::Object::ID(0, &(manager->getScenePtr(S1)->getLevel().getWorld().front()));
+	auto moveTile = manager->addLogic(new SGE::Logics::SimpleMove(4.f, SGE::Key::I, SGE::Key::K, SGE::Key::J, SGE::Key::L));
+	director->addLogicBinder(S1, testTile, moveTile);
+
+	auto reset = manager->addAction(new GOTO());
+	manager->mapAction(SGE::ActionBinder(testObj1, reset, SGE::Key::B));
+
+
+
+
+	// !Testing collisions
     std::string path = SGE::getPath() + "level1.txt";
     std::vector<std::string> l;
     std::fstream is;
@@ -303,9 +316,9 @@ int main(int argc, char * argv[]) {
 	auto CollidePlayer = manager->addLogic(new DynamicVectorLogic(humans_id, manager->getLogicPtr(L2a)));
 
 	director->addLogicBinder(S1, testObj0, MoveHumans);
+	director->addLogicBinder(S1, testObj0, CollidePlayer);
 	director->addLogicBinder(S1, testObj0, CollideLevelHumans);
-	director->addLogicBinder(S1, testObj1, CollidePlayer);
-
+	
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 

@@ -199,9 +199,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Logic\sge_logic.hpp">
       <Filter>Logic</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Logic\Logics\sge_logic_collide.hpp">
-      <Filter>Logic\Logics</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Logic\Logics\Colliders\sge_logic_collide_basic.hpp">
       <Filter>Logic\Logics\Colliders</Filter>
     </ClInclude>
@@ -243,6 +240,18 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Logic\Logics\Camera\sge_logic_camera_zoom.hpp">
       <Filter>Logic\Logics\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Logic\Logics\Colliders\sge_logic_collide_group.hpp">
+      <Filter>Logic\Logics\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Logic\Logics\Colliders\sge_logic_collide_level.hpp">
+      <Filter>Logic\Logics\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Logic\Logics\sge_logic_collide.hpp">
+      <Filter>Logic\Logics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Logic\Logics\Colliders\sge_logic_collide_level _precise.hpp">
+      <Filter>Logic\Logics\Colliders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

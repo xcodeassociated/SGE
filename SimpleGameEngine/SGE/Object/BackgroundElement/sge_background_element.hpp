@@ -4,7 +4,7 @@
 #include "../sge_object.hpp"
 
 namespace SGE {
-	Shape* getBaseTileShape();
+	Rectangle* getBaseTileShape();
 
     class BackgroundElement : public Object{
 	protected:

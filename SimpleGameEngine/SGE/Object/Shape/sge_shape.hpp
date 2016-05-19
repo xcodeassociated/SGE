@@ -110,7 +110,7 @@ namespace SGE
 		}
 	};
 
-	Shape* getBaseTileShape()
+	Rectangle* getBaseTileShape()
 	{
 		static Rectangle tile(64, 64, 0);
 		return &tile;

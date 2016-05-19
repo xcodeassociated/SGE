@@ -54,13 +54,12 @@ namespace SGE {
 		void addLogicBinder(Scene::ID scene, Logic::Binder logic)
 		{
 			scene.scene->getLogics().push_back(logic);
-            std::sort(scene.scene->getLogics().begin(), scene.scene->getLogics().end());
+            std::stable_sort(scene.scene->getLogics().begin(), scene.scene->getLogics().end());
 		}
 
 		void addLogicBinder(Scene::ID scene, Object::ID obj, Logic::ID logic)
 		{
-			scene.scene->getLogics().push_back(Logic::Binder(logic, obj));
-            std::sort(scene.scene->getLogics().begin(), scene.scene->getLogics().end());
+			this->addLogicBinder(scene,Logic::Binder(logic, obj));
 		}
 
 		void unbindLogic(Scene::ID scene, Object::ID obj, Logic::ID logic)
