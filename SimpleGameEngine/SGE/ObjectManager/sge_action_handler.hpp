@@ -212,8 +212,8 @@ namespace SGE{
 					delete b.second.getAction(); //deletes managed action
 					return true;
 				}
-				return false; //"removes" actions that ended.
-            });
+				return false;
+            }); //"removes" actions that ended.
             this->actions.erase(last, actions.end());//Actually removes managed actions that ended.
         }
         

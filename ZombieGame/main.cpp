@@ -97,6 +97,31 @@ SGE::Shape* getCircle()
 	return &c;
 }
 
+class BiCollider : public SGE::Logic
+{
+	SGE::Object::ID player;
+public:
+	BiCollider(SGE::Object::ID player) : Logic(SGE::LogicPriority::Highest), player(player) {}
+
+	void performLogic(SGE::Object::ID obj) override
+	{
+		SGE::Circle* selfCircle = reinterpret_cast<SGE::Circle*>(player.getObject()->getShape());
+		SGE::Circle* oponCircle = reinterpret_cast<SGE::Circle*>(obj.getObject()->getShape());
+		glm::vec2 selfPos = player.getObject()->getPosition();
+		glm::vec2 oponPos = obj.getObject()->getPosition();
+		glm::vec2 pen = selfPos - oponPos;
+		float distance = glm::length(pen);
+		float radiuses = selfCircle->getRadius() + oponCircle->getRadius();
+		if (distance < radiuses)
+		{
+			float move = (radiuses - distance)*0.5;
+			pen = glm::normalize(pen)*move;
+			this->sendAction(player, SGE::Action::ID(new SGE::ACTION::Move(pen.x, pen.y, 0)));
+			this->sendAction(obj, SGE::Action::ID(new SGE::ACTION::Move(-pen.x,-pen.y,0)));
+		}
+	}
+};
+
 class Human : public SGE::Being
 {
 	glm::vec2 velocity = {3.f,0.f};
@@ -313,7 +338,7 @@ int main(int argc, char * argv[]) {
 
 	auto MoveHumans = manager->addLogic(new DynamicVectorLogic(humans_id,new HumanRandomMovement()));
 	auto CollideLevelHumans = manager->addLogic(new DynamicVectorLogic(humans_id,manager->getLogicPtr(L1)));
-	auto CollidePlayer = manager->addLogic(new DynamicVectorLogic(humans_id, manager->getLogicPtr(L2a)));
+	auto CollidePlayer = manager->addLogic(new DynamicVectorLogic(humans_id, new BiCollider(testObj1)));
 
 	director->addLogicBinder(S1, testObj0, MoveHumans);
 	director->addLogicBinder(S1, testObj0, CollidePlayer);
