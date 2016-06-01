@@ -290,7 +290,7 @@
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_VERSION = "";
+				GCC_VERSION = 5.2;
 				HEADER_SEARCH_PATHS = (
 					/Library/Frameworks,
 					/usr/local/boost/include,
@@ -331,7 +331,7 @@
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_VERSION = "";
+				GCC_VERSION = 5.2;
 				HEADER_SEARCH_PATHS = (
 					/Library/Frameworks,
 					/usr/local/boost/include,
@@ -457,7 +457,7 @@
 				GCC_ENABLE_EXCEPTIONS = YES;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_VERSION = "";
+				GCC_VERSION = 5.2;
 				HEADER_SEARCH_PATHS = (
 					/usr/local/boost/include,
 					/Library/Frameworks,
@@ -501,7 +501,7 @@
 				GCC_ENABLE_EXCEPTIONS = YES;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_VERSION = "";
+				GCC_VERSION = 5.2;
 				HEADER_SEARCH_PATHS = (
 					/usr/local/boost/include,
 					/Library/Frameworks,

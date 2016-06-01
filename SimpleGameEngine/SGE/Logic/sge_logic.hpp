@@ -34,6 +34,7 @@ namespace SGE {
 
 	public:
 		using Priority = LogicPriority;
+        virtual void performLogic(Object::ID obj) = 0;
     protected:
 		static ActionHandler* action_handler;
 
@@ -46,8 +47,6 @@ namespace SGE {
 		{
 			action_handler->performSingleAction(std::make_pair(obj, action), this->priority);
 		}
-
-        virtual void performLogic(Object::ID obj) = 0;
 
     public:
 		using ID = LogicID;
