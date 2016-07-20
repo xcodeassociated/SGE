@@ -6,6 +6,7 @@
 #include "Action/sge_action.hpp"
 #include "Logic/sge_logic.hpp"
 #include "Scene/sge_scene.hpp"
+#include "Mouse/sge_mouse.hpp"
 #include "ObjectManager/sge_object_manager.hpp"
 #include "Director/sge_director.hpp"
 #include "Relay/sge_relay.hpp"

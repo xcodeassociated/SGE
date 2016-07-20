@@ -11,7 +11,23 @@
 
 namespace SGE {
     
-    ObjectManager::InputHandler::InputHandler(ObjectManager* m) noexcept : manager(m), input_manager(new InputManager) {
+    ObjectManager::InputHandler::MouseHandler::MouseHandler() noexcept : mouse(new MouseObject) {
+        
+    }
+    
+    void ObjectManager::InputHandler::MouseHandler::setMouseCoords(glm::vec2 coords) noexcept {
+        this->mouse->setMouseCoords(coords);
+    }
+    
+    glm::vec2 ObjectManager::InputHandler::MouseHandler::getMouseCoords(void) const noexcept {
+        return this->mouse->getMouseCoords();
+    }
+    
+    MouseObject* ObjectManager::InputHandler::MouseHandler::getMouseObject(void) noexcept{
+        return this->mouse;
+    }
+    
+    ObjectManager::InputHandler::InputHandler(ObjectManager* m) noexcept : manager(m), input_manager(new InputManager), mouseHandler(new MouseHandler) {
     }
 
 	void ObjectManager::InputHandler::mapAction(const ActionBinder& bind)
@@ -44,9 +60,31 @@ namespace SGE {
 				case SDL_KEYDOWN: {
 					this->pressKey(Key(event.key.keysym.sym));
 				}break;
+                    
+                case SDL_MOUSEMOTION:{
+                    this->mouseHandler->setMouseCoords({event.motion.x, event.motion.y});
+                }break;
+                    
+                case SDL_MOUSEBUTTONDOWN:{
+                    this->mouseHandler->setMouseCoords({event.motion.x, event.motion.y});
+                    this->pressKey(Key(-10));
+
+    
+                    //                    glm::vec2 coords = this->camera->screenToWorld(this->inputManager->getMouseCoords());
+                    //                    std::cout << "Clicked: x=" << coords.x << ", y=" << coords.y << std::endl;
+                }break;
+                    
+                case SDL_MOUSEBUTTONUP:{
+                    //                    this->inputManager->releaseKey(event.button.button);
+                }break;
+            
             }
         }
         
+    }
+    
+    ObjectManager::InputHandler::MouseHandler* ObjectManager::InputHandler::getMouseHandler() noexcept{
+        return this->mouseHandler;
     }
 
 }

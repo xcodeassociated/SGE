@@ -16,10 +16,9 @@ namespace SGE {
 
     class InputManager{
         std::unordered_map<unsigned int, bool> keyMap;
-        glm::vec2 mouseCoords;
         
     public:
-        InputManager() : keyMap({}), mouseCoords(0.0f){
+        InputManager() : keyMap({}){
             
         };
         
@@ -42,15 +41,7 @@ namespace SGE {
             else
                 return false;
         }
-        
-        void setMouseCoords(float x, float y){
-            this->mouseCoords.x = x;
-            this->mouseCoords.y = y;
-        }
-        
-        glm::vec2 getMouseCoords() const {
-            return this->mouseCoords;
-        }
+
     };
 
 }

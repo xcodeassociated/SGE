@@ -10,9 +10,8 @@
 		1E0AA2C51C6EA5AA0025F774 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E0AA2C41C6EA5AA0025F774 /* main.cpp */; };
 		1E0AA2CC1C6EAAB90025F774 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA7758C1BD06B3400488F1D /* OpenGL.framework */; };
 		1E6FB5B41C906679003308FA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E6FB5B11C906679003308FA /* main.cpp */; };
+		1E8CDAB01D3FB97F003B95C0 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E8CDAAF1D3FB97F003B95C0 /* SDL2.framework */; };
 		1EA7758D1BD06B3400488F1D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EA7758C1BD06B3400488F1D /* OpenGL.framework */; };
-		1EE623211C7F0D120087721B /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EE623201C7F0D120087721B /* SDL2.framework */; };
-		1EE623221C7F0D120087721B /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EE623201C7F0D120087721B /* SDL2.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -48,8 +47,9 @@
 		1E6FB5B31C906679003308FA /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Resources; path = SGE_Demo/Resources; sourceTree = "<group>"; };
 		1E6FB5B51C906692003308FA /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
 		1E79648E1BD068EA0022EB3F /* SimpleGameEngine */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SimpleGameEngine; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E8CDAAF1D3FB97F003B95C0 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = "../../SDL2-2.0.4/SDL2.framework"; sourceTree = "<group>"; };
+		1E8CDAB11D4009A2003B95C0 /* sge_mouse.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = sge_mouse.hpp; path = SimpleGameEngine/SGE/Mouse/sge_mouse.hpp; sourceTree = SOURCE_ROOT; };
 		1EA7758C1BD06B3400488F1D /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
-		1EE623201C7F0D120087721B /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
 		1EFC0C5A1C73733C001B26E2 /* Agent.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Agent.hpp; sourceTree = "<group>"; };
 		1EFC0C5B1C737364001B26E2 /* Zombie.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Zombie.hpp; sourceTree = "<group>"; };
 		1EFC0C5C1C737378001B26E2 /* Human.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Human.hpp; sourceTree = "<group>"; };
@@ -63,8 +63,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E8CDAB01D3FB97F003B95C0 /* SDL2.framework in Frameworks */,
 				1E0AA2CC1C6EAAB90025F774 /* OpenGL.framework in Frameworks */,
-				1EE623221C7F0D120087721B /* SDL2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,7 +73,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1EA7758D1BD06B3400488F1D /* OpenGL.framework in Frameworks */,
-				1EE623211C7F0D120087721B /* SDL2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,7 +132,7 @@
 		1EA775901BD06BD300488F1D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1EE623201C7F0D120087721B /* SDL2.framework */,
+				1E8CDAAF1D3FB97F003B95C0 /* SDL2.framework */,
 				1EA7758C1BD06B3400488F1D /* OpenGL.framework */,
 			);
 			name = Frameworks;
@@ -174,6 +173,7 @@
 			children = (
 				1E0AA2D11C6EAEE70025F774 /* MainGameWindow.hpp */,
 				1E0AA2C41C6EA5AA0025F774 /* main.cpp */,
+				1E8CDAB11D4009A2003B95C0 /* sge_mouse.hpp */,
 			);
 			name = MainGame;
 			sourceTree = "<group>";
@@ -287,6 +287,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+					"$(USER_LIBRARY_DIR)/Mobile",
+					"Documents/com~apple~CloudDocs/Documents/SDL2-2.0.4",
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -327,6 +329,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+					"$(USER_LIBRARY_DIR)/Mobile",
+					"Documents/com~apple~CloudDocs/Documents/SDL2-2.0.4",
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -453,6 +457,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+					"$(USER_LIBRARY_DIR)/Mobile",
+					"Documents/com~apple~CloudDocs/Documents/SDL2-2.0.4",
 				);
 				GCC_ENABLE_EXCEPTIONS = YES;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
@@ -497,6 +503,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+					"$(USER_LIBRARY_DIR)/Mobile",
+					"Documents/com~apple~CloudDocs/Documents/SDL2-2.0.4",
 				);
 				GCC_ENABLE_EXCEPTIONS = YES;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;

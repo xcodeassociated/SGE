@@ -13,8 +13,8 @@
 //#include "MainGameWindow.hpp"
 
 #include "../SimpleGameEngine/SGE/SGE.hpp"
-
 #include "../SimpleGameEngine/SGE/Action/Actions/sge_action_move.hpp"
+//#include "../SimpleGameEngine/SGE/Mouse/sge_mouse.hpp"
 
 #include <set>
 #include <time.h>       /* time */
@@ -229,13 +229,24 @@ public:
 	}
 };
 
+class MouseClickedAction : public SGE::Action {
+public:
+    MouseClickedAction(): Action(0.f){};
+    
+    virtual void action_begin(SGE::Object*) noexcept override{}
+    virtual void action_ends(SGE::Object*) noexcept override{}
+    
+    virtual void action_main(SGE::Object* o) noexcept override{
+        SGE::MouseObject* mouse = dynamic_cast<SGE::MouseObject*>(o);
+        glm::vec2 coords = mouse->getMouseCoords();
+        
+        std::cout << "[Clicked] - x: " << coords.x << ", y: " << coords.y << std::endl; //print out mouse click event - but not in a world coords.
+    }
+};
+
 int main(int argc, char * argv[]) {
     std::cout.setf(std::ios::boolalpha);
-    std::cout.sync_with_stdio(0);
-
-//	SGE::Rectangle* tile = (SGE::Rectangle*)(SGE::getBaseTileShape());
-//	tile->setHeight(256); //This works nicely
-//	tile->setWidth(256);
+    std::cout.sync_with_stdio(false);
 
 	SGE::Director* director = SGE::Director::getDirector(1024,768);
 	SGE::ObjectManager* manager = SGE::ObjectManager::getManager();
@@ -243,7 +254,9 @@ int main(int argc, char * argv[]) {
 	SGE::Scene::ID S1 = director->addScene(new MainScene(manager));
     
     SGE::Object::ID camID = manager->getCameraID();
-        
+    SGE::Object::ID mouseID = manager->getMouse();
+    
+    
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
     SGE::Object::ID testObj0 = manager->addObject(new TestObject, S1, PATH"ZombieGame/Resources/Textures/circle.png");
     SGE::Object::ID testObj1 = manager->addObject(new TestObject(200,200), S1, PATH"ZombieGame/Resources/Textures/circle.png");
@@ -263,6 +276,11 @@ int main(int argc, char * argv[]) {
 	manager->mapAction(tb2);
 	manager->mapAction(tb3);
 
+    //add mouse click action to the game (on camera object)
+    SGE::Action::ID click = manager->addAction(new MouseClickedAction);
+    SGE::ActionBinder clickBind(mouseID, click, SGE::Key::MOUSE_LEFT_BUTTON);
+    manager->mapAction(clickBind);
+    
     //auto L1 = manager->addLogic(new SGE::Logics::BasicLevelCollider(manager->getScenePtr(S1)->getLevel().getWorld(), &SGE::Logics::Collide::CircleToRectCollisionVec));
 	auto L1 = manager->addLogic(new SGE::Logics::PreciseLevelCollider(manager->getScenePtr(S1)->getLevel().getWorld()));
 	

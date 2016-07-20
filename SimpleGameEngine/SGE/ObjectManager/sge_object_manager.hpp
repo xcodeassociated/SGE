@@ -86,7 +86,7 @@ namespace SGE {
             ObjectManager* manager = nullptr;
             InputManager* input_manager = nullptr;
 			std::unordered_map<Key, ActionBinder::Bind, KeyHashAlias<Key>> keyMap;
-
+            
 			void pressKey(Key k);
 
         public:
@@ -94,6 +94,21 @@ namespace SGE {
             void operator()(void) noexcept;
 			void mapAction(const ActionBinder& bind);
 			void unmapAction(const ActionBinder& bind);
+            
+            class MouseHandler{
+                MouseObject* mouse = nullptr;
+               
+            public:
+                MouseHandler(void) noexcept;
+                void setMouseCoords(glm::vec2 coords) noexcept;
+                glm::vec2 getMouseCoords(void) const noexcept;
+                MouseObject* getMouseObject(void) noexcept;
+            };
+            
+        private:
+            MouseHandler* mouseHandler = nullptr;
+        public:
+            MouseHandler* getMouseHandler() noexcept;
         };
         
         class WindowManager{
@@ -131,7 +146,7 @@ namespace SGE {
 	private:
         ResourceManager* rManager = ResourceManager::getSingleton();
 		bool OnScene = false;
-		long counter = 1;
+		long counter = 100;
 		std::vector<ObjectID> objects;
 		std::map< SceneID, std::vector<ObjectID> > sceneObjects;
 
@@ -360,7 +375,11 @@ namespace SGE {
         }
         
         Object::ID getCameraID(void) {
-            return ObjectID(0,this->camera_handler->getCamera());
+            return ObjectID(0, this->camera_handler->getCamera());
+        }
+        
+        Object::ID getMouse(void) {
+            return ObjectID(1, this->input_handler->getMouseHandler()->getMouseObject());
         }
     };
     

@@ -136,7 +136,9 @@ namespace SGE{
 		AC_Stop = SDLK_AC_STOP,
 
 		DisplaySwitch = SDLK_DISPLAYSWITCH,
-		AltErase = SDLK_ALTERASE
+		AltErase = SDLK_ALTERASE,
+        
+        MOUSE_LEFT_BUTTON = -10
 	};
     
     struct KeyHash{
