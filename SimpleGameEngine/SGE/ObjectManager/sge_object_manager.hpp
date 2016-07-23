@@ -85,7 +85,7 @@ namespace SGE {
         class InputHandler{
             ObjectManager* manager = nullptr;
             InputManager* input_manager = nullptr;
-			std::unordered_map<Key, ActionBinder::Bind, KeyHashAlias<Key>> keyMap;
+			std::unordered_map<Key, Bind, KeyHashAlias<Key>> keyMap;
             
 			void pressKey(Key k);
 

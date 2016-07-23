@@ -40,9 +40,9 @@ namespace SGE {
 			return this->duration;
 		}
 		virtual ~Action() = default;
-        virtual void action_begin(Object*) noexcept = 0;
-        virtual void action_main(Object*) noexcept = 0;
-        virtual void action_ends(Object*) noexcept = 0;
+        virtual void action_begin(Object*, Object*) noexcept = 0;
+        virtual void action_main(Object*, Object*) noexcept = 0;
+        virtual void action_ends(Object*, Object*) noexcept = 0;
 
         virtual void setActionHandler(ActionHandler* _action_handler) noexcept
         {

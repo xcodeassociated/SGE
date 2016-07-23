@@ -73,10 +73,10 @@ class GOTO : public SGE::Action
 {
 public:
     GOTO(): Action(0.){};
-    virtual void action_begin(SGE::Object*) noexcept override{}
-    virtual void action_ends(SGE::Object*) noexcept override{}
+    virtual void action_begin(SGE::Object*, SGE::Object*) noexcept override{}
+    virtual void action_ends(SGE::Object*, SGE::Object*) noexcept override{}
     
-    virtual void action_main(SGE::Object* o) noexcept override
+    virtual void action_main(SGE::Object* o, SGE::Object*) noexcept override
     {
 		o->setPosition(200, 200);
     }
@@ -233,10 +233,10 @@ class MouseClickedAction : public SGE::Action {
 public:
     MouseClickedAction(): Action(0.f){};
     
-    virtual void action_begin(SGE::Object*) noexcept override{}
-    virtual void action_ends(SGE::Object*) noexcept override{}
+    virtual void action_begin(SGE::Object*, SGE::Object*) noexcept override{}
+    virtual void action_ends(SGE::Object*, SGE::Object*) noexcept override{}
     
-    virtual void action_main(SGE::Object* o) noexcept override{
+    virtual void action_main(SGE::Object* o, SGE::Object* n) noexcept override{
         SGE::MouseObject* mouse = dynamic_cast<SGE::MouseObject*>(o);
         glm::vec2 coords = mouse->getMouseCoords();
         SGE::ObjectManager* manager = SGE::ObjectManager::getManager();

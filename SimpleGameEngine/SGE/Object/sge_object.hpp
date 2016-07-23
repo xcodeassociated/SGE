@@ -32,7 +32,7 @@ namespace SGE {
 		}
 		ObjectID(const long id, Object* o) : ID(id), obj(o) {
 		}
-
+        ObjectID() : ID(0) {}
 		Object* getObject() const
 		{
 			return this->obj;

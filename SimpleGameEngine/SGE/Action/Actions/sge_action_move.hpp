@@ -26,11 +26,11 @@ namespace SGE {
             
         private:
             
-            virtual void action_begin(Object* obj) noexcept override {
+            virtual void action_begin(Object* obj, Object* n) noexcept override {
                 ;
             }
             
-            virtual void action_main(Object* obj) noexcept override {
+            virtual void action_main(Object* obj, Object* n) noexcept override {
                 //TODO...
                 
                 //debug only:
@@ -40,7 +40,7 @@ namespace SGE {
                 //std::cout << obj->getX() << ' ' << obj->getY() << std::endl;
             }
             
-            virtual void action_ends(Object* obj) noexcept override {
+            virtual void action_ends(Object* obj, Object* n) noexcept override {
                 ;
             }
         };

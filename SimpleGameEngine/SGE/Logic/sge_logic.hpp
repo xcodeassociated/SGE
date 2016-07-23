@@ -45,7 +45,7 @@ namespace SGE {
 
 		void sendAction(Object::ID obj,Action::ID action) const
 		{
-			action_handler->performSingleAction(std::make_pair(obj, action), this->priority);
+			action_handler->performSingleAction(Bind(obj, action), this->priority);
 		}
 
     public:
