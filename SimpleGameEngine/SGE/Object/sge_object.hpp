@@ -118,6 +118,71 @@ namespace SGE {
 	public:
 		VoidObject() :Object() {};
 	};
+
+	class ObjectBind {
+		ObjectID* _begin = nullptr;
+		ObjectID* _end = nullptr;
+	public:
+		ObjectBind(const std::initializer_list<ObjectID>& object) {
+			this->_begin = new ObjectID[object.size()];
+			int i = 0;
+			for (ObjectID o : object) {
+				*(this->_begin + i) = o;
+				i++;
+			}
+			this->_end = (this->_begin + object.size());
+		}
+		ObjectBind(ObjectID object) : ObjectBind({ object }) {
+			;;
+		}
+		ObjectBind() = default;
+		~ObjectBind() {
+			if (this->_begin != nullptr)
+				delete[] this->_begin;
+		}
+		ObjectBind(const ObjectBind& b){
+			this->_begin = new ObjectID[b.size()];
+			int i = 0;
+			for (ObjectID o : b) {
+				*(this->_begin + i) = o;
+				i++;
+			}
+			this->_end = (this->_begin + i);
+		}
+		ObjectBind(ObjectBind&& b) : _begin(b._begin), _end(b._end){
+			b._begin = nullptr;
+			b._end = nullptr;
+		}
+
+		ObjectBind& operator=(const ObjectBind& b) {
+			if (this != &b) {
+				this->_begin = new ObjectID[b.size()];
+				int i = 0;
+				for (ObjectID o : b) {
+					*(this->_begin + i) = o;
+					i++;
+				}
+				this->_end = (this->_begin + i);
+			}
+			return *this;
+		}
+
+		ObjectBind& operator=(ObjectBind&& b) {
+			if (this != &b) {
+				this->_begin = b._begin;
+				this->_end = b._end;
+				b._begin = nullptr;
+				b._end = nullptr;
+			}
+			return *this;
+		}
+
+		ObjectID* begin() { return this->_begin; }
+		ObjectID* end() { return this->_end; }
+		ObjectID* begin() const { return this->_begin; }
+		ObjectID* end() const { return this->_end; }
+		std::size_t size() const { return this->_end - this->_begin; }
+	};
 }
 
 #endif /* sge_object_h */

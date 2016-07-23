@@ -256,12 +256,16 @@ public:
     virtual void action_ends(SGE::Object*, SGE::Object*) noexcept override{}
     
     virtual void action_main(SGE::Object* o, SGE::Object* n) noexcept override{
-        SGE::MouseObject* mouse = dynamic_cast<SGE::MouseObject*>(o);
+		//assert((n - o) == 2);
+		std::cout << n - o << std::endl;
+		SGE::MouseObject* mouse = dynamic_cast<SGE::MouseObject*>(o);
+		SGE::Object* p = o + 1;
         glm::vec2 coords = mouse->getMouseCoords();
         SGE::ObjectManager* manager = SGE::ObjectManager::getManager();
         SGE::Camera2d* cam = dynamic_cast<SGE::Camera2d*>(manager->getCameraID().getObject());
         glm::vec2 worldCoords = SGE::screenToWorld(cam->getPosition(), coords, (double)cam->getScale());
-        std::cout << "[Clicked] - x: " << worldCoords.x << ", y: " << worldCoords.y << std::endl; //print out mouse click event - but not in a world coords.
+		std::cout << "[Clicked] - x: " << worldCoords.x << ", y: " << worldCoords.y << std::endl;
+		std::cout << "[Player ] - x: " << p->getX() << ", y: " << p->getY() << std::endl; //print out mouse click event - but not in a world coords.
     }
 };
 
@@ -287,10 +291,10 @@ int main(int argc, char * argv[]) {
     SGE::Action::ID oS = manager->addAction(new SGE::ACTION::Move(0, -4.f, 0));
     SGE::Action::ID oD = manager->addAction(new SGE::ACTION::Move(4.f, 0, 0));
 
-    SGE::ActionBinder tb0(testObj0, oW, SGE::Key::Up);
-    SGE::ActionBinder tb1(testObj0, oS, SGE::Key::Down);
-    SGE::ActionBinder tb2(testObj0, oA, SGE::Key::Left);
-    SGE::ActionBinder tb3(testObj0, oD, SGE::Key::Right);
+    SGE::InputBinder tb0(testObj0, oW, SGE::Key::Up);
+    SGE::InputBinder tb1(testObj0, oS, SGE::Key::Down);
+    SGE::InputBinder tb2(testObj0, oA, SGE::Key::Left);
+    SGE::InputBinder tb3(testObj0, oD, SGE::Key::Right);
     
 	manager->mapAction(tb0);
 	manager->mapAction(tb1);
@@ -301,14 +305,14 @@ int main(int argc, char * argv[]) {
 
     //add mouse click action to the game (on camera object)
     SGE::Action::ID click = manager->addAction(new MouseClickedAction);
-    SGE::ActionBinder clickBind(mouseID, click, SGE::Key::MOUSE_LEFT_BUTTON);
+	SGE::InputBinder clickBind({ mouseID,testObj1 }, click, SGE::Key::MOUSE_LEFT_BUTTON);
     manager->mapAction(clickBind);
     
     //auto L1 = manager->addLogic(new SGE::Logics::BasicLevelCollider(manager->getScenePtr(S1)->getLevel().getWorld(), &SGE::Logics::Collide::CircleToRectCollisionVec));
 	auto L1 = manager->addLogic(new SGE::Logics::PreciseLevelCollider(manager->getScenePtr(S1)->getLevel().getWorld()));
 	SGE::Action::ID toggle = manager->addAction(new LogicSwitch(L1));
 	SGE::Object::ID cto = manager->addObject(new SGE::VoidObject());
-	manager->mapAction(SGE::ActionBinder(cto,toggle,SGE::Key::O));
+	manager->mapAction(SGE::InputBinder(cto,toggle,SGE::Key::O));
 
 	auto L2a = manager->addLogic(new SGE::Logics::BasicCollider(testObj1, &SGE::Logics::Collide::CircleCollisionVec));
 	auto L2b = manager->addLogic(new SGE::Logics::BasicCollider(testObj0, &SGE::Logics::Collide::CircleCollisionVec));
@@ -332,7 +336,7 @@ int main(int argc, char * argv[]) {
 	director->addLogicBinder(S1, testTile, moveTile);
 
 	auto reset = manager->addAction(new GOTO());
-	manager->mapAction(SGE::ActionBinder(testObj1, reset, SGE::Key::B));
+	manager->mapAction(SGE::InputBinder(testObj1, reset, SGE::Key::B));
 
 	// !Testing collisions
     std::string path = SGE::getPath() + "level1.txt";

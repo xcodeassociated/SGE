@@ -55,6 +55,7 @@
 #include <vector>
 #include <map>
 #include <tuple>
+#include <initializer_list>
 
 //stream
 #include <fstream>

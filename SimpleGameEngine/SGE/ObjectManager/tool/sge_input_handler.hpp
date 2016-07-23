@@ -30,13 +30,13 @@ namespace SGE {
     ObjectManager::InputHandler::InputHandler(ObjectManager* m) noexcept : manager(m), input_manager(new InputManager), mouseHandler(new MouseHandler) {
     }
 
-	void ObjectManager::InputHandler::mapAction(const ActionBinder& bind)
+	void ObjectManager::InputHandler::mapAction(const InputBinder& bind)
 	{
 		auto p = this->keyMap.insert(std::make_pair(bind.getKey(),bind.getBind()));
 		if(!p.second) throw std::runtime_error("You are an idiot");
 	}
 
-	void ObjectManager::InputHandler::unmapAction(const ActionBinder& bind)
+	void ObjectManager::InputHandler::unmapAction(const InputBinder& bind)
 	{
 		if(this->keyMap.erase(bind.getKey())==0) throw std::runtime_error("You are an idiot");
 	}

@@ -85,15 +85,15 @@ namespace SGE {
         class InputHandler{
             ObjectManager* manager = nullptr;
             InputManager* input_manager = nullptr;
-			std::unordered_map<Key, Bind, KeyHashAlias<Key>> keyMap;
+			std::unordered_map<Key, ActionBind, KeyHashAlias<Key>> keyMap;
             
 			void pressKey(Key k);
 
         public:
             InputHandler(ObjectManager*) noexcept;
             void operator()(void) noexcept;
-			void mapAction(const ActionBinder& bind);
-			void unmapAction(const ActionBinder& bind);
+			void mapAction(const InputBinder& bind);
+			void unmapAction(const InputBinder& bind);
             
             class MouseHandler{
                 MouseObject* mouse = nullptr;
@@ -273,12 +273,12 @@ namespace SGE {
             return id.logic;
         }
         
-		void mapAction(const ActionBinder& bind)
+		void mapAction(const InputBinder& bind)
 		{
 			this->input_handler->mapAction(bind);
 		}
 
-		void unmapAction(const ActionBinder& bind)
+		void unmapAction(const InputBinder& bind)
 		{
 			this->input_handler->unmapAction(bind);
 		}

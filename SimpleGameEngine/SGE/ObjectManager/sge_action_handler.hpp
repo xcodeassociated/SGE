@@ -151,89 +151,36 @@ namespace SGE{
     template <typename Key>
     using KeyHashAlias = typename std::conditional<std::is_enum<Key>::value, KeyHash, std::hash<Key>>::type;
     
-    class Bind {
-        ObjectID* _begin = nullptr;
-        ObjectID* _end = nullptr;
+    class ActionBind {
+		ObjectBind bind = ObjectBind();
         ActionID aid = ActionID(nullptr);
     public:
-        Bind (const std::initializer_list<ObjectID>& object, Action::ID action) : aid(action){
-            this->_begin = new ObjectID[object.size()];
-            int i = 0;
-            for (ObjectID o : object) {
-                *(this->_begin + i) = o;
-                i++;
-            }
-            this->_end = (this->_begin + object.size());
-        }
-        Bind (ObjectID object, ActionID action) : Bind({object}, action) {
-            ;;
-        }
-        Bind() = default;
-        ~Bind() {
-            if (this->_begin != nullptr)
-                delete [] this->_begin;
-        }
-        Bind(const Bind& b): aid(b.aid) {
-            this->_begin = new ObjectID[b.size()];
-            int i = 0;
-            for (ObjectID o : b) {
-                *(this->_begin + i) = o;
-                i++;
-            }
-            this->_end = (this->_begin + i);
-        }
-        Bind(Bind&& b) : _begin(b._begin), _end(b._end), aid(b.aid){
-            b._begin = nullptr;
-            b._end = nullptr;
-        }
+		ActionBind(const std::initializer_list<ObjectID>& object, Action::ID action) : bind(object), aid(action) {}
+        ActionBind(ObjectID object, ActionID action) : ActionBind({object}, action) {}
+        ActionBind() = default;
         
-        Bind& operator=(const Bind& b){
-            if(this!=&b){
-                this->_begin = new ObjectID[b.size()];
-                int i = 0;
-                for (ObjectID o : b) {
-                    *(this->_begin + i) = o;
-                    i++;
-                }
-                this->_end = (this->_begin + i);
-                this->aid=b.aid;
-            }
-            return *this;
-        }
-        
-        Bind& operator=(Bind&& b){
-            if(this!=&b){
-                this->_begin = b._begin;
-                this->_end = b._end;
-                b._begin = nullptr;
-                b._end = nullptr;
-                this->aid=b.aid;
-            }
-            return *this;
-        }
-        
-        ObjectID* begin() { return this->_begin; }
-        ObjectID* end() { return this->_end; }
-        ObjectID* begin() const { return this->_begin; }
-        ObjectID* end() const { return this->_end; }
+		ObjectID* begin() { return this->bind.begin(); }
+        ObjectID* end() { return this->bind.end(); }
+        ObjectID* begin() const { return this->begin(); }
+        ObjectID* end() const { return this->end(); }
         ActionID getAction() const { return this->aid; }
-        std::size_t size() const { return this->_end - this->_begin; }
+        std::size_t size() const { return this->bind.size(); }
     };
     
-	class ActionBinder{
-		Bind bind;
+	class InputBinder{
+		ActionBind bind;
 		Key kid;
 
 	public:
-        ActionBinder(std::initializer_list<ObjectID> object, Action::ID action, Key key) : kid(key){
-            this->bind = Bind(object, action);
+        InputBinder(std::initializer_list<ObjectID> object, Action::ID action, Key key) : kid(key){
+            this->bind = ActionBind(object, action);
         }
         
-        ActionBinder(ObjectID object, Action::ID action, Key key) : kid(key){
-            this->bind = Bind(object, action);
+        InputBinder(ObjectID object, Action::ID action, Key key) : kid(key){
+            this->bind = ActionBind(object, action);
         }
 
-		Bind getBind() const
+		ActionBind getBind() const
 		{
 			return this->bind;
 		}
@@ -246,7 +193,7 @@ namespace SGE{
 
     class ActionHandler {
         Relay* relay = Relay::getRelay();
-        std::vector<Bind> actions;
+        std::vector<ActionBind> actions;
         
         void triggerAction(Action* a, Object* o, Object* e){
             a->action_begin(o, e);
@@ -260,7 +207,7 @@ namespace SGE{
             
         }
         
-		void handleInputAction(Bind bind)
+		void handleInputAction(ActionBind bind)
 		{
             Action* act_ptr = bind.getAction().getAction();
             Object* obj_ptr = bind.begin()->getObject();
@@ -269,7 +216,7 @@ namespace SGE{
   
 		}
 
-        void addAction(Bind bind){
+        void addAction(ActionBind bind){
             this->actions.push_back(bind);
         }
         
@@ -277,7 +224,7 @@ namespace SGE{
             Action* a = nullptr;
             Object* o = nullptr;
             
-            for (Bind& act : this->actions){
+            for (ActionBind& act : this->actions){
                 a = act.getAction().getAction();
                 o = act.begin()->getObject();
                 
@@ -286,7 +233,7 @@ namespace SGE{
                 
                 this->triggerAction(a, o, act.end()->getObject());
             }
-			auto last = std::remove_if(actions.begin(), actions.end(), [](const Bind& b)
+			auto last = std::remove_if(actions.begin(), actions.end(), [](const ActionBind& b)
             {
 				if(b.getAction().getAction()->getDuration() <= 0)
 				{
@@ -298,7 +245,7 @@ namespace SGE{
             this->actions.erase(last, actions.end());//Actually removes managed actions that ended.
         }
         
-        void performSingleAction(Bind bind, LogicPriority priority){
+        void performSingleAction(ActionBind bind, LogicPriority priority){
 			if(priority == LogicPriority::Highest){
                 Object* o = bind.begin()->getObject();
                 Action* a = bind.getAction().getAction();
