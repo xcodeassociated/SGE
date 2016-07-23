@@ -245,22 +245,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SimpleGameEngine/SGE/Camera2d/sge_camera2d.hpp"
-            timestampString = "482335537.310437"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "screenToWorld(glm::vec2 _screenCoords)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "SimpleGameEngine/SGE/Action/Actions/sge_action_move.hpp"
             timestampString = "482335537.310437"
             startingColumnNumber = "9223372036854775807"

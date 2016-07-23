@@ -43,7 +43,7 @@ namespace SGE {
     }
     
     glm::vec2 ObjectManager::CameraHandler::getScreenToWorld(glm::vec2 pos) const noexcept {
-        return this->camera->screenToWorld(pos);
+        return SGE::screenToWorld(pos, this->camera->getPosition(), (double)this->camera->getScale()); //this->camera->screenToWorld(pos);
     }
     
     glm::vec2 ObjectManager::CameraHandler::getScreenToWorld(int _x, int _y) const noexcept {

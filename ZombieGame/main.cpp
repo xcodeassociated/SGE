@@ -239,8 +239,10 @@ public:
     virtual void action_main(SGE::Object* o) noexcept override{
         SGE::MouseObject* mouse = dynamic_cast<SGE::MouseObject*>(o);
         glm::vec2 coords = mouse->getMouseCoords();
-        
-        std::cout << "[Clicked] - x: " << coords.x << ", y: " << coords.y << std::endl; //print out mouse click event - but not in a world coords.
+        SGE::ObjectManager* manager = SGE::ObjectManager::getManager();
+        SGE::Camera2d* cam = dynamic_cast<SGE::Camera2d*>(manager->getCameraID().getObject());
+        glm::vec2 worldCoords = SGE::screenToWorld(cam->getPosition(), coords, (double)cam->getScale());
+        std::cout << "[Clicked] - x: " << worldCoords.x << ", y: " << worldCoords.y << std::endl; //print out mouse click event - but not in a world coords.
     }
 };
 

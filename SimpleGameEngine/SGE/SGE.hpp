@@ -2,6 +2,7 @@
 #define SGE_HPP
 
 #include "include/sge_include.hpp"
+#include "Utils/sge_utils.hpp"
 #include "Object/sge_object.hpp"
 #include "Action/sge_action.hpp"
 #include "Logic/sge_logic.hpp"
@@ -10,7 +11,6 @@
 #include "ObjectManager/sge_object_manager.hpp"
 #include "Director/sge_director.hpp"
 #include "Relay/sge_relay.hpp"
-#include "Path/sge_path.hpp"
 #include "KeyboardState/sge_keyboard_state.hpp"
 
 //Objects

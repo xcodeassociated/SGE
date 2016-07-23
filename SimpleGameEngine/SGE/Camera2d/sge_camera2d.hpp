@@ -72,20 +72,6 @@ namespace SGE {
             }
         }
         
-        glm::vec2 screenToWorld(glm::vec2 _screenCoords){
-            //invert y axis
-            _screenCoords.y = SCREEN_HEIGHT - _screenCoords.y;
-            
-            //0 is center & scaling & set position
-            _screenCoords -= glm::vec2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-            _screenCoords /= this->scale;
-            _screenCoords.x += this->X;
-            _screenCoords.y += this->Y;
-            
-            return _screenCoords;
-        }
-        
-        
     };
     
 }
