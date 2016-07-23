@@ -26,6 +26,13 @@ namespace SGE {
 		Logic* logic;
 	public:
 		LogicID(const long id, Logic* logic) : ID(id), logic(logic) {}
+		Logic* getLogic() const {
+			return logic;
+		}
+
+		Logic* operator->() const {
+			return logic;
+		}
     };
 
     class Logic{
@@ -96,6 +103,10 @@ namespace SGE {
             return this->isOn;
         }
         
+		virtual void toggleOn() final {
+			this->isOn = !this->isOn;
+		}
+
         virtual ~Logic() = 0;
         
     };

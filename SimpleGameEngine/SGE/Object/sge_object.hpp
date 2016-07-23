@@ -48,8 +48,8 @@ namespace SGE {
     private:
         
 	protected:
-		float X;
-		float Y;
+		float X = 0.f;
+		float Y = 0.f;
 		bool drawable = false;
 		Shape* shape = getShapeless();
 		LogicPriority lock = LogicPriority::None;
@@ -113,6 +113,11 @@ namespace SGE {
 	{
 		if(this->shape->isDisposable()) delete this->shape;
 	}
+	
+	class VoidObject : public Object {
+	public:
+		VoidObject() :Object() {};
+	};
 }
 
 #endif /* sge_object_h */

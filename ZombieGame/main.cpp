@@ -63,7 +63,6 @@ public:
         std::cerr << "onDraw!" << std::endl;
         
         SGE::Action* move = new SGE::ACTION::Move(100, 100, 2);
-        move->setActionHandler(this->manager->getActionHandler());
         //SGE::Action::ID a1 = this->manager->addAction(move);
 
 	}
@@ -119,6 +118,26 @@ public:
 			this->sendAction(player, SGE::Action::ID(new SGE::ACTION::Move(pen.x, pen.y, 0)));
 			this->sendAction(obj, SGE::Action::ID(new SGE::ACTION::Move(-pen.x,-pen.y,0)));
 		}
+	}
+};
+
+class LogicSwitch : public SGE::Action {
+private:
+	SGE::Logic::ID logic;
+
+public:
+	LogicSwitch(SGE::Logic::ID id) : logic(id) {}
+
+	void action_begin(SGE::Object* ,SGE::Object*) override {
+
+	}
+	
+	void action_main(SGE::Object*, SGE::Object*) override {
+		logic->toggleOn();
+	}
+	
+	void action_ends(SGE::Object*, SGE::Object*) override {
+
 	}
 };
 
@@ -267,7 +286,7 @@ int main(int argc, char * argv[]) {
     SGE::Action::ID oA = manager->addAction(new SGE::ACTION::Move(-4.f, 0, 0));
     SGE::Action::ID oS = manager->addAction(new SGE::ACTION::Move(0, -4.f, 0));
     SGE::Action::ID oD = manager->addAction(new SGE::ACTION::Move(4.f, 0, 0));
-    
+
     SGE::ActionBinder tb0(testObj0, oW, SGE::Key::Up);
     SGE::ActionBinder tb1(testObj0, oS, SGE::Key::Down);
     SGE::ActionBinder tb2(testObj0, oA, SGE::Key::Left);
@@ -278,6 +297,8 @@ int main(int argc, char * argv[]) {
 	manager->mapAction(tb2);
 	manager->mapAction(tb3);
 
+
+
     //add mouse click action to the game (on camera object)
     SGE::Action::ID click = manager->addAction(new MouseClickedAction);
     SGE::ActionBinder clickBind(mouseID, click, SGE::Key::MOUSE_LEFT_BUTTON);
@@ -285,7 +306,10 @@ int main(int argc, char * argv[]) {
     
     //auto L1 = manager->addLogic(new SGE::Logics::BasicLevelCollider(manager->getScenePtr(S1)->getLevel().getWorld(), &SGE::Logics::Collide::CircleToRectCollisionVec));
 	auto L1 = manager->addLogic(new SGE::Logics::PreciseLevelCollider(manager->getScenePtr(S1)->getLevel().getWorld()));
-	
+	SGE::Action::ID toggle = manager->addAction(new LogicSwitch(L1));
+	SGE::Object::ID cto = manager->addObject(new SGE::VoidObject());
+	manager->mapAction(SGE::ActionBinder(cto,toggle,SGE::Key::O));
+
 	auto L2a = manager->addLogic(new SGE::Logics::BasicCollider(testObj1, &SGE::Logics::Collide::CircleCollisionVec));
 	auto L2b = manager->addLogic(new SGE::Logics::BasicCollider(testObj0, &SGE::Logics::Collide::CircleCollisionVec));
 	auto L3 = manager->addLogic(new SGE::Logics::SimpleMove(4.f,SGE::Key::W,SGE::Key::S, SGE::Key::A, SGE::Key::D));
@@ -309,9 +333,6 @@ int main(int argc, char * argv[]) {
 
 	auto reset = manager->addAction(new GOTO());
 	manager->mapAction(SGE::ActionBinder(testObj1, reset, SGE::Key::B));
-
-
-
 
 	// !Testing collisions
     std::string path = SGE::getPath() + "level1.txt";

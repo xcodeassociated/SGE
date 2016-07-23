@@ -29,9 +29,11 @@ namespace SGE {
 	class Action{
     protected:
         double duration = 0;
-        ActionHandler* action_handler = nullptr;
+		bool enabled = true;
+		Action() = default;
         Action(double _d) : duration(_d) {};
-        
+		Action(double _d, bool ) : duration(_d) {};
+
     public:
 		using ID = ActionID;
 
@@ -40,14 +42,10 @@ namespace SGE {
 			return this->duration;
 		}
 		virtual ~Action() = default;
+
         virtual void action_begin(Object*, Object*) noexcept = 0;
         virtual void action_main(Object*, Object*) noexcept = 0;
         virtual void action_ends(Object*, Object*) noexcept = 0;
-
-        virtual void setActionHandler(ActionHandler* _action_handler) noexcept
-        {
-            this->action_handler = _action_handler;
-        };
         
     };
     
