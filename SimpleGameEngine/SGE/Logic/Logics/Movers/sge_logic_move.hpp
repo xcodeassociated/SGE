@@ -16,14 +16,14 @@ namespace SGE
 				:Logic(LogicPriority::Highest), speed(speed), up(up), down(down), left(left), right(right) {}
 			~SimpleMove() = default;
 
-			void performLogic(SGE::Object::ID obj) override
+			void performLogic(const ObjectBind& obj) override
 			{
 				glm::vec2 move = { 0,0 };
 				if (isPressed(this->up)) move.y += this->speed;
 				if (isPressed(this->down)) move.y -= this->speed;
 				if (isPressed(this->right)) move.x += this->speed;
 				if (isPressed(this->left)) move.x -= this->speed;
-				this->sendAction(obj, SGE::Action::ID(0, new SGE::ACTION::Move(move.x, move.y, 0)));
+				this->sendAction(obj[0], SGE::Action::ID(new SGE::ACTION::Move(move.x, move.y, 0)));
 			}
 		};
 	}

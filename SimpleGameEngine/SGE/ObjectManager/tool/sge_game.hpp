@@ -56,7 +56,7 @@ namespace SGE
         
 		for(auto it = lVec.begin(), end = lVec.end(); it != end; ++it)
 		{
-            objectCurrentLogicP = it->getObject().getObject()->getLock();
+            //objectCurrentLogicP = it->getObject().getObject()->getLock();
             nextLogicP = it->getLogic().logic->getPriority();
             
             if (nextLogicP <= objectCurrentLogicP) {

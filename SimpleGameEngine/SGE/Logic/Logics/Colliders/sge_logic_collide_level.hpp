@@ -17,9 +17,9 @@ namespace SGE {
             
             BasicLevelCollider(std::vector<WorldElement>& objects, collisionFunc _onCollision) : Collide(_onCollision), objs(objects) {}
             
-            void performLogic(ObjectID _obj) override
+            void performLogic(const ObjectBind& _obj) override
             {
-                Object* oponent = _obj.getObject();
+                Object* oponent = _obj[0].getObject();
                 Shape* selfShape = getBaseTileShape();
                 Shape* oponentShape = oponent->getShape();
                 
@@ -33,8 +33,8 @@ namespace SGE {
                         collision = this->collideWithDifferentShape(&objs[i], oponent);
                     
                     if (collision){
-                        ActionID aid = this->onCollision(Object::ID(-1,&objs[i]), _obj);
-						this->sendAction(_obj,aid);
+                        ActionID aid = this->onCollision(Object::ID(&objs[i]), _obj[0]);
+						this->sendAction(_obj[0],aid);
                     }
                 }
             }

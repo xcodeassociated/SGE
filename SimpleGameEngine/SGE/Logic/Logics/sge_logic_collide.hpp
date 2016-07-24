@@ -28,9 +28,9 @@ namespace SGE {
                 float penx = (reinterpret_cast<Rectangle*>(toMove.getObject()->getShape())->getWidth()+reinterpret_cast<Rectangle*>(still.getObject()->getShape())->getWidth())*0.5f-std::abs(vx);
                 float peny = (reinterpret_cast<Rectangle*>(toMove.getObject()->getShape())->getHeight()+reinterpret_cast<Rectangle*>(still.getObject()->getShape())->getHeight())*0.5f-std::abs(vy);
                 if(penx<peny)
-                    return ActionID(0,new ACTION::Move((vx>0?penx:-penx),0,0));
+                    return ActionID(new ACTION::Move((vx>0?penx:-penx),0,0));
                 else
-                    return ActionID(0,new ACTION::Move(0,(vy>0?peny:-peny),0));
+                    return ActionID(new ACTION::Move(0,(vy>0?peny:-peny),0));
             }
             
             static ActionID CircleCollisionVec(Object::ID still ,Object::ID toMove)
@@ -39,7 +39,7 @@ namespace SGE {
                 float dist = reinterpret_cast<Circle*>(toMove.getObject()->getShape())->getRadius()+reinterpret_cast<Circle*>(still.getObject()->getShape())->getRadius();
                 float l = glm::length(pen);
                 pen*=( (dist-l)/l );
-                return ActionID(0,new ACTION::Move(pen.x,pen.y,0));
+                return ActionID(new ACTION::Move(pen.x,pen.y,0));
             }
             
             static ActionID CircleToRectCollisionVec(Object::ID still ,Object::ID toMove)
@@ -51,7 +51,7 @@ namespace SGE {
                 difference = toMove.getObject()->getPosition() - halfs;
                 const float l = glm::length(difference);
                 difference *= ((reinterpret_cast<Circle*>(toMove.getObject()->getShape())->getRadius()-l)/l );
-                return ActionID(0,new ACTION::Move(difference.x,difference.y,0));
+                return ActionID(new ACTION::Move(difference.x,difference.y,0));
             }
             
         protected:

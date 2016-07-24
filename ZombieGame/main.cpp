@@ -72,12 +72,12 @@ class GOTO : public SGE::Action
 {
 public:
     GOTO(): Action(0.){};
-    virtual void action_begin(SGE::Object*, SGE::Object*) noexcept override{}
-    virtual void action_ends(SGE::Object*, SGE::Object*) noexcept override{}
+    virtual void action_begin(const SGE::ObjectBind& ) noexcept override{}
+    virtual void action_ends(const SGE::ObjectBind&) noexcept override{}
     
-    virtual void action_main(SGE::Object* o, SGE::Object*) noexcept override
+    virtual void action_main(const SGE::ObjectBind& b) noexcept override
     {
-		o->setPosition(200, 200);
+		b[0]->setPosition(200, 200);
     }
 };
 
@@ -102,12 +102,12 @@ class BiCollider : public SGE::Logic
 public:
 	BiCollider(SGE::Object::ID player) : Logic(SGE::LogicPriority::Highest), player(player) {}
 
-	void performLogic(SGE::Object::ID obj) override
+	void performLogic(const SGE::ObjectBind& obj) override
 	{
 		SGE::Circle* selfCircle = reinterpret_cast<SGE::Circle*>(player.getObject()->getShape());
-		SGE::Circle* oponCircle = reinterpret_cast<SGE::Circle*>(obj.getObject()->getShape());
+		SGE::Circle* oponCircle = reinterpret_cast<SGE::Circle*>(obj[0].getObject()->getShape());
 		glm::vec2 selfPos = player.getObject()->getPosition();
-		glm::vec2 oponPos = obj.getObject()->getPosition();
+		glm::vec2 oponPos = obj[0].getObject()->getPosition();
 		glm::vec2 pen = selfPos - oponPos;
 		float distance = glm::length(pen);
 		float radiuses = selfCircle->getRadius() + oponCircle->getRadius();
@@ -116,7 +116,7 @@ public:
 			float move = (radiuses - distance)*0.5;
 			pen = glm::normalize(pen)*move;
 			this->sendAction(player, SGE::Action::ID(new SGE::ACTION::Move(pen.x, pen.y, 0)));
-			this->sendAction(obj, SGE::Action::ID(new SGE::ACTION::Move(-pen.x,-pen.y,0)));
+			this->sendAction(obj[0], SGE::Action::ID(new SGE::ACTION::Move(-pen.x,-pen.y,0)));
 		}
 	}
 };
@@ -128,15 +128,15 @@ private:
 public:
 	LogicSwitch(SGE::Logic::ID id) : logic(id) {}
 
-	void action_begin(SGE::Object* ,SGE::Object*) override {
+	void action_begin(const SGE::ObjectBind&) override {
 
 	}
 	
-	void action_main(SGE::Object*, SGE::Object*) override {
+	void action_main(const SGE::ObjectBind&) override {
 		logic->toggleOn();
 	}
 	
-	void action_ends(SGE::Object*, SGE::Object*) override {
+	void action_ends(const SGE::ObjectBind&) override {
 
 	}
 };
@@ -183,10 +183,10 @@ class HumanRandomMovement : public SGE::Logic
 public:
 	HumanRandomMovement() :Logic(SGE::LogicPriority::Mid), angle(glm::radians(-90.f), glm::radians(90.f)) {}
 
-	void performLogic(SGE::Object::ID humanID)
+	void performLogic(const SGE::ObjectBind& humanID) override
 	{
 		
-		auto human = reinterpret_cast<Human*>(humanID.getObject());
+		auto human = reinterpret_cast<Human*>(humanID[0].getObject());
 		velocity = human->getVelocity();
 		if (human->getCounter() == 0)
 		{
@@ -195,7 +195,7 @@ public:
 			human->setVelocity(velocity);
 //			std::cout << velocity.x << ' ' << velocity.y << std::endl;
 		}
-		this->sendAction(humanID, SGE::ActionID(0,new SGE::ACTION::Move(velocity.x, velocity.y,0)));
+		this->sendAction(humanID[0], SGE::ActionID(new SGE::ACTION::Move(velocity.x, velocity.y,0)));
 		//human->setPosition(human->getX()+velocity.x, human->getY()+velocity.y);
 	}
 };
@@ -208,7 +208,7 @@ public:
 	DynamicVectorLogic(std::vector<SGE::Object::ID>& vector, SGE::Logic* logic): Logic(logic->getPriority()), vec(vector), logic(logic)
 	{}
 
-	void performLogic(SGE::Object::ID)
+	void performLogic(const SGE::ObjectBind&) override
 	{
 		for (size_t i = 0; i < vec.size(); ++i)
 		{
@@ -228,14 +228,14 @@ public:
 		:Logic(SGE::LogicPriority::Highest), speed(speed), up(up), down(down), left(left), right(right), snapKey(snapKey) ,snapTo(snapTo){}
 	~SnapCamera() = default;
 
-	void performLogic(SGE::Object::ID obj) override
+	void performLogic(const SGE::ObjectBind& obj) override
 	{
 		this->snapped = isPressed(snapKey); //We need to be able to send signals to actions, like sending actions to objects
 		glm::vec2 move = { 0,0 };
 		if(!this->snapped)
 		{
 			move = this->snapTo.getObject()->getPosition();
-			obj.getObject()->setPosition(move.x, move.y); //Replace with action, i.e. GoTo
+			obj[0].getObject()->setPosition(move.x, move.y); //Replace with action, i.e. GoTo
 		}
 		else
 		{
@@ -243,7 +243,7 @@ public:
 			if(isPressed(this->down)) move.y -= this->speed;
 			if(isPressed(this->right)) move.x += this->speed;
 			if(isPressed(this->left)) move.x -= this->speed;
-			this->sendAction(obj, SGE::Action::ID(0, new SGE::ACTION::Move(move.x, move.y, 0)));
+			this->sendAction(obj[0], SGE::Action::ID(new SGE::ACTION::Move(move.x, move.y, 0)));
 		}
 	}
 };
@@ -252,14 +252,13 @@ class MouseClickedAction : public SGE::Action {
 public:
     MouseClickedAction(): Action(0.f){};
     
-    virtual void action_begin(SGE::Object*, SGE::Object*) noexcept override{}
-    virtual void action_ends(SGE::Object*, SGE::Object*) noexcept override{}
+    virtual void action_begin(const SGE::ObjectBind&) noexcept override{}
+    virtual void action_ends(const SGE::ObjectBind&) noexcept override{}
     
-    virtual void action_main(SGE::Object* o, SGE::Object* n) noexcept override{
+    virtual void action_main(const SGE::ObjectBind& b) noexcept override{
 		//assert((n - o) == 2);
-		std::cout << n - o << std::endl;
-		SGE::MouseObject* mouse = dynamic_cast<SGE::MouseObject*>(o);
-		SGE::Object* p = o + 1;
+		SGE::MouseObject* mouse = dynamic_cast<SGE::MouseObject*>(b[0].getObject());
+		SGE::Object* p = b[1].getObject();
         glm::vec2 coords = mouse->getMouseCoords();
         SGE::ObjectManager* manager = SGE::ObjectManager::getManager();
         SGE::Camera2d* cam = dynamic_cast<SGE::Camera2d*>(manager->getCameraID().getObject());
@@ -331,7 +330,7 @@ int main(int argc, char * argv[]) {
 	director->addLogicBinder(S1, camID, camZoom);
 
     //Testing collisions - move tile to create space too tight for circle to enter.
-	auto testTile = SGE::Object::ID(0, &(manager->getScenePtr(S1)->getLevel().getWorld().front()));
+	auto testTile = SGE::Object::ID(&(manager->getScenePtr(S1)->getLevel().getWorld().front()));
 	auto moveTile = manager->addLogic(new SGE::Logics::SimpleMove(4.f, SGE::Key::I, SGE::Key::K, SGE::Key::J, SGE::Key::L));
 	director->addLogicBinder(S1, testTile, moveTile);
 

@@ -27,13 +27,15 @@ namespace SGE {
 	class ObjectID : public ID {
 		friend class ObjectManager;
 		Object* obj = nullptr;
+		ObjectID(const long id, Object* o) : ID(id), obj(o) {}
 	public:
-		ObjectID(const long id) : ID(id) {
-		}
-		ObjectID(const long id, Object* o) : ID(id), obj(o) {
-		}
         ObjectID() : ID(0) {}
+		ObjectID(Object* o) : ID(-1L), obj(o) {}
 		Object* getObject() const
+		{
+			return this->obj;
+		}
+		Object* operator->() const
 		{
 			return this->obj;
 		}
@@ -177,6 +179,8 @@ namespace SGE {
 			return *this;
 		}
 
+		ObjectID& operator[](std::size_t i) { return *(this->_begin + i); }
+		const ObjectID& operator[](std::size_t i) const { return *(this->_begin + i); }
 		ObjectID* begin() { return this->_begin; }
 		ObjectID* end() { return this->_end; }
 		ObjectID* begin() const { return this->_begin; }

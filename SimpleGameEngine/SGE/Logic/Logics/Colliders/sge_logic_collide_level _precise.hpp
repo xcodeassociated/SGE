@@ -15,9 +15,9 @@ namespace SGE {
 		public:
 			PreciseLevelCollider(std::vector<WorldElement>& objects) : Collide(nullptr), objs(objects) {}
 
-			void performLogic(Object::ID _obj) override
+			void performLogic(const ObjectBind& _obj) override
 			{
-				Object* oponent = _obj.getObject();
+				Object* oponent = _obj[0].getObject();
 				glm::vec2 tileShape = { getBaseTileShape()->getWidth(), getBaseTileShape()->getHeight() };
 				glm::vec2 move = { 0,0 };
 				glm::vec2 tilePos = { 0,0 };
@@ -81,7 +81,7 @@ namespace SGE {
 						}
 						if (collided)
 						{
-							this->sendAction(_obj, Action::ID(new ACTION::Move(move.x, move.y, 0.)));
+							this->sendAction(_obj[0], Action::ID(new ACTION::Move(move.x, move.y, 0.)));
 						}
 					}break;
 					case ShapeType::Rectangle:

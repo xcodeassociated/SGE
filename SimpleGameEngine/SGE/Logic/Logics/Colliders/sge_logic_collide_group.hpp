@@ -27,7 +27,7 @@ namespace SGE {
             
             void performLogic(ObjectID _obj)
             {
-                ObjectID current(0,nullptr);
+                ObjectID current;
                 Object* self = nullptr;
                 Object* oponent = _obj.getObject();
                 

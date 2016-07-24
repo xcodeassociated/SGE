@@ -67,4 +67,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\TextureLoader\sge_imageLoader.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Timing\sge_fps_limiter.hpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Logic\sge_logic.cpp" />
+  </ItemGroup>
 </Project>

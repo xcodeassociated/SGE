@@ -10,7 +10,6 @@
 #define sge_action_move_h
 
 #include "../sge_action.hpp"
-#include "../../ObjectManager/sge_action_handler.hpp"
 
 namespace SGE {
     namespace ACTION {
@@ -26,21 +25,20 @@ namespace SGE {
             
         private:
             
-            virtual void action_begin(Object* obj, Object* n) noexcept override {
+            virtual void action_begin(const ObjectBind&) noexcept override {
                 ;
             }
             
-            virtual void action_main(Object* obj, Object* n) noexcept override {
-                //TODO...
-                
-                //debug only:
-                //this->action_handler->foo();
-                //std::cout << obj->getX() << ' ' << obj->getY() << std::endl;
-                obj->setPosition(obj->getX()+this->destX,obj->getY()+this->destY);
-                //std::cout << obj->getX() << ' ' << obj->getY() << std::endl;
+            virtual void action_main(const ObjectBind& bind) noexcept override {               
+				glm::vec2 pos = { 0,0 };
+				for(ObjectID id : bind)
+				{
+					pos = id->getPosition();
+					id->setPosition(pos.x + this->destX, pos.y + this->destY);
+				}
             }
             
-            virtual void action_ends(Object* obj, Object* n) noexcept override {
+            virtual void action_ends(const ObjectBind&) noexcept override {
                 ;
             }
         };

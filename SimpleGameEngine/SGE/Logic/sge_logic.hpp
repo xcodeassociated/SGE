@@ -15,6 +15,7 @@ class DynamicVectorLogic;
 
 namespace SGE {
 	class Logic;
+	class LogicBind;
 	class ActionHandler;
 	class ObjectManager;
 
@@ -24,8 +25,10 @@ namespace SGE {
 	friend class Logic;
 
 		Logic* logic;
-	public:
 		LogicID(const long id, Logic* logic) : ID(id), logic(logic) {}
+	public:
+		LogicID(Logic* logic) : ID(-1L), logic(logic) {}
+
 		Logic* getLogic() const {
 			return logic;
 		}
@@ -41,7 +44,7 @@ namespace SGE {
 
 	public:
 		using Priority = LogicPriority;
-        virtual void performLogic(Object::ID obj) = 0;
+        virtual void performLogic(const ObjectBind&) = 0;
     protected:
 		static ActionHandler* action_handler;
 
@@ -57,39 +60,9 @@ namespace SGE {
 
     public:
 		using ID = LogicID;
+		using Binder = LogicBind;
 
-
-		class Binder
-		{
-			LogicID logic;
-			ObjectID object;
-		public:
-			Binder(Logic::ID logic, Object::ID object) : logic(logic), object(object) {}
-
-			LogicID getLogic()
-			{
-				return this->logic;
-			}
-
-			ObjectID getObject()
-			{
-				return this->object;
-			}
-
-			bool operator==(const Binder& b) const
-			{
-				return logic == b.logic&&object == b.object;
-			}
-
-			bool operator<(const Binder& other) const
-			{
-				if(object.getID()==other.object.getID())
-				{
-					return logic.logic->priority < other.logic.logic->priority;
-				}
-				return object.getID() < other.object.getID();
-			}
-		};
+		
         
         Priority getPriority() const{
             return this->priority;
@@ -111,9 +84,41 @@ namespace SGE {
         
     };
     
-    Logic::~Logic(){}
+    inline Logic::~Logic(){}
     
 	ActionHandler* Logic::action_handler = nullptr;
+
+	class LogicBind
+	{
+		LogicID logic;
+		ObjectBind bind;
+	public:
+		LogicBind(Logic::ID logic, Object::ID object) : logic(logic), bind(object) {}
+
+		LogicID getLogic()
+		{
+			return this->logic;
+		}
+
+		ObjectBind& getObject()
+		{
+			return this->bind;
+		}
+
+		bool operator==(const LogicBind& b) const
+		{
+			return logic == b.logic&&bind[0] == b.bind[0];
+		}
+
+		bool operator<(const LogicBind& other) const
+		{
+			if(bind[0].getID() == other.bind[0].getID())
+			{
+				return this->logic->getPriority() < other.logic->getPriority();
+			}
+			return bind[0].getID() < other.bind[0].getID();
+		}
+	};
 }
 
 

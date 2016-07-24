@@ -16,9 +16,9 @@ namespace SGE
 				:Logic(LogicPriority::Highest), speed(speed), minZoom(min), maxZoom(max), zoomIn(in), zoomOut(out) {}
 			~CameraZoom() = default;
 
-			void performLogic(SGE::Object::ID camObj) override
+			void performLogic(const ObjectBind& camObj) override
 			{
-				auto cam = reinterpret_cast<Camera2d*>(camObj.getObject());
+				auto cam = reinterpret_cast<Camera2d*>(camObj[0].getObject());
 				auto scale = cam->getScale();
 				//std::cout << scale << ' ';
 				if (isPressed(this->zoomIn)) scale += this->speed;
