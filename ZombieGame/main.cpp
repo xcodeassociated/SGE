@@ -14,7 +14,8 @@
 
 #include "../SimpleGameEngine/SGE/SGE.hpp"
 #include "../SimpleGameEngine/SGE/Action/Actions/sge_action_move.hpp"
-//#include "../SimpleGameEngine/SGE/Mouse/sge_mouse.hpp"
+//TODO: check it!!
+#include "../SimpleGameEngine/SGE/Mouse/sge_mouse.hpp" // ??? was comment out!
 
 #include <set>
 #include <time.h>       /* time */
