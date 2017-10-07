@@ -1,0 +1,10 @@
+[requires]
+glew/2.0.0@coding3d/stable
+glm/master@g-truc/stable
+#SDL2 requires disabling checksum.
+sdl/2.0.4@chaosteil/stable
+rapidjson/1.1.0@lasote/vcpkg
+boost/1.64.0@orhun/testing
+
+[generators]
+cmake

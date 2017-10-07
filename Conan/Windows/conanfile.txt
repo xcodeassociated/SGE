@@ -1,0 +1,10 @@
+[requires]
+glew/2.0.0@lasote/vcpkg
+opengl/10.0.10240.0@lasote/vcpkg
+glm/master@g-truc/stable
+sdl2/2.0.4@lasote/vcpkg
+rapidjson/1.1.0@lasote/vcpkg
+boost/1.62.0@lasote/vcpkg
+
+[generators]
+cmake

@@ -1,5 +1,0 @@
-[requires]
-glm/master@g-truc/stable
-
-[generators]
-cmake
