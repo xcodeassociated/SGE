@@ -1,9 +1,0 @@
-<map id="C:/Dev/SGE/SimpleGameEngine/SGE/Sprite/sge_sprite.hpp" name="C:/Dev/SGE/SimpleGameEngine/SGE/Sprite/sge_sprite.hpp">
-<area shape="rect" id="node2" href="$d6/dd9/sge__include_8hpp.html" title="../include/sge_include.hpp" alt="" coords="1695,452,1868,479"/>
-<area shape="rect" id="node28" href="$da/db6/sge__vertex_8hpp.html" title="sge_vertex.hpp" alt="" coords="2063,102,2172,129"/>
-<area shape="rect" id="node29" href="$dc/d72/sge__gl_texture_8hpp.html" title="../TextureLoader/sge\l_glTexture.hpp" alt="" coords="1353,363,1495,404"/>
-<area shape="rect" id="node30" href="$d4/d6e/sge__resource__manager_8hpp.html" title="../ResourceManager\l/sge_resource_manager.hpp" alt="" coords="1731,95,1917,136"/>
-<area shape="rect" id="node31" href="$d7/dd6/sge__texture__cache_8hpp.html" title="../TextureCache/sge\l_texture_cache.hpp" alt="" coords="1684,184,1823,225"/>
-<area shape="rect" id="node32" href="$d4/d53/sge__image_loader_8hpp.html" title="../TextureLoader/sge\l_imageLoader.hpp" alt="" coords="1568,273,1709,315"/>
-<area shape="rect" id="node34" href="$dc/dfa/sge__io__manager_8hpp.html" title="../IOManager/sge_io\l_manager.hpp" alt="" coords="1569,363,1708,404"/>
-</map>

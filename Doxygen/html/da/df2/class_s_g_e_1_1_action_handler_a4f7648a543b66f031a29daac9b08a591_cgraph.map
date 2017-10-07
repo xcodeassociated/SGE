@@ -1,5 +1,0 @@
-<map id="SGE::ActionHandler::handleInputAction" name="SGE::ActionHandler::handleInputAction">
-<area shape="rect" id="node2" href="$dd/dc9/class_s_g_e_1_1_relay.html#a0f1dbc56e4abd3e6671c67308ecc6767" title="SGE::Relay::getObjectPtr" alt="" coords="193,13,365,39"/>
-<area shape="rect" id="node4" href="$d4/d09/class_s_g_e_1_1_action.html#a8070c6c9e807eeb21c7e48007bb6838c" title="SGE::Action::action_main" alt="" coords="192,63,365,90"/>
-<area shape="rect" id="node3" href="$d9/d99/class_s_g_e_1_1_object_manager.html#af89ec3158d828b5295a097ec85ec3c86" title="SGE::ObjectManager\l::getObjectPtr" alt="" coords="413,5,560,47"/>
-</map>

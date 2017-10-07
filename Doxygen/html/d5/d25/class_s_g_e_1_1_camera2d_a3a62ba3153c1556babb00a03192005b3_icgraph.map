@@ -1,7 +1,0 @@
-<map id="SGE::Camera2d::setScale" name="SGE::Camera2d::setScale">
-<area shape="rect" id="node2" href="$d5/d6e/class_s_g_e_1_1_object_manager_1_1_camera_handler.html#a272bac5f5e96156c7f9c0b70b3d822fe" title="SGE::ObjectManager\l::CameraHandler::setScale" alt="" coords="229,5,408,47"/>
-<area shape="rect" id="node3" href="$d9/d99/class_s_g_e_1_1_object_manager.html#a4261dbb5452c89181634aa8fe25d23aa" title="SGE::ObjectManager\l::init" alt="" coords="456,5,603,47"/>
-<area shape="rect" id="node4" href="$d9/d99/class_s_g_e_1_1_object_manager.html#a437026351ea1d14b105ea86fc38c84e5" title="SGE::ObjectManager\l::addScene" alt="" coords="651,5,797,47"/>
-<area shape="rect" id="node5" href="$dd/dc9/class_s_g_e_1_1_relay.html#a99bc547e93b1763a7f3f6e58f63c70ce" title="SGE::Relay::relayScene" alt="" coords="845,13,1009,39"/>
-<area shape="rect" id="node6" href="$d2/da0/class_s_g_e_1_1_director.html#a3fa2c7268d130014581b23bbca01046c" title="SGE::Director::addScene" alt="" coords="1057,13,1227,39"/>
-</map>

@@ -1,6 +1,0 @@
-<map id="SGE::ObjectManager::Renderer::initShader" name="SGE::ObjectManager::Renderer::initShader">
-<area shape="rect" id="node2" href="$d0/d51/class_s_g_e_1_1_shader.html#a1a1bcbb52411167c1018bbb2cfa71cb0" title="SGE::Shader::doShaders" alt="" coords="205,5,375,32"/>
-<area shape="rect" id="node4" href="$d0/d51/class_s_g_e_1_1_shader.html#aafc71ff1ba76a7992b84bdb304cfd761" title="SGE::Shader::addAttribute" alt="" coords="201,56,379,83"/>
-<area shape="rect" id="node5" href="$d0/d51/class_s_g_e_1_1_shader.html#a19ab9187660c05e5040f19886d7970c8" title="SGE::Shader::linkShaders" alt="" coords="203,107,377,133"/>
-<area shape="rect" id="node3" href="$d0/d51/class_s_g_e_1_1_shader.html#a153abcfa23e2dd5c1d642201152c239b" title="SGE::Shader::compileShader" alt="" coords="427,5,620,32"/>
-</map>

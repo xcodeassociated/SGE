@@ -1,8 +1,0 @@
-<map id="SGE::Logics::BasicCollider::performLogic" name="SGE::Logics::BasicCollider::performLogic">
-<area shape="rect" id="node2" href="$db/d63/class_s_g_e_1_1_object_i_d.html#acd45cffd6ffda985e26680d1a9b7c7c1" title="SGE::ObjectID::getObject" alt="" coords="237,5,409,32"/>
-<area shape="rect" id="node3" href="$d0/d43/class_s_g_e_1_1_object.html#a8eefb2c90d5dda9e182126d3691dd5c6" title="SGE::Object::getShape" alt="" coords="460,85,619,112"/>
-<area shape="rect" id="node4" href="$df/d0d/class_s_g_e_1_1_shape.html#a03c8124772fda32502ba2d6671cee8a9" title="SGE::Shape::getType" alt="" coords="465,172,614,199"/>
-<area shape="rect" id="node5" href="$d1/d50/class_s_g_e_1_1_logics_1_1_collide.html#ae830e2bf13f5e93cb6172d615676cc89" title="SGE::Logics::Collide\l::collideWithSameShape" alt="" coords="240,173,405,214"/>
-<area shape="rect" id="node6" href="$d1/d50/class_s_g_e_1_1_logics_1_1_collide.html#aaf41f0d057f1a3552e9213dcad2ed249" title="SGE::Logics::Collide\l::collideWithDifferentShape" alt="" coords="233,107,412,149"/>
-<area shape="rect" id="node7" href="$da/df2/class_s_g_e_1_1_action_handler.html#aba2941751e05e25ad63fa8bc42ef8dcd" title="SGE::ActionHandler\l::performSingleAction" alt="" coords="249,290,396,331"/>
-</map>

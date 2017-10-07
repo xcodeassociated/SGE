@@ -1,9 +1,0 @@
-<map id="SGE::Scene::getLogics" name="SGE::Scene::getLogics">
-<area shape="rect" id="node2" href="$d2/da0/class_s_g_e_1_1_director.html#abf7f12153605bc0f453779a03b4c0caf" title="SGE::Director::addLogicBinder" alt="" coords="212,5,412,32"/>
-<area shape="rect" id="node3" href="$d2/da0/class_s_g_e_1_1_director.html#aa689d0ac090a3187e76b57eb14b4cc57" title="SGE::Director::unbindLogic" alt="" coords="222,56,402,83"/>
-<area shape="rect" id="node4" href="$d3/d31/class_s_g_e_1_1_object_manager_1_1_game.html#ae73bdd6c39fee41902b3864ad3fda0c1" title="SGE::ObjectManager\l::Game::performLogics" alt="" coords="235,107,389,149"/>
-<area shape="rect" id="node5" href="$d3/d31/class_s_g_e_1_1_object_manager_1_1_game.html#a272f74de47261183df97562143bd73f3" title="SGE::ObjectManager\l::Game::run" alt="" coords="460,107,607,149"/>
-<area shape="rect" id="node6" href="$d9/d99/class_s_g_e_1_1_object_manager.html#a486ba3aa8531cf6e15a1760aaefae9e7" title="SGE::ObjectManager\l::showScene" alt="" coords="655,107,801,149"/>
-<area shape="rect" id="node7" href="$dd/dc9/class_s_g_e_1_1_relay.html#abc1e8d403f6672edb167104b41a12b63" title="SGE::Relay::relayShowScene" alt="" coords="849,115,1045,141"/>
-<area shape="rect" id="node8" href="$d2/da0/class_s_g_e_1_1_director.html#ae30b2af7750bb13601b684c79b9a1e0f" title="SGE::Director::showScene" alt="" coords="1093,115,1272,141"/>
-</map>
