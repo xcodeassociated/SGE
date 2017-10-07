@@ -1,7 +1,0 @@
-<map id="SGE::Shader::compileShader" name="SGE::Shader::compileShader">
-<area shape="rect" id="node2" href="$d0/d51/class_s_g_e_1_1_shader.html#a1a1bcbb52411167c1018bbb2cfa71cb0" title="SGE::Shader::doShaders" alt="" coords="247,13,416,39"/>
-<area shape="rect" id="node3" href="$d6/d53/class_s_g_e_1_1_object_manager_1_1_renderer.html#a86d17c274646bda68e39ece38a5a8979" title="SGE::ObjectManager\l::Renderer::initShader" alt="" coords="464,5,612,47"/>
-<area shape="rect" id="node4" href="$d9/d99/class_s_g_e_1_1_object_manager.html#a486ba3aa8531cf6e15a1760aaefae9e7" title="SGE::ObjectManager\l::showScene" alt="" coords="660,5,807,47"/>
-<area shape="rect" id="node5" href="$dd/dc9/class_s_g_e_1_1_relay.html#abc1e8d403f6672edb167104b41a12b63" title="SGE::Relay::relayShowScene" alt="" coords="855,13,1051,39"/>
-<area shape="rect" id="node6" href="$d2/da0/class_s_g_e_1_1_director.html#ae30b2af7750bb13601b684c79b9a1e0f" title="SGE::Director::showScene" alt="" coords="1099,13,1277,39"/>
-</map>

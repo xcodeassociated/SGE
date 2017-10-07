@@ -1,8 +1,0 @@
-<map id="SGE::ObjectManager::WindowManager::getWindow" name="SGE::ObjectManager::WindowManager::getWindow">
-<area shape="rect" id="node2" href="$d6/d53/class_s_g_e_1_1_object_manager_1_1_renderer.html#a75e6e43c258407876bf5c9c1cab175eb" title="SGE::ObjectManager\l::Renderer::render" alt="" coords="252,5,399,47"/>
-<area shape="rect" id="node3" href="$d3/d31/class_s_g_e_1_1_object_manager_1_1_game.html#af4068317ad1a2215d1af057bda4e4f4a" title="SGE::ObjectManager\l::Game::draw" alt="" coords="447,5,593,47"/>
-<area shape="rect" id="node4" href="$d3/d31/class_s_g_e_1_1_object_manager_1_1_game.html#a272f74de47261183df97562143bd73f3" title="SGE::ObjectManager\l::Game::run" alt="" coords="641,5,788,47"/>
-<area shape="rect" id="node5" href="$d9/d99/class_s_g_e_1_1_object_manager.html#a486ba3aa8531cf6e15a1760aaefae9e7" title="SGE::ObjectManager\l::showScene" alt="" coords="836,5,983,47"/>
-<area shape="rect" id="node6" href="$dd/dc9/class_s_g_e_1_1_relay.html#abc1e8d403f6672edb167104b41a12b63" title="SGE::Relay::relayShowScene" alt="" coords="1031,13,1227,39"/>
-<area shape="rect" id="node7" href="$d2/da0/class_s_g_e_1_1_director.html#ae30b2af7750bb13601b684c79b9a1e0f" title="SGE::Director::showScene" alt="" coords="1275,13,1453,39"/>
-</map>

@@ -1,5 +1,0 @@
-<map id="SGE::ObjectManager::init" name="SGE::ObjectManager::init">
-<area shape="rect" id="node2" href="$d9/d99/class_s_g_e_1_1_object_manager.html#a437026351ea1d14b105ea86fc38c84e5" title="SGE::ObjectManager\l::addScene" alt="" coords="200,5,347,47"/>
-<area shape="rect" id="node3" href="$dd/dc9/class_s_g_e_1_1_relay.html#a99bc547e93b1763a7f3f6e58f63c70ce" title="SGE::Relay::relayScene" alt="" coords="395,13,559,39"/>
-<area shape="rect" id="node4" href="$d2/da0/class_s_g_e_1_1_director.html#a3fa2c7268d130014581b23bbca01046c" title="SGE::Director::addScene" alt="" coords="607,13,776,39"/>
-</map>

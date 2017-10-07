@@ -1,5 +1,0 @@
-<map id="SGE::ActionHandler::triggerAction" name="SGE::ActionHandler::triggerAction">
-<area shape="rect" id="node2" href="$d4/d09/class_s_g_e_1_1_action.html#a6ef0504f490161f9e058abec52bcb85f" title="SGE::Action::action\l_begin" alt="" coords="209,5,348,47"/>
-<area shape="rect" id="node3" href="$d4/d09/class_s_g_e_1_1_action.html#a8070c6c9e807eeb21c7e48007bb6838c" title="SGE::Action::action_main" alt="" coords="192,71,365,98"/>
-<area shape="rect" id="node4" href="$d4/d09/class_s_g_e_1_1_action.html#a8752d6ee35451a0be8f153b2b7cb928d" title="SGE::Action::action_ends" alt="" coords="192,122,365,149"/>
-</map>

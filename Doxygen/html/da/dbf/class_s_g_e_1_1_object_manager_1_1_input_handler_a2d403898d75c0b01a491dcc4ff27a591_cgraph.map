@@ -1,8 +1,0 @@
-<map id="SGE::ObjectManager::InputHandler::operator()" name="SGE::ObjectManager::InputHandler::operator()">
-<area shape="rect" id="node2" href="$d9/d99/class_s_g_e_1_1_object_manager.html#a26ca713bcf78b07e35003e16dc452267" title="SGE::ObjectManager\l::windowClosing" alt="" coords="228,5,375,47"/>
-<area shape="rect" id="node3" href="$da/dbf/class_s_g_e_1_1_object_manager_1_1_input_handler.html#a3c3106d0c848e709b2e8d748879c1315" title="SGE::ObjectManager\l::InputHandler::pressKey" alt="" coords="219,71,384,112"/>
-<area shape="rect" id="node4" href="$da/df2/class_s_g_e_1_1_action_handler.html#a4f7648a543b66f031a29daac9b08a591" title="SGE::ActionHandler\l::handleInputAction" alt="" coords="432,71,571,112"/>
-<area shape="rect" id="node5" href="$dd/dc9/class_s_g_e_1_1_relay.html#a0f1dbc56e4abd3e6671c67308ecc6767" title="SGE::Relay::getObjectPtr" alt="" coords="619,53,791,79"/>
-<area shape="rect" id="node7" href="$d4/d09/class_s_g_e_1_1_action.html#a8070c6c9e807eeb21c7e48007bb6838c" title="SGE::Action::action_main" alt="" coords="619,103,792,130"/>
-<area shape="rect" id="node6" href="$d9/d99/class_s_g_e_1_1_object_manager.html#af89ec3158d828b5295a097ec85ec3c86" title="SGE::ObjectManager\l::getObjectPtr" alt="" coords="840,45,987,87"/>
-</map>

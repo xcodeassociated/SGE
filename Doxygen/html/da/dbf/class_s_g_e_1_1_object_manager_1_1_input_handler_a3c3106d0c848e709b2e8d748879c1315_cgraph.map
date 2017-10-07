@@ -1,6 +1,0 @@
-<map id="SGE::ObjectManager::InputHandler::pressKey" name="SGE::ObjectManager::InputHandler::pressKey">
-<area shape="rect" id="node2" href="$da/df2/class_s_g_e_1_1_action_handler.html#a4f7648a543b66f031a29daac9b08a591" title="SGE::ActionHandler\l::handleInputAction" alt="" coords="219,31,357,72"/>
-<area shape="rect" id="node3" href="$dd/dc9/class_s_g_e_1_1_relay.html#a0f1dbc56e4abd3e6671c67308ecc6767" title="SGE::Relay::getObjectPtr" alt="" coords="406,13,578,39"/>
-<area shape="rect" id="node5" href="$d4/d09/class_s_g_e_1_1_action.html#a8070c6c9e807eeb21c7e48007bb6838c" title="SGE::Action::action_main" alt="" coords="405,63,579,90"/>
-<area shape="rect" id="node4" href="$d9/d99/class_s_g_e_1_1_object_manager.html#af89ec3158d828b5295a097ec85ec3c86" title="SGE::ObjectManager\l::getObjectPtr" alt="" coords="627,5,773,47"/>
-</map>

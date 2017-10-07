@@ -1,7 +1,0 @@
-<map id="SGE::ObjectManager::CameraHandler::getScreenToWorld" name="SGE::ObjectManager::CameraHandler::getScreenToWorld">
-<area shape="rect" id="node2" href="$d9/d99/class_s_g_e_1_1_object_manager.html#a4261dbb5452c89181634aa8fe25d23aa" title="SGE::ObjectManager\l::init" alt="" coords="260,5,407,47"/>
-<area shape="rect" id="node6" href="$d5/d6e/class_s_g_e_1_1_object_manager_1_1_camera_handler.html#a4245934a2e774a724105f70df0533587" title="SGE::ObjectManager\l::CameraHandler::getScreen\lToWorld" alt="" coords="240,71,427,127"/>
-<area shape="rect" id="node3" href="$d9/d99/class_s_g_e_1_1_object_manager.html#a437026351ea1d14b105ea86fc38c84e5" title="SGE::ObjectManager\l::addScene" alt="" coords="475,5,621,47"/>
-<area shape="rect" id="node4" href="$dd/dc9/class_s_g_e_1_1_relay.html#a99bc547e93b1763a7f3f6e58f63c70ce" title="SGE::Relay::relayScene" alt="" coords="669,13,833,39"/>
-<area shape="rect" id="node5" href="$d2/da0/class_s_g_e_1_1_director.html#a3fa2c7268d130014581b23bbca01046c" title="SGE::Director::addScene" alt="" coords="881,13,1051,39"/>
-</map>

@@ -1,6 +1,0 @@
-<map id="SGE::FpsLimiter::begin" name="SGE::FpsLimiter::begin">
-<area shape="rect" id="node2" href="$d3/d31/class_s_g_e_1_1_object_manager_1_1_game.html#a272f74de47261183df97562143bd73f3" title="SGE::ObjectManager\l::Game::run" alt="" coords="212,5,359,47"/>
-<area shape="rect" id="node3" href="$d9/d99/class_s_g_e_1_1_object_manager.html#a486ba3aa8531cf6e15a1760aaefae9e7" title="SGE::ObjectManager\l::showScene" alt="" coords="407,5,553,47"/>
-<area shape="rect" id="node4" href="$dd/dc9/class_s_g_e_1_1_relay.html#abc1e8d403f6672edb167104b41a12b63" title="SGE::Relay::relayShowScene" alt="" coords="601,13,797,39"/>
-<area shape="rect" id="node5" href="$d2/da0/class_s_g_e_1_1_director.html#ae30b2af7750bb13601b684c79b9a1e0f" title="SGE::Director::showScene" alt="" coords="845,13,1024,39"/>
-</map>

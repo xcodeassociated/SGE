@@ -1,6 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$d4/db4/class_s_g_e_1_1_logic.html" title="SGE::Logic" alt="" coords="5,35,95,61"/>
-<area shape="rect" id="node2" href="$d1/d50/class_s_g_e_1_1_logics_1_1_collide.html" title="SGE::Logics::Collide" alt="" coords="143,35,285,61"/>
-<area shape="rect" id="node3" href="$d0/d2e/class_s_g_e_1_1_logics_1_1_basic_collider.html" title="SGE::Logics::BasicCollider" alt="" coords="333,5,513,32"/>
-<area shape="rect" id="node4" href="$d3/d21/class_s_g_e_1_1_logics_1_1_basic_collider_group.html" title="SGE::Logics::BasicCollider\lGroup" alt="" coords="333,57,513,98"/>
-</map>

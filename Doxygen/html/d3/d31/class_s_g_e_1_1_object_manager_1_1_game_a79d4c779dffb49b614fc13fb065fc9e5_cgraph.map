@@ -1,4 +1,0 @@
-<map id="SGE::ObjectManager::Game::Game" name="SGE::ObjectManager::Game::Game">
-<area shape="rect" id="node2" href="$d7/da7/class_s_g_e_1_1_fps_limiter.html#a1b367febfd6cd636f4ad41138da1b076" title="SGE::FpsLimiter::init" alt="" coords="200,13,344,39"/>
-<area shape="rect" id="node3" href="$d7/da7/class_s_g_e_1_1_fps_limiter.html#adbc88a3dd76ff04cdde51b519bb9ab8c" title="SGE::FpsLimiter::setMaxFPS" alt="" coords="392,13,588,39"/>
-</map>

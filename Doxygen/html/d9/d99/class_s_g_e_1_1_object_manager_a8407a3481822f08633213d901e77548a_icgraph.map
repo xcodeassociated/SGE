@@ -1,6 +1,0 @@
-<map id="SGE::ObjectManager::isOnScene" name="SGE::ObjectManager::isOnScene">
-<area shape="rect" id="node2" href="$dd/dc9/class_s_g_e_1_1_relay.html#abc1e8d403f6672edb167104b41a12b63" title="SGE::Relay::relayShowScene" alt="" coords="200,5,396,32"/>
-<area shape="rect" id="node4" href="$dd/dc9/class_s_g_e_1_1_relay.html#a72048a540c4e68eb3d43c8ff950b4c55" title="SGE::Relay::relaySwapScene" alt="" coords="200,56,396,83"/>
-<area shape="rect" id="node3" href="$d2/da0/class_s_g_e_1_1_director.html#ae30b2af7750bb13601b684c79b9a1e0f" title="SGE::Director::showScene" alt="" coords="444,5,623,32"/>
-<area shape="rect" id="node5" href="$d2/da0/class_s_g_e_1_1_director.html#a6a48ffce560ee704d045b12b645fc093" title="SGE::Director::swapScene" alt="" coords="444,56,623,83"/>
-</map>
