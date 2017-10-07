@@ -1,0 +1,25 @@
+<map id="SGE::ActionID" name="SGE::ActionID">
+<area shape="rect" id="node2" href="$d4/d4a/class_s_g_e_1_1_i_d.html" title="SGE::ID" alt="" coords="294,5,365,32"/>
+<area shape="rect" id="node3" href="$d4/d09/class_s_g_e_1_1_action.html" title="SGE::Action" alt="" coords="282,56,377,83"/>
+<area shape="rect" id="node4" href="$da/df2/class_s_g_e_1_1_action_handler.html" title="SGE::ActionHandler" alt="" coords="5,168,144,195"/>
+<area shape="rect" id="node5" href="$dd/dc9/class_s_g_e_1_1_relay.html" title="SGE::Relay" alt="" coords="284,213,375,240"/>
+<area shape="rect" id="node7" href="$d9/d99/class_s_g_e_1_1_object_manager.html" title="SGE::ObjectManager" alt="" coords="507,400,653,427"/>
+<area shape="rect" id="node14" href="$d3/d31/class_s_g_e_1_1_object_manager_1_1_game.html" title="SGE::ObjectManager\l::Game" alt="" coords="1120,213,1267,254"/>
+<area shape="rect" id="node6" href="$d2/da0/class_s_g_e_1_1_director.html" title="SGE::Director" alt="" coords="529,168,631,195"/>
+<area shape="rect" id="node8" href="$de/d32/class_s_g_e_1_1_object_manager_1_1_window_manager.html" title="SGE::ObjectManager\l::WindowManager" alt="" coords="813,577,960,618"/>
+<area shape="rect" id="node9" href="$d5/d6e/class_s_g_e_1_1_object_manager_1_1_camera_handler.html" title="SGE::ObjectManager\l::CameraHandler" alt="" coords="813,745,960,786"/>
+<area shape="rect" id="node16" href="$da/dbf/class_s_g_e_1_1_object_manager_1_1_input_handler.html" title="SGE::ObjectManager\l::InputHandler" alt="" coords="813,271,960,313"/>
+<area shape="rect" id="node20" href="$d6/d53/class_s_g_e_1_1_object_manager_1_1_renderer.html" title="SGE::ObjectManager\l::Renderer" alt="" coords="1120,610,1267,651"/>
+<area shape="rect" id="node10" href="$d0/d43/class_s_g_e_1_1_object.html" title="SGE::Object" alt="" coords="281,748,377,775"/>
+<area shape="rect" id="node13" href="$d5/d25/class_s_g_e_1_1_camera2d.html" title="SGE::Camera2d" alt="" coords="521,716,639,743"/>
+<area shape="rect" id="node11" href="$de/d24/struct_s_g_e_1_1_g_l_texture.html" title="SGE::GLTexture" alt="" coords="15,773,134,800"/>
+<area shape="rect" id="node12" href="$df/d0d/class_s_g_e_1_1_shape.html" title="SGE::Shape" alt="" coords="27,723,122,749"/>
+<area shape="rect" id="node15" href="$d7/da7/class_s_g_e_1_1_fps_limiter.html" title="SGE::FpsLimiter" alt="" coords="827,220,946,247"/>
+<area shape="rect" id="node17" href="$dd/d41/class_s_g_e_1_1_input_manager.html" title="SGE::InputManager" alt="" coords="512,219,648,245"/>
+<area shape="rect" id="node18" href="$da/d1c/class_s_g_e_1_1_scene.html" title="SGE::Scene" alt="" coords="282,501,377,528"/>
+<area shape="rect" id="node19" href="$d0/ddc/class_s_g_e_1_1_level.html" title="SGE::Level" alt="" coords="31,607,118,633"/>
+<area shape="rect" id="node21" href="$d0/d51/class_s_g_e_1_1_shader.html" title="SGE::Shader" alt="" coords="837,525,936,552"/>
+<area shape="rect" id="node22" href="$da/df4/class_s_g_e_1_1_sprite_batch.html" title="SGE::SpriteBatch" alt="" coords="823,693,950,720"/>
+<area shape="rect" id="node23" href="$d6/d30/class_s_g_e_1_1_resource_manager.html" title="SGE::ResourceManager" alt="" coords="805,851,968,877"/>
+<area shape="rect" id="node24" href="$db/d2f/class_s_g_e_1_1_texture_cache.html" title="SGE::TextureCache" alt="" coords="511,856,649,883"/>
+</map>

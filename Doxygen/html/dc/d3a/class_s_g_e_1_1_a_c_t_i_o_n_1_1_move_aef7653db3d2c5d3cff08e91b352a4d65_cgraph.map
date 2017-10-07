@@ -1,0 +1,6 @@
+<map id="SGE::ACTION::Move::Move" name="SGE::ACTION::Move::Move">
+<area shape="rect" id="node2" href="$da/df2/class_s_g_e_1_1_action_handler.html#a98d386eae6822707ac81a397539cbcf0" title="SGE::ActionHandler::foo" alt="" coords="237,5,401,32"/>
+<area shape="rect" id="node3" href="$d0/d43/class_s_g_e_1_1_object.html#a1c86bfd2e876704fa8a4fa047e8fa0c7" title="SGE::Object::getX" alt="" coords="255,56,384,83"/>
+<area shape="rect" id="node4" href="$d0/d43/class_s_g_e_1_1_object.html#a7a937045d4f1849bd4d7b74ad1b605d1" title="SGE::Object::getY" alt="" coords="254,107,385,133"/>
+<area shape="rect" id="node5" href="$d0/d43/class_s_g_e_1_1_object.html#a83ee1b3666e8830af1463d3d2a88a363" title="SGE::Object::setPosition" alt="" coords="235,157,404,184"/>
+</map>

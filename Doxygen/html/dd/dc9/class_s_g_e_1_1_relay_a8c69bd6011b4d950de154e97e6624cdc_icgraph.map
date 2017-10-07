@@ -1,0 +1,5 @@
+<map id="SGE::Relay::Relay" name="SGE::Relay::Relay">
+<area shape="rect" id="node2" href="$dd/dc9/class_s_g_e_1_1_relay.html#ae7a0707190089cbf9cda545bac4af3f0" title="SGE::Relay::getRelay" alt="" coords="185,13,336,39"/>
+<area shape="rect" id="node3" href="$d9/d99/class_s_g_e_1_1_object_manager.html#a214923ea6eadc590bec7bacfc4267d68" title="SGE::ObjectManager\l::ObjectManager" alt="" coords="384,5,531,47"/>
+<area shape="rect" id="node4" href="$d9/d99/class_s_g_e_1_1_object_manager.html#a6e97b2a1aa81cebc680a38b5d7c7a7e8" title="SGE::ObjectManager\l::getManager" alt="" coords="579,5,725,47"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="SGE::ResourceManager::ResourceManager" name="SGE::ResourceManager::ResourceManager">
+<area shape="rect" id="node2" href="$d6/d30/class_s_g_e_1_1_resource_manager.html#a04236955d157e5b756b08ac4ae7120da" title="SGE::ResourceManager\l::getSingleton" alt="" coords="216,5,379,47"/>
+<area shape="rect" id="node3" href="$d6/d53/class_s_g_e_1_1_object_manager_1_1_renderer.html#a03a3888e2a490b61e352b98b5668d13a" title="SGE::ObjectManager\l::Renderer::initResourceManager" alt="" coords="427,5,639,47"/>
+<area shape="rect" id="node4" href="$d9/d99/class_s_g_e_1_1_object_manager.html#a486ba3aa8531cf6e15a1760aaefae9e7" title="SGE::ObjectManager\l::showScene" alt="" coords="687,5,833,47"/>
+<area shape="rect" id="node5" href="$dd/dc9/class_s_g_e_1_1_relay.html#abc1e8d403f6672edb167104b41a12b63" title="SGE::Relay::relayShowScene" alt="" coords="881,13,1077,39"/>
+<area shape="rect" id="node6" href="$d2/da0/class_s_g_e_1_1_director.html#ae30b2af7750bb13601b684c79b9a1e0f" title="SGE::Director::showScene" alt="" coords="1125,13,1304,39"/>
+</map>

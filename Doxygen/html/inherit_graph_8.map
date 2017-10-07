@@ -1,0 +1,7 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$d4/d4a/class_s_g_e_1_1_i_d.html" title="SGE::ID" alt="" coords="5,81,76,108"/>
+<area shape="rect" id="node2" href="$d2/ddd/class_s_g_e_1_1_action_i_d.html" title="SGE::ActionID" alt="" coords="125,5,231,32"/>
+<area shape="rect" id="node3" href="$d7/dc4/class_s_g_e_1_1_logic_i_d.html" title="SGE::LogicID" alt="" coords="127,56,229,83"/>
+<area shape="rect" id="node4" href="$db/d63/class_s_g_e_1_1_object_i_d.html" title="SGE::ObjectID" alt="" coords="124,107,232,133"/>
+<area shape="rect" id="node5" href="$d7/dd4/class_s_g_e_1_1_scene_i_d.html" title="SGE::SceneID" alt="" coords="125,157,231,184"/>
+</map>

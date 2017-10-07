@@ -1,0 +1,13 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$d0/d43/class_s_g_e_1_1_object.html" title="SGE::Object" alt="" coords="5,107,101,133"/>
+<area shape="rect" id="node2" href="$d8/de3/class_s_g_e_1_1_background_element.html" title="SGE::BackgroundElement" alt="" coords="149,5,324,32"/>
+<area shape="rect" id="node4" href="$d5/d25/class_s_g_e_1_1_camera2d.html" title="SGE::Camera2d" alt="" coords="178,56,295,83"/>
+<area shape="rect" id="node5" href="$d1/da2/class_s_g_e_1_1_interface.html" title="SGE::Interface" alt="" coords="183,107,290,133"/>
+<area shape="rect" id="node8" href="$d5/d6e/class_s_g_e_1_1_object_manager_1_1_camera_handler.html" title="SGE::ObjectManager\l::CameraHandler" alt="" coords="163,158,310,199"/>
+<area shape="rect" id="node9" href="$d1/dbe/class_s_g_e_1_1_reactive.html" title="SGE::Reactive" alt="" coords="183,224,290,251"/>
+<area shape="rect" id="node3" href="$db/dd0/class_s_g_e_1_1_world_element.html" title="SGE::WorldElement" alt="" coords="372,5,512,32"/>
+<area shape="rect" id="node6" href="$d9/dcc/class_s_g_e_1_1_button.html" title="SGE::Button" alt="" coords="394,81,490,108"/>
+<area shape="rect" id="node7" href="$d7/d99/class_s_g_e_1_1_label.html" title="SGE::Label" alt="" coords="397,132,487,159"/>
+<area shape="rect" id="node10" href="$dd/d70/class_s_g_e_1_1_being.html" title="SGE::Being" alt="" coords="397,224,487,251"/>
+<area shape="rect" id="node11" href="$da/d25/class_s_g_e_1_1_player.html" title="SGE::Player" alt="" coords="560,224,655,251"/>
+</map>
