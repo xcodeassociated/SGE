@@ -41,14 +41,14 @@ class MainScene : public SGE::Scene{
     
 public:
     MainScene(SGE::ObjectManager* _manager) : manager(_manager) {
-        
-		std::string path = SGE::getPath() + "level1.txt";
+		std:std::string base = SGE::getPath();
+		std::string path = base + "Levels/level1.txt";
 		std::map<char, std::string> mask = {
 //			{'.',"."},{'Z',"."},{'@',"."},
-			{'R',PATH"ZombieGame/Resources/Textures/red_bricks.png"},
-			{'B',PATH"ZombieGame/Resources/Textures/red_bricks.png"},
-			{'G',PATH"ZombieGame/Resources/Textures/glass.png"},
-			{'L',PATH"ZombieGame/Resources/Textures/light_bricks.png"} };
+			{'R',base+"Resources/Textures/red_bricks.png"},
+			{'B',base+"Resources/Textures/red_bricks.png"},
+			{'G',base+"Resources/Textures/glass.png"},
+			{'L',base+"Resources/Textures/light_bricks.png"} };
 
 		this->loadLevel(path.c_str(), mask);
 	}
@@ -281,10 +281,10 @@ int main(int argc, char * argv[]) {
     SGE::Object::ID camID = manager->getCameraID();
     SGE::Object::ID mouseID = manager->getMouse();
     
-    
+	std::string basePath = SGE::getPath();
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-    SGE::Object::ID testObj0 = manager->addObject(new TestObject, S1, PATH"ZombieGame/Resources/Textures/circle.png");
-    SGE::Object::ID testObj1 = manager->addObject(new TestObject(200,200), S1, PATH"ZombieGame/Resources/Textures/circle.png");
+    SGE::Object::ID testObj0 = manager->addObject(new TestObject, S1, basePath + "Resources/Textures/circle.png");
+    SGE::Object::ID testObj1 = manager->addObject(new TestObject(200,200), S1, basePath + "Resources/Textures/circle.png");
     
     SGE::Action::ID oW = manager->addAction(new SGE::ACTION::Move(0, 4.f, 0));
     SGE::Action::ID oA = manager->addAction(new SGE::ACTION::Move(-4.f, 0, 0));
@@ -339,7 +339,7 @@ int main(int argc, char * argv[]) {
 	manager->mapAction(SGE::InputBinder(testObj1, reset, SGE::Key::B));
 
 	// !Testing collisions
-    std::string path = SGE::getPath() + "level1.txt";
+    std::string path = basePath + "Levels/level1.txt";
     std::vector<std::string> l;
     std::fstream is;
     is.open(path);
@@ -375,7 +375,7 @@ int main(int argc, char * argv[]) {
     std::vector<SGE::Object::ID> humans_id;
     for (const int& e : r){
         std::pair<float, float> pos = free.at(e);
-        SGE::Object::ID temp = manager->addObject(new Human(pos.first, pos.second,120), S1, PATH"ZombieGame/Resources/Textures/circle.png");
+        SGE::Object::ID temp = manager->addObject(new Human(pos.first, pos.second,120), S1, basePath + "Resources/Textures/circle.png");
         humans_id.push_back(temp);
        
         std::cout << free.at(e).first << ", " << free.at(e).second << std::endl;

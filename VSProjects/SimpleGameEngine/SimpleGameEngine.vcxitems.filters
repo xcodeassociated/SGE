@@ -254,7 +254,4 @@
       <Filter>Logic\Logics\Colliders</Filter>
     </ClInclude>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\SimpleGameEngine\SGE\Logic\sge_logic.cpp" />
-  </ItemGroup>
 </Project>
