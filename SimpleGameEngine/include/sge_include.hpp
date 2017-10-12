@@ -16,7 +16,7 @@
 #ifdef _WIN32
 #define GLEW_STATIC
 #include <GL/glew.h>
-#include <GL/glut.h>
+//#include <GL/glut.h>
 #include <SDL2/SDL.h>
 
 #define PATH "C:/Dev/SGE/" // TODO: has to be changed!
@@ -24,9 +24,8 @@
 #endif
 
 // !Windows specific includes
-#ifndef _WIN32
+#ifdef __APPLE__
 #include <GL/glew.h>
-#include <GLUT/GLUT.h>
 #include <OpenGL/OpenGL.h>
 #include <SDL2/SDL.h>
 
@@ -34,6 +33,17 @@
 
 //#define FRAG "/Users/Hamashy/Documents/Development/GameEngine.repo/SimpleGameEngine/SGE/Shaders/res/colorShader.frag"
 //#define VERT "/Users/Hamashy/Documents/Development/GameEngine.repo/SimpleGameEngine/SGE/Shaders/res/colorShader.vert"
+
+#endif
+
+#ifdef __linux
+#include <GL/glew.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <SDL2/SDL.h>
+
+
+#define PATH "/home/jm/Desktop/SGE" // TODO:  has to be changed!
 
 #endif
 
@@ -70,14 +80,7 @@
 /** Boost includes: **/
 #include <boost/version.hpp>
 
-/** WebSocketpp includes: **/
-#ifdef _WIN32 //VS 2015 compatibility fix
-#define _WEBSOCKETPP_NOEXCEPT_ 1
-#define _WEBSOCKETPP_CPP11_CHRONO_ 1 
-#endif
-#include <websocketpp/version.hpp>
-
 /** RapidJSON includes: **/
-#include <rapidjson/rapidjson.h>
+//#include <rapidjson/rapidjson.h> // TODO: add rapidJSON
 
 #endif /* SGE_include_h */

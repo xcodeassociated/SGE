@@ -15,7 +15,7 @@ message (STATUS "Build DIR: ${CMAKE_CURRENT_BINARY_DIR}")
 
 set(CMAKE_VERBOSE_MAKEFILE on)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
+set (CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic")
@@ -35,7 +35,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake_modules")
 
 ## Boost:
 find_package(Boost COMPONENTS program_options system filesystem REQUIRED)
-if(Boost_FOUND)
+if(NOT Boost_FOUND)
+	message(Error "Boost not found")
+else()
     include_directories(${Boost_INCLUDE_DIRS})
 
     message(STATUS "Boost Found!")
@@ -46,19 +48,13 @@ endif()
 
 ## SDL:
 find_package(SDL2 REQUIRED)
-#find_package(SDL2_image REQUIRED)
-#find_package(SDL2_ttf REQUIRED)
-include_directories(${SDL2_INCLUDE_DIR}) #${SDL2_IMAGE_INCLUDE_DIR} ${SDL2_TTF_INCLUDE_DIR})
-
 if (NOT SDL2_FOUND)
 	message(Error "SDL2 not found")
+else()
+	include_directories(${SDL2_INCLUDE_DIR})
+
 endif()
-#if (NOT SDL2_IMAGE_FOUND)
-#	message(Error "SDL2 IMAGE not found")
-#endif()
-#if (NOT SDL2_TTF_FOUND)
-#	message(Error "SDL2 TTF not found")
-#endif()
+
 
 ## GLM:
 find_package(GLM REQUIRED)
@@ -72,13 +68,23 @@ endif()
 
 ## OpenGL: -- TODO: check if needed
 find_package(OpenGL REQUIRED)
-include_directories(${OpenGL_INCLUDE_DIRS})
-link_directories(${OpenGL_LIBRARY_DIRS})
-add_definitions(${OpenGL_DEFINITIONS})
-
 if(NOT OpenGL_FOUND)
         message(Error "OpenGL not found")
+else()
+	include_directories(${OpenGL_INCLUDE_DIRS})
+	link_directories(${OpenGL_LIBRARY_DIRS})
+	add_definitions(${OpenGL_DEFINITIONS})
 endif()
+
+## TODO: add rapidJSON
+## RapidJSON
+#find_package(rapidjson REQUIRED)
+#if (NOT RAPIDJSON_FOUND)
+#	message(Error "RapidJSON not found")
+#else()
+#	include_directories("${RAPIDJSON_INCLUDE_DIRS}")
+#	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${RAPIDJSON_CXX_FLAGS}")
+#endif()
 
 ## Setting SGE directory
 set (SGE_DIR "SimpleGameEngine")
