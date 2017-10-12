@@ -10,31 +10,13 @@
 #include <thread>
 #include <chrono>
 
-//#include "MainGameWindow.hpp"
-
-#include "../SimpleGameEngine/SGE/SGE.hpp"
-#include "../SimpleGameEngine/SGE/Action/Actions/sge_action_move.hpp"
+#include "SGE.hpp"
+#include "sge_action_move.hpp"
 //TODO: check it!!
-#include "../SimpleGameEngine/SGE/Mouse/sge_mouse.hpp" // ??? was comment out!
+#include "sge_mouse.hpp" // ??? was comment out!
 
 #include <set>
-#include <time.h>       /* time */
-
-/* ===================================================================================== */
-
-//std::function<void(void)> nonSGE = []{
-//    float gameBox[] = { SCREEN_WIDTH, SCREEN_HEIGHT };
-//    MainGameWindow* mainWindow = new MainGameWindow(gameBox[0], gameBox[1]);
-//
-//    mainWindow->init();
-//    mainWindow->show();
-//
-//    mainWindow->run();
-//    delete mainWindow;
-//};
-
-/* ===================================================================================== */
-
+#include <time.h>      
 
 class MainScene : public SGE::Scene{
     SGE::ObjectManager* manager = nullptr;
@@ -44,7 +26,6 @@ public:
         
 		std::string path = SGE::getPath() + "level1.txt";
 		std::map<char, std::string> mask = {
-//			{'.',"."},{'Z',"."},{'@',"."},
 			{'R',PATH"ZombieGame/Resources/Textures/red_bricks.png"},
 			{'B',PATH"ZombieGame/Resources/Textures/red_bricks.png"},
 			{'G',PATH"ZombieGame/Resources/Textures/glass.png"},

@@ -1,0 +1,11 @@
+add_subdirectory(Action_lib)
+add_subdirectory(IO_lib)
+add_subdirectory(Level_lib)
+add_subdirectory(Logic_lib)
+add_subdirectory(Object_lib)
+add_subdirectory(ObjectManager_lib)
+add_subdirectory(Renderer_lib)
+add_subdirectory(Scene_lib)
+add_subdirectory(Utils_lib)
+add_subdirectory(ThirdParty_Librarys)
+

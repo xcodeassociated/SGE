@@ -1,0 +1,46 @@
+set (ObjectCameraSOURCES
+	Camera2d/sge_camera2d.hpp
+	Camera2d/sge_camera2d.cpp)
+
+set (ObjectIDSOURCES
+	ID/sge_id.hpp
+	ID/sge_id.cpp)
+
+set (ObjectSOURCES
+	Object/sge_object.hpp
+	Object/sge_object.cpp)
+
+set (ObjectBackgroundElementSOURCES
+	Object/BackgroundElement/sge_background_element.hpp
+	Object/BackgroundElement/sge_background_element.cpp
+	Object/BackgroundElement/sge_world_element.hpp
+	Object/BackgroundElement/sge_world_element.cpp)
+
+set (ObjectInterfaceSOURCES
+	Object/Interface/sge_button.hpp
+	Object/Interface/sge_button.cpp
+	Object/Interface/sge_interface.hpp
+	Object/Interface/sge_interface.cpp
+	Object/Interface/sge_label.hpp
+	Object/Interface/sge_label.cpp)
+
+set (ObjectReactiveSOURCES
+	Object/Reactive/sge_being.hpp
+	Object/Reactive/sge_being.cpp
+	Object/Reactive/sge_player.hpp
+	Object/Reactive/sge_player.cpp
+	Object/Reactive/sge_reactive.hpp
+	Object/Reactive/sge_reactive.cpp)
+
+set (ObjectShapeSOURCES
+	Object/Shape/sge_shape.hpp
+	Object/Shape/sge_shape.cpp)
+
+add_library (Object SHARED 
+		${ObjectCameraSOURCES}
+		${ObjectIDSOURCES}
+		${ObjectSOURCES}
+		${ObjectBackgroundElementSOURCES}
+		${ObjectInterfaceSOURCES}
+		${ObjectReactiveSOURCES}
+		${ObjectShapeSOURCES})
