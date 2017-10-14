@@ -5,6 +5,7 @@
 
 namespace SGE {
     class Object;
+    class ObjectID;
 	class ObjectBind;
     class ActionHandler;
 	class ObjectManager;
