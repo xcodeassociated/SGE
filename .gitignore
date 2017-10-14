@@ -38,5 +38,8 @@ conaninfo.txt
 build/*
 
 # cmake build dir
-*/cmake-build-*/
+*cmake-build-*/
+
+# CLion project
+*.idea/
 
