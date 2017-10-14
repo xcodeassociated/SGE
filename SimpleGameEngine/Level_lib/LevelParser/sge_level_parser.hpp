@@ -1,6 +1,7 @@
 #ifndef sge_level_parser_h
 #define sge_level_parser_h
 
+#include <vector>
 #include<map>
 #include<string>
 #include<fstream>

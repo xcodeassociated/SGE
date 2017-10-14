@@ -18,7 +18,12 @@ set (LogicsCollidersSOURCES
 	Logic/Logics/Colliders/sge_logic_collide_level_precise.hpp
 	Logic/Logics/Colliders/sge_logic_collide_level_precise.cpp)
 
+set (LogicMoversSOURCES
+		Logic/Logics/Movers/sge_logic_move.hpp
+		Logic/Logics/Movers/sge_logic_move.cpp)
+
 add_library (Logic SHARED
 		${LogicSOURCES}
 		${LogicsCameraSOURCES}
-		${LogicsCollidersSOURCES})
+		${LogicsCollidersSOURCES}
+		${LogicMoversSOURCES})

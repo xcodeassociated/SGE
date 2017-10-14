@@ -2,6 +2,7 @@
 #define sge_action_h
 
 #include "sge_id.hpp"
+#include <initializer_list>
 
 namespace SGE {
     class Object;

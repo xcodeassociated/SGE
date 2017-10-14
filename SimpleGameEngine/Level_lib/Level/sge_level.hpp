@@ -1,6 +1,7 @@
 #ifndef SGE_LEVEL_HPP
 #define SGE_LEVEL_HPP
 
+#include <vector>
 #include "sge_background_element.hpp"
 #include "sge_world_element.hpp"
 

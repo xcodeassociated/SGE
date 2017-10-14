@@ -1,6 +1,7 @@
 #ifndef sge_background_element_h
 #define sge_background_element_h
 
+#include <string>
 #include "sge_object.hpp"
 
 namespace SGE {

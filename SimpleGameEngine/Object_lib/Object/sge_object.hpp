@@ -1,7 +1,11 @@
 #ifndef sge_object_h
 #define sge_object_h
 
+#include <initializer_list>
+#include <string>
+#include <glm/glm.hpp>
 #include <glm/vec2.hpp>
+#include <GL/glew.h>
 #include "sge_id.hpp"
 #include "sge_shape.hpp"
 

@@ -10,6 +10,7 @@
 #define picopng_h
 
 #include <vector>
+#include <cstddef>
 
 int decodePNG(std::vector<unsigned char>& out_image,
                      unsigned long& image_width,

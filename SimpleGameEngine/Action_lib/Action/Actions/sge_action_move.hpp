@@ -9,6 +9,7 @@
 #ifndef sge_action_move_h
 #define sge_action_move_h
 
+#include <glm/glm.hpp>
 #include "sge_action.hpp"
 
 namespace SGE {

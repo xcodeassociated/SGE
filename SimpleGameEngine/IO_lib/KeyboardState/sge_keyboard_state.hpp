@@ -3,6 +3,7 @@
 
 namespace SGE
 {
+	enum class Key;
 	bool isPressed(SGE::Key key)
 	{
 		static const Uint8* const state = SDL_GetKeyboardState(nullptr);
