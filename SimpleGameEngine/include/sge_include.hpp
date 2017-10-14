@@ -81,6 +81,6 @@
 #include <boost/version.hpp>
 
 /** RapidJSON includes: **/
-//#include <rapidjson/rapidjson.h> // TODO: add rapidJSON
+#include <rapidjson/rapidjson.h>
 
 #endif /* SGE_include_h */

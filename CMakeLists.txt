@@ -19,15 +19,28 @@ set (CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 
-## Flag for exporting symbols -- needed to combine shared libs for SGE
-set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--export-all-symbols")
+if (UNIX)
 
-if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    message(STATUS "Linux")
+    if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+        message(STATUS "Linux")
+
+    elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+        message(STATUS "Darwin")
+
+    endif()
+
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fext-numeric-literals")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive")
+
+    ## Flag for exporting symbols -- needed to combine shared libs for SGE
+    set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--export-all-symbols") #TODO: check if this works on WIN32
+
+elseif(WIN32)
+    message(STATUS "WIN32")
+    ## TODO: WIN32 compiler flags here!!!
+
 endif()
 
 ## FINDING MODULES
@@ -66,7 +79,7 @@ if(NOT GLM_FOUND)
         message(Error "GLM not found")
 endif()
 
-## OpenGL: -- TODO: check if needed
+## OpenGL:
 find_package(OpenGL REQUIRED)
 if(NOT OpenGL_FOUND)
         message(Error "OpenGL not found")
@@ -75,16 +88,6 @@ else()
 	link_directories(${OpenGL_LIBRARY_DIRS})
 	add_definitions(${OpenGL_DEFINITIONS})
 endif()
-
-## TODO: add rapidJSON
-## RapidJSON
-#find_package(rapidjson REQUIRED)
-#if (NOT RAPIDJSON_FOUND)
-#	message(Error "RapidJSON not found")
-#else()
-#	include_directories("${RAPIDJSON_INCLUDE_DIRS}")
-#	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${RAPIDJSON_CXX_FLAGS}")
-#endif()
 
 ## Setting SGE directory
 set (SGE_DIR "SimpleGameEngine")
