@@ -15,7 +15,7 @@ message (STATUS "Build DIR: ${CMAKE_CURRENT_BINARY_DIR}")
 
 set(CMAKE_VERBOSE_MAKEFILE on)
 
-set (CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic")
@@ -24,18 +24,15 @@ if (UNIX)
 
     if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
         message(STATUS "Linux")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fext-numeric-literals")
 
-    elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
         message(STATUS "Darwin")
 
     endif()
 
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fext-numeric-literals")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive")
-
-    ## Flag for exporting symbols -- needed to combine shared libs for SGE
-    set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--export-all-symbols") #TODO: check if this works on WIN32
 
 elseif(WIN32)
     message(STATUS "WIN32")
@@ -44,10 +41,10 @@ elseif(WIN32)
 endif()
 
 ## FINDING MODULES
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake_modules")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMakeModules")
 
 ## Boost:
-find_package(Boost COMPONENTS program_options system filesystem REQUIRED)
+find_package(Boost COMPONENTS program_options system REQUIRED) #TODO: filesystem <-- missing in conan boost (mac)
 if(NOT Boost_FOUND)
 	message(Error "Boost not found")
 else()
@@ -71,12 +68,12 @@ endif()
 
 ## GLM:
 find_package(GLM REQUIRED)
-include_directories(${GLM_INCLUDE_DIRS})
-link_directories(${GLM_LIBRARY_DIRS})
-add_definitions(${GLM_DEFINITIONS})
-
 if(NOT GLM_FOUND)
-        message(Error "GLM not found")
+    message(Error "GLM not found")
+else()
+    include_directories(${GLM_INCLUDE_DIRS})
+    link_directories(${GLM_LIBRARY_DIRS})
+    add_definitions(${GLM_DEFINITIONS})
 endif()
 
 ## OpenGL:
