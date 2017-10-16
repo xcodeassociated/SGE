@@ -9,7 +9,11 @@
 #ifndef sge_logic_h
 #define sge_logic_h
 
+#ifdef _WIN32
 #include <logic_export.h>
+#else
+#define LOGIC_EXPORT
+#endif
 
 #include "sge_id.hpp"
 #include "sge_object.hpp"
