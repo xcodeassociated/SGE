@@ -16,12 +16,11 @@ message (STATUS "Build DIR: ${CMAKE_CURRENT_BINARY_DIR}")
 set(CMAKE_VERBOSE_MAKEFILE on)
 
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic")
 
 if (UNIX)
-
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic")
     if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
         message(STATUS "Linux")
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fext-numeric-literals")
@@ -36,7 +35,13 @@ if (UNIX)
 
 elseif(WIN32)
     message(STATUS "WIN32")
+    ## Force exports without adding macros in sources.
+    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS 1)
     ## TODO: WIN32 compiler flags here!!!
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W1")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Za")
+    ## Adds export libraries directory
+    link_directories("${CMAKE_CURRENT_BINARY_DIR}/lib")
 
 endif()
 
@@ -62,6 +67,8 @@ if (NOT SDL2_FOUND)
 	message(Error "SDL2 not found")
 else()
 	include_directories(${SDL2_INCLUDE_DIR})
+	link_directories(${SDL2_INCLUDE_DIR})
+    add_definitions(${SDL2_DEFINITIONS})
 
 endif()
 
@@ -97,9 +104,7 @@ include_directories(${SGE_DIR}) ##TODO: this includes SGE.hpp -- REFACTOR needed
 
 include_directories(${SGE_DIR}/Action_lib/Action)
 include_directories(${SGE_DIR}/Action_lib/Action/Actions)
-include_directories(${SGE_DIR}/Action_lib/Action/ActionHandler)
-
-include_directories(${SGE_DIR}/include) ## TODO: this file has to removed -- REFACTOR needed!
+include_directories(${SGE_DIR}/Action_lib/ActionHandler)
 
 include_directories(${SGE_DIR}/IO_lib/InputManager)
 include_directories(${SGE_DIR}/IO_lib/IOManager)

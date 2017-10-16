@@ -18,3 +18,10 @@ add_library(Action SHARED
 		${ActionSOURCES}
 		${ActionsSources}
 		${ActionHandlerSOURCES})
+
+if(WIN32)
+	##Add dependencies
+	target_link_libraries(Action Object)
+	##target_link_libraries(Action ObjectManager)
+	##target_link_libraries(Action "../../lib/ObjectManager")
+endif()
