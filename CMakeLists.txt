@@ -35,6 +35,8 @@ if (UNIX)
 
 elseif(WIN32)
     message(STATUS "WIN32")
+	##Set Project
+	set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT SGE-ZombieGame)
     ## Force exports without adding macros in sources.
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS 1)
     ## TODO: WIN32 compiler flags here!!!
