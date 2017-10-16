@@ -9,7 +9,6 @@
 #ifndef sge_imput_manager_h
 #define sge_imput_manager_h
 
-#include "sge_include.hpp"
 #include <unordered_map>
 
 namespace SGE {
@@ -18,30 +17,14 @@ namespace SGE {
         std::unordered_map<unsigned int, bool> keyMap;
         
     public:
-        InputManager() : keyMap({}){
-            
-        };
-        
-        ~InputManager(){
-            
-        }
-        
-        void pressKey(unsigned int _keyID){
-            this->keyMap[_keyID] = true;
-        }
-        
-        void releaseKey(unsigned int _keyID){
-            this->keyMap[_keyID] = false;
-        }
-        
-        bool isKeyPressed(unsigned int _keyID){
-            auto it = this->keyMap.find(_keyID);
-            if (it != this->keyMap.end())
-                return it->second;
-            else
-                return false;
-        }
+		InputManager();
+	    ~InputManager();
 
+	    void pressKey(unsigned int _keyID);
+
+	    void releaseKey(unsigned int _keyID);
+
+	    bool isKeyPressed(unsigned int _keyID);
     };
 
 }

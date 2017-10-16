@@ -1,7 +1,6 @@
 #ifndef sge_object_manager_h
 #define sge_object_manager_h
 
-#include "sge_include.hpp"
 #include "sge_shader.hpp"
 #include "sge_camera2d.hpp"
 #include "SpriteBatch.hpp"
@@ -11,15 +10,19 @@
 
 #include "sge_relay_interface.hpp"
 
-#include <initializer_list>
-#include <algorithm>
 #include <vector>
 #include <map>
 #include <stdexcept>
 
-#include <unordered_set>
 #include <random>
 #include <ctime>
+
+#include "sge_action_handler.hpp"
+#include "sge_mouse.hpp"
+#include "sge_level.hpp"
+#include "sge_logic.hpp"
+#include "sge_scene.hpp"
+#include <iostream>
 
 namespace SGE {
 	class Object;
@@ -387,9 +390,5 @@ namespace SGE {
 
 //Implementation of ObjectManager nested classes
 #include "tool/sge_window_manager.hpp"
-#include "tool/sge_renderer.hpp"
-#include "tool/sge_game.hpp"
-#include "tool/sge_input_handler.hpp"
-#include "tool/sge_camera_handler.hpp"
 
 #endif /* sge_object_manager_h */

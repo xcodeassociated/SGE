@@ -18,13 +18,23 @@
 #include <set>
 #include <time.h>      
 
+#include <sge_macro.hpp>
+#include <glm/glm.hpp>
+#include <glm/ext.hpp>
+#include "Logics/Colliders/sge_logic_collide.hpp"
+#include "Logics/Colliders/sge_logic_collide_level_precise.hpp"
+#include "Logics/Colliders/sge_logic_collide_basic.hpp"
+#include "Logics/Movers/sge_logic_move.hpp"
+#include "Logics/Camera/sge_logic_camera_zoom.hpp"
+#include <fstream>
+
 class MainScene : public SGE::Scene{
     SGE::ObjectManager* manager = nullptr;
     
 public:
     MainScene(SGE::ObjectManager* _manager) : manager(_manager) {
         
-		std::string path = SGE::getPath() + "level1.txt";
+		std::string path = PATH"ZombieGame/Levels/level1.txt";
 		std::map<char, std::string> mask = {
 			{'R',PATH"ZombieGame/Resources/Textures/red_bricks.png"},
 			{'B',PATH"ZombieGame/Resources/Textures/red_bricks.png"},
@@ -173,7 +183,7 @@ public:
 		if (human->getCounter() == 0)
 		{
 //			std::cout << velocity.x << ' ' << velocity.y << " | ";
-			velocity = glm::rotate(velocity,angle(engine));
+			//velocity = glm::rotate(velocity,angle(engine));
 			human->setVelocity(velocity);
 //			std::cout << velocity.x << ' ' << velocity.y << std::endl;
 		}
@@ -320,7 +330,7 @@ int main(int argc, char * argv[]) {
 	manager->mapAction(SGE::InputBinder(testObj1, reset, SGE::Key::B));
 
 	// !Testing collisions
-    std::string path = SGE::getPath() + "level1.txt";
+    std::string path = PATH"ZombieGame/Levels/level1.txt";
     std::vector<std::string> l;
     std::fstream is;
     is.open(path);

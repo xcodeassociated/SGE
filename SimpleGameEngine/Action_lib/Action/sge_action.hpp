@@ -2,6 +2,7 @@
 #define sge_action_h
 
 #include "sge_id.hpp"
+#include "sge_object.hpp"
 #include <initializer_list>
 
 namespace SGE {
@@ -20,20 +21,13 @@ namespace SGE {
 		friend class ObjectManager;
 
 		Action* action = nullptr;
-		ActionID(long id, Action* a) :
-			ID(id),
-			action(a)
-		{}
+		ActionID(long id, Action* a);
 	public:
-		ActionID(Action* a) : ID(-1L), action(a){}
-		Action* getAction() const
-		{
-			return this->action;
-		}
-		Action* operator->() const
-		{
-			return this->action;
-		}
+		ActionID(Action* a);
+
+		Action* getAction() const;
+
+		Action* operator->() const;
 	};
 
 	class Action{
@@ -41,17 +35,14 @@ namespace SGE {
         double duration = 0;
 		bool enabled = true;
 		Action() = default;
-        Action(double _d) : duration(_d) {};
-		Action(double _d, bool ) : duration(_d) {};
+		Action(double _d);;
+		Action(double _d, bool);;
 
     public:
 		using ID = ActionID;
 		using Binder = ActionBind;
 
-		double getDuration() const
-		{
-			return this->duration;
-		}
+		double getDuration() const;
 		virtual ~Action() = default;
 
         virtual void action_begin(const ObjectBind& bind) = 0;
@@ -64,15 +55,20 @@ namespace SGE {
 		ObjectBind bind = ObjectBind();
         ActionID aid = ActionID(nullptr);
     public:
-		ActionBind(const std::initializer_list<ObjectID>& object, Action::ID action) : bind(object), aid(action) {}
-        ActionBind(ObjectID object, ActionID action) : ActionBind({object}, action) {}
+		ActionBind(const std::initializer_list<ObjectID>& object, Action::ID action);
+
+		ActionBind(ObjectID object, ActionID action);
         ActionBind() = default;
-        
-        ObjectID* begin() const { return this->bind.begin(); }
-        ObjectID* end() const { return this->bind.end(); }
-        ActionID getAction() const { return this->aid; }
-		const ObjectBind& getBind() const { return this->bind; }
-        std::size_t size() const { return this->bind.size(); }
+
+		ObjectID* begin() const;
+
+		ObjectID* end() const;
+
+		ActionID getAction() const;
+
+		const ObjectBind& getBind() const;
+
+		std::size_t size() const;
     };
 }
 #endif /* sge_action_h */

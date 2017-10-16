@@ -1,10 +1,11 @@
 #ifndef SGE_ACTION_HANDLER_HPP
 #define SGE_ACTION_HANDLER_HPP
 
-#include "sge_include.hpp"
-
 #include "sge_action.hpp"
 #include "sge_relay_interface.hpp"
+#include <SDL2/SDL.h>
+
+#include <vector>
 
 namespace SGE{
 	enum class Key
@@ -143,12 +144,13 @@ namespace SGE{
     
     struct KeyHash{
         template <typename T>
-        std::size_t operator()(T t) const{
-            return static_cast<std::size_t>(t);
-        }
+	    std::size_t operator()(T t) const
+		{
+			return static_cast<std::size_t>(t);
+		}
     };
-    
-    template <typename Key>
+
+	template <typename Key>
     using KeyHashAlias = typename std::conditional<std::is_enum<Key>::value, KeyHash, std::hash<Key>>::type;
     
 	class InputBinder{
@@ -156,90 +158,34 @@ namespace SGE{
 		Key kid;
 
 	public:
-        InputBinder(std::initializer_list<ObjectID> object, Action::ID action, Key key) : kid(key){
-            this->bind = ActionBind(object, action);
-        }
-        
-        InputBinder(ObjectID object, Action::ID action, Key key) : kid(key){
-            this->bind = ActionBind(object, action);
-        }
+		InputBinder(std::initializer_list<ObjectID> object, Action::ID action, Key key);
 
-		ActionBind getBind() const
-		{
-			return this->bind;
-		}
+		InputBinder(ObjectID object, Action::ID action, Key key);
 
-		Key getKey() const
-		{
-			return this->kid;
-		}
+		ActionBind getBind() const;
+
+		Key getKey() const;
 	};
 
     class ActionHandler {
         Relay* relay = Relay::getRelay();
         std::vector<ActionBind> actions;
-        
-        void triggerAction(ActionID a,const ObjectBind& b){
-            a->action_begin(b);
-            a->action_main(b);
-            a->action_ends(b);
-        }
 
-		void triggerAction(const ActionBind& b) {
-			this->triggerAction(b.getAction(), b.getBind());
-		}
-        
+	    void triggerAction(ActionID a, const ObjectBind& b);
+
+	    void triggerAction(const ActionBind& b);
+
     public:
 
-        ActionHandler(void) : actions{} {
-            
-        }
-        
-		void handleInputAction(ActionBind& bind)
-		{
-            //Currently will handle only main;
-			bind.getAction()->action_main(bind.getBind());
-		}
+	    ActionHandler(void);
 
-        void addAction(ActionBind& bind){
-			bind.getAction()->action_begin(bind.getBind());
-            this->actions.push_back(bind);
-        }
-        
-        void performAllActions(){          
-            for (ActionBind& act : this->actions){               
-                //TODO: do it in a object manager for all scene objects !!!
-				//o->setLock(LogicPriority::None);
-				act.getAction()->action_main(act.getBind());
-            }
-			auto last = std::remove_if(actions.begin(), actions.end(), [](const ActionBind& b)
-            {
-				if(b.getAction()->getDuration() <= 0)
-				{
-					b.getAction()->action_ends(b.getBind());
-					if(b.getAction().getID() > 99L)
-					{
-						delete b.getAction().getAction(); //deletes managed action
-					}
-					return true;
-				}
-				return false;
-            }); //"removes" actions that ended.
-            this->actions.erase(last, actions.end());//Actually removes managed actions that ended.
-        }
-        
-        void performSingleAction(const ActionBind& bind, LogicPriority priority){
-			if(priority == LogicPriority::Highest){
-                this->triggerAction(bind);
-            }else{
-				this->actions.push_back(bind);
-				//bind.first.getObject()->setLock(priority);
-                for (ObjectID e : bind){
-                    e.getObject()->setLock(priority);
-                }
-			}
-        }
-        
+	    void handleInputAction(ActionBind& bind);
+
+	    void addAction(ActionBind& bind);
+
+	    void performAllActions();
+
+	    void performSingleAction(const ActionBind& bind, LogicPriority priority);
     };
 
 }

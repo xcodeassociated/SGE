@@ -10,7 +10,7 @@
 #define sge_camera2d_h
 
 #include "sge_object.hpp"
-#include "sge_include.hpp"
+#include <glm/mat4x4.hpp>
 
 namespace SGE {
     
@@ -22,56 +22,23 @@ namespace SGE {
         int box[2];
         
     public:
-        Camera2d(unsigned int _width, unsigned int _height) : Object(0.f, 0.f), cameraMatrix(1.f), matUpdate(true){
-            this->box[0] = _width;
-            this->box[1] = _height;
-            
-            this->orthoMatrix = glm::ortho(0.0f, (float)this->box[0], 0.0f, (float)this->box[1]);
-        }
-        
-        ~Camera2d(){
-        }
-        
-        void setPosition(float x, float y){
-            this->Object::setPosition(x,y);
-            this->matUpdate = true;
-        }
-        
-        void setPosition(glm::vec2 _position){
-            this->Y = _position.y;
-            this->X = _position.x;
-            this->matUpdate = true;
-        }
-        
-        glm::vec2 getPosition(){
-            return glm::vec2{this->X,this->Y};
-        }
-        
-        void setScale(float _scale){
-            this->scale = _scale;
-            this->matUpdate = true;
-        }
-        
-        float getScale(){
-            return this->scale;
-        }
-        
-        const glm::mat4& getCameraMatrix(){
-            return this->cameraMatrix;
-        }
-        
-        void update(){
-            if (this->matUpdate){
-                glm::vec3 translate( - this->X + (this->box[0] / 2),  - this->Y + (this->box[1] / 2), 0.0f );
-                this->cameraMatrix = glm::translate(this->orthoMatrix, translate);
-                
-                glm::vec3 scale_vec(this->scale, this->scale, 0.0f);
-                this->cameraMatrix = glm::scale(glm::mat4(1.0f), scale_vec) * this->cameraMatrix;
-                
-                this->matUpdate = false;
-            }
-        }
-        
+	    Camera2d(unsigned int _width, unsigned int _height);
+
+	    ~Camera2d();
+
+	    void setPosition(float x, float y) override;
+
+	    void setPosition(glm::vec2 _position);
+
+	    glm::vec2 getPosition() const noexcept override;
+
+	    void setScale(float _scale);
+
+	    float getScale() const;
+
+	    const glm::mat4& getCameraMatrix() const;
+
+	    void update();
     };
     
 }

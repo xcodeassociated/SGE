@@ -9,15 +9,16 @@
 #ifndef sge_logic_h
 #define sge_logic_h
 
-#include "sge_action_handler.hpp"
+#include <logic_export.h>
+
+#include "sge_id.hpp"
+#include "sge_object.hpp"
+#include "sge_action.hpp"
 
 class DynamicVectorLogic;
 
 namespace SGE {
-	class Logic;
 	class LogicBind;
-	class ActionHandler;
-	class ObjectManager;
 
 	class LogicID : public ID
 	{
@@ -25,17 +26,13 @@ namespace SGE {
 	friend class Logic;
 
 		Logic* logic;
-		LogicID(const long id, Logic* logic) : ID(id), logic(logic) {}
+		LogicID(const long id, Logic* logic);
 	public:
-		LogicID(Logic* logic) : ID(-1L), logic(logic) {}
+		LogicID(Logic* logic);
 
-		Logic* getLogic() const {
-			return logic;
-		}
+		Logic* getLogic() const;
 
-		Logic* operator->() const {
-			return logic;
-		}
+		Logic* operator->() const;
     };
 
     class Logic{
@@ -46,47 +43,31 @@ namespace SGE {
 		using Priority = LogicPriority;
         virtual void performLogic(const ObjectBind&) = 0;
     protected:
-		static ActionHandler* action_handler;
+		static LOGIC_EXPORT ActionHandler* action_handler;
 
-		Logic(Priority _p): priority(_p){}
+	    Logic(Priority _p);
 
         bool isOn = true;
 		Priority priority = Priority::Low;
 
-		void sendAction(Object::ID obj,Action::ID action) const
-		{
-			action_handler->performSingleAction(ActionBind(obj, action), this->priority);
-		}
+	    void sendAction(Object::ID obj, Action::ID action) const;
 
     public:
 		using ID = LogicID;
 		using Binder = LogicBind;
 
-		
-        
-        Priority getPriority() const{
-            return this->priority;
-        }
-       
-        virtual void setOn(bool e) final {
-            this->isOn = e;
-        }
-        
-        virtual bool getOn(void) final {
-            return this->isOn;
-        }
-        
-		virtual void toggleOn() final {
-			this->isOn = !this->isOn;
-		}
+
+	    Priority getPriority() const;
+
+	    virtual void setOn(bool e) final;
+
+	    virtual bool getOn(void) final;
+
+	    virtual void toggleOn() final;
 
         virtual ~Logic() = 0;
         
     };
-    
-    inline Logic::~Logic(){}
-    
-	ActionHandler* Logic::action_handler = nullptr;
 
 	class LogicBind
 	{

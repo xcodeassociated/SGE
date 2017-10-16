@@ -19,40 +19,29 @@ namespace SGE
 	protected:
 		Shape() = default;
 		Shape(const Shape&) = default;
-		Shape(ShapeType type) :type(type) {}
-		Shape(ShapeType type, bool disposable) : type(type), disposable(disposable){}
-		
+		Shape(ShapeType type);
+		Shape(ShapeType type, bool disposable);
+
 		// Shape can be abstract, to prevent creation of shape objects. 
 	public:
-		virtual ~Shape() {}
+		virtual ~Shape();
 
 		//Should not be overidden
-		ShapeType getType() const
-		{
-			return this->type;
-		}
+		ShapeType getType() const;
 
 		//Checks if object shape is disposable
-		bool isDisposable()
-		{
-			return this->disposable;
-		}
+		bool isDisposable();
 	};
 
 	Shape* getShapeless();
 
 	class Shapeless : public Shape
 	{
-		Shapeless() : Shape(ShapeType::None,false)
-		{}
-		
+		Shapeless();
+
 	public:
 		//Single Flyweight for no shape objects?
-		friend Shape* getShapeless()
-		{
-			static Shapeless s;
-			return &s;
-		}
+		friend Shape* getShapeless();
 	};
 
 	class Circle : public Shape
@@ -61,20 +50,14 @@ namespace SGE
 		float radius = 0.f;
 
 	public:
-		Circle(): Shape(ShapeType::Circle){}
+		Circle();
 		Circle(const Circle&) = default;
-		explicit Circle(float radius): Shape(ShapeType::Circle), radius(radius){}
-		Circle(float radius, bool disposable): Shape(ShapeType::Circle, disposable), radius(radius) {}
+		explicit Circle(float radius);
+		Circle(float radius, bool disposable);
 
-		float getRadius() const
-		{
-			return this->radius;
-		}
+		float getRadius() const;
 
-		void setRadius(float radius)
-		{
-			this->radius = radius;
-		}
+		void setRadius(float radius);
 	};
 
 	class Rectangle : public Shape
@@ -84,37 +67,21 @@ namespace SGE
 		float height = 0.f;
 
 	public:
-		Rectangle() : Shape(ShapeType::Rectangle) {}
+		Rectangle();
 		Rectangle(const Rectangle&) = default;
-		explicit Rectangle(float width, float height) : Shape(ShapeType::Rectangle), width(width), height(height) {}
-		Rectangle(float width, float height, bool disposable) : Shape(ShapeType::Rectangle, disposable), width(width), height(height) {}
+		explicit Rectangle(float width, float height);
+		Rectangle(float width, float height, bool disposable);
 
-		float getWidth() const
-		{
-			return width;
-		}
+		float getWidth() const;
 
-		void setWidth(const float width)
-		{
-			this->width = width;
-		}
+		void setWidth(const float width);
 
-		float getHeight() const
-		{
-			return height;
-		}
+		float getHeight() const;
 
-		void setHeight(const float height)
-		{
-			this->height = height;
-		}
+		void setHeight(const float height);
 	};
-
-	Rectangle* getBaseTileShape()
-	{
-		static Rectangle tile(64, 64, 0);
-		return &tile;
-	}
+	
+	Rectangle* getBaseTileShape();
 }
 
 #endif // !SGE_SHAPE_HPP

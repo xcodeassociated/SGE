@@ -2,6 +2,7 @@
 #define sge_logic_move_h
 
 #include "sge_logic.hpp"
+#include "sge_action_handler.hpp"
 
 namespace SGE
 {
@@ -16,15 +17,7 @@ namespace SGE
 				:Logic(LogicPriority::Highest), speed(speed), up(up), down(down), left(left), right(right) {}
 			~SimpleMove() = default;
 
-			void performLogic(const ObjectBind& obj) override
-			{
-				glm::vec2 move = { 0,0 };
-				if (isPressed(this->up)) move.y += this->speed;
-				if (isPressed(this->down)) move.y -= this->speed;
-				if (isPressed(this->right)) move.x += this->speed;
-				if (isPressed(this->left)) move.x -= this->speed;
-				this->sendAction(obj[0], SGE::Action::ID(new SGE::ACTION::Move(move.x, move.y, 0)));
-			}
+			void performLogic(const ObjectBind& obj) override;
 		};
 	}
 }

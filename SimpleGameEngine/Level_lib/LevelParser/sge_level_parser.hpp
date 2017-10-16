@@ -8,8 +8,6 @@
 #include<cctype>
 
 #include "sge_level.hpp"
-//#include "../Object/Shape/sge_shape.hpp"
-//#include "../ObjectManager/sge_object_manager.hpp"
 
 namespace SGE {
 	class LevelParser {

@@ -9,7 +9,6 @@
 #ifndef sge_action_move_h
 #define sge_action_move_h
 
-#include <glm/glm.hpp>
 #include "sge_action.hpp"
 
 namespace SGE {
@@ -19,29 +18,16 @@ namespace SGE {
             float destX, destY;
             
         public:
-            
-            Move(float _x, float _y, double _duration) : Action(_duration), destX(_x), destY(_y) {
-                ;
-            }
-            
+
+	        Move(float _x, float _y, double _duration);
+
         private:
-            
-            virtual void action_begin(const ObjectBind&) noexcept override {
-                ;
-            }
-            
-            virtual void action_main(const ObjectBind& bind) noexcept override {               
-				glm::vec2 pos = { 0,0 };
-				for(ObjectID id : bind)
-				{
-					pos = id->getPosition();
-					id->setPosition(pos.x + this->destX, pos.y + this->destY);
-				}
-            }
-            
-            virtual void action_ends(const ObjectBind&) noexcept override {
-                ;
-            }
+
+	        virtual void action_begin(const ObjectBind&) noexcept override;
+
+	        virtual void action_main(const ObjectBind& bind) noexcept override;
+
+	        virtual void action_ends(const ObjectBind&) noexcept override;
         };
     }
 }
