@@ -56,7 +56,7 @@ endif()
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMakeModules")
 
 ## Boost:
-find_package(Boost COMPONENTS program_options system REQUIRED) #TODO: filesystem <-- missing in conan boost (mac)
+find_package(Boost COMPONENTS program_options system filesystem REQUIRED) #TODO: filesystem <-- missing in conan boost (mac)
 if(NOT Boost_FOUND)
 	message(Error "Boost not found")
 else()

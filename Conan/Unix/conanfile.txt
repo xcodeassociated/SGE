@@ -15,4 +15,6 @@ cmake
 [options]
 glew:shared=True
 boost:shared=True
+boost:without_filesystem=False
+boost:system=True
 sdl:shared=True
