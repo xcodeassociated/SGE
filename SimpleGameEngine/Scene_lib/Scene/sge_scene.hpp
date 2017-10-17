@@ -20,7 +20,7 @@ namespace SGE {
 		Scene* scene;
 
 	public:
-		SceneID(const long id, Scene* s);;
+		SceneID(const long id, Scene* s);
 	};
 
     class Scene{
@@ -50,9 +50,7 @@ namespace SGE {
 
 		virtual void finalize() = 0;
         virtual void onDraw() = 0;
-        
-    protected:
-        ;; //??
+
     };
     
 }

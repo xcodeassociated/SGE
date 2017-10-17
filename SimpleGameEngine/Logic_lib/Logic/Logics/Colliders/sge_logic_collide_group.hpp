@@ -19,9 +19,6 @@ namespace SGE {
         class BasicColliderGroup : public Collide {
             std::vector<ObjectID> objs;
             
-        protected:
-            ;;
-            
         public:
 
 	        BasicColliderGroup(std::vector<ObjectID> objects, collisionFunc _onCollision);

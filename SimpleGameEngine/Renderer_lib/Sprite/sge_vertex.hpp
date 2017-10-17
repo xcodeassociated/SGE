@@ -22,7 +22,7 @@ namespace SGE {
     };
     
     struct Color{
-	    Color(unsigned char _r, unsigned char _g, unsigned char _b, unsigned char _a);;
+	    Color(unsigned char _r, unsigned char _g, unsigned char _b, unsigned char _a);
 	    Color();
 
 	    ~Color();
@@ -58,6 +58,6 @@ namespace SGE {
 	    ~Vertex();
     };
     
-};
+}
 
 #endif /* sge_vertex_h */

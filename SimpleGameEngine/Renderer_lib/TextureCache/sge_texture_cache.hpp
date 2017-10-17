@@ -21,9 +21,9 @@ namespace SGE {
         static TextureCache* p_inst;
         static int arc;
 
-	    TextureCache();;
+	    TextureCache();
 
-	    TextureCache(const TextureCache&);;
+	    TextureCache(const TextureCache&);
 
 	    ~TextureCache();
 

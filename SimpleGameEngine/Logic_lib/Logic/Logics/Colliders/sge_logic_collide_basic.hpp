@@ -18,9 +18,6 @@ namespace SGE {
         class BasicCollider : public Collide {
 			ObjectID obj;
             
-        protected:
-            ;;
-            
 		public:
 
 	        BasicCollider(Object::ID obj, collisionFunc _onCollision);

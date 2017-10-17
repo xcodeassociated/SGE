@@ -21,9 +21,9 @@ namespace SGE {
 	    bool compileShader(std::string _filePath, GLuint& _id);
 
     public:
-	    Shader();;
+	    Shader();
 
-	    ~Shader();;
+	    ~Shader();
 
 	    GLint getUniformLocation(const char* uniformName);
 

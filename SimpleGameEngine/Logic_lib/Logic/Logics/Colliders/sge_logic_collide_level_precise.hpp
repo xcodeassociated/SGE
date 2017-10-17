@@ -11,8 +11,6 @@ namespace SGE {
 
 		class PreciseLevelCollider : public Collide {
 			std::vector<WorldElement>& objs;
-		protected:
-			;;
 
 		public:
 			PreciseLevelCollider(std::vector<WorldElement>& objects);

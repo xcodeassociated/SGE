@@ -12,9 +12,6 @@ namespace SGE {
         class BasicLevelCollider : public Collide {
             std::vector<WorldElement>& objs;
             
-        protected:
-            ;;
-            
         public:
 
 	        BasicLevelCollider(std::vector<WorldElement>& objects, collisionFunc _onCollision);

@@ -20,8 +20,8 @@ namespace SGE {
         static ResourceManager* p_inst;
         static int arc;
 
-	    ResourceManager();;
-	    ResourceManager(const ResourceManager&);;
+	    ResourceManager();
+	    ResourceManager(const ResourceManager&);
 
 	    ~ResourceManager();
 

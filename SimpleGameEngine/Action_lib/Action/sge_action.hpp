@@ -35,8 +35,8 @@ namespace SGE {
         double duration = 0;
 		bool enabled = true;
 		Action() = default;
-		Action(double _d);;
-		Action(double _d, bool);;
+		Action(double _d);
+		Action(double _d, bool);
 
     public:
 		using ID = ActionID;
