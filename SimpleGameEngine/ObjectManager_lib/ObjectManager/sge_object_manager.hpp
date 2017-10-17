@@ -13,7 +13,6 @@
 #include <vector>
 #include <map>
 #include <stdexcept>
-
 #include <ctime>
 
 #include "sge_action_handler.hpp"

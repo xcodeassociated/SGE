@@ -97,6 +97,16 @@ else()
 	add_definitions(${OpenGL_DEFINITIONS})
 endif()
 
+## GLEW:
+find_package(GLEW REQUIRED)
+if(NOT GLEW_FOUND)
+        message(Error "GLEW not found")
+else()
+	include_directories(${GLEW_INCLUDE_DIRS})
+	link_directories(${GLEW_LIBRARY_DIRS})
+	add_definitions(${GLEW_DEFINITIONS})
+endif()
+
 ## Setting SGE directory
 set (SGE_DIR "SimpleGameEngine")
 
@@ -156,4 +166,3 @@ add_subdirectory(${SGE_DIR})
 
 ## ZombieGame:
 add_subdirectory(${Game_DIR})
-

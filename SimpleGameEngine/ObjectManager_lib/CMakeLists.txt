@@ -22,13 +22,12 @@ add_library (ObjectManager SHARED
 		${ObjectManagerSOURCES}
 		${ObjectRelaySOURCES})
 		
-if(WIN32)
-	##Add dependencies
-	target_link_libraries(ObjectManager Object)
-	target_link_libraries(ObjectManager Logic)
-	target_link_libraries(ObjectManager Utils)
-	target_link_libraries(ObjectManager IO)
-	target_link_libraries(ObjectManager Level)
-	target_link_libraries(ObjectManager Scene)
-	target_link_libraries(ObjectManager Renderer)
-endif()
+	
+target_link_libraries(ObjectManager
+	Object
+	Logic
+	Utils
+	IO
+	Level
+	Scene
+	Renderer)	

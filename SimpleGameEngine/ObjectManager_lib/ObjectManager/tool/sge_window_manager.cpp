@@ -1,4 +1,6 @@
 #include "sge_window_manager.hpp"
+#include <GL/glew.h>
+#include <GL.h>
 
 namespace SGE {
 

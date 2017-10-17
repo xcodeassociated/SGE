@@ -9,7 +9,5 @@ set (UtilsSOURCES
 add_library (Utils SHARED 
 		${TimingSOURCES}
 		${UtilsSOURCES})
-if(WIN32)
-	##Add dependencies
-	target_link_libraries(Utils SDL2)
-endif()
+		
+target_link_libraries(Utils ${SDL2_LIBRARY})

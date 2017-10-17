@@ -27,10 +27,13 @@ add_library (Logic SHARED
 		${LogicsCameraSOURCES}
 		${LogicsCollidersSOURCES}
 		${LogicMoversSOURCES})
+
+target_link_libraries(Logic
+	Object
+	IO
+	Action)
+		
 if(WIN32)
 	include(GenerateExportHeader)
 	generate_export_header(Logic)
-	target_link_libraries(Logic Object)
-	target_link_libraries(Logic IO)
-	target_link_libraries(Logic Action)
 endif()

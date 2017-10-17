@@ -19,8 +19,7 @@ add_library(IO SHARED
 		${IOSOURCES_IOManager}
 		${IOSOURCES_KeyboardState}
 		${IOSOURCES_Mouse})
-if(WIN32)
-	##Add dependencies
-	target_link_libraries(IO Object)
-	target_link_libraries(IO SDL2)
-endif()
+		
+target_link_libraries(IO
+	${SDL2_LIBRARY} 
+	Object)

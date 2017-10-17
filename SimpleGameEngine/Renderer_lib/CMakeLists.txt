@@ -31,10 +31,9 @@ add_library (Renderer SHARED
 		${SpriteBatchSOURCES}
 		${TextureCacheSOURCES}
 		${TextureLoaderSOURCES})
-if(WIN32)
-	##Add dependencies
-	target_link_libraries(Renderer OpenGL32)
-	target_link_libraries(Renderer GLEW32)
-	target_link_libraries(Renderer PicoPNG)
-	target_link_libraries(Renderer IO)
-endif()
+		
+target_link_libraries(Renderer 
+	${OPENGL_LIBRARIES}
+	${GLEW_LIBRARIES} 
+	PicoPNG
+	IO)

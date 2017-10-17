@@ -17,7 +17,7 @@
 
 #include "sge_id.hpp"
 #include "sge_object.hpp"
-#include "sge_action.hpp"
+#include "sge_action_handler.hpp"
 
 class DynamicVectorLogic;
 
