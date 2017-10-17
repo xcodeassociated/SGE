@@ -2,7 +2,7 @@
 #define SGE_ACTION_HANDLER_HPP
 
 #include "sge_action.hpp"
-#include "sge_relay_interface.hpp"
+//#include "sge_relay_interface.hpp"
 #include <SDL2/SDL.h>
 
 #include <vector>
@@ -168,7 +168,7 @@ namespace SGE{
 	};
 
     class ActionHandler {
-        Relay* relay = Relay::getRelay();
+        //Relay* relay = Relay::getRelay();
         std::vector<ActionBind> actions;
 
 	    void triggerAction(ActionID a, const ObjectBind& b);
