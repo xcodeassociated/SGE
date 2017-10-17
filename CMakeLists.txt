@@ -7,7 +7,6 @@ project(SGE-ZombieGame)
 include(${CMAKE_CURRENT_SOURCE_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
-## include custom cmake modules
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 
 message(STATUS "Source DIR: ${CMAKE_CURRENT_SOURCE_DIR}")

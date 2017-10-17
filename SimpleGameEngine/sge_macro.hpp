@@ -14,7 +14,7 @@
 // !Windows specific includes
 #ifdef __APPLE__
 
-#define PATH "/Users/Hamashy/Documents/Development/GameEngine.repo/" // TODO: has to be changed!
+#define PATH "/Users/Hamashy/Documents/Development/SGE/" // TODO: has to be changed!
 
 #endif
 
