@@ -18,8 +18,14 @@ set (ObjectRelaySOURCES
 	Relay/sge_relay_interface.hpp
 	Relay/sge_relay_interface.cpp)
 
+set (DirectorSOURCES
+	Director/sge_director.hpp
+	Director/sge_director.cpp)
+
+	
 add_library (ObjectManager SHARED
 		${ObjectManagerSOURCES}
+		${DirectorSOURCES}
 		${ObjectRelaySOURCES})
 		
 	

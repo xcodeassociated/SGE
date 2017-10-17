@@ -142,6 +142,7 @@ include_directories(${SGE_DIR}/Object_lib/Object/Reactive)
 include_directories(${SGE_DIR}/Object_lib/Object/Shape)
 
 include_directories(${SGE_DIR}/ObjectManager_lib/ObjectManager)
+include_directories(${SGE_DIR}/ObjectManager_lib/Director)
 include_directories(${SGE_DIR}/ObjectManager_lib/Relay)
 
 include_directories(${SGE_DIR}/Renderer_lib/ResourceManager)
@@ -151,7 +152,6 @@ include_directories(${SGE_DIR}/Renderer_lib/SpriteBatch)
 include_directories(${SGE_DIR}/Renderer_lib/TextureCache)
 include_directories(${SGE_DIR}/Renderer_lib/TextureLoader)
 
-include_directories(${SGE_DIR}/Scene_lib/Director)
 include_directories(${SGE_DIR}/Scene_lib/Scene)
 
 
