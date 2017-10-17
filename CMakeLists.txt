@@ -3,14 +3,17 @@ cmake_minimum_required(VERSION 3.5)
 ## Project name 
 project(SGE-ZombieGame)
 
+## Output directory for all compiled objects
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+
 ## include conan cmake file
 include(${CMAKE_CURRENT_SOURCE_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
-
 message(STATUS "Source DIR: ${CMAKE_CURRENT_SOURCE_DIR}")
-message (STATUS "Build DIR: ${CMAKE_CURRENT_BINARY_DIR}")
+message(STATUS "Build DIR: ${CMAKE_CURRENT_BINARY_DIR}")
+message(STATUS "Binary DIR: ${CMAKE_BINARY_DIR}")
+message(STATUS "LIbrary Output DIR: ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
 
 set(CMAKE_VERBOSE_MAKEFILE on)
 
@@ -165,3 +168,4 @@ add_subdirectory(${SGE_DIR})
 
 ## ZombieGame:
 add_subdirectory(${Game_DIR})
+
