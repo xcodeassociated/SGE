@@ -1,6 +1,9 @@
 #include "sge_window_manager.hpp"
 #include <GL/glew.h>
+
+#ifdef _WIN32
 #include <GL.h>
+#endif
 
 namespace SGE {
 
