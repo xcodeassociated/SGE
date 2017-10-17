@@ -16,29 +16,17 @@ namespace SGE
         std::vector<WorldElement> world;
 	public:
 		Level() = default;
-		Level(size_t x, size_t y) : height(y),width(x){}
+		Level(size_t x, size_t y);
 		Level(Level&&) = default;
 		Level& operator=(Level&&) = default;
 
-		const size_t& getHeight() const
-		{
-			return this->height;
-		}
+		const size_t& getHeight() const;
 
-		const size_t& getWidth() const
-		{
-			return this->width;
-		}
+		const size_t& getWidth() const;
 
-		std::vector<BackgroundElement>& getBackground()
-		{
-			return this->background;
-		}
-        
-        std::vector<WorldElement>& getWorld()
-        {
-            return this->world;
-        }
+		std::vector<BackgroundElement>& getBackground();
+
+		std::vector<WorldElement>& getWorld();
 	};
 }
 

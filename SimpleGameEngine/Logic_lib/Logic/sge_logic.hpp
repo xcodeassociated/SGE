@@ -22,6 +22,7 @@
 class DynamicVectorLogic;
 
 namespace SGE {
+	class Logic;
 	class LogicBind;
 
 	class LogicID : public ID
@@ -78,31 +79,15 @@ namespace SGE {
 		LogicID logic;
 		ObjectBind bind;
 	public:
-		LogicBind(Logic::ID logic, Object::ID object) : logic(logic), bind(object) {}
+		LogicBind(Logic::ID logic, Object::ID object);
 
-		LogicID getLogic()
-		{
-			return this->logic;
-		}
+		LogicID getLogic();
 
-		ObjectBind& getObject()
-		{
-			return this->bind;
-		}
+		ObjectBind& getObject();
 
-		bool operator==(const LogicBind& b) const
-		{
-			return logic == b.logic&&bind[0] == b.bind[0];
-		}
+		bool operator==(const LogicBind& b) const;
 
-		bool operator<(const LogicBind& other) const
-		{
-			if(bind[0].getID() == other.bind[0].getID())
-			{
-				return this->logic->getPriority() < other.logic->getPriority();
-			}
-			return bind[0].getID() < other.bind[0].getID();
-		}
+		bool operator<(const LogicBind& other) const;
 	};
 }
 

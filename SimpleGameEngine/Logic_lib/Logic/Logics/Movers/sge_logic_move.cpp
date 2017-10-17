@@ -2,6 +2,10 @@
 #include <sge_action_move.hpp>
 #include <sge_keyboard_state.hpp>
 
+SGE::Logics::SimpleMove::SimpleMove(const float speed, const SGE::Key up, const SGE::Key down, const SGE::Key left, const SGE::Key right): Logic(LogicPriority::Highest), speed(speed), up(up), down(down), left(left), right(right)
+{
+}
+
 void SGE::Logics::SimpleMove::performLogic(const ObjectBind& obj)
 {
 	glm::vec2 move = {0,0};

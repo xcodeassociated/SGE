@@ -14,7 +14,6 @@
 #include <map>
 #include <stdexcept>
 
-#include <random>
 #include <ctime>
 
 #include "sge_action_handler.hpp"
@@ -22,18 +21,8 @@
 #include "sge_level.hpp"
 #include "sge_logic.hpp"
 #include "sge_scene.hpp"
-#include <iostream>
 
 namespace SGE {
-	class Object;
-	class ObjectID;
-	class Scene;
-	class SceneID;
-	class Action;
-	class ActionID;
-	class BackgroundElement;
-	class WorldElement;
-    class Logic;
     
     class ObjectManager final{
 		friend class Relay;
@@ -162,233 +151,72 @@ namespace SGE {
         ActionHandler* action_handler = nullptr;
 		Scene* currentScene = nullptr;
 
-        ObjectManager() noexcept : action_handler(new ActionHandler) {
-			Logic::action_handler = this->action_handler;
-			this->relay = Relay::getRelay();
-			this->relay->registerManager(this);
-		}
-        
-		bool init()
-		{
-			std::pair<int, int> resolution = this->relay->relayGetResolution();
+	    ObjectManager() noexcept;
 
-			this->window_manager = new WindowManager(resolution, this);
-            this->window_manager->createWindow();
-            
-			this->camera_handler = new CameraHandler(resolution, this);
-			this->camera_handler->setPosition(this->camera_handler->getScreenToWorld(0, 0));
-			this->camera_handler->setScale(.5f);
+	    bool init();
 
-			this->renderer = new Renderer(resolution, this, this->window_manager, this->camera_handler);
-           // this->renderer->initShader();
-			this->game = new Game(this, this->action_handler);
+	    void addScene(SceneID s);
 
-			this->input_handler = new InputHandler(this);
-			this->game->setInputHandler(this->input_handler);
-			return true;
-		}
+	    void deleteScene(SceneID s);
 
-		void addScene(SceneID s)
-		{
-		/*	if(this->renderer == nullptr)
-			{
-				this->init();
-			}*/
-			static bool init = this->init();
-			this->sceneObjects.emplace(s, std::vector<ObjectID>());
-		}
+	    bool isOnScene();
 
-		void deleteScene(SceneID s)
-		{
-			if (this->sceneObjects.erase(s) != 0)
-			{
-				s.scene->finalize();
-				delete s.scene;
-			}
-		}
+	    void showScene(SceneID s);
 
-		bool isOnScene()
-		{
-			return this->OnScene;
-		}
+	    void swapScene(SceneID s);
 
-		void showScene(SceneID s)
-		{
-			this->currentScene = s.scene;
-			auto sceneObjectsIt = this->sceneObjects.find(s);
-			if (sceneObjectsIt == this->sceneObjects.end()) throw std::runtime_error("Scene not Loaded");
-            s.scene->BindObjects(&sceneObjectsIt->second);
-            
-			this->OnScene = true;
+	    Level& getSceneData(SceneID s);
 
-			//this->window_manager->createWindow();
-			this->window_manager->showWindow();
+	    Camera2d* getCamera();
 
-			this->renderer->initShader();
 
-			this->renderer->spriteBatchInit();
-
-            s.scene->onDraw();
-            
-            this->game->run();
-
-		}
-
-		void swapScene(SceneID s)
-		{
-            //TODO
-		}
-		
-		Level& getSceneData(SceneID s)
-		{
-			return s.scene->getLevel();
-		}
-
-        Camera2d* getCamera()
-        {
-            return this->camera_handler->getCamera();
-        }
-        
-        
 //        void registerCamera(Camera2d* c)
 //        {
 //            this->objects.emplace_back(this->getCameraID());
 //        }
         
 	public:
-		static ObjectManager* getManager(){
-			static ObjectManager* manager = new ObjectManager();
-			return manager; //Can be converted to ARC later.
-		}
+	    static ObjectManager* getManager();
 
-        Object* getObjectPtr(ObjectID id)
-        {
-            return id.obj;
-        }
-        
-        Scene* getScenePtr(SceneID id)
-        {
-            return id.scene;
-        }
-        
-        Logic* getLogicPtr(LogicID id)
-        {
-            return id.logic;
-        }
-        
-		void mapAction(const InputBinder& bind)
-		{
-			this->input_handler->mapAction(bind);
-		}
+	    Object* getObjectPtr(ObjectID id);
 
-		void unmapAction(const InputBinder& bind)
-		{
-			this->input_handler->unmapAction(bind);
-		}
+	    Scene* getScenePtr(SceneID id);
 
-        Action::ID addAction(Action* action){
-			return ActionID(this->counter++, action);
-        }
+	    Logic* getLogicPtr(LogicID id);
 
-		Logic::ID addLogic(Logic* logic)
-		{
-			return LogicID(this->counter++, logic);
-		}
-        
-		void interrupt()
-		{
-			if (this->game)
-			{
-				this->game->stop();
-			}
-		}
+	    void mapAction(const InputBinder& bind);
 
-        Object::ID addObject(Object* o, std::string path = "")
-		{
-			ObjectID id(counter++,o);
-			this->objects.emplace_back(id);
-            
-            if(!path.empty()) o->texture = this->rManager->getTexture(path.c_str());
-            
-			return id;
-		}
+	    void unmapAction(const InputBinder& bind);
 
-        Object::ID addObject(Object* o, Scene::ID s, std::string path = "")
-		{
-			ObjectID id(counter++,o);
-			this->objects.emplace_back(id);
-			auto ObjectVectorIt = this->sceneObjects.find(s);
-			if (ObjectVectorIt != this->sceneObjects.end())
-			{
-				ObjectVectorIt->second.emplace_back(id);
-			}
-			else
-			{
-				throw std::runtime_error("Scene does not exist"); //Todo: replace
-			}
-            
-            if(!path.empty()) o->texture = this->rManager->getTexture(path.c_str());
-            
-			return id;
-		}
-		
-		void bindObject(Object::ID o, Scene::ID s) {
-			auto ObjectVectorIt = this->sceneObjects.find(s);
-			if (ObjectVectorIt != this->sceneObjects.end())
-			{
-				ObjectVectorIt->second.emplace_back(o);
-			}
-			else
-			{
-				throw std::runtime_error("Scene does not exist");
-			}
-		}
+	    Action::ID addAction(Action* action);
 
-		void unbindObject(Object::ID o, Scene::ID s)
-		{
-			auto objectVectorIt = this->sceneObjects.find(s);
-			if (objectVectorIt != this->sceneObjects.end())
-			{
-				auto objectIt = std::find(objectVectorIt->second.begin(), objectVectorIt->second.end(),o);
-				if (objectIt != objectVectorIt->second.end())
-				{
-					objectVectorIt->second.erase(objectIt);
-				}
-			}
-		}
+	    Logic::ID addLogic(Logic* logic);
 
-        void update(ObjectID id,const Action& action)
-        {
-            ;
-        }
-        
-		void finalize()
-		{
-            ;
-        }
-        
-        void windowClosing()
-        {
-            /* Handle window close action... */
-            std::cerr << "SDL Window is trying to close!" << std::endl;
-        }
-        
-        ActionHandler* getActionHandler(){
-            return this->action_handler;
-        }
-        
-        Object::ID getCameraID(void) {
-            return ObjectID(0, this->camera_handler->getCamera());
-        }
-        
-        Object::ID getMouse(void) {
-            return ObjectID(1, this->input_handler->getMouseHandler()->getMouseObject());
-        }
+	    void interrupt();
+
+	    Object::ID addObject(Object* o, std::string path = "");
+
+	    Object::ID addObject(Object* o, Scene::ID s, std::string path = "");
+
+	    void bindObject(Object::ID o, Scene::ID s);
+
+	    void unbindObject(Object::ID o, Scene::ID s);
+
+	    void update(ObjectID id, const Action& action);
+
+	    void finalize();
+
+	    void windowClosing();
+
+	    ActionHandler* getActionHandler();
+
+	    Object::ID getCameraID(void);
+
+	    Object::ID getMouse(void);
     };
     
 }
 
 //Implementation of ObjectManager nested classes
-#include "tool/sge_window_manager.hpp"
 
 #endif /* sge_object_manager_h */

@@ -69,7 +69,7 @@ namespace SGE {
 
 	Camera2d* Relay::getCamera()
 	{
-		return this->getCamera();
+		return this->manager->getCamera();
 	}
 
 	Object* Relay::getObjectPtr(ObjectID id)
