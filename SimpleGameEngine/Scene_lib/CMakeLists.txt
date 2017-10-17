@@ -12,6 +12,8 @@ add_library (Scene SHARED
 if(WIN32)
 	##Add dependencies
 	target_link_libraries(Scene Object)
+	target_link_libraries(Scene Level)
+	target_link_libraries(Scene Logic)
 	##target_link_libraries(Scene ObjectManager)
 	##target_link_libraries(Scene "../../lib/ObjectManager")
 endif()

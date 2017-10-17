@@ -30,7 +30,6 @@ add_library (Logic SHARED
 if(WIN32)
 	include(GenerateExportHeader)
 	generate_export_header(Logic)
-	include_directories(${CMAKE_CURRENT_BINARY_DIR}) ##TODO this probably can be done better.
 	target_link_libraries(Logic Object)
 	target_link_libraries(Logic IO)
 	target_link_libraries(Logic Action)

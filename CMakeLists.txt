@@ -40,7 +40,7 @@ elseif(WIN32)
     ## Force exports without adding macros in sources.
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS 1)
     ## TODO: WIN32 compiler flags here!!!
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W1")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W2")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Za")
     ## Adds export libraries directory
     link_directories("${CMAKE_CURRENT_BINARY_DIR}/lib")

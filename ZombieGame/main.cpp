@@ -9,16 +9,17 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
+#include <set>
+#include <time.h>
+#include <fstream>
+#include <random>    
 
 #include "SGE.hpp"
 #include "sge_action_move.hpp"
 //TODO: check it!!
 #include "sge_mouse.hpp" // ??? was comment out!
 
-#include <set>
-#include <time.h>      
 
-#include <sge_macro.hpp>
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 #include "Logics/Colliders/sge_logic_collide.hpp"
@@ -26,7 +27,7 @@
 #include "Logics/Colliders/sge_logic_collide_basic.hpp"
 #include "Logics/Movers/sge_logic_move.hpp"
 #include "Logics/Camera/sge_logic_camera_zoom.hpp"
-#include <fstream>
+#include <sge_macro.hpp>
 
 class MainScene : public SGE::Scene{
     SGE::ObjectManager* manager = nullptr;

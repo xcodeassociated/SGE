@@ -9,3 +9,6 @@ set (LevelParserSOURCES
 add_library (Level SHARED
 		${LevelSOURCES}
 		${LevelParserSOURCES})
+if(WIN32)
+	target_link_libraries(Level Object)
+endif()
