@@ -109,9 +109,11 @@ else()
 	link_directories(${GLEW_LIBRARY_DIRS})
 	add_definitions(${GLEW_DEFINITIONS})
 
-    ## TODO: Remove this work-around - on linux find_package(GLEW REQUIRED) uses static lib
+    ## TODO: Remove this work-around - on Unix find_package(GLEW REQUIRED) uses static lib
     if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
         set(GLEW_LIBRARIES "libGLEW.so")
+    elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+        set(GLEW_LIBRARIES "libGLEW.dylib")
     endif()
 
 endif()
