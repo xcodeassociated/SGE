@@ -44,6 +44,8 @@ elseif(WIN32)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Za")
     ## Adds export libraries directory
     link_directories("${CMAKE_CURRENT_BINARY_DIR}/lib")
+	##Add exports
+	include_directories("${CMAKE_CURRENT_BINARY_DIR}/SimpleGameEngine/Logic_lib")
 
 endif()
 
