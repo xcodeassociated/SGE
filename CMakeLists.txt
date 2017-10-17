@@ -5,6 +5,7 @@ project(SGE-ZombieGame)
 
 ## Output directory for all compiled objects
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+set(BUILD_SHARED_LIBS ON)
 
 ## include conan cmake file
 include(${CMAKE_CURRENT_SOURCE_DIR}/conanbuildinfo.cmake)
@@ -107,6 +108,12 @@ else()
 	include_directories(${GLEW_INCLUDE_DIRS})
 	link_directories(${GLEW_LIBRARY_DIRS})
 	add_definitions(${GLEW_DEFINITIONS})
+
+    ## TODO: Remove this work-around - on linux find_package(GLEW REQUIRED) uses static lib
+    if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+        set(GLEW_LIBRARIES "libGLEW.so")
+    endif()
+
 endif()
 
 ## Setting SGE directory
@@ -124,7 +131,7 @@ include_directories(${SGE_DIR}/Action_lib/ActionHandler)
 
 include_directories(${SGE_DIR}/IO_lib/InputManager)
 include_directories(${SGE_DIR}/IO_lib/IOManager)
-include_directories(${SGE_DIR}/IO_lib/KeyBoardState)
+include_directories(${SGE_DIR}/IO_lib/KeyboardState)
 include_directories(${SGE_DIR}/IO_lib/Mouse)
 
 include_directories(${SGE_DIR}/Level_lib/Level)

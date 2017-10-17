@@ -20,7 +20,7 @@
 
 #ifdef __linux
 
-#define PATH "/home/jm/Desktop/SGE" // TODO:  has to be changed!
+#define PATH "/home/jm/Desktop/SGE/" // TODO:  has to be changed!
 
 #endif
 
