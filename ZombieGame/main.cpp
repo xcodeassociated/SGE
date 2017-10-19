@@ -19,7 +19,7 @@
 //TODO: check it!!
 #include "sge_mouse.hpp" // ??? was comment out!
 
-
+#define GLM_ENABLE_EXPERIMENTAL
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 #include "Logics/Colliders/sge_logic_collide.hpp"
@@ -184,7 +184,7 @@ public:
 		if (human->getCounter() == 0)
 		{
 //			std::cout << velocity.x << ' ' << velocity.y << " | ";
-			//velocity = glm::rotate(velocity,angle(engine));
+			velocity = glm::rotate(velocity,angle(engine));
 			human->setVelocity(velocity);
 //			std::cout << velocity.x << ' ' << velocity.y << std::endl;
 		}
