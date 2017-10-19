@@ -26,6 +26,8 @@ void SGE::ActionHandler::triggerAction(ActionID a, const ObjectBind& b)
 	a->action_begin(b);
 	a->action_main(b);
 	a->action_ends(b);
+	//TODO: Delete single actions properly.
+	delete a.getAction();
 }
 
 void SGE::ActionHandler::triggerAction(const ActionBind& b)
@@ -62,7 +64,7 @@ void SGE::ActionHandler::performAllActions()
 	                           if (b.getAction()->getDuration() <= 0)
 	                           {
 		                           b.getAction()->action_ends(b.getBind());
-		                           if (b.getAction().getID() > 99L)
+		                           //if (b.getAction().getID() > 99L)
 		                           {
 			                           delete b.getAction().getAction(); //deletes managed action
 		                           }
