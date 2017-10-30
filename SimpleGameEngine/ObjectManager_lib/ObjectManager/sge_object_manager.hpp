@@ -170,12 +170,6 @@ namespace SGE {
 	    Level& getSceneData(SceneID s);
 
 	    Camera2d* getCamera();
-
-
-//        void registerCamera(Camera2d* c)
-//        {
-//            this->objects.emplace_back(this->getCameraID());
-//        }
         
 	public:
 	    static ObjectManager* getManager();

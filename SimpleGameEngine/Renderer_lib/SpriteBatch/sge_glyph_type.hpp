@@ -5,4 +5,15 @@
 #ifndef SGE_ZOMBIEGAME_SGE_GLYPH_TYPE_HPP
 #define SGE_ZOMBIEGAME_SGE_GLYPH_TYPE_HPP
 
+namespace SGE {
+
+    enum class GlyphSortType {
+        NONE,
+        FRONT_TO_BACK,
+        BACK_TO_FRONT,
+        TEXTURE
+    };
+
+}
+
 #endif //SGE_ZOMBIEGAME_SGE_GLYPH_TYPE_HPP

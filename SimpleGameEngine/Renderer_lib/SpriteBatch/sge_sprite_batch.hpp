@@ -15,34 +15,11 @@
 #include <GL/glew.h>
 #include <vector>
 
+#include "sge_glyph_type.hpp"
+#include "sge_glyph.hpp"
+#include "sge_render_batch.hpp"
+
 namespace SGE {
-    
-    
-    enum class GlyphSortType {
-        NONE,
-        FRONT_TO_BACK,
-        BACK_TO_FRONT,
-        TEXTURE
-    };
-    
-    struct Glyph {
-        GLuint texture;
-        float depth;
-        
-        Vertex topLeft;
-        Vertex bottomLeft;
-        Vertex topRight;
-        Vertex bottomRight;
-    };
-    
-    class RenderBatch {
-    public:
-        RenderBatch(GLuint Offset, GLuint NumVertices, GLuint Texture) : offset(Offset), numVertices(NumVertices), texture(Texture) {
-        }
-        GLuint offset;
-        GLuint numVertices;
-        GLuint texture;
-    };
     
     class SpriteBatch
     {
