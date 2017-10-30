@@ -8,7 +8,12 @@ set (ObjectIDSOURCES
 
 set (ObjectSOURCES
 	Object/sge_object.hpp
-	Object/sge_object.cpp)
+	Object/sge_object.cpp
+	Object/sge_logic_priority.hpp
+	Object/sge_object_bind.hpp
+	Object/sge_object_bind.cpp
+	Object/sge_object_id.hpp
+	Object/sge_object_id.cpp)
 
 set (ObjectBackgroundElementSOURCES
 	Object/BackgroundElement/sge_background_element.hpp

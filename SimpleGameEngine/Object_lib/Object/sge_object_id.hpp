@@ -5,10 +5,28 @@
 #ifndef SGE_ZOMBIEGAME_SGE_OBJECT_ID_HPP
 #define SGE_ZOMBIEGAME_SGE_OBJECT_ID_HPP
 
+#include "sge_id.hpp"
 
-class sge_object_id {
+namespace SGE {
 
-};
+    class Object;
 
+    class ObjectID : public ID {
+        friend class ObjectManager;
+        Object* obj = nullptr;
+        ObjectID(const long id, Object* o);
+    public:
+        ObjectID();
+        ObjectID(Object* o);
+
+        Object* getObject() const;
+
+        Object* operator->() const;
+
+        ObjectID(const ObjectID&) = default;
+        ObjectID& operator=(const ObjectID&) = default;
+    };
+
+}
 
 #endif //SGE_ZOMBIEGAME_SGE_OBJECT_ID_HPP

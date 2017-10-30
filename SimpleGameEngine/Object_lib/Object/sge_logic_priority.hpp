@@ -5,4 +5,15 @@
 #ifndef SGE_ZOMBIEGAME_SGE_LOGIC_PRIORITY_HPP
 #define SGE_ZOMBIEGAME_SGE_LOGIC_PRIORITY_HPP
 
+namespace SGE {
+    enum class LogicPriority : int
+    {
+        Highest = 0,
+        High,
+        Mid,
+        Low,
+        None
+    };
+}
+
 #endif //SGE_ZOMBIEGAME_SGE_LOGIC_PRIORITY_HPP

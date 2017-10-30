@@ -3,6 +3,7 @@
 //
 
 #include "sge_input_binder.hpp"
+#include "sge_object_id.hpp"
 
 SGE::InputBinder::InputBinder(std::initializer_list<ObjectID> object, ActionID action, Key key): kid(key)
 {

@@ -5,6 +5,8 @@
 #ifndef SGE_ZOMBIEGAME_SGE_ACTION_ID_HPP
 #define SGE_ZOMBIEGAME_SGE_ACTION_ID_HPP
 
+#include "sge_id.hpp"
+
 namespace SGE {
 
     class Action;

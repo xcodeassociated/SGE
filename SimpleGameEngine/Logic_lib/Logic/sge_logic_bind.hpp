@@ -6,7 +6,8 @@
 #define SGE_ZOMBIEGAME_SGE_LOGIC_BIND_HPP
 
 #include "sge_logic_id.hpp"
-#include "sge_object.hpp" // will be changed to: sge_object_bind.hpp
+#include "sge_object_bind.hpp"
+#include "sge_object_id.hpp"
 
 namespace SGE {
 
@@ -15,7 +16,7 @@ namespace SGE {
         LogicID logic;
         ObjectBind bind;
     public:
-        LogicBind(LogicID logic, Object::ID object);
+        LogicBind(LogicID logic, ObjectID object);
 
         LogicID getLogic();
 

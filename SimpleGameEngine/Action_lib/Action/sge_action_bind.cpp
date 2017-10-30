@@ -3,6 +3,7 @@
 //
 
 #include "sge_action_bind.hpp"
+#include "sge_object_id.hpp"
 
 SGE::ActionBind::ActionBind(const std::initializer_list<ObjectID>& object, ActionID action): bind(object), aid(action)
 {

@@ -6,7 +6,7 @@
 #define SGE_ZOMBIEGAME_SGE_ACTION_BIND_HPP
 
 
-#include "sge_object.hpp" // need to be changed to sge_object_bind
+#include "sge_object_bind.hpp"
 #include "sge_action_id.hpp"
 
 namespace SGE {
