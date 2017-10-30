@@ -1,4 +1,4 @@
-#version 130
+#version 330
 
 //input data from the VBO. Each vertex is 2 floats
 in vec2 vertexPosition;

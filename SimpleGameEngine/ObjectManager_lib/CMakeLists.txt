@@ -14,9 +14,7 @@ set (ObjectManagerSOURCES
 
 set (ObjectRelaySOURCES
 	Relay/sge_relay.hpp
-	Relay/sge_relay.cpp
-	Relay/sge_relay_interface.hpp
-	Relay/sge_relay_interface.cpp)
+	Relay/sge_relay.cpp)
 
 set (DirectorSOURCES
 	Director/sge_director.hpp

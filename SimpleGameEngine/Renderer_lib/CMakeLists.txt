@@ -13,8 +13,8 @@ set (SpriteSOURCES
 	Sprite/sge_vertex.cpp)
 
 set (SpriteBatchSOURCES
-	SpriteBatch/SpriteBatch.hpp
-	SpriteBatch/SpriteBatch.cpp)
+		SpriteBatch/sge_sprite_batch.hpp
+		SpriteBatch/sge_sprite_batch.cpp)
 
 set (TextureCacheSOURCES
 	TextureCache/sge_texture_cache.hpp

@@ -4,7 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include <stdexcept>
-#include <sge_relay_interface.hpp>
+#include <sge_relay.hpp>
 #include <sge_logic.hpp>
 #include <sge_scene.hpp>
 

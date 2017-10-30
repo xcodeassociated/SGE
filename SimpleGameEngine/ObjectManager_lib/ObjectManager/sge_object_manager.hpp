@@ -3,12 +3,12 @@
 
 #include "sge_shader.hpp"
 #include "sge_camera2d.hpp"
-#include "SpriteBatch.hpp"
+#include "sge_sprite_batch.hpp"
 #include "sge_resource_manager.hpp"
 #include "sge_input_manager.hpp"
 #include "sge_fps_limiter.hpp"
 
-#include "sge_relay_interface.hpp"
+#include "sge_relay.hpp"
 
 #include <vector>
 #include <map>
