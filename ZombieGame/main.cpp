@@ -24,6 +24,8 @@
 #include "sge_logic_move.hpp"
 #include "sge_logic_camera_zoom.hpp"
 #include "sge_shape_circle.hpp"
+#include "sge_camera2d.hpp"
+#include "sge_input_binder.hpp"
 #include <sge_macro.hpp>
 
 #define GLM_ENABLE_EXPERIMENTAL

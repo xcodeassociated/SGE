@@ -1,5 +1,17 @@
 #include "sge_object_manager.hpp"
 #include "sge_logic_bind.hpp"
+#include "sge_input_binder.hpp"
+#include "sge_mouse.hpp"
+#include "sge_object.hpp"
+#include "sge_camera2d.hpp"
+#include "sge_logic.hpp"
+
+#include "tool/sge_camera_handler.hpp"
+#include "tool/sge_game.hpp"
+#include "tool/sge_input_handler.hpp"
+#include "tool/sge_renderer.hpp"
+#include "tool/sge_window_manager.hpp"
+
 #include <iostream>
 
 namespace SGE
@@ -33,10 +45,6 @@ namespace SGE
 
 	void ObjectManager::addScene(SceneID s)
 	{
-		/*	if(this->renderer == nullptr)
-		{
-		this->init();
-		}*/
 		static bool init = this->init();
 		this->sceneObjects.emplace(s, std::vector<ObjectID>());
 	}
@@ -78,7 +86,6 @@ namespace SGE
 
 	void ObjectManager::swapScene(SceneID s)
 	{
-		//TODO
 	}
 
 	Level& ObjectManager::getSceneData(SceneID s)
@@ -161,7 +168,7 @@ namespace SGE
 		}
 		else
 		{
-			throw std::runtime_error("Scene does not exist"); //Todo: replace
+			throw std::runtime_error("Scene does not exist");
 		}
 
 		if (!path.empty()) o->texture = this->rManager->getTexture(path.c_str());
@@ -207,7 +214,6 @@ namespace SGE
 
 	void ObjectManager::windowClosing()
 	{
-		/* Handle window close action... */
 		std::cerr << "SDL Window is trying to close!" << std::endl;
 	}
 

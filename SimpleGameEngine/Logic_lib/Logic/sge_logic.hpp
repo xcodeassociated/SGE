@@ -25,9 +25,13 @@ class DynamicVectorLogic;
 namespace SGE {
 	class Logic;
 	class LogicBind;
+	class ObjectManager;
+	class Game;
 
     class Logic{
+		friend class Game;
 		friend class ObjectManager;
+
 		friend class DynamicVectorLogic;
 
 	public:

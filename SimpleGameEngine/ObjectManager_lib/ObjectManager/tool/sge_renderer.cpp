@@ -1,13 +1,21 @@
 #include "sge_renderer.hpp"
 #include "sge_shape_rectangle.hpp"
 #include "sge_shape_circle.hpp"
+#include "sge_object_manager.hpp"
+#include "sge_window_manager.hpp"
+#include "sge_camera2d.hpp"
+#include "sge_camera_handler.hpp"
+#include "sge_sprite_batch.hpp"
+#include "sge_shader.hpp"
+#include "sge_scene.hpp"
 #include <sge_macro.hpp>
+
+#include <glm/glm.hpp>
+#include <SDL.h>
 
 namespace SGE
 {
-	class WindowManager;
-
-	ObjectManager::Renderer::Renderer(std::pair<int, int> res, ObjectManager* m, WindowManager* w, CameraHandler* c) noexcept :
+	Renderer::Renderer(std::pair<int, int> res, ObjectManager* m, WindowManager* w, CameraHandler* c) noexcept :
 	width(res.first),
 		height(res.second),
 		oManager(m),
@@ -18,7 +26,7 @@ namespace SGE
 	}
 
 
-	void ObjectManager::Renderer::initShader() {
+	void Renderer::initShader() {
 		this->shaderProgram = new Shader();
 
 		this->shaderProgram->doShaders(VERT, FRAG);
@@ -30,7 +38,7 @@ namespace SGE
 		this->shaderProgram->linkShaders();
 	}
 
-	void ObjectManager::Renderer::spriteBatchInit() {
+	void Renderer::spriteBatchInit() {
 		this->sceneBatch = new SpriteBatch;
 		this->objectBatch = new SpriteBatch;
 
@@ -38,7 +46,7 @@ namespace SGE
 		this->objectBatch->init();
 	}
 
-	void ObjectManager::Renderer::render() {
+	void Renderer::render() {
 		this->current = this->oManager->currentScene;
 
 		glClearDepth(1.0f);
@@ -74,7 +82,7 @@ namespace SGE
 		SDL_GL_SwapWindow(this->window_manager->getWindow());
 	}
 
-	void ObjectManager::Renderer::renderLevel() {
+	void Renderer::renderLevel() {
 		assert(this->current);
 
 		static glm::vec4 uv(0.0f, 0.0f, 1.0f, 1.0f);
@@ -111,7 +119,7 @@ namespace SGE
 		});
 	}
 
-	void ObjectManager::Renderer::renderObjects() {
+	void Renderer::renderObjects() {
 		this->camera_handler->updateCamera();
 
 		static glm::vec4 uv(0.0f, 0.0f, 1.0f, 1.0f);

@@ -2,11 +2,16 @@
 #include "sge_logic.hpp"
 #include "sge_scene.hpp"
 #include "sge_logic_bind.hpp"
+#include "sge_object_manager.hpp"
+#include "sge_renderer.hpp"
+#include "sge_input_handler.hpp"
+#include "sge_action_handler.hpp"
+#include "sge_fps_limiter.hpp"
 #include <iostream>
 
 namespace SGE
 {
-	ObjectManager::Game::Game(ObjectManager* m, ActionHandler* ah) :
+	Game::Game(ObjectManager* m, ActionHandler* ah) :
 		manager(m),
 		limiter(new FpsLimiter()),
 		action_handler(ah)
@@ -14,7 +19,7 @@ namespace SGE
 		this->limiter->init(60);
 	}
 
-	void ObjectManager::Game::run()
+	void Game::run()
 	{
 		Logic::action_handler = this->manager->action_handler;
 		this->playing = true;
@@ -44,11 +49,11 @@ namespace SGE
 
 	}
 
-	void ObjectManager::Game::performActions(void) {
+	void Game::performActions(void) {
 		this->action_handler->performAllActions();
 	}
 
-	void ObjectManager::Game::performLogics(void)
+	void Game::performLogics(void)
 	{
 		auto& lVec = this->manager->currentScene->getLogics();
 
@@ -67,16 +72,16 @@ namespace SGE
 		}
 	}
 
-	void ObjectManager::Game::stop()
+	void Game::stop()
 	{
 		this->playing = false;
 	}
 
-	void ObjectManager::Game::draw() {
+	void Game::draw() {
 		this->manager->renderer->render();
 	}
 
-	void ObjectManager::Game::setInputHandler(ObjectManager::InputHandler* e)
+	void Game::setInputHandler(InputHandler* e)
 	{
 		(e != nullptr) ? this->input_handler = e : throw std::runtime_error("");
 	}

@@ -1,45 +1,51 @@
 #include "sge_input_handler.hpp"
+#include "sge_object_manager.hpp"
+#include "sge_input_manager.hpp"
+#include "sge_mouse.hpp"
+#include "sge_input_binder.hpp"
+
+#include <glm/glm.hpp>
 
 namespace SGE {
 
-	ObjectManager::InputHandler::MouseHandler::MouseHandler() noexcept : mouse(new MouseObject) {
+	InputHandler::MouseHandler::MouseHandler() noexcept : mouse(new MouseObject) {
 
 	}
 
-	void ObjectManager::InputHandler::MouseHandler::setMouseCoords(glm::vec2 coords) noexcept {
+	void InputHandler::MouseHandler::setMouseCoords(glm::vec2 coords) noexcept {
 		this->mouse->setMouseCoords(coords);
 	}
 
-	glm::vec2 ObjectManager::InputHandler::MouseHandler::getMouseCoords(void) const noexcept {
+	glm::vec2 InputHandler::MouseHandler::getMouseCoords(void) const noexcept {
 		return this->mouse->getMouseCoords();
 	}
 
-	MouseObject* ObjectManager::InputHandler::MouseHandler::getMouseObject(void) noexcept {
+	MouseObject* InputHandler::MouseHandler::getMouseObject(void) noexcept {
 		return this->mouse;
 	}
 
-	ObjectManager::InputHandler::InputHandler(ObjectManager* m) noexcept : manager(m), input_manager(new InputManager), mouseHandler(new MouseHandler) {
+	InputHandler::InputHandler(ObjectManager* m) noexcept : manager(m), input_manager(new InputManager), mouseHandler(new MouseHandler) {
 	}
 
-	void ObjectManager::InputHandler::mapAction(const InputBinder& bind)
+	void InputHandler::mapAction(const InputBinder& bind)
 	{
 		auto p = this->keyMap.insert(std::make_pair(bind.getKey(), bind.getBind()));
 		if (!p.second) throw std::runtime_error("You are an idiot");
 	}
 
-	void ObjectManager::InputHandler::unmapAction(const InputBinder& bind)
+	void InputHandler::unmapAction(const InputBinder& bind)
 	{
 		if (this->keyMap.erase(bind.getKey()) == 0) throw std::runtime_error("You are an idiot");
 	}
 
-	void ObjectManager::InputHandler::pressKey(Key k)
+	void InputHandler::pressKey(Key k)
 	{
 		auto it = this->keyMap.find(k);
 		if (it == this->keyMap.end()) return;
 		this->manager->action_handler->handleInputAction(it->second);
 	}
 
-	void ObjectManager::InputHandler::operator()(void) noexcept {
+	void InputHandler::operator()(void) noexcept {
 
 		SDL_Event event;
 		while (SDL_PollEvent(&event)) {
@@ -74,7 +80,7 @@ namespace SGE {
 
 	}
 
-	ObjectManager::InputHandler::MouseHandler* ObjectManager::InputHandler::getMouseHandler() noexcept {
+	InputHandler::MouseHandler* InputHandler::getMouseHandler() noexcept {
 		return this->mouseHandler;
 	}
 

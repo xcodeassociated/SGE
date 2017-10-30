@@ -10,10 +10,14 @@
 namespace SGE {
 
     class Logic;
+    class Game;
+    class ObjectManager;
 
     class LogicID : public ID
     {
+        friend class Game;
         friend class ObjectManager;
+
         friend class Logic;
 
         Logic* logic;

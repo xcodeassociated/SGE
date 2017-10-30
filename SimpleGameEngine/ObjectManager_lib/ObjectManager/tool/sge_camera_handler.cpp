@@ -1,45 +1,46 @@
 #include "sge_camera_handler.hpp"
 #include "sge_utils.hpp"
+#include "sge_camera2d.hpp"
 #include <iostream>
 
 namespace SGE {
 
-	ObjectManager::CameraHandler::CameraHandler(std::pair<int, int> resolution, ObjectManager* m) noexcept : manager(m) {
+	CameraHandler::CameraHandler(std::pair<int, int> resolution, ObjectManager* m) noexcept : manager(m) {
 		this->camera = new Camera2d(resolution.first, resolution.second);
 		//        this->manager->registerCamera(this->camera);
 	}
 
-	Camera2d* ObjectManager::CameraHandler::getCamera()
+	Camera2d* CameraHandler::getCamera()
 	{
 		return this->camera;
 	}
 
 	//should be float or change scale to duble
-	void ObjectManager::CameraHandler::setScale(double _scale) noexcept {
+	void CameraHandler::setScale(double _scale) noexcept {
 		this->camera->setScale(_scale);
 	}
 
-	void ObjectManager::CameraHandler::setPosition(int _x, int _y) noexcept {
+	void CameraHandler::setPosition(int _x, int _y) noexcept {
 		this->camera->setPosition(glm::vec2(_x, _y));
 	}
 
-	void ObjectManager::CameraHandler::updateCamera(void) const noexcept {
+	void CameraHandler::updateCamera(void) const noexcept {
 		this->camera->update();
 	}
 
-	const glm::mat4& ObjectManager::CameraHandler::getCameraMatrix(void) const noexcept {
+	const glm::mat4& CameraHandler::getCameraMatrix(void) const noexcept {
 		return this->camera->getCameraMatrix();
 	}
 
-	void ObjectManager::CameraHandler::setPosition(glm::vec2 pos) noexcept {
+	void CameraHandler::setPosition(glm::vec2 pos) noexcept {
 		this->setPosition(pos.x, pos.y);
 	}
 
-	glm::vec2 ObjectManager::CameraHandler::getScreenToWorld(glm::vec2 pos) const noexcept {
+	glm::vec2 CameraHandler::getScreenToWorld(glm::vec2 pos) const noexcept {
 		return SGE::screenToWorld(pos, this->camera->getPosition(), (double)this->camera->getScale()); //this->camera->screenToWorld(pos);
 	}
 
-	glm::vec2 ObjectManager::CameraHandler::getScreenToWorld(int _x, int _y) const noexcept {
+	glm::vec2 CameraHandler::getScreenToWorld(int _x, int _y) const noexcept {
 		return this->getScreenToWorld({ _x, _y });
 	}
 }

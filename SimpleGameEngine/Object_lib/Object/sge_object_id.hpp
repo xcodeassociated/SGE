@@ -13,6 +13,8 @@ namespace SGE {
 
     class ObjectID : public ID {
         friend class ObjectManager;
+        friend class Renderer;
+
         Object* obj = nullptr;
         ObjectID(const long id, Object* o);
     public:
