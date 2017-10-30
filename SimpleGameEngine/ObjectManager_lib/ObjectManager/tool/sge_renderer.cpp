@@ -1,4 +1,6 @@
 #include "sge_renderer.hpp"
+#include "sge_shape_rectangle.hpp"
+#include "sge_shape_circle.hpp"
 #include <sge_macro.hpp>
 
 namespace SGE
@@ -27,13 +29,6 @@ namespace SGE
 
 		this->shaderProgram->linkShaders();
 	}
-
-	//	void ObjectManager::Renderer::initCamera() {
-	//		this->camera = new Camera2d(width, height);
-	//        
-	//        this->camera->setScale(0.05f);
-	//        this->camera->setPosition(glm::vec2(0, 0));
-	//	}
 
 	void ObjectManager::Renderer::spriteBatchInit() {
 		this->sceneBatch = new SpriteBatch;

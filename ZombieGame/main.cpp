@@ -23,6 +23,7 @@
 #include "sge_logic_collide_basic.hpp"
 #include "sge_logic_move.hpp"
 #include "sge_logic_camera_zoom.hpp"
+#include "sge_shape_circle.hpp"
 #include <sge_macro.hpp>
 
 #define GLM_ENABLE_EXPERIMENTAL

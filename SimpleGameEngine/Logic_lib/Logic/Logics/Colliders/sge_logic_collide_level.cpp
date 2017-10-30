@@ -1,4 +1,5 @@
 #include "sge_logic_collide_level.hpp"
+#include "sge_shape_rectangle.hpp"
 
 SGE::Logics::BasicLevelCollider::BasicLevelCollider(std::vector<WorldElement>& objects, collisionFunc _onCollision): Collide(_onCollision), objs(objects)
 {

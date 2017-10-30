@@ -1,5 +1,7 @@
 #include "sge_logic_collide_level_precise.hpp"
-#include <sge_action_move.hpp>
+#include "sge_action_move.hpp"
+#include "sge_shape_rectangle.hpp"
+#include "sge_shape_circle.hpp"
 #include <glm/ext.hpp>
 #include <algorithm>
 

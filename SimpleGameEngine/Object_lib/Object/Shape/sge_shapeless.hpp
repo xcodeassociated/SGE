@@ -5,10 +5,22 @@
 #ifndef SGE_ZOMBIEGAME_SGE_SHAPELESS_HPP
 #define SGE_ZOMBIEGAME_SGE_SHAPELESS_HPP
 
+#include "sge_shape.hpp"
 
-class sge_shapeless {
+namespace SGE {
 
-};
+    Shape* getShapeless();
+
+    class Shapeless : public Shape
+    {
+        Shapeless();
+
+    public:
+        //Single Flyweight for no shape objects?
+        friend Shape* getShapeless();
+    };
+
+}
 
 
 #endif //SGE_ZOMBIEGAME_SGE_SHAPELESS_HPP

@@ -1,5 +1,7 @@
 #include "sge_logic_collide.hpp"
-#include <sge_action_move.hpp>
+#include "sge_action_move.hpp"
+#include "sge_shape_rectangle.hpp"
+#include "sge_shape_circle.hpp"
 #include <glm/geometric.hpp>
 
 SGE::ActionID SGE::Logics::Collide::RectangleCollisionVec(Object::ID still, Object::ID toMove)

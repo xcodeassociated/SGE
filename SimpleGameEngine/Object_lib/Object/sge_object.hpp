@@ -7,6 +7,7 @@
 #include <GL/glew.h>
 #include "sge_id.hpp"
 #include "sge_shape.hpp"
+#include "sge_shapeless.hpp"
 
 namespace SGE {
 	class ObjectManager;

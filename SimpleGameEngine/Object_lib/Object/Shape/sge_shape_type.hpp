@@ -5,4 +5,12 @@
 #ifndef SGE_ZOMBIEGAME_SGE_SHAPE_TYPE_HPP
 #define SGE_ZOMBIEGAME_SGE_SHAPE_TYPE_HPP
 
+namespace SGE {
+    enum class ShapeType : char {
+        Circle,
+        Rectangle,
+        None
+    };
+}
+
 #endif //SGE_ZOMBIEGAME_SGE_SHAPE_TYPE_HPP

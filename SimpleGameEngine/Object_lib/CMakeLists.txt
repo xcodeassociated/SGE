@@ -34,7 +34,14 @@ set (ObjectReactiveSOURCES
 
 set (ObjectShapeSOURCES
 	Object/Shape/sge_shape.hpp
-	Object/Shape/sge_shape.cpp)
+	Object/Shape/sge_shape.cpp
+	Object/Shape/sge_shape_type.hpp
+	Object/Shape/sge_shape_circle.hpp
+	Object/Shape/sge_shape_circle.cpp
+	Object/Shape/sge_shape_rectangle.hpp
+	Object/Shape/sge_shape_rectangle.cpp
+	Object/Shape/sge_shapeless.hpp
+	Object/Shape/sge_shapeless.cpp)
 
 add_library (Object SHARED 
 		${ObjectCameraSOURCES}
