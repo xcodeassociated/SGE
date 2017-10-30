@@ -1,26 +1,6 @@
 #include "sge_action_handler.hpp"
 #include <algorithm>
 
-SGE::InputBinder::InputBinder(std::initializer_list<ObjectID> object, Action::ID action, Key key): kid(key)
-{
-	this->bind = ActionBind(object, action);
-}
-
-SGE::InputBinder::InputBinder(ObjectID object, Action::ID action, Key key): kid(key)
-{
-	this->bind = ActionBind(object, action);
-}
-
-SGE::ActionBind SGE::InputBinder::getBind() const
-{
-	return this->bind;
-}
-
-SGE::Key SGE::InputBinder::getKey() const
-{
-	return this->kid;
-}
-
 void SGE::ActionHandler::triggerAction(ActionID a, const ObjectBind& b)
 {
 	a->action_begin(b);

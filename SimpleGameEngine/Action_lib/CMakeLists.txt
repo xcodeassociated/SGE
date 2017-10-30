@@ -1,6 +1,10 @@
 set (ActionSOURCES
 	Action/sge_action.hpp
-	Action/sge_action.cpp)
+	Action/sge_action.cpp
+	Action/sge_action_bind.hpp
+	Action/sge_action_bind.cpp
+	Action/sge_action_id.hpp
+	Action/sge_action_id.cpp)
 
 set (ActionsSources
 	Action/Actions/sge_action_move.hpp
@@ -12,16 +16,14 @@ set (ActionsSources
 
 set (ActionHandlerSOURCES
 	ActionHandler/sge_action_handler.hpp
-	ActionHandler/sge_action_handler.cpp)
+	ActionHandler/sge_action_handler.cpp
+	ActionHandler/sge_input_binder.hpp
+	ActionHandler/sge_input_binder.cpp
+	ActionHandler/sge_action_handler.hpp
+	ActionHandler/sge_key.hpp)
 
 add_library(Action SHARED 
 		${ActionSOURCES}
 		${ActionsSources}
 		${ActionHandlerSOURCES})
 target_link_libraries(Action Object)
-
-if(WIN32)
-	##Add dependencies
-	##target_link_libraries(Action ObjectManager)
-	##target_link_libraries(Action "../../lib/ObjectManager")
-endif()

@@ -21,6 +21,9 @@
 #include "sge_logic.hpp"
 #include "sge_scene.hpp"
 
+#include "sge_key.hpp"
+#include "sge_input_binder.hpp"
+
 namespace SGE {
     
     class ObjectManager final{
