@@ -2,10 +2,6 @@
 #include "sge_logic_bind.hpp"
 #include <sge_level_parser.hpp>
 
-SGE::SceneID::SceneID(const long id, Scene* s): ID(id), scene(s)
-{
-}
-
 SGE::Scene::LogicVector& SGE::Scene::getLogics()
 {
 	return this->Logics;

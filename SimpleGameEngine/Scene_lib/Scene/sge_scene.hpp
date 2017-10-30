@@ -3,9 +3,9 @@
 
 #include <vector>
 #include <map>
-#include <sge_id.hpp>
-#include <sge_logic.hpp>
-#include <sge_level.hpp>
+#include "sge_logic.hpp"
+#include "sge_level.hpp"
+#include "sge_scene_id.hpp"
 
 namespace SGE {
 	
@@ -13,15 +13,6 @@ namespace SGE {
 	class Director;
 	class ObjectManager;
 
-	class SceneID final : public ID {
-		friend class Director;
-		friend class ObjectManager;
-
-		Scene* scene;
-
-	public:
-		SceneID(const long id, Scene* s);
-	};
 
     class Scene{
 	private:

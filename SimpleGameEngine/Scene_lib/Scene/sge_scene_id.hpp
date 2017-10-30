@@ -5,10 +5,23 @@
 #ifndef SGE_ZOMBIEGAME_SGE_SCENE_ID_HPP
 #define SGE_ZOMBIEGAME_SGE_SCENE_ID_HPP
 
+#include "sge_id.hpp"
 
-class sge_scene_id {
+namespace SGE {
 
-};
+    class Scene;
+
+    class SceneID final : public ID {
+        friend class Director;
+        friend class ObjectManager;
+
+        Scene* scene;
+
+    public:
+        SceneID(const long id, Scene* s);
+    };
+
+}
 
 
 #endif //SGE_ZOMBIEGAME_SGE_SCENE_ID_HPP

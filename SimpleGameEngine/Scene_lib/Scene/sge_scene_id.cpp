@@ -3,3 +3,7 @@
 //
 
 #include "sge_scene_id.hpp"
+
+SGE::SceneID::SceneID(const long id, Scene* s): ID(id), scene(s)
+{
+}
