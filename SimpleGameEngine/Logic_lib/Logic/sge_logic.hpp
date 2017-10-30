@@ -17,6 +17,7 @@
 
 #include "sge_id.hpp"
 #include "sge_object.hpp"
+#include "sge_logic_id.hpp"
 #include "sge_action_handler.hpp"
 
 class DynamicVectorLogic;
@@ -24,21 +25,6 @@ class DynamicVectorLogic;
 namespace SGE {
 	class Logic;
 	class LogicBind;
-
-	class LogicID : public ID
-	{
-	friend class ObjectManager;
-	friend class Logic;
-
-		Logic* logic;
-		LogicID(const long id, Logic* logic);
-	public:
-		LogicID(Logic* logic);
-
-		Logic* getLogic() const;
-
-		Logic* operator->() const;
-    };
 
     class Logic{
 		friend class ObjectManager;
@@ -74,21 +60,6 @@ namespace SGE {
         
     };
 
-	class LogicBind
-	{
-		LogicID logic;
-		ObjectBind bind;
-	public:
-		LogicBind(Logic::ID logic, Object::ID object);
-
-		LogicID getLogic();
-
-		ObjectBind& getObject();
-
-		bool operator==(const LogicBind& b) const;
-
-		bool operator<(const LogicBind& other) const;
-	};
 }
 
 

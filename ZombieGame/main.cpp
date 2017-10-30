@@ -16,18 +16,18 @@
 
 #include "SGE.hpp"
 #include "sge_action_move.hpp"
-//TODO: check it!!
-#include "sge_mouse.hpp" // ??? was comment out!
+#include "sge_mouse.hpp"
+#include "sge_logic_bind.hpp"
+#include "sge_logic_collide.hpp"
+#include "sge_logic_collide_level_precise.hpp"
+#include "sge_logic_collide_basic.hpp"
+#include "sge_logic_move.hpp"
+#include "sge_logic_camera_zoom.hpp"
+#include <sge_macro.hpp>
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
-#include "Logics/Colliders/sge_logic_collide.hpp"
-#include "Logics/Colliders/sge_logic_collide_level_precise.hpp"
-#include "Logics/Colliders/sge_logic_collide_basic.hpp"
-#include "Logics/Movers/sge_logic_move.hpp"
-#include "Logics/Camera/sge_logic_camera_zoom.hpp"
-#include <sge_macro.hpp>
 
 class MainScene : public SGE::Scene{
     SGE::ObjectManager* manager = nullptr;

@@ -140,9 +140,9 @@ include_directories(${SGE_DIR}/Level_lib/Level)
 include_directories(${SGE_DIR}/Level_lib/LevelParser)
 
 include_directories(${SGE_DIR}/Logic_lib/Logic)
-include_directories(${SGE_DIR}/Logic_lib/Logics/Camera)
-include_directories(${SGE_DIR}/Logic_lib/Logics/Colliders)
-include_directories(${SGE_DIR}/Logic_lib/Logics/Movers)
+include_directories(${SGE_DIR}/Logic_lib/Logic/Logics/Camera)
+include_directories(${SGE_DIR}/Logic_lib/Logic/Logics/Colliders)
+include_directories(${SGE_DIR}/Logic_lib/Logic/Logics/Movers)
 
 include_directories(${SGE_DIR}/Object_lib/Camera2d)
 include_directories(${SGE_DIR}/Object_lib/ID)

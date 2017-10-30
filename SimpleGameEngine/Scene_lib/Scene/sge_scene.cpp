@@ -1,4 +1,5 @@
 #include "sge_scene.hpp"
+#include "sge_logic_bind.hpp"
 #include <sge_level_parser.hpp>
 
 SGE::SceneID::SceneID(const long id, Scene* s): ID(id), scene(s)

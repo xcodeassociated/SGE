@@ -1,6 +1,7 @@
 #include "sge_game.hpp"
 #include "sge_logic.hpp"
 #include "sge_scene.hpp"
+#include "sge_logic_bind.hpp"
 #include <iostream>
 
 namespace SGE

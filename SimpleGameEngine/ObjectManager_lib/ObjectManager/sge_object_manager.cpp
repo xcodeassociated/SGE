@@ -1,4 +1,5 @@
 #include "sge_object_manager.hpp"
+#include "sge_logic_bind.hpp"
 #include <iostream>
 
 namespace SGE

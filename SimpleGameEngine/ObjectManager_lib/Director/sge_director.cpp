@@ -1,4 +1,5 @@
 #include "sge_director.hpp"
+#include "sge_logic_bind.hpp"
 
 SGE::Director::Director(int w, int h): relay(SGE::Relay::getRelay()), Width(w), Height(h)
 {

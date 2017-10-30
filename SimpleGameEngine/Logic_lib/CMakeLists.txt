@@ -1,6 +1,10 @@
 set (LogicSOURCES
 	Logic/sge_logic.hpp
-	Logic/sge_logic.cpp)
+	Logic/sge_logic.cpp
+	Logic/sge_logic_bind.hpp
+	Logic/sge_logic_bind.cpp
+	Logic/sge_logic_id.hpp
+	Logic/sge_logic_id.cpp)
 
 set (LogicsCameraSOURCES
 	Logic/Logics/Camera/sge_logic_camera_zoom.hpp
