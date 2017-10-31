@@ -11,7 +11,7 @@
 
 #include <utility>
 
-class SDL_Window;
+struct SDL_Window;
 
 namespace SGE {
 

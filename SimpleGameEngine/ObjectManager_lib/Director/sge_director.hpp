@@ -2,9 +2,6 @@
 #define sge_director_h
 
 #include <vector>
-#include <algorithm>
-#include <stdexcept>
-#include <sge_relay.hpp>
 #include <sge_logic.hpp>
 #include <sge_scene.hpp>
 
@@ -12,7 +9,7 @@ namespace SGE {
 
     class Director final{
 	private:
-		Relay* relay = nullptr;
+		ObjectManager* manager = nullptr;
 		int Width = 0;
 		int Height = 0;
 
@@ -41,6 +38,13 @@ namespace SGE {
 	    void swapScene(Scene::ID scene);
 
 	    void finalize();
+
+	    /**
+	     * \brief Current Current way of connecting OM and Director
+	     * \param objectManager pointer to OM Singleton
+	     * \todo: Change this? Some Bootstraper perhaps?
+	     */
+	    void bindManager(ObjectManager* objectManager);
     };
     
 }

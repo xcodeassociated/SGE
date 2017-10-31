@@ -1,4 +1,5 @@
 #include "sge_object_manager.hpp"
+#include "sge_director.hpp"
 #include "sge_logic_bind.hpp"
 #include "sge_input_binder.hpp"
 #include "sge_mouse.hpp"
@@ -19,13 +20,11 @@ namespace SGE
 	ObjectManager::ObjectManager() noexcept: action_handler(new ActionHandler)
 	{
 		Logic::action_handler = this->action_handler;
-		this->relay = Relay::getRelay();
-		this->relay->registerManager(this);
 	}
 
 	bool ObjectManager::init()
 	{
-		std::pair<int, int> resolution = this->relay->relayGetResolution();
+		std::pair<int, int> resolution = this->director->getResolution();
 
 		this->window_manager = new WindowManager(resolution, this);
 		this->window_manager->createWindow();
@@ -129,12 +128,12 @@ namespace SGE
 		this->input_handler->unmapAction(bind);
 	}
 
-	Action::ID ObjectManager::addAction(Action* action)
+	ActionID ObjectManager::addAction(Action* action)
 	{
 		return ActionID(this->counter++, action);
 	}
 
-	Logic::ID ObjectManager::addLogic(Logic* logic)
+	LogicID ObjectManager::addLogic(Logic* logic)
 	{
 		return LogicID(this->counter++, logic);
 	}
@@ -147,7 +146,7 @@ namespace SGE
 		}
 	}
 
-	Object::ID ObjectManager::addObject(Object* o, std::string path)
+	ObjectID ObjectManager::addObject(Object* o, std::string path)
 	{
 		ObjectID id(counter++, o);
 		this->objects.emplace_back(id);
@@ -157,7 +156,7 @@ namespace SGE
 		return id;
 	}
 
-	Object::ID ObjectManager::addObject(Object* o, Scene::ID s, std::string path)
+	ObjectID ObjectManager::addObject(Object* o, SceneID s, std::string path)
 	{
 		ObjectID id(counter++, o);
 		this->objects.emplace_back(id);
@@ -176,7 +175,7 @@ namespace SGE
 		return id;
 	}
 
-	void ObjectManager::bindObject(Object::ID o, Scene::ID s)
+	void ObjectManager::bindObject(ObjectID o, SceneID s)
 	{
 		auto ObjectVectorIt = this->sceneObjects.find(s);
 		if (ObjectVectorIt != this->sceneObjects.end())
@@ -189,7 +188,7 @@ namespace SGE
 		}
 	}
 
-	void ObjectManager::unbindObject(Object::ID o, Scene::ID s)
+	void ObjectManager::unbindObject(ObjectID o, SceneID s)
 	{
 		auto objectVectorIt = this->sceneObjects.find(s);
 		if (objectVectorIt != this->sceneObjects.end())
@@ -222,13 +221,19 @@ namespace SGE
 		return this->action_handler;
 	}
 
-	Object::ID ObjectManager::getCameraID()
+	ObjectID ObjectManager::getCameraID()
 	{
 		return ObjectID(0, this->camera_handler->getCamera());
 	}
 
-	Object::ID ObjectManager::getMouse()
+	ObjectID ObjectManager::getMouse()
 	{
 		return ObjectID(1, this->input_handler->getMouseHandler()->getMouseObject());
+	}
+
+	void ObjectManager::bindDirector(Director* director)
+	{
+		this->director = director;
+		director->bindManager(this);
 	}
 }

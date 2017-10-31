@@ -1,9 +1,10 @@
 #include "sge_director.hpp"
+#include "sge_object_manager.hpp"
 #include "sge_logic_bind.hpp"
+#include <algorithm>
 
-SGE::Director::Director(int w, int h): relay(SGE::Relay::getRelay()), Width(w), Height(h)
+SGE::Director::Director(int w, int h): Width(w), Height(h)
 {
-	this->relay->registerDirector(this);
 }
 
 SGE::Director::~Director()
@@ -23,9 +24,9 @@ std::pair<int, int> SGE::Director::getResolution()
 
 SGE::Scene::ID SGE::Director::addScene(Scene* scene)
 {
-	SceneID id(relay->getNextCounter(), scene);
+	SceneID id(manager->counter++, scene);
 	this->scenes.push_back(id);
-	relay->relayScene(id);
+	manager->addScene(id);
 	return id;
 }
 
@@ -35,7 +36,7 @@ void SGE::Director::deleteScene(Scene::ID scene)
 	if (sceneIt != this->scenes.end())
 	{
 		this->scenes.erase(sceneIt);
-		this->relay->relayDeleteScene(scene);
+		this->manager->deleteScene(scene);
 	}
 }
 
@@ -63,7 +64,7 @@ void SGE::Director::showScene(Scene::ID scene)
 	{
 		throw std::runtime_error("You are an idiot");
 	}
-	this->relay->relayShowScene(scene);
+	this->manager->showScene(scene);
 }
 
 void SGE::Director::swapScene(Scene::ID scene)
@@ -72,9 +73,14 @@ void SGE::Director::swapScene(Scene::ID scene)
 	{
 		throw std::runtime_error("You are an idiot");
 	}
-	this->relay->relaySwapScene(scene);
+	this->manager->swapScene(scene);
 }
 
 void SGE::Director::finalize()
 {
+}
+
+void SGE::Director::bindManager(ObjectManager* objectManager)
+{
+	this->manager = objectManager;
 }

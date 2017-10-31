@@ -9,7 +9,6 @@
 #include "sge_mouse.hpp"
 #include "sge_object_manager.hpp"
 #include "sge_director.hpp"
-#include "sge_relay.hpp"
 #include "sge_keyboard_state.hpp"
 
 #include "sge_reactive.hpp"

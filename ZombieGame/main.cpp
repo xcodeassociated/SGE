@@ -254,6 +254,7 @@ int main(int argc, char * argv[]) {
 
 	SGE::Director* director = SGE::Director::getDirector(1024,768);
 	SGE::ObjectManager* manager = SGE::ObjectManager::getManager();
+	manager->bindDirector(director);
     
 	SGE::Scene::ID S1 = director->addScene(new MainScene(manager));
     

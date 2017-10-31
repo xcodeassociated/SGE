@@ -12,9 +12,6 @@ set (ObjectManagerSOURCES
 	ObjectManager/tool/sge_window_manager.hpp
 	ObjectManager/tool/sge_window_manager.cpp)
 
-set (ObjectRelaySOURCES
-	Relay/sge_relay.hpp
-	Relay/sge_relay.cpp)
 
 set (DirectorSOURCES
 	Director/sge_director.hpp
@@ -23,8 +20,7 @@ set (DirectorSOURCES
 	
 add_library (ObjectManager SHARED
 		${ObjectManagerSOURCES}
-		${DirectorSOURCES}
-		${ObjectRelaySOURCES})
+		${DirectorSOURCES})
 		
 	
 target_link_libraries(ObjectManager
