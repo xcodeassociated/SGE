@@ -16,7 +16,7 @@ namespace SGE {
 
     class Camera2d;
 
-    class CameraHandler : public Object {
+    class CameraHandler {
         Camera2d *camera = nullptr;
         ObjectManager *manager = nullptr;
         int x = 0, y = 0;

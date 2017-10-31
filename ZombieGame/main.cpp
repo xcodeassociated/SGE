@@ -10,7 +10,7 @@
 #include <thread>
 #include <chrono>
 #include <set>
-#include <time.h>
+#include <ctime>
 #include <fstream>
 #include <random>    
 
@@ -259,9 +259,7 @@ int main(int argc, char * argv[]) {
     
     SGE::Object::ID camID = manager->getCameraID();
     SGE::Object::ID mouseID = manager->getMouse();
-    
-    
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+
     SGE::Object::ID testObj0 = manager->addObject(new TestObject, S1, PATH"ZombieGame/Resources/Textures/circle.png");
     SGE::Object::ID testObj1 = manager->addObject(new TestObject(200,200), S1, PATH"ZombieGame/Resources/Textures/circle.png");
     
@@ -280,8 +278,6 @@ int main(int argc, char * argv[]) {
 	manager->mapAction(tb2);
 	manager->mapAction(tb3);
 
-
-
     //add mouse click action to the game (on camera object)
     SGE::Action::ID click = manager->addAction(new MouseClickedAction);
 	SGE::InputBinder clickBind({ mouseID,testObj1 }, click, SGE::Key::MOUSE_LEFT_BUTTON);
@@ -296,7 +292,6 @@ int main(int argc, char * argv[]) {
 	auto L2a = manager->addLogic(new SGE::Logics::BasicCollider(testObj1, &SGE::Logics::Collide::CircleCollisionVec));
 	auto L2b = manager->addLogic(new SGE::Logics::BasicCollider(testObj0, &SGE::Logics::Collide::CircleCollisionVec));
 	auto L3 = manager->addLogic(new SGE::Logics::SimpleMove(4.f,SGE::Key::W,SGE::Key::S, SGE::Key::A, SGE::Key::D));
-
 
 	auto camLogic = manager->addLogic(new SnapCamera(8, SGE::Key::Up, SGE::Key::Down, SGE::Key::Left, SGE::Key::Right, SGE::Key::Space, testObj1));
 	auto camZoom = manager->addLogic(new SGE::Logics::CameraZoom(0.1f,1.f,0.15f,SGE::Key::Q, SGE::Key::E));
@@ -368,8 +363,6 @@ int main(int argc, char * argv[]) {
 	director->addLogicBinder(S1, testObj0, CollidePlayer);
 	director->addLogicBinder(S1, testObj0, CollideLevelHumans);
 	
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
 	director->showScene(S1);
     
