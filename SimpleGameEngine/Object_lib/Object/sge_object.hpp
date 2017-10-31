@@ -58,6 +58,8 @@ namespace SGE {
 
 		virtual Shape* getShape(void) noexcept final;
 
+
+		// TODO: ??
 		virtual LogicPriority getLock(void) const noexcept final;
 
 		virtual void setLock(const LogicPriority lock) noexcept final;

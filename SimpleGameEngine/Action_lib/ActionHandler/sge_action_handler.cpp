@@ -1,6 +1,8 @@
 #include "sge_action_handler.hpp"
 #include <algorithm>
 
+// TODO: do not perform all 3 action states at once!
+
 void SGE::ActionHandler::triggerAction(ActionID a, const ObjectBind& b)
 {
 	a->action_begin(b);

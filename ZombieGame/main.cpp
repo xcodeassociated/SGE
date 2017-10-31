@@ -127,7 +127,7 @@ class Human : public SGE::Being
 	unsigned int counter = 1;
 	unsigned int maxCount = 0;
 public:
-	Human(const float x, const float y) : Being(x,y,true,getCircle())
+	Human(const float x, const float y) : SGE::Being(x,y,true,getCircle())
 	{}
 	Human(const float x, const float y, const unsigned int max) : Being(x, y, true, getCircle()), maxCount(max)
 	{}
