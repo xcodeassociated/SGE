@@ -15,22 +15,6 @@
 #include <random>    
 
 #include "SGE.hpp"
-#include "sge_action_move.hpp"
-#include "sge_mouse.hpp"
-#include "sge_logic_bind.hpp"
-#include "sge_logic_collide.hpp"
-#include "sge_logic_collide_level_precise.hpp"
-#include "sge_logic_collide_basic.hpp"
-#include "sge_logic_move.hpp"
-#include "sge_logic_camera_zoom.hpp"
-#include "sge_shape_circle.hpp"
-#include "sge_camera2d.hpp"
-#include "sge_input_binder.hpp"
-#include <sge_macro.hpp>
-
-#define GLM_ENABLE_EXPERIMENTAL
-#include <glm/glm.hpp>
-#include <glm/ext.hpp>
 
 class MainScene : public SGE::Scene{
     SGE::ObjectManager* manager = nullptr;

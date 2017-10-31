@@ -12,7 +12,6 @@
 #include "sge_relay.hpp"
 #include "sge_keyboard_state.hpp"
 
-//Objects
 #include "sge_reactive.hpp"
 #include "sge_being.hpp"
 #include "sge_player.hpp"
@@ -21,7 +20,20 @@
 #include "sge_button.hpp"
 #include "sge_label.hpp"
 
-//Actions
 #include "sge_action_move.hpp"
+#include "sge_logic_bind.hpp"
+#include "sge_logic_collide.hpp"
+#include "sge_logic_collide_level_precise.hpp"
+#include "sge_logic_collide_basic.hpp"
+#include "sge_logic_move.hpp"
+#include "sge_logic_camera_zoom.hpp"
+#include "sge_shape_circle.hpp"
+#include "sge_camera2d.hpp"
+#include "sge_input_binder.hpp"
+#include <sge_macro.hpp>
+
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/glm.hpp>
+#include <glm/ext.hpp>
 
 #endif //SGE_HPP
