@@ -5,6 +5,9 @@
 
 namespace SGE {
     
+	/**
+     * \brief 
+     */
     class WorldElement : public BackgroundElement{
 	
 	public:

@@ -6,6 +6,9 @@
 #define SGE_ZOMBIEGAME_SGE_LOGIC_PRIORITY_HPP
 
 namespace SGE {
+	/**
+     * \brief 
+     */
     enum class LogicPriority : int
     {
         Highest = 0,

@@ -5,6 +5,9 @@
 
 namespace SGE {
     
+	/**
+     * \brief 
+     */
     class Button : public Interface{
     };
     

@@ -5,6 +5,9 @@
 
 namespace SGE {
     
+	/**
+     * \brief 
+     */
     class Being : public Reactive{
 	public:
 		using Reactive::Reactive;

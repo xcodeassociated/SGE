@@ -37,7 +37,7 @@ SGE::ObjectBind::ObjectBind(const ObjectBind& b)
     this->_end = (this->_begin + i);
 }
 
-SGE::ObjectBind::ObjectBind(ObjectBind&& b) : _begin(b._begin), _end(b._end)
+SGE::ObjectBind::ObjectBind(ObjectBind&& b) noexcept : _begin(b._begin), _end(b._end)
 {
     b._begin = nullptr;
     b._end = nullptr;

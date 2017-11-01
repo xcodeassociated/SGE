@@ -11,6 +11,7 @@
 
 #include "sge_object.hpp"
 #include <glm/glm.hpp>
+#include <utility>
 
 namespace SGE {
 

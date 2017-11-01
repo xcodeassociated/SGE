@@ -9,19 +9,48 @@
 
 namespace SGE {
 
+	/**
+     * \brief 
+     */
     class Circle : public Shape
     {
     private:
+	    /**
+         * \brief 
+         */
         float radius = 0.f;
 
     public:
+	    /**
+         * \brief 
+         */
         Circle();
+	    /**
+         * \brief 
+         */
         Circle(const Circle&) = default;
+	    /**
+         * \brief 
+         * \param radius 
+         */
         explicit Circle(float radius);
+	    /**
+         * \brief 
+         * \param radius 
+         * \param disposable 
+         */
         Circle(float radius, bool disposable);
 
+	    /**
+         * \brief 
+         * \return 
+         */
         float getRadius() const;
 
+	    /**
+         * \brief 
+         * \param radius 
+         */
         void setRadius(float radius);
     };
 

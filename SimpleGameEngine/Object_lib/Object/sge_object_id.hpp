@@ -11,21 +11,54 @@ namespace SGE {
 
     class Object;
 
+	/**
+     * \brief 
+     */
     class ObjectID : public ID {
         friend class ObjectManager;
         friend class Renderer;
 
+	    /**
+         * \brief 
+         */
         Object* obj = nullptr;
+	    /**
+         * \brief 
+         * \param id 
+         * \param o 
+         */
         ObjectID(const long id, Object* o);
     public:
+	    /**
+         * \brief 
+         */
         ObjectID();
+	    /**
+         * \brief 
+         * \param o 
+         */
         ObjectID(Object* o);
 
+	    /**
+         * \brief 
+         * \return 
+         */
         Object* getObject() const;
 
+	    /**
+         * \brief 
+         * \return 
+         */
         Object* operator->() const;
 
+	    /**
+         * \brief 
+         */
         ObjectID(const ObjectID&) = default;
+	    /**
+         * \brief 
+         * \return 
+         */
         ObjectID& operator=(const ObjectID&) = default;
     };
 

@@ -5,6 +5,9 @@
 
 namespace SGE {
     
+	/**
+     * \brief 
+     */
     class Interface : public Object{
     };
     

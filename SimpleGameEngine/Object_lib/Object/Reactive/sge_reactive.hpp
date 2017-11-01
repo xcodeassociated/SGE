@@ -5,8 +5,14 @@
 
 namespace SGE {
     
+	/**
+     * \brief 
+     */
     class Reactive : public Object{
     protected:
+	    /**
+         * \brief 
+         */
         double lifeTime = 0;
         
     public:
