@@ -17,26 +17,72 @@ namespace SGE {
     class Scene;
 
     class Renderer {
-        int width = 0, height = 0;
-        ObjectManager* oManager = nullptr;
+	    /**
+	     * \brief 
+	     */
+	    int width = 0;
+	    /**
+	     * \brief 
+	     */
+	    int height = 0;
+	    /**
+	     * \brief 
+	     */
+	    ObjectManager* oManager = nullptr;
+	    /**
+         * \brief 
+         */
         SpriteBatch* sceneBatch = nullptr;
+	    /**
+         * \brief 
+         */
         SpriteBatch* objectBatch = nullptr;
+	    /**
+         * \brief 
+         */
         CameraHandler* camera_handler = nullptr;
+	    /**
+         * \brief 
+         */
         Shader* shaderProgram = nullptr;
+	    /**
+         * \brief 
+         */
         WindowManager* window_manager = nullptr;
+	    /**
+         * \brief 
+         */
         Scene* current = nullptr;
 
+	    /**
+         * \brief 
+         */
         void renderLevel(void);
 
+	    /**
+         * \brief 
+         */
         void renderObjects(void);
 
     public:
+	    /**
+         * \brief 
+         */
         Renderer(std::pair<int, int>, ObjectManager *, WindowManager *, CameraHandler *) noexcept;
 
+	    /**
+         * \brief 
+         */
         void initShader(void);
 
+	    /**
+         * \brief 
+         */
         void spriteBatchInit(void);
 
+	    /**
+         * \brief 
+         */
         void render(void);
 
     };

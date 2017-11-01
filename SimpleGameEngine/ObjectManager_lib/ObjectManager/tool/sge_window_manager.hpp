@@ -17,20 +17,52 @@ namespace SGE {
 
     class ObjectManager;
 
+	/**
+     * \brief 
+     */
     class WindowManager {
+	    /**
+         * \brief 
+         */
         ObjectManager* manager = nullptr;
+	    /**
+         * \brief 
+         */
         SDL_Window* window = nullptr;
-        int width = 0, height = 0;
+	    /**
+	     * \brief 
+	     */
+	    int width = 0;
+	    /**
+	     * \brief 
+	     */
+	    int height = 0;
 
     public:
+	    /**
+         * \brief 
+         */
         WindowManager(std::pair<int, int>, ObjectManager*) noexcept;
 
+	    /**
+         * \brief 
+         */
         void createWindow(void);
 
+	    /**
+         * \brief 
+         */
         void showWindow(void) noexcept;
 
+	    /**
+         * \brief 
+         */
         void finalizeWindow(void) noexcept;
 
+	    /**
+         * \brief 
+         * \return 
+         */
         SDL_Window* getWindow(void) noexcept;
     };
 

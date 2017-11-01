@@ -17,29 +17,79 @@ namespace SGE {
 
     class Camera2d;
 
+	/**
+     * \brief 
+     */
     class CameraHandler {
+	    /**
+         * \brief 
+         */
         Camera2d *camera = nullptr;
+	    /**
+         * \brief 
+         */
         ObjectManager *manager = nullptr;
-        int x = 0, y = 0;
-        double scale = .0f;
+	    /**
+	     * \brief 
+	     */
+	    int x = 0;
+	    /**
+	     * \brief 
+	     */
+	    int y = 0;
+	    /**
+	     * \brief 
+	     */
+	    double scale = .0f;
 
     public:
+	    /**
+         * \brief 
+         */
         CameraHandler(std::pair<int, int>, ObjectManager *) noexcept;
 
+	    /**
+         * \brief 
+         * \return 
+         */
         Camera2d *getCamera();
 
+	    /**
+         * \brief 
+         */
         void setScale(double) noexcept;
 
+	    /**
+         * \brief 
+         */
         void setPosition(int, int) noexcept;
 
+	    /**
+         * \brief 
+         */
         void setPosition(glm::vec2) noexcept;
 
+	    /**
+         * \brief 
+         */
         void updateCamera(void) const noexcept;
 
+	    /**
+         * \brief 
+         * \return 
+         */
         const glm::mat4 &getCameraMatrix(void) const noexcept;
 
+	    /**
+         * \brief 
+         * \return 
+         */
         glm::vec2 getScreenToWorld(glm::vec2) const noexcept;
 
+	    /**
+         * \brief 
+         * \return 
+         */
         glm::vec2 getScreenToWorld(int, int) const noexcept;
 
     };

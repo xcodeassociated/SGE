@@ -9,27 +9,73 @@ namespace SGE {
     class FpsLimiter;
 
     class Game {
+	    /**
+         * \brief 
+         */
         ObjectManager* manager = nullptr;
+	    /**
+         * \brief 
+         */
         FpsLimiter* limiter = nullptr;
+	    /**
+         * \brief 
+         */
         bool playing = false;
-        float time = 0, fps = 0;
-        InputHandler *input_handler = nullptr;
+	    /**
+	     * \brief 
+	     */
+	    float time = 0;
+	    /**
+	     * \brief 
+	     */
+	    float fps = 0;
+	    /**
+	     * \brief 
+	     */
+	    InputHandler *input_handler = nullptr;
+	    /**
+         * \brief 
+         */
         ActionHandler *action_handler = nullptr;
 
+	    /**
+         * \brief 
+         */
         void processInputs(void); // Not used now - a candidate for deletion
+	    /**
+         * \brief 
+         */
         void performActions(void);
 
+	    /**
+         * \brief 
+         */
         void performLogics(void);
 
     public:
+	    /**
+         * \brief 
+         */
         Game(ObjectManager *, ActionHandler *);
 
+	    /**
+         * \brief 
+         */
         void run(void);
 
+	    /**
+         * \brief 
+         */
         void stop(void);
 
+	    /**
+         * \brief 
+         */
         void draw(void);
 
+	    /**
+         * \brief 
+         */
         void setInputHandler(InputHandler *);
     };
 
