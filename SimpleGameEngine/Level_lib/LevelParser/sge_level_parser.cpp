@@ -1,5 +1,7 @@
 #include "sge_level_parser.hpp"
 #include "sge_shape_rectangle.hpp"
+#include <fstream>
+#include <cctype>
 
 SGE::LevelParser::LevelParser(const char* path, const std::map<char, std::string>& mask): levelMask(mask)
 {
