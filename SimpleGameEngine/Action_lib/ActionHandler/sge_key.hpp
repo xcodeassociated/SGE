@@ -10,7 +10,7 @@
 namespace SGE {
 
 	/**
-     * \brief Enumerates SLD scancodes
+     * \brief Enumerates SDL keycodes
      */
     enum class Key {
         A = SDLK_a,

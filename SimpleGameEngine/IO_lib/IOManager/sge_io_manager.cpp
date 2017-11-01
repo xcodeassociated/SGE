@@ -1,4 +1,5 @@
 #include "sge_io_manager.hpp"
+#include <fstream>
 
 bool SGE::IOManager::readFileToBuffer(const char* filePath, std::vector<unsigned char>& buffer)
 {

@@ -13,17 +13,43 @@
 
 namespace SGE {
 
+	/**
+     * \brief Stores key states
+     * \todo We wrapped around SDL2 keyboard state. I don't think this is needed.
+     */
     class InputManager{
+	    /**
+         * \brief 
+         */
         std::unordered_map<unsigned int, bool> keyMap;
         
     public:
+	    /**
+		 * \brief 
+		 */
 		InputManager();
+	    /**
+	     * \brief 
+	     */
 	    ~InputManager();
 
+	    /**
+	     * \brief 
+	     * \param _keyID 
+	     */
 	    void pressKey(unsigned int _keyID);
 
+	    /**
+	     * \brief 
+	     * \param _keyID 
+	     */
 	    void releaseKey(unsigned int _keyID);
 
+	    /**
+	     * \brief 
+	     * \param _keyID 
+	     * \return 
+	     */
 	    bool isKeyPressed(unsigned int _keyID);
     };
 
