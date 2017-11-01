@@ -16,13 +16,28 @@ namespace SGE {
     
     namespace Logics{
         
+	    /**
+         * \brief 
+         */
         class BasicColliderGroup : public Collide {
+	        /**
+             * \brief 
+             */
             std::vector<ObjectID> objs;
             
         public:
 
+	        /**
+	         * \brief 
+	         * \param objects 
+	         * \param _onCollision 
+	         */
 	        BasicColliderGroup(std::vector<ObjectID> objects, collisionFunc _onCollision);
 
+	        /**
+	         * \brief 
+	         * \param _obj 
+	         */
 	        void performLogic(ObjectID _obj);
         };
         

@@ -13,6 +13,9 @@ namespace SGE {
     class Game;
     class ObjectManager;
 
+	/**
+     * \brief ID for Logics
+     */
     class LogicID : public ID
     {
         friend class Game;
@@ -20,13 +23,33 @@ namespace SGE {
 
         friend class Logic;
 
+	    /**
+         * \brief Pointer to Logic
+         */
         Logic* logic;
+	    /**
+         * \brief 
+         * \param id 
+         * \param logic 
+         */
         LogicID(const long id, Logic* logic);
     public:
+	    /**
+         * \brief 
+         * \param logic 
+         */
         LogicID(Logic* logic);
 
+	    /**
+         * \brief 
+         * \return 
+         */
         Logic* getLogic() const;
 
+	    /**
+         * \brief 
+         * \return 
+         */
         Logic* operator->() const;
     };
 

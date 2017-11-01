@@ -9,13 +9,28 @@ namespace SGE {
     
     namespace Logics{
         
+	    /**
+         * \brief 
+         */
         class BasicLevelCollider : public Collide {
+	        /**
+             * \brief 
+             */
             std::vector<WorldElement>& objs;
             
         public:
 
+	        /**
+	         * \brief 
+	         * \param objects 
+	         * \param _onCollision 
+	         */
 	        BasicLevelCollider(std::vector<WorldElement>& objects, collisionFunc _onCollision);
 
+	        /**
+	         * \brief 
+	         * \param _obj 
+	         */
 	        void performLogic(const ObjectBind& _obj) override;
         };
         

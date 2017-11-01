@@ -15,14 +15,29 @@ namespace SGE {
     
     namespace Logics{
         
+	    /**
+         * \brief 
+         */
         class BasicCollider : public Collide {
+	        /**
+			 * \brief 
+			 */
 			ObjectID obj;
             
 		public:
 
+	        /**
+	         * \brief 
+	         * \param obj 
+	         * \param _onCollision 
+	         */
 	        BasicCollider(Object::ID obj, collisionFunc _onCollision);
 
-	        void performLogic(const ObjectBind& _obj) override;
+	        /**
+	         * \brief 
+	         * \param _obj 
+	         */
+	        virtual void performLogic(const ObjectBind& _obj) override;
         };
         
     }

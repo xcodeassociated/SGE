@@ -7,23 +7,54 @@
 
 #include "sge_logic_id.hpp"
 #include "sge_object_bind.hpp"
-#include "sge_object_id.hpp"
 
 namespace SGE {
 
+	/**
+     * \brief 
+     */
     class LogicBind
     {
+	    /**
+         * \brief 
+         */
         LogicID logic;
+	    /**
+         * \brief 
+         */
         ObjectBind bind;
     public:
+	    /**
+         * \brief 
+         * \param logic 
+         * \param object 
+         */
         LogicBind(LogicID logic, ObjectID object);
 
+	    /**
+         * \brief 
+         * \return 
+         */
         LogicID getLogic();
 
+	    /**
+         * \brief 
+         * \return 
+         */
         ObjectBind& getObject();
 
+	    /**
+         * \brief 
+         * \param b 
+         * \return 
+         */
         bool operator==(const LogicBind& b) const;
 
+	    /**
+         * \brief 
+         * \param other 
+         * \return 
+         */
         bool operator<(const LogicBind& other) const;
     };
 
