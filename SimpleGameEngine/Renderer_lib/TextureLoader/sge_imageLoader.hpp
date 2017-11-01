@@ -13,7 +13,15 @@
 
 namespace SGE{
     
+	/**
+     * \brief 
+     */
     struct ImageLoader{
+	    /**
+	     * \brief 
+	     * \param filePath 
+	     * \return 
+	     */
 	    static SGE::GLTexture loadPNG(const char* filePath);
     };
 }

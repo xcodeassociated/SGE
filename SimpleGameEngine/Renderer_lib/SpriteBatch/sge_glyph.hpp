@@ -9,13 +9,34 @@
 
 namespace SGE {
 
+	/**
+     * \brief 
+     */
     struct Glyph {
+	    /**
+         * \brief 
+         */
         GLuint texture;
+	    /**
+         * \brief 
+         */
         float depth;
 
+	    /**
+         * \brief 
+         */
         Vertex topLeft;
+	    /**
+         * \brief 
+         */
         Vertex bottomLeft;
+	    /**
+         * \brief 
+         */
         Vertex topRight;
+	    /**
+         * \brief 
+         */
         Vertex bottomRight;
     };
 

@@ -14,24 +14,57 @@
 
 namespace SGE {
 
+	/**
+     * \brief 
+     */
     class TextureCache{
         
+	    /**
+         * \brief 
+         */
         std::map<std::string, GLTexture> textureMap;
 
+	    /**
+         * \brief 
+         */
         static TextureCache* p_inst;
+	    /**
+         * \brief 
+         */
         static int arc;
 
+	    /**
+	     * \brief 
+	     */
 	    TextureCache();
 
+	    /**
+	     * \brief 
+	     */
 	    TextureCache(const TextureCache&);
 
+	    /**
+	     * \brief 
+	     */
 	    ~TextureCache();
 
     public:
+	    /**
+	     * \brief 
+	     * \return 
+	     */
 	    static TextureCache* getSingleton();
 
+	    /**
+	     * \brief 
+	     */
 	    void kill();
 
+	    /**
+	     * \brief 
+	     * \param _key 
+	     * \return 
+	     */
 	    SGE::GLTexture getTexture(const char* _key);
     };
 

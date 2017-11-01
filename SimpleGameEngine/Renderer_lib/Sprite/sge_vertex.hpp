@@ -13,19 +13,54 @@
 
 namespace SGE {
     
+	/**
+     * \brief 
+     */
     struct Vertex{
+	    /**
+         * \brief 
+         */
         Position position;
+	    /**
+         * \brief 
+         */
         Color color;
+	    /**
+         * \brief 
+         */
         UV uv;
 
+	    /**
+	     * \brief 
+	     * \param r 
+	     * \param g 
+	     * \param b 
+	     * \param a 
+	     */
 	    void setColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
 
+	    /**
+	     * \brief 
+	     * \param x 
+	     * \param y 
+	     */
 	    void setPosition(float x, float y);
 
+	    /**
+	     * \brief 
+	     * \param u 
+	     * \param v 
+	     */
 	    void setUV(float u, float v);
 
+	    /**
+	     * \brief 
+	     */
 	    Vertex();
 
+	    /**
+	     * \brief 
+	     */
 	    ~Vertex();
     };
     

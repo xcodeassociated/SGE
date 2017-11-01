@@ -1,5 +1,6 @@
 #include "sge_sprite_batch.hpp"
 #include <GL/glew.h>
+#include <algorithm>
 
 SGE::SpriteBatch::SpriteBatch(): _vbo(0), _vao(0)
 {
@@ -30,6 +31,31 @@ void SGE::SpriteBatch::end()
 {
 	sortGlyphs();
 	createRenderBatches();
+}
+
+void SGE::SpriteBatch::draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const Color& color)
+{
+	Glyph* newGlyph = new Glyph;
+	newGlyph->texture = texture;
+	newGlyph->depth = depth;
+
+	newGlyph->topLeft.color = color;
+	newGlyph->topLeft.setPosition(destRect.x, destRect.y + destRect.w);
+	newGlyph->topLeft.setUV(uvRect.x, uvRect.y + uvRect.w);
+
+	newGlyph->bottomLeft.color = color;
+	newGlyph->bottomLeft.setPosition(destRect.x, destRect.y);
+	newGlyph->bottomLeft.setUV(uvRect.x, uvRect.y);
+
+	newGlyph->bottomRight.color = color;
+	newGlyph->bottomRight.setPosition(destRect.x + destRect.z, destRect.y);
+	newGlyph->bottomRight.setUV(uvRect.x + uvRect.z, uvRect.y);
+
+	newGlyph->topRight.color = color;
+	newGlyph->topRight.setPosition(destRect.x + destRect.z, destRect.y + destRect.w);
+	newGlyph->topRight.setUV(uvRect.x + uvRect.z, uvRect.y + uvRect.w);
+
+	_glyphs.push_back(newGlyph);
 }
 
 void SGE::SpriteBatch::renderBatch()

@@ -11,12 +11,21 @@
 
 namespace SGE {
     
+	/**
+     * \brief 
+     */
     class Sprite{
         
     public:
 
+	    /**
+	     * \brief 
+	     */
 	    Sprite();
 
+	    /**
+	     * \brief 
+	     */
 	    ~Sprite();
     };
     
