@@ -22,6 +22,7 @@ namespace SGE {
     class InputBinder;
 	class Level;
 	class Camera2d;
+	class ActionHandler;
 
     class ObjectManager final{
         friend class ActionHandler;

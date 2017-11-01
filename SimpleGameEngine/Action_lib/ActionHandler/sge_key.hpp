@@ -9,6 +9,9 @@
 
 namespace SGE {
 
+	/**
+     * \brief Enumerates SLD scancodes
+     */
     enum class Key {
         A = SDLK_a,
         B = SDLK_b,

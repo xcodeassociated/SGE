@@ -11,17 +11,46 @@
 
 namespace SGE {
 
+	/**
+     * \brief Binds Key with ActionBind
+     */
     class InputBinder{
+	    /**
+         * \brief bound ActionBind
+         */
         ActionBind bind;
+	    /**
+         * \brief bound Key
+         */
         Key kid;
 
     public:
+	    /**
+         * \brief Constructs Input binder
+         * \param object List of objects to bind
+         * \param action Action ID to bind
+         * \param key Key to bind
+         */
         InputBinder(std::initializer_list<ObjectID> object, ActionID action, Key key);
 
+		/**
+		 * \brief Constructs Input binder
+		 * \param object List of objects to bind
+		 * \param action Action ID to bind
+		 * \param key Key to bind
+		 */
         InputBinder(ObjectID object, ActionID action, Key key);
 
+	    /**
+         * \brief Returns bound ActionBind
+         * \return bound ActionBind
+         */
         ActionBind getBind() const;
 
+	    /**
+         * \brief Returns bound Key
+         * \return bound Key
+         */
         Key getKey() const;
     };
 

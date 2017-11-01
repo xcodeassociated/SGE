@@ -23,7 +23,7 @@ SGE::ObjectID* SGE::ActionBind::end() const
     return this->bind.end();
 }
 
-SGE::ActionID SGE::ActionBind::getAction() const
+const SGE::ActionID SGE::ActionBind::getAction() const
 {
     return this->aid;
 }

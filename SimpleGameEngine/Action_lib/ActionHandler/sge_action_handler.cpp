@@ -1,14 +1,12 @@
 #include "sge_action_handler.hpp"
 #include <algorithm>
 
-// TODO: do not perform all 3 action states at once!
-
 void SGE::ActionHandler::triggerAction(ActionID a, const ObjectBind& b)
 {
 	a->action_begin(b);
 	a->action_main(b);
 	a->action_ends(b);
-	//TODO: Delete single actions properly.
+	/// \todo Delete single actions properly
 	delete a.getAction();
 }
 
@@ -27,7 +25,7 @@ void SGE::ActionHandler::handleInputAction(ActionBind& bind)
 	bind.getAction()->action_main(bind.getBind());
 }
 
-void SGE::ActionHandler::addAction(ActionBind& bind)
+void SGE::ActionHandler::addAction(const ActionBind& bind)
 {
 	bind.getAction()->action_begin(bind.getBind());
 	this->actions.push_back(bind);
@@ -65,7 +63,8 @@ void SGE::ActionHandler::performSingleAction(const ActionBind& bind, LogicPriori
 	}
 	else
 	{
-		this->actions.push_back(bind);
+		//this->actions.push_back(bind);
+		this->addAction(bind);
 		//bind.first.getObject()->setLock(priority);
 		for (ObjectID e : bind)
 		{

@@ -5,14 +5,12 @@
 #include "sge_input_binder.hpp"
 #include "sge_object_id.hpp"
 
-SGE::InputBinder::InputBinder(std::initializer_list<ObjectID> object, ActionID action, Key key): kid(key)
+SGE::InputBinder::InputBinder(std::initializer_list<ObjectID> object, ActionID action, Key key): bind(object, action), kid(key)
 {
-    this->bind = ActionBind(object, action);
 }
 
-SGE::InputBinder::InputBinder(ObjectID object, ActionID action, Key key): kid(key)
+SGE::InputBinder::InputBinder(ObjectID object, ActionID action, Key key): bind(object, action), kid(key)
 {
-    this->bind = ActionBind(object, action);
 }
 
 SGE::ActionBind SGE::InputBinder::getBind() const
