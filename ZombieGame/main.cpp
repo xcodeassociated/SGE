@@ -242,7 +242,7 @@ public:
         glm::vec2 coords = mouse->getMouseCoords();
         SGE::ObjectManager* manager = SGE::ObjectManager::getManager();
         SGE::Camera2d* cam = dynamic_cast<SGE::Camera2d*>(manager->getCameraID().getObject());
-        glm::vec2 worldCoords = SGE::screenToWorld(cam->getPosition(), coords, (double)cam->getScale());
+        glm::vec2 worldCoords = SGE::screenToWorld(coords, cam->getPosition(), (double)cam->getScale());
 		std::cout << "[Clicked] - x: " << worldCoords.x << ", y: " << worldCoords.y << std::endl;
 		std::cout << "[Player ] - x: " << p->getX() << ", y: " << p->getY() << std::endl; //print out mouse click event - but not in a world coords.
     }
