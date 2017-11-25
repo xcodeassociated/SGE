@@ -5,6 +5,7 @@
 #include <map>
 #include <stdexcept>
 #include <ctime>
+#include <string>
 #include "sge_resource_manager.hpp"
 #include "sge_scene_id.hpp"
 #include "sge_action_id.hpp"
