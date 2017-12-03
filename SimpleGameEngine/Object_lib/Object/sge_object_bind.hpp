@@ -19,11 +19,11 @@ namespace SGE {
 	    /**
          * \brief 
          */
-        Object* _begin = nullptr;
+        Object** _begin = nullptr;
 	    /**
          * \brief 
          */
-        Object* _end = nullptr;
+        Object** _end = nullptr;
     public:
 	    /**
          * \brief 

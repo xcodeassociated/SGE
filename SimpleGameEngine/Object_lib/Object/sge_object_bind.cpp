@@ -7,10 +7,10 @@
 
 SGE::ObjectBind::ObjectBind(const std::initializer_list<Object*>& object)
 {
-    this->_begin = new Object[object.size()];
+    this->_begin = new Object*[object.size()];
     int i = 0;
     for (Object* o : object) {
-        *(this->_begin + i) = *o;
+        *(this->_begin + i) = o;
         i++;
     }
     this->_end = (this->_begin + object.size());
@@ -28,10 +28,13 @@ SGE::ObjectBind::~ObjectBind()
 
 SGE::ObjectBind::ObjectBind(const ObjectBind& b)
 {
-    this->_begin = new Object[b.size()];
+	Object** begin = b._begin;
+	Object** end = b._end;
+
+    this->_begin = new Object*[b.size()];
     int i = 0;
-    for (Object o : b) {
-        *(this->_begin + i) = o;
+	for (auto* it = begin; it != end; ++it) {
+        this->_begin[i] = *it;
         i++;
     }
     this->_end = (this->_begin + i);
@@ -46,10 +49,13 @@ SGE::ObjectBind::ObjectBind(ObjectBind&& b) noexcept : _begin(b._begin), _end(b.
 SGE::ObjectBind& SGE::ObjectBind::operator=(const ObjectBind& b)
 {
     if (this != &b) {
-        this->_begin = new Object[b.size()];
+		Object** begin = b._begin;
+		Object** end = b._end;
+
+        this->_begin = new Object*[b.size()];
         int i = 0;
-        for (Object o : b) {
-            *(this->_begin + i) = o;
+        for (auto* it = begin; it != end; ++it) {
+            *(this->_begin + i) = *it;
             i++;
         }
         this->_end = (this->_begin + i);
@@ -70,32 +76,32 @@ SGE::ObjectBind& SGE::ObjectBind::operator=(ObjectBind&& b) noexcept
 
 SGE::Object& SGE::ObjectBind::operator[](std::size_t i)
 {
-    return *(this->_begin + i);
+    return **(this->_begin + i);
 }
 
 const SGE::Object& SGE::ObjectBind::operator[](std::size_t i) const
 {
-    return *(this->_begin + i);
+    return **(this->_begin + i);
 }
 
 SGE::Object* SGE::ObjectBind::begin()
 {
-    return this->_begin;
+    return *this->_begin;
 }
 
 SGE::Object* SGE::ObjectBind::end()
 {
-    return this->_end;
+    return *this->_end;
 }
 
 SGE::Object* SGE::ObjectBind::begin() const
 {
-    return this->_begin;
+    return *this->_begin;
 }
 
 SGE::Object* SGE::ObjectBind::end() const
 {
-    return this->_end;
+    return *this->_end;
 }
 
 std::size_t SGE::ObjectBind::size() const
