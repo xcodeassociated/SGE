@@ -87,7 +87,7 @@ namespace SGE {
 		/**
 		 * \brief 
 		 */
-		virtual ~Object();
+		virtual ~Object() = 0;
 
 		/**
          * \brief 
