@@ -3,20 +3,20 @@
 //
 
 #include "sge_object_bind.hpp"
-#include "sge_object_id.hpp"
+#include "sge_object.hpp"
 
-SGE::ObjectBind::ObjectBind(const std::initializer_list<ObjectID>& object)
+SGE::ObjectBind::ObjectBind(const std::initializer_list<Object*>& object)
 {
-    this->_begin = new ObjectID[object.size()];
+    this->_begin = new Object[object.size()];
     int i = 0;
-    for (ObjectID o : object) {
-        *(this->_begin + i) = o;
+    for (Object* o : object) {
+        *(this->_begin + i) = *o;
         i++;
     }
     this->_end = (this->_begin + object.size());
 }
 
-SGE::ObjectBind::ObjectBind(ObjectID object) : ObjectBind({ object })
+SGE::ObjectBind::ObjectBind(Object* object) : ObjectBind({ object })
 {
 }
 
@@ -28,9 +28,9 @@ SGE::ObjectBind::~ObjectBind()
 
 SGE::ObjectBind::ObjectBind(const ObjectBind& b)
 {
-    this->_begin = new ObjectID[b.size()];
+    this->_begin = new Object[b.size()];
     int i = 0;
-    for (ObjectID o : b) {
+    for (Object o : b) {
         *(this->_begin + i) = o;
         i++;
     }
@@ -46,9 +46,9 @@ SGE::ObjectBind::ObjectBind(ObjectBind&& b) noexcept : _begin(b._begin), _end(b.
 SGE::ObjectBind& SGE::ObjectBind::operator=(const ObjectBind& b)
 {
     if (this != &b) {
-        this->_begin = new ObjectID[b.size()];
+        this->_begin = new Object[b.size()];
         int i = 0;
-        for (ObjectID o : b) {
+        for (Object o : b) {
             *(this->_begin + i) = o;
             i++;
         }
@@ -68,32 +68,32 @@ SGE::ObjectBind& SGE::ObjectBind::operator=(ObjectBind&& b) noexcept
     return *this;
 }
 
-SGE::ObjectID& SGE::ObjectBind::operator[](std::size_t i)
+SGE::Object& SGE::ObjectBind::operator[](std::size_t i)
 {
     return *(this->_begin + i);
 }
 
-const SGE::ObjectID& SGE::ObjectBind::operator[](std::size_t i) const
+const SGE::Object& SGE::ObjectBind::operator[](std::size_t i) const
 {
     return *(this->_begin + i);
 }
 
-SGE::ObjectID* SGE::ObjectBind::begin()
+SGE::Object* SGE::ObjectBind::begin()
 {
     return this->_begin;
 }
 
-SGE::ObjectID* SGE::ObjectBind::end()
+SGE::Object* SGE::ObjectBind::end()
 {
     return this->_end;
 }
 
-SGE::ObjectID* SGE::ObjectBind::begin() const
+SGE::Object* SGE::ObjectBind::begin() const
 {
     return this->_begin;
 }
 
-SGE::ObjectID* SGE::ObjectBind::end() const
+SGE::Object* SGE::ObjectBind::end() const
 {
     return this->_end;
 }

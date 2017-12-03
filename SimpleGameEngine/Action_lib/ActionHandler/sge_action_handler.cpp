@@ -1,18 +1,19 @@
 #include "sge_action_handler.hpp"
 #include <algorithm>
+#include "sge_action.hpp"
+#include "sge_action_bind.hpp"
 
-void SGE::ActionHandler::triggerAction(ActionID a, const ObjectBind& b)
+void SGE::ActionHandler::triggerAction(Action* a, const ObjectBind& b)
 {
 	a->action_begin(b);
 	a->action_main(b);
 	a->action_ends(b);
-	/// \todo Delete single actions properly
-	delete a.getAction();
+	delete a;
 }
 
 void SGE::ActionHandler::triggerAction(const ActionBind& b)
 {
-	this->triggerAction(b.getAction(), b.getBind());
+	this->triggerAction(const_cast<Action*>(b.getAction()), b.getBind());
 }
 
 SGE::ActionHandler::ActionHandler(): actions{}
@@ -27,7 +28,7 @@ void SGE::ActionHandler::handleInputAction(ActionBind& bind)
 
 void SGE::ActionHandler::addAction(const ActionBind& bind)
 {
-	bind.getAction()->action_begin(bind.getBind());
+	const_cast<Action*>(bind.getAction())->action_begin(bind.getBind());
 	this->actions.push_back(bind);
 }
 
@@ -43,10 +44,10 @@ void SGE::ActionHandler::performAllActions()
                            {
 	                           if (b.getAction()->getDuration() <= 0)
 	                           {
-		                           b.getAction()->action_ends(b.getBind());
+		                           const_cast<Action*>(b.getAction())->action_ends(b.getBind());
 		                           //if (b.getAction().getID() > 99L)
 		                           {
-			                           delete b.getAction().getAction(); //deletes managed action
+			                           delete b.getAction(); //deletes managed action
 		                           }
 		                           return true;
 	                           }
@@ -66,9 +67,9 @@ void SGE::ActionHandler::performSingleAction(const ActionBind& bind, LogicPriori
 		//this->actions.push_back(bind);
 		this->addAction(bind);
 		//bind.first.getObject()->setLock(priority);
-		for (ObjectID e : bind)
+		for (Object e : bind)
 		{
-			e.getObject()->setLock(priority);
+			e.setLock(priority);
 		}
 	}
 }

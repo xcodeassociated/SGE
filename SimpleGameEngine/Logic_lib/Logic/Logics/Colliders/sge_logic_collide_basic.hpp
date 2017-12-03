@@ -22,7 +22,7 @@ namespace SGE {
 	        /**
 			 * \brief 
 			 */
-			ObjectID obj;
+			Object* obj;
             
 		public:
 
@@ -31,7 +31,7 @@ namespace SGE {
 	         * \param obj 
 	         * \param _onCollision 
 	         */
-	        BasicCollider(Object::ID obj, collisionFunc _onCollision);
+	        BasicCollider(Object* obj, collisionFunc _onCollision);
 
 	        /**
 	         * \brief 

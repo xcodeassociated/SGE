@@ -3,27 +3,27 @@
 //
 
 #include "sge_action_bind.hpp"
-#include "sge_object_id.hpp"
+#include "sge_object.hpp"
 
-SGE::ActionBind::ActionBind(const std::initializer_list<ObjectID>& object, ActionID action): bind(object), aid(action)
+SGE::ActionBind::ActionBind(const std::initializer_list<Object*>& object, Action* action): bind(object), aid(action)
 {
 }
 
-SGE::ActionBind::ActionBind(ObjectID object, ActionID action) :ActionBind({ object }, action)
+SGE::ActionBind::ActionBind(Object* object, Action* action) :ActionBind({ object }, action)
 {
 }
 
-SGE::ObjectID* SGE::ActionBind::begin() const
+SGE::Object* SGE::ActionBind::begin() const
 {
     return this->bind.begin();
 }
 
-SGE::ObjectID* SGE::ActionBind::end() const
+SGE::Object* SGE::ActionBind::end() const
 {
     return this->bind.end();
 }
 
-const SGE::ActionID SGE::ActionBind::getAction() const
+const SGE::Action* SGE::ActionBind::getAction() const
 {
     return this->aid;
 }
@@ -31,6 +31,16 @@ const SGE::ActionID SGE::ActionBind::getAction() const
 const SGE::ObjectBind& SGE::ActionBind::getBind() const
 {
     return this->bind;
+}
+
+SGE::Action* SGE::ActionBind::getAction() 
+{
+	return this->aid;
+}
+
+SGE::ObjectBind& SGE::ActionBind::getBind() 
+{
+	return this->bind;
 }
 
 std::size_t SGE::ActionBind::size() const

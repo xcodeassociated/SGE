@@ -6,7 +6,7 @@
 #include "sge_object.hpp"
 #include "sge_camera2d.hpp"
 #include "sge_logic.hpp"
-
+#include "sge_scene.hpp"
 #include "tool/sge_camera_handler.hpp"
 #include "tool/sge_game.hpp"
 #include "tool/sge_input_handler.hpp"
@@ -42,18 +42,18 @@ namespace SGE
 		return true;
 	}
 
-	void ObjectManager::addScene(SceneID s)
+	void ObjectManager::addScene(Scene* s)
 	{
 		static bool init = this->init();
-		this->sceneObjects.emplace(s, std::vector<ObjectID>());
+		this->sceneObjects.emplace(s, std::vector<Object*>());
 	}
 
-	void ObjectManager::deleteScene(SceneID s)
+	void ObjectManager::deleteScene(Scene* s)
 	{
 		if (this->sceneObjects.erase(s) != 0)
 		{
-			s.scene->finalize();
-			delete s.scene;
+			s->finalize();
+			delete s;
 		}
 	}
 
@@ -62,12 +62,12 @@ namespace SGE
 		return this->OnScene;
 	}
 
-	void ObjectManager::showScene(SceneID s)
+	void ObjectManager::showScene(Scene* s)
 	{
-		this->currentScene = s.scene;
+		this->currentScene = s;
 		auto sceneObjectsIt = this->sceneObjects.find(s);
 		if (sceneObjectsIt == this->sceneObjects.end()) throw std::runtime_error("Scene not Loaded");
-		s.scene->BindObjects(&sceneObjectsIt->second);
+		s->BindObjects(&(*sceneObjectsIt).second);
 
 		this->OnScene = true;
 
@@ -78,18 +78,18 @@ namespace SGE
 
 		this->renderer->spriteBatchInit();
 
-		s.scene->onDraw();
+		s->onDraw();
 
 		this->game->run();
 	}
 
-	void ObjectManager::swapScene(SceneID s)
+	void ObjectManager::swapScene(Scene* s)
 	{
 	}
 
-	Level& ObjectManager::getSceneData(SceneID s)
+	Level& ObjectManager::getSceneData(Scene* s)
 	{
-		return s.scene->getLevel();
+		return s->getLevel();
 	}
 
 	Camera2d* ObjectManager::getCamera()
@@ -103,19 +103,19 @@ namespace SGE
 		return manager; //Can be converted to ARC later.
 	}
 
-	Object* ObjectManager::getObjectPtr(ObjectID id)
+	Object* ObjectManager::getObjectPtr(Object* obj)
 	{
-		return id.obj;
+		return obj;
 	}
 
-	Scene* ObjectManager::getScenePtr(SceneID id)
+	Scene* ObjectManager::getScenePtr(Scene* scene)
 	{
-		return id.scene;
+		return scene;
 	}
 
-	Logic* ObjectManager::getLogicPtr(LogicID id)
+	Logic* ObjectManager::getLogicPtr(Logic* logic)
 	{
-		return id.logic;
+		return logic;
 	}
 
 	void ObjectManager::mapAction(const InputBinder& bind)
@@ -128,14 +128,14 @@ namespace SGE
 		this->input_handler->unmapAction(bind);
 	}
 
-	ActionID ObjectManager::addAction(Action* action)
+	Action* ObjectManager::addAction(Action* action)
 	{
-		return ActionID(this->counter++, action);
+		return action;
 	}
 
-	LogicID ObjectManager::addLogic(Logic* logic)
+	Logic* ObjectManager::addLogic(Logic* logic)
 	{
-		return LogicID(this->counter++, logic);
+		return logic;
 	}
 
 	void ObjectManager::interrupt()
@@ -146,24 +146,22 @@ namespace SGE
 		}
 	}
 
-	ObjectID ObjectManager::addObject(Object* o, std::string path)
+	Object* ObjectManager::addObject(Object* o, std::string path)
 	{
-		ObjectID id(counter++, o);
-		this->objects.emplace_back(id);
+		this->objects.emplace_back(o);
 
 		if (!path.empty()) o->texture = this->rManager->getTexture(path.c_str());
 
-		return id;
+		return o;
 	}
 
-	ObjectID ObjectManager::addObject(Object* o, SceneID s, std::string path)
+	Object* ObjectManager::addObject(Object* o, Scene* s, std::string path)
 	{
-		ObjectID id(counter++, o);
-		this->objects.emplace_back(id);
+		this->objects.emplace_back(o);
 		auto ObjectVectorIt = this->sceneObjects.find(s);
 		if (ObjectVectorIt != this->sceneObjects.end())
 		{
-			ObjectVectorIt->second.emplace_back(id);
+			ObjectVectorIt->second.emplace_back(o);
 		}
 		else
 		{
@@ -172,10 +170,10 @@ namespace SGE
 
 		if (!path.empty()) o->texture = this->rManager->getTexture(path.c_str());
 
-		return id;
+		return o;
 	}
 
-	void ObjectManager::bindObject(ObjectID o, SceneID s)
+	void ObjectManager::bindObject(Object* o, Scene* s)
 	{
 		auto ObjectVectorIt = this->sceneObjects.find(s);
 		if (ObjectVectorIt != this->sceneObjects.end())
@@ -188,7 +186,7 @@ namespace SGE
 		}
 	}
 
-	void ObjectManager::unbindObject(ObjectID o, SceneID s)
+	void ObjectManager::unbindObject(Object* o, Scene* s)
 	{
 		auto objectVectorIt = this->sceneObjects.find(s);
 		if (objectVectorIt != this->sceneObjects.end())
@@ -201,7 +199,7 @@ namespace SGE
 		}
 	}
 
-	void ObjectManager::update(ObjectID id, const Action& action)
+	void ObjectManager::update(Object* id, const Action& action)
 	{
 		;
 	}
@@ -221,14 +219,9 @@ namespace SGE
 		return this->action_handler;
 	}
 
-	ObjectID ObjectManager::getCameraID()
+	Object* ObjectManager::getMouse()
 	{
-		return ObjectID(0, this->camera_handler->getCamera());
-	}
-
-	ObjectID ObjectManager::getMouse()
-	{
-		return ObjectID(1, this->input_handler->getMouseHandler()->getMouseObject());
+		return this->input_handler->getMouseHandler()->getMouseObject();
 	}
 
 	void ObjectManager::bindDirector(Director* director)

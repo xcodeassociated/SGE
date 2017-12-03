@@ -1,11 +1,9 @@
 #ifndef sge_action_h
 #define sge_action_h
 
-#include "sge_id.hpp"
 #include "sge_object.hpp"
 #include <initializer_list>
 
-#include "sge_action_id.hpp"
 
 namespace SGE {
 	class ObjectBind;
@@ -20,7 +18,6 @@ namespace SGE {
 		Action(double _d, bool);
 
     public:
-		using ID = ActionID;
 		using Binder = ActionBind;
 
 		double getDuration() const;

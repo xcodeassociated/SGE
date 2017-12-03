@@ -1,6 +1,7 @@
 #include "sge_logic_camera_zoom.hpp"
 #include <sge_keyboard_state.hpp>
 #include <sge_camera2d.hpp>
+#include "sge_object_bind.hpp"
 
 SGE::Logics::CameraZoom::CameraZoom(const float speed, const float min, const float max, const SGE::Key in, const SGE::Key out): Logic(LogicPriority::Highest), speed(speed), minZoom(min), maxZoom(max), zoomIn(in), zoomOut(out)
 {
@@ -8,7 +9,7 @@ SGE::Logics::CameraZoom::CameraZoom(const float speed, const float min, const fl
 
 void SGE::Logics::CameraZoom::performLogic(const ObjectBind& camObj)
 {
-	auto cam = reinterpret_cast<Camera2d*>(camObj[0].getObject());
+	auto cam = reinterpret_cast<Camera2d*>(const_cast<Object*>(&camObj[0]));
 	auto scale = cam->getScale();
 	//std::cout << scale << ' ';
 	if (isPressed(this->zoomIn)) scale += this->speed;

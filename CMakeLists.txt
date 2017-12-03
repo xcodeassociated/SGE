@@ -145,7 +145,6 @@ include_directories(${SGE_DIR}/Logic_lib/Logic/Logics/Colliders)
 include_directories(${SGE_DIR}/Logic_lib/Logic/Logics/Movers)
 
 include_directories(${SGE_DIR}/Object_lib/Camera2d)
-include_directories(${SGE_DIR}/Object_lib/ID)
 include_directories(${SGE_DIR}/Object_lib/Object)
 include_directories(${SGE_DIR}/Object_lib/Object/BackgroundElement)
 include_directories(${SGE_DIR}/Object_lib/Object/Interface)

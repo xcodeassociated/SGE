@@ -7,7 +7,6 @@
 
 #include "sge_key.hpp"
 #include "sge_action_bind.hpp"
-#include "sge_action_id.hpp"
 
 namespace SGE {
 
@@ -31,7 +30,7 @@ namespace SGE {
          * \param action Action ID to bind
          * \param key Key to bind
          */
-        InputBinder(std::initializer_list<ObjectID> object, ActionID action, Key key);
+        InputBinder(std::initializer_list<Object*> object, Action* action, Key key);
 
 		/**
 		 * \brief Constructs Input binder
@@ -39,7 +38,7 @@ namespace SGE {
 		 * \param action Action ID to bind
 		 * \param key Key to bind
 		 */
-        InputBinder(ObjectID object, ActionID action, Key key);
+        InputBinder(Object* object, Action* action, Key key);
 
 	    /**
          * \brief Returns bound ActionBind

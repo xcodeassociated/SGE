@@ -10,7 +10,7 @@
 
 namespace SGE {
 
-    class ObjectID;
+    class Object;
 
 	/**
      * \brief 
@@ -19,22 +19,22 @@ namespace SGE {
 	    /**
          * \brief 
          */
-        ObjectID* _begin = nullptr;
+        Object* _begin = nullptr;
 	    /**
          * \brief 
          */
-        ObjectID* _end = nullptr;
+        Object* _end = nullptr;
     public:
 	    /**
          * \brief 
          * \param object 
          */
-        ObjectBind(const std::initializer_list<ObjectID>& object);
+        ObjectBind(const std::initializer_list<Object*>& object);
 	    /**
          * \brief 
          * \param object 
          */
-        ObjectBind(ObjectID object);
+        ObjectBind(Object* object);
 	    /**
          * \brief 
          */
@@ -72,33 +72,33 @@ namespace SGE {
          * \param i 
          * \return 
          */
-        ObjectID& operator[](std::size_t i);
+        Object& operator[](std::size_t i);
 	    /**
          * \brief 
          * \param i 
          * \return 
          */
-        const ObjectID& operator[](std::size_t i) const;
+        const Object& operator[](std::size_t i) const;
 	    /**
          * \brief 
          * \return 
          */
-        ObjectID* begin();
+        Object* begin();
 	    /**
          * \brief 
          * \return 
          */
-        ObjectID* end();
+        Object* end();
 	    /**
          * \brief 
          * \return 
          */
-        ObjectID* begin() const;
+        Object* begin() const;
 	    /**
          * \brief 
          * \return 
          */
-        ObjectID* end() const;
+        Object* end() const;
 	    /**
          * \brief 
          * \return 

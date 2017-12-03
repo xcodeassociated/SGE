@@ -7,10 +7,6 @@
 #include <ctime>
 #include <string>
 #include "sge_resource_manager.hpp"
-#include "sge_scene_id.hpp"
-#include "sge_action_id.hpp"
-#include "sge_logic_id.hpp"
-
 
 namespace SGE {
 
@@ -24,6 +20,10 @@ namespace SGE {
 	class Level;
 	class Camera2d;
 	class ActionHandler;
+
+	class Scene;
+	class Logic;
+	class Action;
 
 	/**
      * \brief 
@@ -62,15 +62,11 @@ namespace SGE {
 	    /**
 		 * \brief 
 		 */
-		long counter = 100;
+		std::vector<Object*> objects;
 	    /**
 		 * \brief 
 		 */
-		std::vector<ObjectID> objects;
-	    /**
-		 * \brief 
-		 */
-		std::map< SceneID, std::vector<ObjectID> > sceneObjects;
+		std::map< Scene*, std::vector<Object*> > sceneObjects;
 
 	    /**
 		 * \brief 
@@ -120,13 +116,13 @@ namespace SGE {
 	     * \brief 
 	     * \param s 
 	     */
-	    void addScene(SceneID s);
+	    void addScene(Scene* s);
 
 	    /**
 	     * \brief 
 	     * \param s 
 	     */
-	    void deleteScene(SceneID s);
+	    void deleteScene(Scene* s);
 
 	    /**
 	     * \brief 
@@ -138,26 +134,25 @@ namespace SGE {
 	     * \brief 
 	     * \param s 
 	     */
-	    void showScene(SceneID s);
+	    void showScene(Scene* s);
 
 	    /**
 	     * \brief 
 	     * \param s 
 	     */
-	    void swapScene(SceneID s);
+	    void swapScene(Scene* s);
 
 	    /**
 	     * \brief 
 	     * \param s 
 	     * \return 
 	     */
-	    Level& getSceneData(SceneID s);
+	    Level& getSceneData(Scene* s);
 
 	    /**
 	     * \brief 
 	     * \return 
 	     */
-	    Camera2d* getCamera();
         
 	public:
 	    /**
@@ -166,11 +161,11 @@ namespace SGE {
 	     */
 	    static ObjectManager* getManager();
 
-	    Object* getObjectPtr(ObjectID id);
+	    Object* getObjectPtr(Object* id);
 
-	    Scene* getScenePtr(SceneID id);
+	    Scene* getScenePtr(Scene* id);
 
-	    Logic* getLogicPtr(LogicID id);
+	    Logic* getLogicPtr(Logic* id);
 
 	    /**
 	     * \brief 
@@ -189,14 +184,14 @@ namespace SGE {
 	     * \param action 
 	     * \return 
 	     */
-	    ActionID addAction(Action* action);
+	    Action* addAction(Action* action);
 
 	    /**
 	     * \brief 
 	     * \param logic 
 	     * \return 
 	     */
-	    LogicID addLogic(Logic* logic);
+	    Logic* addLogic(Logic* logic);
 
 	    /**
 	     * \brief 
@@ -209,7 +204,7 @@ namespace SGE {
 	     * \param path 
 	     * \return 
 	     */
-	    ObjectID addObject(Object* o, std::string path = "");
+	    Object* addObject(Object* o, std::string path = "");
 
 	    /**
 	     * \brief 
@@ -218,28 +213,28 @@ namespace SGE {
 	     * \param path 
 	     * \return 
 	     */
-	    ObjectID addObject(Object* o, SceneID s, std::string path = "");
+	    Object* addObject(Object* o, Scene* s, std::string path = "");
 
 	    /**
 	     * \brief 
 	     * \param o 
 	     * \param s 
 	     */
-	    void bindObject(ObjectID o, SceneID s);
+	    void bindObject(Object* o, Scene* s);
 
 	    /**
 	     * \brief 
 	     * \param o 
 	     * \param s 
 	     */
-	    void unbindObject(ObjectID o, SceneID s);
+	    void unbindObject(Object* o, Scene* s);
 
 	    /**
 	     * \brief 
 	     * \param id 
 	     * \param action 
 	     */
-	    void update(ObjectID id, const Action& action);
+	    void update(Object* id, const Action& action);
 
 	    /**
 	     * \brief 
@@ -261,13 +256,13 @@ namespace SGE {
 	     * \brief 
 	     * \return 
 	     */
-	    Object::ID getCameraID(void);
+		Camera2d* getCamera();
 
 	    /**
 	     * \brief 
 	     * \return 
 	     */
-	    Object::ID getMouse(void);
+	    Object* getMouse(void);
 
 	    /**
 	     * \brief Current way of connecting OM and Director

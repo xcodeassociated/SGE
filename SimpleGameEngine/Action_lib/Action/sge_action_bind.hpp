@@ -7,14 +7,12 @@
 
 
 #include "sge_object_bind.hpp"
-#include "sge_action_id.hpp"
-
 namespace SGE {
 
     class Object;
-    class ObjectID;
     class ActionHandler;
     class ObjectManager;
+	class Action;
 
 	/**
      * \brief Binds Action with Objects
@@ -27,45 +25,54 @@ namespace SGE {
 	    /**
          * \brief Bound Actions
          */
-        ActionID aid = ActionID(nullptr);
+		Action* aid = nullptr;
     public:
 	    /**
          * \brief Constructs ActionBind from list of Objects and ActionID
          * \param object Objects to be bound
          * \param action Action to be bound
          */
-        ActionBind(const std::initializer_list<ObjectID>& object, ActionID action);
+        ActionBind(const std::initializer_list<Object*>& object, Action* action);
 
 	    /**
-         * \brief Constructs ActionBind from ObjectID and ActionID
+         * \brief Constructs ActionBind from Object and ActionID
          * \param object Object to be bound
          * \param action Action to be bound
          */
-        ActionBind(ObjectID object, ActionID action);
+        ActionBind(Object* object, Action* action);
 
 	    /**
          * \brief Returns Iterator to first bound Object
-         * \return Pointer to ObjectID
+         * \return Pointer to Object
          */
-        ObjectID* begin() const;
+        Object* begin() const;
 
 	    /**
          * \brief Returns Iterator past the last bound Object
-         * \return Pointer to ObjectID
+         * \return Pointer to Object
          */
-        ObjectID* end() const;
+        Object* end() const;
 
 	    /**
          * \brief Returns bound Action
          * \return Bound ActionID
          */
-        const ActionID getAction() const;
+        const Action* getAction() const;
 
 	    /**
          * \brief Returns bound Objects
          * \return Bound ObjectBind
          */
         const ObjectBind& getBind() const;
+
+
+		Action* getAction();
+
+		/**
+		* \brief Returns bound Objects
+		* \return Bound ObjectBind
+		*/
+		ObjectBind& getBind();
 
 	    /**
          * \brief Returns number of bound Objects

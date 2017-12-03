@@ -26,7 +26,7 @@ namespace SGE {
 	        /**
              * \brief 
              */
-            using collisionFunc = std::function<Action::ID(Object::ID, Object::ID)>;
+            using collisionFunc = std::function<Action*(Object*, Object*)>;
 
 	        /**
 	         * \brief 
@@ -34,7 +34,7 @@ namespace SGE {
 	         * \param toMove 
 	         * \return 
 	         */
-	        static ActionID RectangleCollisionVec(Object::ID still, Object::ID toMove);
+	        static Action* RectangleCollisionVec(Object* still, Object* toMove);
 
 	        /**
 	         * \brief 
@@ -42,7 +42,7 @@ namespace SGE {
 	         * \param toMove 
 	         * \return 
 	         */
-	        static ActionID CircleCollisionVec(Object::ID still, Object::ID toMove);
+	        static Action* CircleCollisionVec(Object* still, Object* toMove);
 
 	        /**
 	         * \brief 
@@ -50,7 +50,7 @@ namespace SGE {
 	         * \param toMove 
 	         * \return 
 	         */
-	        static ActionID CircleToRectCollisionVec(Object::ID still, Object::ID toMove);
+	        static Action* CircleToRectCollisionVec(Object* still, Object* toMove);
 
         protected:
 

@@ -39,7 +39,7 @@ namespace SGE {
 	    /**
 		 * \brief 
 		 */
-		std::vector<SceneID> scenes;
+		std::vector<Scene*> scenes;
 
 	public:
 	    /**
@@ -61,20 +61,20 @@ namespace SGE {
 	     * \param scene 
 	     * \return 
 	     */
-	    Scene::ID addScene(Scene* scene);
+	    Scene* addScene(Scene* scene);
 
 	    /**
 	     * \brief 
 	     * \param scene 
 	     */
-	    void deleteScene(Scene::ID scene);
+	    void deleteScene(Scene* scene);
 
 	    /**
 	     * \brief 
 	     * \param scene 
 	     * \param logic 
 	     */
-	    void addLogicBinder(Scene::ID scene, Logic::Binder logic);
+	    void addLogicBinder(Scene* scene, Logic::Binder logic);
 
 	    /**
 	     * \brief 
@@ -82,7 +82,7 @@ namespace SGE {
 	     * \param obj 
 	     * \param logic 
 	     */
-	    void addLogicBinder(Scene::ID scene, Object::ID obj, Logic::ID logic);
+	    void addLogicBinder(Scene* scene, Object* obj, Logic* logic);
 
 	    /**
 	     * \brief 
@@ -90,19 +90,19 @@ namespace SGE {
 	     * \param obj 
 	     * \param logic 
 	     */
-	    void unbindLogic(Scene::ID scene, Object::ID obj, Logic::ID logic);
+	    void unbindLogic(Scene* scene, Object* obj, Logic* logic);
 
 	    /**
 	     * \brief 
 	     * \param scene 
 	     */
-	    void showScene(Scene::ID scene);
+	    void showScene(Scene* scene);
 
 	    /**
 	     * \brief 
 	     * \param scene 
 	     */
-	    void swapScene(Scene::ID scene);
+	    void swapScene(Scene* scene);
 
 	    /**
 	     * \brief 

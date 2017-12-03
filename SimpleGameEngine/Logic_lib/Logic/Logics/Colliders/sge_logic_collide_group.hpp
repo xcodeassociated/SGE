@@ -23,7 +23,7 @@ namespace SGE {
 	        /**
              * \brief 
              */
-            std::vector<ObjectID> objs;
+            std::vector<Object*> objs;
             
         public:
 
@@ -32,13 +32,13 @@ namespace SGE {
 	         * \param objects 
 	         * \param _onCollision 
 	         */
-	        BasicColliderGroup(std::vector<ObjectID> objects, collisionFunc _onCollision);
+	        BasicColliderGroup(std::vector<Object*> objects, collisionFunc _onCollision);
 
 	        /**
 	         * \brief 
 	         * \param _obj 
 	         */
-	        void performLogic(ObjectID _obj);
+	        void performLogic(Object* _obj);
         };
         
     }

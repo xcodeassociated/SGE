@@ -125,7 +125,7 @@ namespace SGE
 		static glm::vec4 uv(0.0f, 0.0f, 1.0f, 1.0f);
 		static SGE::Color color(255, 255, 255, 255);
 
-		std::vector<ObjectID>& objects = this->current->getObjects();
+		std::vector<Object*>& objects = this->current->getObjects();
 		Rectangle* rect = nullptr;
 		Circle* circle = nullptr;
 
@@ -134,20 +134,20 @@ namespace SGE
 
 		for (auto id : objects)
 		{
-			switch (id.obj->getShape()->getType()) {
+			switch (id->getShape()->getType()) {
 			case ShapeType::Circle:
 			{
-				circle = reinterpret_cast<Circle*>(id.obj->getShape());
+				circle = reinterpret_cast<Circle*>(id->getShape());
 				const float radius = circle->getRadius();
-				destRect = { id.obj->getX() - radius, id.obj->getY() - radius, radius*2.f, radius*2.f };
-				this->objectBatch->draw(destRect, uv, id.obj->texture.id, .0f, color);
+				destRect = { id->getX() - radius, id->getY() - radius, radius*2.f, radius*2.f };
+				this->objectBatch->draw(destRect, uv, id->texture.id, .0f, color);
 			}break;
 
 			case ShapeType::Rectangle:
 			{
-				rect = reinterpret_cast<Rectangle*>(id.obj->getShape());
-				destRect = { id.obj->getX() - rect->getWidth()*.5f, id.obj->getY() - rect->getHeight()*.5f, rect->getWidth(), rect->getHeight() };
-				this->objectBatch->draw(destRect, uv, id.obj->texture.id, .0f, color);
+				rect = reinterpret_cast<Rectangle*>(id->getShape());
+				destRect = { id->getX() - rect->getWidth()*.5f, id->getY() - rect->getHeight()*.5f, rect->getWidth(), rect->getHeight() };
+				this->objectBatch->draw(destRect, uv, id->texture.id, .0f, color);
 			}break;
 
 			default:

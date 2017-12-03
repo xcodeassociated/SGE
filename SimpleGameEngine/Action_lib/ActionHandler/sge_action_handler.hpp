@@ -1,14 +1,14 @@
 #ifndef SGE_ACTION_HANDLER_HPP
 #define SGE_ACTION_HANDLER_HPP
 
-#include "sge_action.hpp"
-#include "sge_action_bind.hpp"
-//#include "sge_relay_interface.hpp"
-
 #include <vector>
 
 namespace SGE{
-    
+	enum class LogicPriority;
+	class Action;
+	class ActionBind;
+	class ObjectBind;
+
 	/**
      * \brief Workaround for std::hash not working with enums
      */
@@ -48,7 +48,7 @@ namespace SGE{
 	     * \param b bound Objects
 	     * \todo Do not perform all 3 action states at once!
 	     */
-	    void triggerAction(ActionID a, const ObjectBind& b);
+	    void triggerAction(Action* a, const ObjectBind& b);
 
 	    /**
 	     * \brief Immediatel executes ActionBind's Action with it's Objects.

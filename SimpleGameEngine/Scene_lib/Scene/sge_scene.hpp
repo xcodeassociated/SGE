@@ -4,7 +4,6 @@
 #include <vector>
 #include <map>
 #include "sge_level.hpp"
-#include "sge_scene_id.hpp"
 #include "sge_logic_bind.hpp"
 
 namespace SGE {
@@ -26,7 +25,7 @@ namespace SGE {
 	    /**
          * \brief 
          */
-        using ObjectVector= std::vector<ObjectID>;
+        using ObjectVector= std::vector<Object*>;
         
 	    /**
 		 * \brief 
@@ -46,11 +45,6 @@ namespace SGE {
 		 * \brief 
 		 */
 		bool TextureLoaded = false;
-	    /**
-		 * \brief 
-		 */
-		using ID = SceneID;
-
 	    /**
 	     * \brief 
 	     * \return 

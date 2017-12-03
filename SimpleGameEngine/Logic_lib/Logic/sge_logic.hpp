@@ -15,18 +15,20 @@
 #define LOGIC_EXPORT
 #endif
 
-#include "sge_object.hpp"
-#include "sge_logic_id.hpp"
-#include "sge_action_handler.hpp"
+#include "sge_logic_priority.hpp"
+
 
 class DynamicVectorLogic;
 
 namespace SGE {
 	class Logic;
+	class Action;
+	class Object;
 	class LogicBind;
 	class ObjectManager;
 	class Game;
-
+	class ObjectBind;
+	class ActionHandler;
 	/**
      * \brief 
      */
@@ -64,21 +66,18 @@ namespace SGE {
 	    /**
 		 * \brief 
 		 */
-		Priority priority = Priority::Low;
+		Priority priority;// = Priority::Low;
 
 	    /**
 	     * \brief 
 	     * \param obj 
 	     * \param action 
 	     */
-	    void sendAction(Object::ID obj, Action::ID action) const;
+	    void sendAction(Object* obj, Action* action) const;
 
     public:
-	    /**
-		 * \brief 
-		 */
-		using ID = LogicID;
-	    /**
+	  
+    	/**
 		 * \brief 
 		 */
 		using Binder = LogicBind;

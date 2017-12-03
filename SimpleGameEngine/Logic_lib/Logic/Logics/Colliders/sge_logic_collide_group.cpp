@@ -1,14 +1,16 @@
 #include "sge_logic_collide_group.hpp"
+#include "sge_shape.hpp"
+#include "sge_object.hpp"
 
-SGE::Logics::BasicColliderGroup::BasicColliderGroup(std::vector<ObjectID> objects, collisionFunc _onCollision): Collide(_onCollision), objs(objects)
+SGE::Logics::BasicColliderGroup::BasicColliderGroup(std::vector<Object*> objects, collisionFunc _onCollision): Collide(_onCollision), objs(objects)
 {
 }
 
-void SGE::Logics::BasicColliderGroup::performLogic(ObjectID _obj)
+void SGE::Logics::BasicColliderGroup::performLogic(Object* _obj)
 {
-	ObjectID current;
+	Object* current;
 	Object* self = nullptr;
-	Object* oponent = _obj.getObject();
+	Object* oponent = _obj;
 
 	Shape* selfShape = nullptr;
 	Shape* oponentShape = oponent->getShape();
@@ -18,7 +20,7 @@ void SGE::Logics::BasicColliderGroup::performLogic(ObjectID _obj)
 	for (unsigned int i = 0; i < this->objs.size(); ++i)
 	{
 		current = this->objs[i];
-		self = current.getObject();
+		self = current;
 		selfShape = self->getShape();
 		if (selfShape->getType() == oponentShape->getType())
 			collision = this->collideWithSameShape(self, oponent);
@@ -27,7 +29,7 @@ void SGE::Logics::BasicColliderGroup::performLogic(ObjectID _obj)
 
 		if (collision)
 		{
-			ActionID aid = this->onCollision(current, _obj);
+			Action* aid = this->onCollision(current, _obj);
 			sendAction(current, aid);
 		}
 	}

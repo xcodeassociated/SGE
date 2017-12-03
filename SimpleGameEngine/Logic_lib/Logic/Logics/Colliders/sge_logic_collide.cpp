@@ -4,37 +4,37 @@
 #include "sge_shape_circle.hpp"
 #include <glm/geometric.hpp>
 
-SGE::ActionID SGE::Logics::Collide::RectangleCollisionVec(Object::ID still, Object::ID toMove)
+SGE::Action* SGE::Logics::Collide::RectangleCollisionVec(Object* still, Object* toMove)
 {
-	float vx = toMove.getObject()->getX() - still.getObject()->getX();
-	float vy = toMove.getObject()->getY() - still.getObject()->getY();
-	float penx = (reinterpret_cast<Rectangle*>(toMove.getObject()->getShape())->getWidth() + reinterpret_cast<Rectangle*>(still.getObject()->getShape())->getWidth()) * 0.5f - std::abs(vx);
-	float peny = (reinterpret_cast<Rectangle*>(toMove.getObject()->getShape())->getHeight() + reinterpret_cast<Rectangle*>(still.getObject()->getShape())->getHeight()) * 0.5f - std::abs(vy);
+	float vx = toMove->getX() - still->getX();
+	float vy = toMove->getY() - still->getY();
+	float penx = (reinterpret_cast<Rectangle*>(toMove->getShape())->getWidth() + reinterpret_cast<Rectangle*>(still->getShape())->getWidth()) * 0.5f - std::abs(vx);
+	float peny = (reinterpret_cast<Rectangle*>(toMove->getShape())->getHeight() + reinterpret_cast<Rectangle*>(still->getShape())->getHeight()) * 0.5f - std::abs(vy);
 	if (penx < peny)
-		return ActionID(new ACTION::Move((vx > 0 ? penx : -penx), 0, 0));
+		return new ACTION::Move((vx > 0 ? penx : -penx), 0, 0);
 	else
-		return ActionID(new ACTION::Move(0, (vy > 0 ? peny : -peny), 0));
+		return new ACTION::Move(0, (vy > 0 ? peny : -peny), 0);
 }
 
-SGE::ActionID SGE::Logics::Collide::CircleCollisionVec(Object::ID still, Object::ID toMove)
+SGE::Action* SGE::Logics::Collide::CircleCollisionVec(Object* still, Object* toMove)
 {
-	glm::vec2 pen = toMove.getObject()->getPosition() - still.getObject()->getPosition();
-	float dist = reinterpret_cast<Circle*>(toMove.getObject()->getShape())->getRadius() + reinterpret_cast<Circle*>(still.getObject()->getShape())->getRadius();
+	glm::vec2 pen = toMove->getPosition() - still->getPosition();
+	float dist = reinterpret_cast<Circle*>(toMove->getShape())->getRadius() + reinterpret_cast<Circle*>(still->getShape())->getRadius();
 	float l = glm::length(pen);
 	pen *= ((dist - l) / l);
-	return ActionID(new ACTION::Move(pen.x, pen.y, 0));
+	return new ACTION::Move(pen.x, pen.y, 0);
 }
 
-SGE::ActionID SGE::Logics::Collide::CircleToRectCollisionVec(Object::ID still, Object::ID toMove)
+SGE::Action* SGE::Logics::Collide::CircleToRectCollisionVec(Object* still, Object* toMove)
 {
-	glm::vec2 halfs(reinterpret_cast<Rectangle*>(still.getObject()->getShape())->getWidth() * .5f, reinterpret_cast<Rectangle*>(still.getObject()->getShape())->getHeight() * .5f);
-	glm::vec2 difference = toMove.getObject()->getPosition() - still.getObject()->getPosition();
+	glm::vec2 halfs(reinterpret_cast<Rectangle*>(still->getShape())->getWidth() * .5f, reinterpret_cast<Rectangle*>(still->getShape())->getHeight() * .5f);
+	glm::vec2 difference = toMove->getPosition() - still->getPosition();
 	glm::vec2 clamps = glm::clamp(difference, -halfs, halfs);
-	halfs = still.getObject()->getPosition() + clamps;
-	difference = toMove.getObject()->getPosition() - halfs;
+	halfs = still->getPosition() + clamps;
+	difference = toMove->getPosition() - halfs;
 	const float l = glm::length(difference);
-	difference *= ((reinterpret_cast<Circle*>(toMove.getObject()->getShape())->getRadius() - l) / l);
-	return ActionID(new ACTION::Move(difference.x, difference.y, 0));
+	difference *= ((reinterpret_cast<Circle*>(toMove->getShape())->getRadius() - l) / l);
+	return new ACTION::Move(difference.x, difference.y, 0);
 }
 
 bool SGE::Logics::Collide::collideWithSameShape(Object* self, Object* oponent)

@@ -6,7 +6,6 @@
 #include "sge_shape.hpp"
 #include "sge_shapeless.hpp"
 #include "sge_logic_priority.hpp"
-#include "sge_object_id.hpp"
 
 namespace SGE {
 	class ObjectManager;
@@ -88,12 +87,8 @@ namespace SGE {
 		/**
 		 * \brief 
 		 */
-		virtual ~Object() = 0;
-		/**
-		 * \brief 
-		 */
-		using ID = ObjectID;
-        
+		virtual ~Object();
+
 		/**
          * \brief 
          */

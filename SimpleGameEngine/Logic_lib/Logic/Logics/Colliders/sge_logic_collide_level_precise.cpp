@@ -4,6 +4,7 @@
 #include "sge_shape_circle.hpp"
 #include <glm/ext.hpp>
 #include <algorithm>
+#include "sge_object_bind.hpp"
 
 SGE::Logics::PreciseLevelCollider::PreciseLevelCollider(std::vector<WorldElement>& objects): Collide(nullptr), objs(objects)
 {
@@ -11,7 +12,7 @@ SGE::Logics::PreciseLevelCollider::PreciseLevelCollider(std::vector<WorldElement
 
 void SGE::Logics::PreciseLevelCollider::performLogic(const ObjectBind& _obj)
 {
-	Object* oponent = _obj[0].getObject();
+	Object* oponent = const_cast<Object*>(&_obj[0]);
 	glm::vec2 tileShape = {getBaseTileShape()->getWidth(), getBaseTileShape()->getHeight()};
 	glm::vec2 move = {0,0};
 	glm::vec2 tilePos = {0,0};
@@ -75,7 +76,7 @@ void SGE::Logics::PreciseLevelCollider::performLogic(const ObjectBind& _obj)
 			}
 			if (collided)
 			{
-				this->sendAction(_obj[0], Action::ID(new ACTION::Move(move.x, move.y, 0.)));
+				this->sendAction(const_cast<Object*>(&_obj[0]), new ACTION::Move(move.x, move.y, 0.));
 			}
 		}
 		break;

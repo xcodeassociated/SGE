@@ -2,9 +2,7 @@ set (ActionSOURCES
 	Action/sge_action.hpp
 	Action/sge_action.cpp
 	Action/sge_action_bind.hpp
-	Action/sge_action_bind.cpp
-	Action/sge_action_id.hpp
-	Action/sge_action_id.cpp)
+	Action/sge_action_bind.cpp)
 
 set (ActionsSources
 	Action/Actions/sge_action_move.hpp

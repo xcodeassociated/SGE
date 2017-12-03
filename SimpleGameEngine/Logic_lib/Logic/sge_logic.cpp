@@ -1,6 +1,8 @@
 #include "sge_logic.hpp"
 #include <sge_action_handler.hpp>
-
+#include "sge_object.hpp"
+#include "sge_action_handler.hpp"
+#include "sge_action_bind.hpp"
 
 SGE::Logic::~Logic() {}
 
@@ -11,7 +13,7 @@ SGE::Logic::Logic(Priority _p): priority(_p)
 {
 }
 
-void SGE::Logic::sendAction(Object::ID obj, Action::ID action) const
+void SGE::Logic::sendAction(Object* obj, Action* action) const
 {
 	action_handler->performSingleAction(ActionBind(obj, action), this->priority);
 }
