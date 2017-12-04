@@ -13,12 +13,12 @@ SGE::ActionBind::ActionBind(Object* object, Action* action) :ActionBind({ object
 {
 }
 
-SGE::Object* SGE::ActionBind::begin() const
+SGE::Object** SGE::ActionBind::begin() const
 {
     return this->bind.begin();
 }
 
-SGE::Object* SGE::ActionBind::end() const
+SGE::Object** SGE::ActionBind::end() const
 {
     return this->bind.end();
 }

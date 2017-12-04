@@ -8,7 +8,7 @@ SGE::Logics::BasicLevelCollider::BasicLevelCollider(std::vector<WorldElement>& o
 
 void SGE::Logics::BasicLevelCollider::performLogic(const ObjectBind& _obj)
 {
-	Object* oponent = const_cast<Object*>(&_obj[0]);
+	Object* oponent = _obj[0];
 	Shape* selfShape = getBaseTileShape();
 	Shape* oponentShape = oponent->getShape();
 
@@ -23,8 +23,8 @@ void SGE::Logics::BasicLevelCollider::performLogic(const ObjectBind& _obj)
 
 		if (collision)
 		{
-			Action* aid = this->onCollision(&objs[i], const_cast<Object*>(&_obj[0]));
-			this->sendAction(const_cast<Object*>(&_obj[0]), aid);
+			Action* aid = this->onCollision(&objs[i], _obj[0]);
+			this->sendAction(_obj[0], aid);
 		}
 	}
 }

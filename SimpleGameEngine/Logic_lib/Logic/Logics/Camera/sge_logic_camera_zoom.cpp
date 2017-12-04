@@ -9,7 +9,7 @@ SGE::Logics::CameraZoom::CameraZoom(const float speed, const float min, const fl
 
 void SGE::Logics::CameraZoom::performLogic(const ObjectBind& camObj)
 {
-	auto cam = reinterpret_cast<Camera2d*>(const_cast<Object*>(&camObj[0]));
+	auto cam = reinterpret_cast<Camera2d*>(camObj[0]);
 	auto scale = cam->getScale();
 	//std::cout << scale << ' ';
 	if (isPressed(this->zoomIn)) scale += this->speed;

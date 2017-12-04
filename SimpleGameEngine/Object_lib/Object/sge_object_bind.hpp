@@ -72,33 +72,33 @@ namespace SGE {
          * \param i 
          * \return 
          */
-        Object& operator[](std::size_t i);
+        Object*& operator[](std::size_t i);
 	    /**
          * \brief 
          * \param i 
          * \return 
          */
-        const Object& operator[](std::size_t i) const;
+        Object *const& operator[](std::size_t i) const;
 	    /**
          * \brief 
          * \return 
          */
-        Object* begin();
+        Object** begin();
 	    /**
          * \brief 
          * \return 
          */
-        Object* end();
+        Object** end();
 	    /**
          * \brief 
          * \return 
          */
-        Object* begin() const;
+        Object** begin() const;
 	    /**
          * \brief 
          * \return 
          */
-        Object* end() const;
+        Object** end() const;
 	    /**
          * \brief 
          * \return 

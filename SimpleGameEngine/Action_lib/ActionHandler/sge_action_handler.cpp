@@ -67,9 +67,9 @@ void SGE::ActionHandler::performSingleAction(const ActionBind& bind, LogicPriori
 		//this->actions.push_back(bind);
 		this->addAction(bind);
 		//bind.first.getObject()->setLock(priority);
-		for (Object& e : bind)
+		for (Object* e : bind)
 		{
-			e.setLock(priority);
+			e->setLock(priority);
 		}
 	}
 }

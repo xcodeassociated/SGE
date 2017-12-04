@@ -12,7 +12,7 @@ SGE::Logics::PreciseLevelCollider::PreciseLevelCollider(std::vector<WorldElement
 
 void SGE::Logics::PreciseLevelCollider::performLogic(const ObjectBind& _obj)
 {
-	Object* oponent = const_cast<Object*>(&_obj[0]);
+	Object* oponent = _obj[0];
 	glm::vec2 tileShape = {getBaseTileShape()->getWidth(), getBaseTileShape()->getHeight()};
 	glm::vec2 move = {0,0};
 	glm::vec2 tilePos = {0,0};
@@ -76,7 +76,7 @@ void SGE::Logics::PreciseLevelCollider::performLogic(const ObjectBind& _obj)
 			}
 			if (collided)
 			{
-				this->sendAction(const_cast<Object*>(&_obj[0]), new ACTION::Move(move.x, move.y, 0.));
+				this->sendAction(_obj[0], new ACTION::Move(move.x, move.y, 0.));
 			}
 		}
 		break;

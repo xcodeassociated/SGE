@@ -14,5 +14,6 @@ void SGE::Logics::SimpleMove::performLogic(const ObjectBind& obj)
 	if (isPressed(this->down)) move.y -= this->speed;
 	if (isPressed(this->right)) move.x += this->speed;
 	if (isPressed(this->left)) move.x -= this->speed;
-	this->sendAction(const_cast<Object*>(&obj[0]), new SGE::ACTION::Move(move.x, move.y, 0));
+	if (glm::vec2{ 0,0 }!=move)
+		this->sendAction(obj[0], new SGE::ACTION::Move(move.x, move.y, 0));
 }

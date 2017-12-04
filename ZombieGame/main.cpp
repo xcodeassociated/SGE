@@ -57,7 +57,7 @@ public:
     
     virtual void action_main(const SGE::ObjectBind& b) noexcept override
     {
-		const_cast<SGE::Object&>(b[0]).setPosition(200, 200);
+		b[0]->setPosition(200, 200);
     }
 };
 
@@ -85,9 +85,9 @@ public:
 	void performLogic(const SGE::ObjectBind& obj) override
 	{
 		SGE::Circle* selfCircle = reinterpret_cast<SGE::Circle*>(player->getShape());
-		SGE::Circle* oponCircle = reinterpret_cast<SGE::Circle*>(const_cast<SGE::Object&>(obj[0]).getShape());
+		SGE::Circle* oponCircle = reinterpret_cast<SGE::Circle*>(obj[0]->getShape());
 		glm::vec2 selfPos = player->getPosition();
-		glm::vec2 oponPos = obj[0].getPosition();
+		glm::vec2 oponPos = obj[0]->getPosition();
 		glm::vec2 pen = selfPos - oponPos;
 		float distance = glm::length(pen);
 		float radiuses = selfCircle->getRadius() + oponCircle->getRadius();
@@ -96,7 +96,7 @@ public:
 			float move = (radiuses - distance)*0.5;
 			pen = glm::normalize(pen)*move;
 			this->sendAction(player, new SGE::ACTION::Move(pen.x, pen.y, 0));
-			this->sendAction(const_cast<SGE::Object*>(&obj[0]), new SGE::ACTION::Move(-pen.x,-pen.y,0));
+			this->sendAction(obj[0], new SGE::ACTION::Move(-pen.x,-pen.y,0));
 		}
 	}
 };
@@ -166,7 +166,7 @@ public:
 	void performLogic(const SGE::ObjectBind& humanID) override
 	{
 		
-		auto human = reinterpret_cast<Human*>(const_cast<SGE::Object*>(&humanID[0]));
+		auto human = reinterpret_cast<Human*>(humanID[0]);
 		velocity = human->getVelocity();
 		if (human->getCounter() == 0)
 		{
@@ -175,7 +175,7 @@ public:
 			human->setVelocity(velocity);
 //			std::cout << velocity.x << ' ' << velocity.y << std::endl;
 		}
-		this->sendAction(const_cast<SGE::Object*>(&humanID[0]), new SGE::ACTION::Move(velocity.x, velocity.y,0));
+		this->sendAction(humanID[0], new SGE::ACTION::Move(velocity.x, velocity.y,0));
 		//human->setPosition(human->getX()+velocity.x, human->getY()+velocity.y);
 	}
 };
@@ -215,7 +215,7 @@ public:
 		if(!this->snapped)
 		{
 			move = this->snapTo->getPosition();
-			const_cast<SGE::Object*>(&obj[0])->setPosition(move.x, move.y); //Replace with action, i.e. GoTo
+			obj[0]->setPosition(move.x, move.y); //Replace with action, i.e. GoTo
 		}
 		else
 		{
@@ -223,7 +223,7 @@ public:
 			if(isPressed(this->down)) move.y -= this->speed;
 			if(isPressed(this->right)) move.x += this->speed;
 			if(isPressed(this->left)) move.x -= this->speed;
-			this->sendAction(const_cast<SGE::Object*>(&obj[0]), new SGE::ACTION::Move(move.x, move.y, 0));
+			this->sendAction(obj[0], new SGE::ACTION::Move(move.x, move.y, 0));
 		}
 	}
 };
@@ -237,8 +237,8 @@ public:
     
     virtual void action_main(const SGE::ObjectBind& b) noexcept override{
 		//assert((n - o) == 2);
-		SGE::MouseObject* mouse = dynamic_cast<SGE::MouseObject*>(const_cast<SGE::Object*>(&b[0]));
-		SGE::Object* p = const_cast<SGE::Object*>(&b[1]);
+		SGE::MouseObject* mouse = dynamic_cast<SGE::MouseObject*>(b[0]);
+		SGE::Object* p = b[1];
         glm::vec2 coords = mouse->getMouseCoords();
         SGE::ObjectManager* manager = SGE::ObjectManager::getManager();
         SGE::Camera2d* cam = dynamic_cast<SGE::Camera2d*>(manager->getCamera());

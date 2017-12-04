@@ -45,13 +45,13 @@ namespace SGE {
          * \brief Returns Iterator to first bound Object
          * \return Pointer to Object
          */
-        Object* begin() const;
+        Object** begin() const;
 
 	    /**
          * \brief Returns Iterator past the last bound Object
          * \return Pointer to Object
          */
-        Object* end() const;
+        Object** end() const;
 
 	    /**
          * \brief Returns bound Action

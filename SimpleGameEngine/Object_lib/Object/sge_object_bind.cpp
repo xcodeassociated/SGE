@@ -74,34 +74,34 @@ SGE::ObjectBind& SGE::ObjectBind::operator=(ObjectBind&& b) noexcept
     return *this;
 }
 
-SGE::Object& SGE::ObjectBind::operator[](std::size_t i)
+SGE::Object*& SGE::ObjectBind::operator[](std::size_t i)
 {
-    return **(this->_begin + i);
+    return *(this->_begin + i);
 }
 
-const SGE::Object& SGE::ObjectBind::operator[](std::size_t i) const
+SGE::Object*const& SGE::ObjectBind::operator[](std::size_t i) const
 {
-    return **(this->_begin + i);
+    return *(this->_begin + i);
 }
 
-SGE::Object* SGE::ObjectBind::begin()
+SGE::Object** SGE::ObjectBind::begin()
 {
-    return *this->_begin;
+    return this->_begin;
 }
 
-SGE::Object* SGE::ObjectBind::end()
+SGE::Object** SGE::ObjectBind::end()
 {
-    return *this->_end;
+    return this->_end;
 }
 
-SGE::Object* SGE::ObjectBind::begin() const
+SGE::Object** SGE::ObjectBind::begin() const
 {
-    return *this->_begin;
+    return this->_begin;
 }
 
-SGE::Object* SGE::ObjectBind::end() const
+SGE::Object** SGE::ObjectBind::end() const
 {
-    return *this->_end;
+    return this->_end;
 }
 
 std::size_t SGE::ObjectBind::size() const
