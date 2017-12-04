@@ -155,12 +155,15 @@ include_directories(${SGE_DIR}/ObjectManager_lib/ObjectManager)
 include_directories(${SGE_DIR}/ObjectManager_lib/Director)
 include_directories(${SGE_DIR}/ObjectManager_lib/Relay)
 
+include_directories(${SGE_DIR}/Renderer_lib/Renderer)
+include_directories(${SGE_DIR}/Renderer_lib/CameraHandler)
 include_directories(${SGE_DIR}/Renderer_lib/ResourceManager)
 include_directories(${SGE_DIR}/Renderer_lib/Shaders)
 include_directories(${SGE_DIR}/Renderer_lib/Sprite)
 include_directories(${SGE_DIR}/Renderer_lib/SpriteBatch)
 include_directories(${SGE_DIR}/Renderer_lib/TextureCache)
 include_directories(${SGE_DIR}/Renderer_lib/TextureLoader)
+include_directories(${SGE_DIR}/Renderer_lib/WindowManager)
 
 include_directories(${SGE_DIR}/Scene_lib/Scene)
 

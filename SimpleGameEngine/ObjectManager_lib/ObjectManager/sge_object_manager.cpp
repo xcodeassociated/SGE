@@ -7,11 +7,11 @@
 #include "sge_camera2d.hpp"
 #include "sge_logic.hpp"
 #include "sge_scene.hpp"
-#include "tool/sge_camera_handler.hpp"
+#include "sge_camera_handler.hpp"
+#include "sge_renderer.hpp"
+#include "sge_window_manager.hpp"
 #include "tool/sge_game.hpp"
 #include "tool/sge_input_handler.hpp"
-#include "tool/sge_renderer.hpp"
-#include "tool/sge_window_manager.hpp"
 
 #include <iostream>
 
