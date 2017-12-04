@@ -2,6 +2,7 @@
 #include "sge_object_manager.hpp"
 #include "sge_logic_bind.hpp"
 #include <algorithm>
+#include <iostream>
 
 SGE::Director::Director(int w, int h): Width(w), Height(h)
 {
@@ -78,6 +79,7 @@ void SGE::Director::swapScene(Scene* scene)
 
 void SGE::Director::finalize()
 {
+	std::cout << "Director Finalize method invoked" << std::endl;
 }
 
 void SGE::Director::bindManager(ObjectManager* objectManager)

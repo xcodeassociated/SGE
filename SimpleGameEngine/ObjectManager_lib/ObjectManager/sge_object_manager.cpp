@@ -71,7 +71,6 @@ namespace SGE
 
 		this->OnScene = true;
 
-		//this->window_manager->createWindow();
 		this->window_manager->showWindow();
 
 		this->renderer->initShader();
@@ -206,12 +205,14 @@ namespace SGE
 
 	void ObjectManager::finalize()
 	{
-		;
-	}
+		std::cout << "ObjectManager Finalize method invoked" << std::endl;
+ 	}
 
 	void ObjectManager::windowClosing()
 	{
-		std::cerr << "SDL Window is trying to close!" << std::endl;
+		this->window_manager->finalizeWindow();
+        this->game->stop();
+
 	}
 
 	ActionHandler* ObjectManager::getActionHandler()

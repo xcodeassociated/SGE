@@ -366,9 +366,6 @@ int main(int argc, char * argv[]) {
 	
 
 	director->showScene(S1);
-    
-        std::string t;
-        std::getline(std::cin, t);
 
 	director->deleteScene(S1);
 	
