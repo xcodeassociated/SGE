@@ -3,6 +3,10 @@
 //
 
 #include "sge_logger.hpp"
+#ifdef _WIN32
+	#include <boost/config/platform/win32.hpp>
+	//posix_time needs BOOST_HAS_FTIME which is defined here.
+#endif
 #include <boost/date_time/posix_time/posix_time.hpp>
 
 namespace SGE {
