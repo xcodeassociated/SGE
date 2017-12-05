@@ -7,19 +7,32 @@ add_executable(${PROJECT_NAME} ${GAME_SOURCE_FILES})
 target_link_libraries(${PROJECT_NAME}
 
 ## OTHER LIBS: ##
-	${Boost_LIBRARIES}
-	${SDL2_LIBRARY} 
-	${OPENGL_LIBRARIES} 
-	${GLM_LIBRARIES}
+		${Boost_LIBRARIES}
+		${SDL2_LIBRARY}
+		${GLEW_LIBRARIES}
+		${OPENGL_LIBRARIES}
+		${GLM_LIBRARIES}
 
 ## SGE LIBS: ##
-	Action
-	IO
-	Level
-	Logic
-	Object
-	ObjectManager
-	Renderer
-	Scene
-	Utils
-	PicoPNG)
+		Action
+		IO
+		Level
+		Logic
+		Object
+		ObjectManager
+		Renderer
+		Scene
+		Utils
+		PicoPNG)
+
+foreach( file_i "${Boost_LIBRARIES}")
+	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy ${file_i} ${CMAKE_BINARY_DIR}/bin)
+endforeach( file_i )
+
+foreach( file_i "${CONAN_LIB_DIRS_GLEW}")
+	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy ${file_i}/* ${CMAKE_BINARY_DIR}/bin)
+endforeach( file_i )
+
+##TODO: Copy SDL2 libs as well
