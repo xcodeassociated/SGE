@@ -2,6 +2,8 @@
 
 #include <SDL2/SDL.h>
 
+float SGE::delta_time = 0;
+
 void SGE::FpsLimiter::calculateFPS()
 {
 	static const int NUM_SAMPLES = 10;
@@ -69,7 +71,7 @@ void SGE::FpsLimiter::begin()
 	boost::posix_time::ptime now = boost::posix_time::microsec_clock::local_time();
 	boost::posix_time::time_duration diff = now - this->time;
 	this->time = now;
-	delta_time = diff.total_milliseconds()*.001f;
+    delta_time = diff.total_milliseconds() * 0.001f;
 }
 
 float SGE::FpsLimiter::end()

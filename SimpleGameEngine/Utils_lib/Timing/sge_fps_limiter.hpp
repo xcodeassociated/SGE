@@ -13,13 +13,15 @@
 #include <utils_export.h>
 #include <boost/config/platform/win32.hpp>
 #else
-#define LOGIC_EXPORT
+#define UTILS_EXPORT extern
 #endif
 
 #include <boost/date_time/posix_time/posix_time.hpp>
 
 namespace SGE {
-	float UTILS_EXPORT delta_time;
+
+    UTILS_EXPORT float delta_time;
+
 	/**
      * \brief 
      */
