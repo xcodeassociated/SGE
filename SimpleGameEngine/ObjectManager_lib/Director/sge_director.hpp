@@ -2,8 +2,10 @@
 #define sge_director_h
 
 #include <vector>
+#include <memory>
 #include <sge_logic.hpp>
 #include <sge_scene.hpp>
+#include "sge_logger.hpp"
 
 namespace SGE {
 
@@ -12,6 +14,9 @@ namespace SGE {
      */
     class Director final{
 	private:
+
+		static std::shared_ptr<Logger> logger;
+        static std::shared_ptr<LoggerError> logger_err;
 	    /**
 		 * \brief 
 		 */

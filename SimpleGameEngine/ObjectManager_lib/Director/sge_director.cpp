@@ -4,6 +4,9 @@
 #include <algorithm>
 #include <iostream>
 
+std::shared_ptr<SGE::Logger> SGE::Director::logger = LoggerFactory::create_logger("Director");
+std::shared_ptr<SGE::LoggerError> SGE::Director::logger_err = LoggerFactory::create_logger_error("Director_ERROR");
+
 SGE::Director::Director(int w, int h): Width(w), Height(h)
 {
 }
@@ -79,7 +82,7 @@ void SGE::Director::swapScene(Scene* scene)
 
 void SGE::Director::finalize()
 {
-	std::cout << "Director Finalize method invoked" << std::endl;
+	*logger << "Director Finalize method invoked" << std::endl;
 }
 
 void SGE::Director::bindManager(ObjectManager* objectManager)

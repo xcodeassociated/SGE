@@ -58,5 +58,6 @@ target_link_libraries(Renderer
 		Utils
 		PicoPNG
 		IO
+		Utils
 		${OPENGL_LIBRARIES}
 		${GLEW_LIBRARIES})

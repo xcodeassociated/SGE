@@ -56,7 +56,7 @@ endif()
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMakeModules")
 
 ## Boost:
-find_package(Boost COMPONENTS program_options system filesystem REQUIRED) #TODO: filesystem <-- missing in conan boost (mac)
+find_package(Boost COMPONENTS date_time program_options system filesystem REQUIRED)
 if(NOT Boost_FOUND)
 	message(Error "Boost not found")
 else()
@@ -125,7 +125,7 @@ set (SGE_DIR "SimpleGameEngine")
 set (Game_DIR "ZombieGame")
 
 ## Add include paths
-include_directories(${SGE_DIR}) ##TODO: this includes SGE.hpp -- REFACTOR needed!
+include_directories(${SGE_DIR})
 
 include_directories(${SGE_DIR}/Action_lib/Action)
 include_directories(${SGE_DIR}/Action_lib/Action/Actions)
@@ -167,10 +167,10 @@ include_directories(${SGE_DIR}/Renderer_lib/WindowManager)
 
 include_directories(${SGE_DIR}/Scene_lib/Scene)
 
-
 include_directories(${SGE_DIR}/ThirdParty_Librarys/PicoPNG) 
 include_directories(${SGE_DIR}/Utils_lib/Timing)
 include_directories(${SGE_DIR}/Utils_lib/Utils)
+include_directories(${SGE_DIR}/Utils_lib/Logger)
 
 ## Add subdirectories:
 

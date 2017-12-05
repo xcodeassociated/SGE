@@ -24,4 +24,5 @@ target_link_libraries(ObjectManager
 		IO
 		Level
 		Scene
-		Renderer)
+		Renderer
+		Utils)

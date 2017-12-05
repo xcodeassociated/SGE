@@ -10,4 +10,6 @@ add_library (Level SHARED
 		${LevelSOURCES}
 		${LevelParserSOURCES})
 
-target_link_libraries(Level Object)
+target_link_libraries(Level
+		Object
+		Utils)

@@ -1,13 +1,20 @@
+set (LoggerSOURCES
+		Logger/sge_logger.hpp
+		Logger/sge_logger.cpp)
+
 set (TimingSOURCES
-	Timing/sge_fps_limiter.hpp
-	Timing/sge_fps_limiter.cpp)
+		Timing/sge_fps_limiter.hpp
+		Timing/sge_fps_limiter.cpp)
 
 set (UtilsSOURCES
-	Utils/sge_utils.hpp
-	Utils/sge_utils.cpp)
+		Utils/sge_utils.hpp
+		Utils/sge_utils.cpp)
 
-add_library (Utils SHARED 
+add_library (Utils SHARED
+		${LoggerSOURCES}
 		${TimingSOURCES}
 		${UtilsSOURCES})
 		
-target_link_libraries(Utils ${SDL2_LIBRARY})
+target_link_libraries(Utils
+		${Boost_LIBRARIES}
+		${SDL2_LIBRARY})

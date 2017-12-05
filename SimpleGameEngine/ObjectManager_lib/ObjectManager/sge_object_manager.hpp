@@ -6,7 +6,9 @@
 #include <stdexcept>
 #include <ctime>
 #include <string>
+#include <memory>
 #include "sge_resource_manager.hpp"
+#include "sge_logger.hpp"
 
 namespace SGE {
 
@@ -20,6 +22,7 @@ namespace SGE {
 	class Level;
 	class Camera2d;
 	class ActionHandler;
+	class ResourceManager;
 
 	class Scene;
 	class Logic;
@@ -100,6 +103,9 @@ namespace SGE {
 		 * \brief 
 		 */
 		Scene* currentScene = nullptr;
+
+		static std::shared_ptr<Logger> logger;
+        static std::shared_ptr<LoggerError> logger_err;
 
 	    /**
 	     * \brief 

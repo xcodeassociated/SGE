@@ -17,7 +17,10 @@
 
 namespace SGE
 {
-	ObjectManager::ObjectManager() noexcept: action_handler(new ActionHandler)
+    std::shared_ptr<Logger> ObjectManager::logger = LoggerFactory::create_logger("ObjectManager");
+    std::shared_ptr<LoggerError> ObjectManager::logger_err = LoggerFactory::create_logger_error("ObjectManager_ERROR");
+
+    ObjectManager::ObjectManager() noexcept: action_handler(new ActionHandler)
 	{
 		Logic::action_handler = this->action_handler;
 	}
@@ -66,7 +69,10 @@ namespace SGE
 	{
 		this->currentScene = s;
 		auto sceneObjectsIt = this->sceneObjects.find(s);
-		if (sceneObjectsIt == this->sceneObjects.end()) throw std::runtime_error("Scene not Loaded");
+
+		if (sceneObjectsIt == this->sceneObjects.end())
+            throw std::runtime_error("Scene not Loaded");
+
 		s->BindObjects(&(*sceneObjectsIt).second);
 
 		this->OnScene = true;
@@ -99,7 +105,7 @@ namespace SGE
 	ObjectManager* ObjectManager::getManager()
 	{
 		static ObjectManager* manager = new ObjectManager();
-		return manager; //Can be converted to ARC later.
+		return manager;
 	}
 
 	Object* ObjectManager::getObjectPtr(Object* obj)
@@ -205,14 +211,13 @@ namespace SGE
 
 	void ObjectManager::finalize()
 	{
-		std::cout << "ObjectManager Finalize method invoked" << std::endl;
+		*logger << "ObjectManager Finalize method invoked" << std::endl;
  	}
 
 	void ObjectManager::windowClosing()
 	{
 		this->window_manager->finalizeWindow();
         this->game->stop();
-
 	}
 
 	ActionHandler* ObjectManager::getActionHandler()
