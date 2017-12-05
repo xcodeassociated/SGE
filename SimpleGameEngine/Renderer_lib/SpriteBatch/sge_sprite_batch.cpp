@@ -19,11 +19,12 @@ void SGE::SpriteBatch::begin(GlyphSortType sortType)
 {
 	_sortType = sortType;
 	_renderBatches.clear();
-	// Have to delete any glyphs that remain so we don't have memory leaks!
+
 	for (int i = 0; i < _glyphs.size(); i++)
 	{
 		delete _glyphs[i];
 	}
+
 	_glyphs.clear();
 }
 

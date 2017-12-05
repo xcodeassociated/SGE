@@ -5,12 +5,10 @@ SGE::ResourceManager* SGE::ResourceManager::p_inst = nullptr;
 
 SGE::ResourceManager::ResourceManager(): textureCache(SGE::TextureCache::getSingleton())
 {
-	//std::cout << ">>    ResourceManager c-tor" << std::endl;
 }
 
 SGE::ResourceManager::ResourceManager(const ResourceManager&): textureCache(SGE::TextureCache::getSingleton())
 {
-	//std::cout << ">>    ResourceManager c-tor" << std::endl;
 }
 
 SGE::ResourceManager::~ResourceManager()
@@ -37,8 +35,6 @@ void SGE::ResourceManager::kill()
 
 	if (SGE::ResourceManager::arc == 0)
 	{
-		//std::cout << ">>    ResourceManager singleton deleted!" << std::endl;
-
 		delete this;
 	}
 }

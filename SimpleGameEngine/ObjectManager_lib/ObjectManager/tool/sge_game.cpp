@@ -7,14 +7,15 @@
 #include "sge_input_handler.hpp"
 #include "sge_action_handler.hpp"
 #include "sge_fps_limiter.hpp"
-#include <iostream>
+#include "sge_logger.hpp"
 
 namespace SGE
 {
 	Game::Game(ObjectManager* m, ActionHandler* ah) :
 		manager(m),
 		limiter(new FpsLimiter()),
-		action_handler(ah)
+		action_handler(ah),
+        logger(LoggerFactory::create_logger("Game"))
 	{
 		this->limiter->init(60);
 	}
@@ -42,12 +43,11 @@ namespace SGE
 			static int frameCounter = 0;
 			frameCounter++;
 			if (frameCounter == 100) {
-				std::cout << "fps: " << this->fps << "\n";
-				frameCounter = 0;
-				std::cout << "delta_time: " << delta_time<< std::endl;
+                frameCounter = 0;
+                *logger << "fps: " << this->fps << std::endl;
+				*logger << "delta_time: " << delta_time << std::endl;
 			}
 		}
-
 	}
 
 	void Game::performActions(void) {
@@ -83,6 +83,6 @@ namespace SGE
 
 	void Game::setInputHandler(InputHandler* e)
 	{
-		(e != nullptr) ? this->input_handler = e : throw std::runtime_error("");
+		(e != nullptr) ? this->input_handler = e : throw std::runtime_error("Cannot set input_handler - passed null");
 	}
 }

@@ -333,7 +333,6 @@ int main(int argc, char * argv[]) {
     for (int i = 0; i < humans; i++){
         int index = rand() % free.size();
         r.insert(index);
-        std::cout << index << std::endl;
     }
     
     std::vector<SGE::Object*> humans_id;
@@ -341,8 +340,6 @@ int main(int argc, char * argv[]) {
         std::pair<float, float> pos = free.at(e);
         SGE::Object* temp = manager->addObject(new Human(pos.first, pos.second,120), S1, PATH"ZombieGame/Resources/Textures/circle.png");
         humans_id.push_back(temp);
-       
-        std::cout << free.at(e).first << ", " << free.at(e).second << std::endl;
     }
 
 	auto MoveHumans = new DynamicVectorLogic(humans_id, new HumanRandomMovement());

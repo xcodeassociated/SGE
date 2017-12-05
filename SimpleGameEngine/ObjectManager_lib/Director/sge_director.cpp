@@ -18,7 +18,7 @@ SGE::Director::~Director()
 SGE::Director* SGE::Director::getDirector(int w, int h)
 {
 	static Director* director = new Director(w, h);
-	return director; //Can convert to ARC later.
+	return director;
 }
 
 std::pair<int, int> SGE::Director::getResolution()
@@ -66,7 +66,7 @@ void SGE::Director::showScene(Scene* scene)
 {
 	if (!scene->TextureLoaded)
 	{
-		throw std::runtime_error("You are an idiot");
+		throw std::runtime_error("Scene texture not loaded");
 	}
 	this->manager->showScene(scene);
 }
@@ -75,7 +75,7 @@ void SGE::Director::swapScene(Scene* scene)
 {
 	if (!scene->TextureLoaded)
 	{
-		throw std::runtime_error("You are an idiot");
+		throw std::runtime_error("Scene texture not loaded");
 	}
 	this->manager->swapScene(scene);
 }

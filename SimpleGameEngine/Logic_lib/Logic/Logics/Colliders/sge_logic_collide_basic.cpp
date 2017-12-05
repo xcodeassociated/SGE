@@ -26,6 +26,5 @@ void SGE::Logics::BasicCollider::performLogic(const ObjectBind& _obj)
 	{
 		Action* aid = this->onCollision(obj, _obj[0]);
 		this->sendAction(_obj[0], aid);
-		//action_handler->performSingleAction(std::make_pair(_obj, aid), (this->priority == LogicPriority::Highest) );
 	}
 }

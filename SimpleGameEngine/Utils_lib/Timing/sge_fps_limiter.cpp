@@ -1,5 +1,4 @@
 #include "sge_fps_limiter.hpp"
-
 #include <SDL2/SDL.h>
 
 float SGE::delta_time = 0;

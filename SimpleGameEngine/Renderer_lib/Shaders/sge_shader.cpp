@@ -2,11 +2,13 @@
 #include <fstream>
 #include <vector>
 #include <iostream>
+#include <stdexcept>
 
 bool SGE::Shader::compileShader(std::string _filePath, GLuint& _id)
 {
 	std::ifstream vertexFile(_filePath);
-	if (vertexFile.fail()) throw "";
+	if (vertexFile.fail())
+        throw std::runtime_error{"Cannot load shader"};
 
 	std::string fileContent;
 	std::string line;
@@ -49,7 +51,8 @@ SGE::Shader::~Shader()
 GLint SGE::Shader::getUniformLocation(const char* uniformName)
 {
 	GLint location = glGetUniformLocation(this->programID, uniformName);
-	if (location == GL_INVALID_INDEX) throw "";
+	if (location == static_cast<GLint>(GL_INVALID_INDEX))
+        throw std::runtime_error{"Cannot get Uniform Location"};
 
 	return location;
 }
@@ -59,7 +62,8 @@ void SGE::Shader::doShaders(const char* _vertexShaderFile, const char* _fragment
 	this->programID = glCreateProgram();
 
 	this->vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
-	if (this->vertexShaderID == 0) throw "";
+	if (this->vertexShaderID == 0)
+        throw std::runtime_error{"Cannot create shader"};
 
 	this->fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
 	if (this->fragmentShaderID == 0) throw "";
@@ -67,7 +71,7 @@ void SGE::Shader::doShaders(const char* _vertexShaderFile, const char* _fragment
 	if (this->compileShader(_vertexShaderFile, this->vertexShaderID) == false ||
 		this->compileShader(_fragmentShaderFile, this->fragmentShaderID) == false)
 	{
-		//throw "shader file faild to compile...";
+		throw std::runtime_error{"Shader file filed to compile"};
 	}
 	else
 		this->isCompiled = true;
@@ -81,7 +85,8 @@ void SGE::Shader::addAttribute(const char* attributeName)
 		this->arrtibute_count++;
 		this->isAttributed = true;
 	}
-	else throw "";
+	else
+        throw std::runtime_error{"Program is not compiled"};
 }
 
 bool SGE::Shader::linkShaders()
@@ -94,7 +99,7 @@ bool SGE::Shader::linkShaders()
 		glLinkProgram(this->programID);
 
 		GLint isLinked = 0;
-		glGetProgramiv(this->programID, GL_LINK_STATUS, (int*)&isLinked);
+		glGetProgramiv(this->programID, GL_LINK_STATUS, &isLinked);
 		if (isLinked == GL_FALSE)
 		{
 			glDeleteProgram(this->programID);
@@ -127,7 +132,7 @@ void SGE::Shader::use()
 		glUseProgram(this->programID);
 	}
 	else
-		throw "";
+		throw std::runtime_error{"Cannot use shader program"};
 }
 
 void SGE::Shader::unuse()
@@ -140,5 +145,5 @@ void SGE::Shader::unuse()
 		glUseProgram(0);
 	}
 	else
-		throw "";
+		throw std::runtime_error{"Cannot unuse shader program"};
 }

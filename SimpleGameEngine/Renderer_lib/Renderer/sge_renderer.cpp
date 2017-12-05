@@ -25,7 +25,6 @@ namespace SGE
 		;
 	}
 
-
 	void Renderer::initShader() {
 		this->shaderProgram = new Shader();
 
@@ -91,29 +90,17 @@ namespace SGE
 		std::vector<BackgroundElement>& background = this->current->getLevel().getBackground();
 		std::vector<WorldElement>& world = this->current->getLevel().getWorld();
 
-		/*for (int y = 0; y < Y; ++y) {
-		for (int x = 0; x < X; ++x) {
-		glm::vec4 destRect(x * TILE_WIDTH, y * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
-		BackgroundElement& e = background[112 * y + x];
-		if(e.getPath().compare(".")==0) continue;
-		GLTexture texture = this->rManager->getTexture(e.getPath().c_str());
-		this->sceneBatch->draw(destRect, uv, texture.id, 0.0f, color);
-		}
-		}*/
 		Rectangle* tile = reinterpret_cast<Rectangle*>(getBaseTileShape());
 		const float width = tile->getWidth();
 		const float height = tile->getHeight();
 
 		std::for_each(background.begin(), background.end(), [=](BackgroundElement& e) {
 			glm::vec4 destRect(e.getX() - width*.5f, e.getY() - height*.5f, width, height);
-			//if (e.getPath().compare(".") == 0) return;
-			//GLTexture texture = this->rManager->getTexture(e.getPath().c_str());
 			this->sceneBatch->draw(destRect, uv, e.texture.id, 0.0f, color);
 		});
 
 		std::for_each(world.begin(), world.end(), [=](WorldElement& e) {
 			glm::vec4 destRect(e.getX() - width*.5f, e.getY() - height*.5f, width, height);
-			//if (e.getPath().compare(".") == 0) return;
 			e.texture = this->oManager->rManager->getTexture(e.getPath().c_str());
 			this->sceneBatch->draw(destRect, uv, e.texture.id, 0.0f, color);
 		});
@@ -129,7 +116,6 @@ namespace SGE
 		Rectangle* rect = nullptr;
 		Circle* circle = nullptr;
 
-		//        glm::vec4 destRect(id.obj->getX() - rect->getWidth()*.5f, id.obj->getY() - rect->getHeight()*.5f, rect->getWidth(), rect->getHeight());
 		glm::vec4 destRect(.0f, .0f, .0f, .0f);
 
 		for (auto id : objects)

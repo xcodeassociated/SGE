@@ -11,11 +11,11 @@ void SGE::Logics::CameraZoom::performLogic(const ObjectBind& camObj)
 {
 	auto cam = reinterpret_cast<Camera2d*>(camObj[0]);
 	auto scale = cam->getScale();
-	//std::cout << scale << ' ';
+
 	if (isPressed(this->zoomIn)) scale += this->speed;
 	if (this->minZoom < scale) scale = this->minZoom;
 	if (isPressed(this->zoomOut)) scale -= this->speed;
 	if (this->maxZoom > scale) scale = this->maxZoom;
+
 	cam->setScale(scale);
-	//std::cout << scale << std::endl;
 }

@@ -7,12 +7,10 @@ SGE::TextureCache* SGE::TextureCache::p_inst = nullptr;
 
 SGE::TextureCache::TextureCache()
 {
-	//std::cout << ">>    TextureCache c-tor" << std::endl;
 }
 
 SGE::TextureCache::TextureCache(const TextureCache&)
 {
-	//std::cout << ">>    TextureCache c-tor" << std::endl;
 }
 
 SGE::TextureCache::~TextureCache()
@@ -37,8 +35,6 @@ void SGE::TextureCache::kill()
 
 	if (SGE::TextureCache::arc == 0)
 	{
-		//std::cout << ">>    TextureCache singleton deleted" << std::endl;
-
 		delete this;
 	}
 }
@@ -52,11 +48,8 @@ SGE::GLTexture SGE::TextureCache::getTexture(const char* _key)
 
 		this->textureMap.insert(std::make_pair(_key, newTexture));
 
-		//std::cout << ">>    Loaded Non-Cache Texture!" << std::endl;
-
 		return newTexture;
 	}
 
-	//std::cout << ">>    Used Cache Texture!" << std::endl;
 	return mit->second;
 }

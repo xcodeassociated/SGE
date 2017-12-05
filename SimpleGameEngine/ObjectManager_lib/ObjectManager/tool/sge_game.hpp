@@ -1,14 +1,20 @@
 #ifndef SGE_GAME_HPP
 #define SGE_GAME_HPP
 
+#include <memory>
+
 namespace SGE {
 
     class InputHandler;
     class ObjectManager;
     class ActionHandler;
     class FpsLimiter;
+    class Logger;
 
     class Game {
+
+        std::shared_ptr<Logger> logger = nullptr;
+
 	    /**
          * \brief 
          */

@@ -1,6 +1,7 @@
 #include "sge_imageLoader.hpp"
 #include "picopng.h"
 #include "sge_io_manager.hpp"
+#include <stdexcept>
 
 SGE::GLTexture SGE::ImageLoader::loadPNG(const char* filePath)
 {
@@ -13,13 +14,13 @@ SGE::GLTexture SGE::ImageLoader::loadPNG(const char* filePath)
 
 	if (SGE::IOManager::readFileToBuffer(filePath, in) == false)
 	{
-		throw "Failed to load PNG file to buffer!";
+		throw std::runtime_error{"Failed to load PNG file to buffer!"};
 	}
 
 	int errorCode = decodePNG(out, width, height, &(in[0]), in.size());
 	if (errorCode != 0)
 	{
-		throw "decodePNG failed with error: "; // + std::to_string(errorCode));
+		throw std::runtime_error{"decodePNG failed with error: "};
 	}
 
 	glGenTextures(1, &(texture.id));

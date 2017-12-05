@@ -8,6 +8,7 @@
 
 #ifndef shader_h
 #define shader_h
+
 #include <string>
 #include <GL/glew.h>
 

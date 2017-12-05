@@ -7,7 +7,6 @@ namespace SGE {
 
 	CameraHandler::CameraHandler(std::pair<int, int> resolution, ObjectManager* m) noexcept : manager(m) {
 		this->camera = new Camera2d(resolution.first, resolution.second);
-		//        this->manager->registerCamera(this->camera);
 	}
 
 	Camera2d* CameraHandler::getCamera()
@@ -15,7 +14,6 @@ namespace SGE {
 		return this->camera;
 	}
 
-	//should be float or change scale to duble
 	void CameraHandler::setScale(double _scale) noexcept {
 		this->camera->setScale(_scale);
 	}
@@ -37,7 +35,7 @@ namespace SGE {
 	}
 
 	glm::vec2 CameraHandler::getScreenToWorld(glm::vec2 pos) const noexcept {
-		return SGE::screenToWorld(pos, this->camera->getPosition(), (double)this->camera->getScale()); //this->camera->screenToWorld(pos);
+		return SGE::screenToWorld(pos, this->camera->getPosition(), (double)this->camera->getScale());
 	}
 
 	glm::vec2 CameraHandler::getScreenToWorld(int _x, int _y) const noexcept {

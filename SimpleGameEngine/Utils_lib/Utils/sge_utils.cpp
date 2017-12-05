@@ -26,12 +26,8 @@ const std::string& SGE::getPath()
 
 glm::vec2 SGE::screenToWorld(glm::vec2 _screenCoords, glm::vec2 coords, double scale)
 {
-	//invert y axis
-	//TODO: Add globals for display params?
 	_screenCoords.y = SCREEN_HEIGHT - _screenCoords.y;
-
-	//0 is center & scaling & set position
-	_screenCoords -= glm::vec2(SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.5);
+    _screenCoords -= glm::vec2(SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.5);
 	_screenCoords /= scale;
 	_screenCoords += coords;
 

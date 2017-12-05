@@ -22,7 +22,6 @@ SGE::ActionHandler::ActionHandler(): actions{}
 
 void SGE::ActionHandler::handleInputAction(ActionBind& bind)
 {
-	//Currently will handle only main;
 	bind.getAction()->action_main(bind.getBind());
 }
 
@@ -36,8 +35,6 @@ void SGE::ActionHandler::performAllActions()
 {
 	for (ActionBind& act : this->actions)
 	{
-		//TODO: do it in a object manager for all scene objects !!!
-		//o->setLock(LogicPriority::None);
 		act.getAction()->action_main(act.getBind());
 	}
 	auto last = std::remove_if(actions.begin(), actions.end(), [](const ActionBind& b)
@@ -45,15 +42,14 @@ void SGE::ActionHandler::performAllActions()
 	                           if (b.getAction()->getDuration() <= 0)
 	                           {
 		                           const_cast<Action*>(b.getAction())->action_ends(b.getBind());
-		                           //if (b.getAction().getID() > 99L)
 		                           {
-			                           delete b.getAction(); //deletes managed action
+			                           delete b.getAction();
 		                           }
 		                           return true;
 	                           }
 	                           return false;
-                           }); //"removes" actions that ended.
-	this->actions.erase(last, actions.end());//Actually removes managed actions that ended.
+                           });
+	this->actions.erase(last, actions.end());
 }
 
 void SGE::ActionHandler::performSingleAction(const ActionBind& bind, LogicPriority priority)
@@ -64,9 +60,7 @@ void SGE::ActionHandler::performSingleAction(const ActionBind& bind, LogicPriori
 	}
 	else
 	{
-		//this->actions.push_back(bind);
 		this->addAction(bind);
-		//bind.first.getObject()->setLock(priority);
 		for (Object* e : bind)
 		{
 			e->setLock(priority);

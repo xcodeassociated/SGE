@@ -1,10 +1,6 @@
 #ifndef SGE_RENDERER_HPP
 #define SGE_RENDERER_HPP
 
-/**
- * TODO: THIS HAS TO BE MOVED TO RENDERER LIB!!!
- */
-
 #include <algorithm>
 
 namespace SGE {
