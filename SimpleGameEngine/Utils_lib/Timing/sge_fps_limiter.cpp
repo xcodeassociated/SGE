@@ -66,6 +66,10 @@ void SGE::FpsLimiter::setMaxFPS(float maxFPS)
 void SGE::FpsLimiter::begin()
 {
 	_startTicks = SDL_GetTicks();
+	boost::posix_time::ptime now = boost::posix_time::microsec_clock::local_time();
+	boost::posix_time::time_duration diff = now - this->time;
+	this->time = now;
+	delta_time = diff.total_milliseconds()*.001f;
 }
 
 float SGE::FpsLimiter::end()

@@ -19,12 +19,14 @@ namespace SGE
 		this->limiter->init(60);
 	}
 
+	//todo Reset limiter whenever scene is started
 	void Game::run()
 	{
 		Logic::action_handler = this->manager->action_handler;
 		this->playing = true;
 		while (this->playing)
 		{
+			//On first iteration time is less than 10^10, but that may change with sceene swapping.
 			this->limiter->begin();
 			{
 				this->performActions();
@@ -40,8 +42,9 @@ namespace SGE
 			static int frameCounter = 0;
 			frameCounter++;
 			if (frameCounter == 100) {
-				std::cout << "fps: " << this->fps << std::endl;
+				std::cout << "fps: " << this->fps << "\n";
 				frameCounter = 0;
+				std::cout << "delta_time: " << delta_time<< std::endl;
 			}
 		}
 

@@ -9,8 +9,17 @@
 #ifndef Timing_h
 #define Timing_h
 
+#ifdef _WIN32
+#include <utils_export.h>
+#include <boost/config/platform/win32.hpp>
+#else
+#define LOGIC_EXPORT
+#endif
+
+#include <boost/date_time/posix_time/posix_time.hpp>
+
 namespace SGE {
-    
+	float UTILS_EXPORT delta_time;
 	/**
      * \brief 
      */
@@ -31,6 +40,8 @@ namespace SGE {
 	     * \brief 
 	     */
 	    unsigned int _startTicks;
+
+		boost::posix_time::ptime time;
 
 	    /**
 	     * \brief 

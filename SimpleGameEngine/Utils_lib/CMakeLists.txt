@@ -18,3 +18,8 @@ add_library (Utils SHARED
 target_link_libraries(Utils
 		${Boost_LIBRARIES}
 		${SDL2_LIBRARY})
+		
+if(WIN32)
+	include(GenerateExportHeader)
+	generate_export_header(Utils)
+endif()

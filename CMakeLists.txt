@@ -50,6 +50,7 @@ elseif(WIN32)
     link_directories("${CMAKE_CURRENT_BINARY_DIR}/lib")
 	##Add exports
 	include_directories("${CMAKE_CURRENT_BINARY_DIR}/SimpleGameEngine/Logic_lib")
+	include_directories("${CMAKE_CURRENT_BINARY_DIR}/SimpleGameEngine/Utils_lib")
 
 endif()
 

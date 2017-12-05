@@ -283,7 +283,7 @@ int main(int argc, char * argv[]) {
 
 	auto L2a = new SGE::Logics::BasicCollider(testObj1, &SGE::Logics::Collide::CircleCollisionVec);
 	auto L2b = new SGE::Logics::BasicCollider(testObj0, &SGE::Logics::Collide::CircleCollisionVec);
-	auto L3 = new SGE::Logics::SimpleMove(4.f,SGE::Key::W,SGE::Key::S, SGE::Key::A, SGE::Key::D);
+	auto L3 = new SGE::Logics::SimpleMove(200.f,SGE::Key::W,SGE::Key::S, SGE::Key::A, SGE::Key::D);
 
 	auto camLogic = new SnapCamera(8, SGE::Key::Up, SGE::Key::Down, SGE::Key::Left, SGE::Key::Right, SGE::Key::Space, testObj1);
 	auto camZoom = new SGE::Logics::CameraZoom(0.1f,1.f,0.15f,SGE::Key::Q, SGE::Key::E);
