@@ -167,12 +167,6 @@ namespace SGE {
 	     */
 	    static ObjectManager* getManager();
 
-	    Object* getObjectPtr(Object* id);
-
-	    Scene* getScenePtr(Scene* id);
-
-	    Logic* getLogicPtr(Logic* id);
-
 	    /**
 	     * \brief 
 	     * \param bind 
@@ -184,20 +178,6 @@ namespace SGE {
 	     * \param bind 
 	     */
 	    void unmapAction(const InputBinder& bind);
-
-	    /**
-	     * \brief 
-	     * \param action 
-	     * \return 
-	     */
-	    Action* addAction(Action* action);
-
-	    /**
-	     * \brief 
-	     * \param logic 
-	     * \return 
-	     */
-	    Logic* addLogic(Logic* logic);
 
 	    /**
 	     * \brief 

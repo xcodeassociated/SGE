@@ -39,12 +39,7 @@ public:
     
 	void onDraw() override
 	{
-        //debug only:
-        std::cerr << "onDraw!" << std::endl;
-        
         SGE::Action* move = new SGE::ACTION::Move(100, 100, 2);
-        //SGE::Action::ID a1 = this->manager->addAction(move);
-
 	}
 };
 
@@ -170,13 +165,10 @@ public:
 		velocity = human->getVelocity();
 		if (human->getCounter() == 0)
 		{
-//			std::cout << velocity.x << ' ' << velocity.y << " | ";
 			velocity = glm::rotate(velocity,angle(engine));
 			human->setVelocity(velocity);
-//			std::cout << velocity.x << ' ' << velocity.y << std::endl;
 		}
 		this->sendAction(humanID[0], new SGE::ACTION::Move(velocity.x, velocity.y,0));
-		//human->setPosition(human->getX()+velocity.x, human->getY()+velocity.y);
 	}
 };
 
@@ -243,8 +235,9 @@ public:
         SGE::ObjectManager* manager = SGE::ObjectManager::getManager();
         SGE::Camera2d* cam = dynamic_cast<SGE::Camera2d*>(manager->getCamera());
         glm::vec2 worldCoords = SGE::screenToWorld(coords, cam->getPosition(), (double)cam->getScale());
+
 		std::cout << "[Clicked] - x: " << worldCoords.x << ", y: " << worldCoords.y << std::endl;
-		std::cout << "[Player ] - x: " << p->getX() << ", y: " << p->getY() << std::endl; //print out mouse click event - but not in a world coords.
+		std::cout << "[Player ] - x: " << p->getX() << ", y: " << p->getY() << std::endl;
     }
 };
 
@@ -264,10 +257,10 @@ int main(int argc, char * argv[]) {
     SGE::Object* testObj0 = manager->addObject(new TestObject, S1, PATH"ZombieGame/Resources/Textures/circle.png");
     SGE::Object* testObj1 = manager->addObject(new TestObject(200,200), S1, PATH"ZombieGame/Resources/Textures/circle.png");
     
-    SGE::Action* oW = manager->addAction(new SGE::ACTION::Move(0, 4.f, 0));
-    SGE::Action* oA = manager->addAction(new SGE::ACTION::Move(-4.f, 0, 0));
-    SGE::Action* oS = manager->addAction(new SGE::ACTION::Move(0, -4.f, 0));
-    SGE::Action* oD = manager->addAction(new SGE::ACTION::Move(4.f, 0, 0));
+    SGE::Action* oW = new SGE::ACTION::Move(0, 4.f, 0);
+    SGE::Action* oA = new SGE::ACTION::Move(-4.f, 0, 0);
+    SGE::Action* oS = new SGE::ACTION::Move(0, -4.f, 0);
+    SGE::Action* oD = new SGE::ACTION::Move(4.f, 0, 0);
 
     SGE::InputBinder tb0(testObj0, oW, SGE::Key::Up);
     SGE::InputBinder tb1(testObj0, oS, SGE::Key::Down);
@@ -279,23 +272,21 @@ int main(int argc, char * argv[]) {
 	manager->mapAction(tb2);
 	manager->mapAction(tb3);
 
-    //add mouse click action to the game (on camera object)
-    SGE::Action* click = manager->addAction(new MouseClickedAction);
+    SGE::Action* click = new MouseClickedAction;
 	SGE::InputBinder clickBind({ mouseID,testObj1 }, click, SGE::Key::MOUSE_LEFT_BUTTON);
     manager->mapAction(clickBind);
     
-    //auto L1 = manager->addLogic(new SGE::Logics::BasicLevelCollider(manager->getScenePtr(S1)->getLevel().getWorld(), &SGE::Logics::Collide::CircleToRectCollisionVec));
-	auto L1 = manager->addLogic(new SGE::Logics::PreciseLevelCollider(manager->getScenePtr(S1)->getLevel().getWorld()));
-	SGE::Action* toggle = manager->addAction(new LogicSwitch(L1));
+	auto L1 = new SGE::Logics::PreciseLevelCollider(S1->getLevel().getWorld());
+	SGE::Action* toggle = new LogicSwitch(L1);
 	SGE::Object* cto = manager->addObject(new SGE::VoidObject());
 	manager->mapAction(SGE::InputBinder(cto,toggle,SGE::Key::O));
 
-	auto L2a = manager->addLogic(new SGE::Logics::BasicCollider(testObj1, &SGE::Logics::Collide::CircleCollisionVec));
-	auto L2b = manager->addLogic(new SGE::Logics::BasicCollider(testObj0, &SGE::Logics::Collide::CircleCollisionVec));
-	auto L3 = manager->addLogic(new SGE::Logics::SimpleMove(4.f,SGE::Key::W,SGE::Key::S, SGE::Key::A, SGE::Key::D));
+	auto L2a = new SGE::Logics::BasicCollider(testObj1, &SGE::Logics::Collide::CircleCollisionVec);
+	auto L2b = new SGE::Logics::BasicCollider(testObj0, &SGE::Logics::Collide::CircleCollisionVec);
+	auto L3 = new SGE::Logics::SimpleMove(4.f,SGE::Key::W,SGE::Key::S, SGE::Key::A, SGE::Key::D);
 
-	auto camLogic = manager->addLogic(new SnapCamera(8, SGE::Key::Up, SGE::Key::Down, SGE::Key::Left, SGE::Key::Right, SGE::Key::Space, testObj1));
-	auto camZoom = manager->addLogic(new SGE::Logics::CameraZoom(0.1f,1.f,0.15f,SGE::Key::Q, SGE::Key::E));
+	auto camLogic = new SnapCamera(8, SGE::Key::Up, SGE::Key::Down, SGE::Key::Left, SGE::Key::Right, SGE::Key::Space, testObj1);
+	auto camZoom = new SGE::Logics::CameraZoom(0.1f,1.f,0.15f,SGE::Key::Q, SGE::Key::E);
 
     director->addLogicBinder(S1, testObj0, L2a);
 	director->addLogicBinder(S1, testObj1, L2b);
@@ -305,15 +296,13 @@ int main(int argc, char * argv[]) {
 	director->addLogicBinder(S1, camID, camLogic);
 	director->addLogicBinder(S1, camID, camZoom);
 
-    //Testing collisions - move tile to create space too tight for circle to enter.
-	auto testTile = &(manager->getScenePtr(S1)->getLevel().getWorld().front());
-	auto moveTile = manager->addLogic(new SGE::Logics::SimpleMove(4.f, SGE::Key::I, SGE::Key::K, SGE::Key::J, SGE::Key::L));
+	auto testTile = &(S1->getLevel().getWorld().front());
+	auto moveTile = new SGE::Logics::SimpleMove(4.f, SGE::Key::I, SGE::Key::K, SGE::Key::J, SGE::Key::L);
 	director->addLogicBinder(S1, testTile, moveTile);
 
-	auto reset = manager->addAction(new GOTO());
+	auto reset = new GOTO();
 	manager->mapAction(SGE::InputBinder(testObj1, reset, SGE::Key::B));
 
-	// !Testing collisions
     std::string path = PATH"ZombieGame/Levels/level1.txt";
     std::vector<std::string> l;
     std::fstream is;
@@ -356,9 +345,9 @@ int main(int argc, char * argv[]) {
         std::cout << free.at(e).first << ", " << free.at(e).second << std::endl;
     }
 
-	auto MoveHumans = manager->addLogic(new DynamicVectorLogic(humans_id,new HumanRandomMovement()));
-	auto CollideLevelHumans = manager->addLogic(new DynamicVectorLogic(humans_id,manager->getLogicPtr(L1)));
-	auto CollidePlayer = manager->addLogic(new DynamicVectorLogic(humans_id, new BiCollider(testObj1)));
+	auto MoveHumans = new DynamicVectorLogic(humans_id, new HumanRandomMovement());
+	auto CollideLevelHumans = new DynamicVectorLogic(humans_id, L1);
+	auto CollidePlayer = new DynamicVectorLogic(humans_id, new BiCollider(testObj1));
 
 	director->addLogicBinder(S1, testObj0, MoveHumans);
 	director->addLogicBinder(S1, testObj0, CollidePlayer);

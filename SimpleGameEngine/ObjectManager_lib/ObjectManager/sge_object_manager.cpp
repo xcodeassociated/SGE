@@ -37,7 +37,7 @@ namespace SGE
 		this->camera_handler->setScale(.5f);
 
 		this->renderer = new Renderer(resolution, this, this->window_manager, this->camera_handler);
-		// this->renderer->initShader();
+
 		this->game = new Game(this, this->action_handler);
 
 		this->input_handler = new InputHandler(this);
@@ -108,21 +108,6 @@ namespace SGE
 		return manager;
 	}
 
-	Object* ObjectManager::getObjectPtr(Object* obj)
-	{
-		return obj;
-	}
-
-	Scene* ObjectManager::getScenePtr(Scene* scene)
-	{
-		return scene;
-	}
-
-	Logic* ObjectManager::getLogicPtr(Logic* logic)
-	{
-		return logic;
-	}
-
 	void ObjectManager::mapAction(const InputBinder& bind)
 	{
 		this->input_handler->mapAction(bind);
@@ -131,16 +116,6 @@ namespace SGE
 	void ObjectManager::unmapAction(const InputBinder& bind)
 	{
 		this->input_handler->unmapAction(bind);
-	}
-
-	Action* ObjectManager::addAction(Action* action)
-	{
-		return action;
-	}
-
-	Logic* ObjectManager::addLogic(Logic* logic)
-	{
-		return logic;
 	}
 
 	void ObjectManager::interrupt()
@@ -155,7 +130,8 @@ namespace SGE
 	{
 		this->objects.emplace_back(o);
 
-		if (!path.empty()) o->texture = this->rManager->getTexture(path.c_str());
+		if (!path.empty())
+            o->texture = this->rManager->getTexture(path.c_str());
 
 		return o;
 	}
@@ -173,7 +149,8 @@ namespace SGE
 			throw std::runtime_error("Scene does not exist");
 		}
 
-		if (!path.empty()) o->texture = this->rManager->getTexture(path.c_str());
+		if (!path.empty())
+            o->texture = this->rManager->getTexture(path.c_str());
 
 		return o;
 	}
