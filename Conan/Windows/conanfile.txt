@@ -1,10 +1,18 @@
 [requires]
-glew/2.0.0@lasote/vcpkg
+glew/2.0.0-1@lasote/vcpkg
 opengl/10.0.10240.0@lasote/vcpkg
 glm/master@g-truc/stable
 sdl2/2.0.4@lasote/vcpkg
 rapidjson/1.1.0@lasote/vcpkg
-boost/1.62.0@lasote/vcpkg
+Boost/1.64.0@conan/stable
 
 [generators]
 cmake
+
+[options]
+#boost:shared=false
+
+[imports]
+bin, glew32* -> ./dlls
+bin, SDL2* -> ./dlls
+bin, boost_date_time* -> ./dlls

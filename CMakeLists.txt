@@ -181,3 +181,9 @@ add_subdirectory(${SGE_DIR})
 ## ZombieGame:
 add_subdirectory(${Game_DIR})
 
+if(WIN32)
+	file(GLOB CONAN_DLLS "dlls/*.dll")
+	file(COPY ${CONAN_DLLS} DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/bin")
+	file(GLOB CONAN_PDBS "dlls/*.pdb")
+	file(COPY ${CONAN_PDBS} DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/bin")
+endif()

@@ -24,7 +24,8 @@ target_link_libraries(${PROJECT_NAME}
 		Scene
 		Utils
 		PicoPNG)
-
+		
+if(!WIN32)
 foreach( file_i "${Boost_LIBRARIES}")
 	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 			COMMAND ${CMAKE_COMMAND} -E copy ${file_i} ${CMAKE_BINARY_DIR}/bin)
@@ -34,5 +35,5 @@ foreach( file_i "${CONAN_LIB_DIRS_GLEW}")
 	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 			COMMAND ${CMAKE_COMMAND} -E copy ${file_i}/* ${CMAKE_BINARY_DIR}/bin)
 endforeach( file_i )
-
+endif()
 ##TODO: Copy SDL2 libs as well

@@ -44,3 +44,4 @@ build/*
 *.idea/
 
 conanbuildinfo.txt
+conan_imports_manifest.txt
