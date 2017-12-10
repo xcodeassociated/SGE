@@ -12,6 +12,7 @@
 #include "sge_window_manager.hpp"
 #include "sge_fps_limiter.hpp"
 #include "sge_input_handler.hpp"
+#include "sge_resource_manager.hpp"
 
 namespace SGE
 {
@@ -25,14 +26,14 @@ namespace SGE
         this->action_handler = new ActionHandler;
         this->limiter = new FpsLimiter;
         this->limiter->init(fps);
-		this->window_manager = new WindowManager(resolution, this);
+		this->window_manager = new WindowManager(resolution);
 		this->window_manager->createWindow();
 
 		this->camera_handler = new CameraHandler(resolution);
 		this->camera_handler->setPosition(this->camera_handler->getScreenToWorld(0, 0));
 		this->camera_handler->setScale(.5f);
 
-		this->renderer = new Renderer(resolution, this, this->window_manager, this->camera_handler);
+		this->renderer = new Renderer(resolution, this->window_manager, this->camera_handler, this->resourceManager);
 
 		this->input_handler = new InputHandler(this);
 
@@ -108,7 +109,7 @@ namespace SGE
         director->bindGame(this);
 	}
 
-    Game::Game()
+    Game::Game() : resourceManager(ResourceManager::getSingleton())
     {
     }
 
@@ -124,7 +125,7 @@ namespace SGE
             {
                 this->performActions();
                 this->performLogics();
-                this->draw();
+                this->draw(this->currentScene);
 
                 this->input_handler->operator()();
 
@@ -170,9 +171,9 @@ namespace SGE
         this->playing = false;
     }
 
-    void Game::draw()
+    void Game::draw(Scene* scene)
 	{
-        this->renderer->render();
+        this->renderer->render(scene);
     }
 
 	Object* Game::textureObject(Object *object, std::string path)
@@ -181,7 +182,7 @@ namespace SGE
 
 		if (!path.empty())
         {
-            object->texture = this->rManager->getTexture(path.c_str());
+            object->texture = this->resourceManager->getTexture(path.c_str());
             object->hasTexture = true;
         }
         else

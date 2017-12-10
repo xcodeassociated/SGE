@@ -11,7 +11,6 @@ namespace SGE {
 	
 	class Scene;
 	class Director;
-	class Game;
 
 	/**
      * \brief 

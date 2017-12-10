@@ -7,10 +7,10 @@ namespace SGE
 {
     class CameraHandler;
     class WindowManager;
-    class Game;
     class SpriteBatch;
     class Shader;
     class Scene;
+	class ResourceManager;
 
     class Renderer {
 	    /**
@@ -24,7 +24,7 @@ namespace SGE
 	    /**
 	     * \brief 
 	     */
-	    Game* game = nullptr;
+		ResourceManager* resourceManager = nullptr;
 	    /**
          * \brief 
          */
@@ -64,7 +64,7 @@ namespace SGE
 	    /**
          * \brief 
          */
-        Renderer(std::pair<int, int>, Game*, WindowManager *, CameraHandler *) noexcept;
+        Renderer(std::pair<int, int>, WindowManager *, CameraHandler *, ResourceManager* resourceManager) noexcept;
 
 	    /**
          * \brief 
@@ -79,7 +79,7 @@ namespace SGE
 	    /**
          * \brief 
          */
-        void render(void);
+        void render(Scene* scene);
 
     };
 

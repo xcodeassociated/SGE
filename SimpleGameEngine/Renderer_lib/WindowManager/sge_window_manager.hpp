@@ -14,17 +14,10 @@
 struct SDL_Window;
 
 namespace SGE {
-
-    class Game;
-
 	/**
      * \brief 
      */
     class WindowManager {
-	    /**
-         * \brief 
-         */
-        Game* game = nullptr;
 	    /**
          * \brief 
          */
@@ -42,7 +35,7 @@ namespace SGE {
 	    /**
          * \brief 
          */
-        WindowManager(std::pair<int, int>, Game*) noexcept;
+        WindowManager(std::pair<int, int>) noexcept;
 
 	    /**
          * \brief 

@@ -9,7 +9,6 @@
 
 namespace SGE
 {
-	class Game;
 	class Object;
         
 	/**

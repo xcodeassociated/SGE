@@ -1,7 +1,6 @@
 #include "sge_renderer.hpp"
 #include "sge_shape_rectangle.hpp"
 #include "sge_shape_circle.hpp"
-#include "sge_game.hpp"
 #include "sge_window_manager.hpp"
 #include "sge_camera2d.hpp"
 #include "sge_camera_handler.hpp"
@@ -9,16 +8,17 @@
 #include "sge_shader.hpp"
 #include "sge_scene.hpp"
 #include <sge_macro.hpp>
+#include "sge_resource_manager.hpp"
 
 #include <glm/glm.hpp>
 #include <SDL.h>
 
 namespace SGE
 {
-	Renderer::Renderer(std::pair<int, int> res, Game* game, WindowManager* w, CameraHandler* c) noexcept :
+	Renderer::Renderer(std::pair<int, int> res, WindowManager* w, CameraHandler* c, ResourceManager* resourceManager) noexcept :
 	width(res.first),
 		height(res.second),
-		game(game),
+        resourceManager(resourceManager),
 		window_manager(w),
 		camera_handler(c)
 	{
@@ -47,9 +47,9 @@ namespace SGE
 		this->objectBatch->init();
 	}
 
-	void Renderer::render()
+	void Renderer::render(SGE::Scene* scene)
 	{
-		this->current = this->game->currentScene;
+		this->current = scene;
 
 		glClearDepth(1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -105,7 +105,7 @@ namespace SGE
 
 		std::for_each(world.begin(), world.end(), [=](WorldElement& e) {
 			glm::vec4 destRect(e.getX() - width*.5f, e.getY() - height*.5f, width, height);
-			e.texture = this->game->rManager->getTexture(e.getPath().c_str());
+			e.texture = this->resourceManager->getTexture(e.getPath().c_str());
 			this->sceneBatch->draw(destRect, uv, e.texture.id, 0.0f, color);
 		});
 	}

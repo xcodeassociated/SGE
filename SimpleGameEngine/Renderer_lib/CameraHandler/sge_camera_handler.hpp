@@ -27,10 +27,6 @@ namespace SGE
          */
         Camera2d* camera = nullptr;
 	    /**
-         * \brief 
-         */
-        Game* game = nullptr;
-	    /**
 	     * \brief 
 	     */
 	    int x = 0;

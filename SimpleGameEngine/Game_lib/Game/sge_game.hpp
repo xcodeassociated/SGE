@@ -7,11 +7,11 @@
 #include <ctime>
 #include <string>
 #include <memory>
-#include "sge_resource_manager.hpp"
 #include "sge_logger.hpp"
 
 namespace SGE {
 
+    class Object;
 	class Director;
     class Game;
     class InputHandler;
@@ -57,7 +57,7 @@ namespace SGE {
 	    /**
          * \brief 
          */
-        ResourceManager* rManager = ResourceManager::getSingleton();
+        ResourceManager* resourceManager = nullptr;
 	    /**
 		 * \brief 
 		 */
@@ -156,7 +156,7 @@ namespace SGE {
         /**
          * \brief
          */
-        void draw(void);
+        void draw(Scene*);
         
 	public:
 	    /**

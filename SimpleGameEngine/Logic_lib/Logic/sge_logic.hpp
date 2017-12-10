@@ -25,9 +25,9 @@ namespace SGE {
 	class Action;
 	class Object;
 	class LogicBind;
-	class Game;
 	class ObjectBind;
 	class ActionHandler;
+	class Game;
 	/**
      * \brief 
      */
