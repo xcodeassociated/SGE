@@ -23,7 +23,7 @@ namespace SGE {
 	class Camera2d;
 	class ActionHandler;
 	class ResourceManager;
-
+    class FpsLimiter;
 	class Scene;
 	class Logic;
 	class Action;
@@ -62,15 +62,6 @@ namespace SGE {
 		 * \brief 
 		 */
 		bool OnScene = false;
-	    /**
-		 * \brief 
-		 */
-		std::vector<Object*> objects;
-	    /**
-		 * \brief 
-		 */
-		std::map< Scene*, std::vector<Object*> > sceneObjects;
-
 	    /**
 		 * \brief 
 		 */
@@ -120,18 +111,6 @@ namespace SGE {
 
 	    /**
 	     * \brief 
-	     * \param s 
-	     */
-	    void addScene(Scene* s);
-
-	    /**
-	     * \brief 
-	     * \param s 
-	     */
-	    void deleteScene(Scene* s);
-
-	    /**
-	     * \brief 
 	     * \return 
 	     */
 	    bool isOnScene();
@@ -159,13 +138,65 @@ namespace SGE {
 	     * \brief 
 	     * \return 
 	     */
+
+        /**
+         * \brief
+         */
+        FpsLimiter* limiter = nullptr;
+        /**
+         * \brief
+         */
+        bool playing = false;
+        /**
+         * \brief
+         */
+        float time = 0;
+        /**
+         * \brief
+         */
+        float fps = 0;
+
+        /**
+         * \brief
+         */
+        void performActions(void);
+
+        /**
+         * \brief
+         */
+        void performLogics(void);
+
+        /**
+        * \brief
+        */
+        Game(ObjectManager *, ActionHandler *);
+
+        /**
+         * \brief
+         */
+        void run(void);
+
+        /**
+         * \brief
+         */
+        void stop(void);
+
+        /**
+         * \brief
+         */
+        void draw(void);
+
+        /**
+         * \brief
+         */
+        void setInputHandler(InputHandler *);
         
 	public:
 	    /**
 	     * \brief 
 	     * \return 
 	     */
-	    static ObjectManager* getManager();
+	    static Game* getGame();
 
 	    /**
 	     * \brief 

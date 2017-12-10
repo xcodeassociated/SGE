@@ -1,5 +1,5 @@
 #include "sge_input_handler.hpp"
-#include "sge_object_manager.hpp"
+#include "sge_game.hpp"
 #include "sge_input_manager.hpp"
 #include "sge_mouse.hpp"
 #include "sge_input_binder.hpp"
