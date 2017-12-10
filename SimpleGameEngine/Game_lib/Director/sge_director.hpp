@@ -7,14 +7,14 @@
 #include "sge_scene.hpp"
 #include "sge_logger.hpp"
 
-namespace SGE {
+namespace SGE
+{
 
 	/**
      * \brief 
      */
-    class Director final{
-	private:
-
+    class Director final
+    {
 		static std::shared_ptr<Logger> logger;
         static std::shared_ptr<LoggerError> logger_err;
 	    /**

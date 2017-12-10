@@ -7,16 +7,16 @@
 #include "sge_logic.hpp"
 #include "sge_logic_bind.hpp"
 
-namespace SGE {
-	
+namespace SGE
+{
 	class Scene;
 	class Director;
 
 	/**
      * \brief 
      */
-    class Scene{
-	private:
+    class Scene
+    {
 	    /**
 		 * \brief 
 		 */
@@ -74,7 +74,6 @@ namespace SGE {
 	     * \return 
 	     */
 	    virtual ObjectVector& getObjects() final;
-
 
 		void addObject(SGE::Object* object);
 

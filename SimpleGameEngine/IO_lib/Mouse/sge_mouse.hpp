@@ -11,9 +11,11 @@
 
 #include "sge_object.hpp"
 
-namespace SGE {
+namespace SGE
+{
     
-    class MouseObject : public Object {
+    class MouseObject : public Object
+	{
 	    /**
           * \brief Mouse coordinates
           * /todo Inherited Object already has xy coordinates!

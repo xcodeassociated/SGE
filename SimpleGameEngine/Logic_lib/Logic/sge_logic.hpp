@@ -20,7 +20,8 @@
 
 class DynamicVectorLogic;
 
-namespace SGE {
+namespace SGE
+{
 	class Logic;
 	class Action;
 	class Object;
@@ -31,7 +32,8 @@ namespace SGE {
 	/**
      * \brief 
      */
-    class Logic{
+    class Logic
+	{
 		friend class Game;
 		friend class DynamicVectorLogic;
 

@@ -7,12 +7,13 @@
 
 #include "sge_vertex.hpp"
 
-namespace SGE {
-
+namespace SGE
+{
 	/**
      * \brief 
      */
-    struct Glyph {
+    struct Glyph
+    {
 	    /**
          * \brief 
          */

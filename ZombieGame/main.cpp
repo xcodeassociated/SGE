@@ -34,7 +34,8 @@ public:
 		this->loadLevel(path.c_str(), mask);
 	}
 
-    ~MainScene() {
+    ~MainScene()
+    {
         std::cout << "~MainScene" << std::endl;
     }
 
@@ -51,8 +52,8 @@ class GOTO : public SGE::Action
 {
 public:
     GOTO(): Action(0.){};
-    virtual void action_begin(const SGE::ObjectBind& ) noexcept override{}
-    virtual void action_ends(const SGE::ObjectBind&) noexcept override{}
+    virtual void action_begin(const SGE::ObjectBind& ) noexcept override {}
+    virtual void action_ends(const SGE::ObjectBind&) noexcept override {}
     
     virtual void action_main(const SGE::ObjectBind& b) noexcept override
     {
@@ -60,13 +61,11 @@ public:
     }
 };
 
-class TestObject : public SGE::Reactive {
-    
+class TestObject : public SGE::Reactive
+{
 public:
     TestObject() : SGE::Reactive(64,64, true, new SGE::Circle(32)) {}
     TestObject(const float x, const float y) : SGE::Reactive(x,y, true, new SGE::Circle(32)) {}
-    
-    ~TestObject() {}
 };
 
 SGE::Shape* getCircle()
@@ -78,6 +77,7 @@ SGE::Shape* getCircle()
 class BiCollider : public SGE::Logic
 {
 	SGE::Object* player;
+
 public:
 	BiCollider(SGE::Object* player) : Logic(SGE::LogicPriority::Highest), player(player) {}
 
@@ -100,23 +100,24 @@ public:
 	}
 };
 
-class LogicSwitch : public SGE::Action {
-private:
+class LogicSwitch : public SGE::Action
+{
 	SGE::Logic* logic;
 
 public:
 	LogicSwitch(SGE::Logic* id) : logic(id) {}
 
-	void action_begin(const SGE::ObjectBind&) override {
-
+	void action_begin(const SGE::ObjectBind&) override
+    {
 	}
 	
-	void action_main(const SGE::ObjectBind&) override {
+	void action_main(const SGE::ObjectBind&) override
+    {
 		logic->toggleOn();
 	}
 	
-	void action_ends(const SGE::ObjectBind&) override {
-
+	void action_ends(const SGE::ObjectBind&) override
+    {
 	}
 };
 
@@ -125,6 +126,7 @@ class Human : public SGE::Being
 	glm::vec2 velocity = {3.f,0.f};
 	unsigned int counter = 1;
 	unsigned int maxCount = 0;
+
 public:
 	Human(const float x, const float y) : SGE::Being(x,y,true,getCircle())
 	{}
@@ -159,6 +161,7 @@ class HumanRandomMovement : public SGE::Logic
 	std::uniform_real_distribution<float> angle;
 	float speed;
 	glm::vec2 velocity;
+
 public:
 	HumanRandomMovement() :Logic(SGE::LogicPriority::Mid), angle(glm::radians(-90.f), glm::radians(90.f)) {}
 
@@ -180,6 +183,7 @@ class DynamicVectorLogic : public SGE::Logic
 {
 	std::vector<SGE::Object*>& vec;
 	SGE::Logic* logic;
+
 public:
 	DynamicVectorLogic(std::vector<SGE::Object*>& vector, SGE::Logic* logic): Logic(logic->getPriority()), vec(vector), logic(logic)
 	{}
@@ -199,6 +203,7 @@ class SnapCamera : public SGE::Logic
 	const SGE::Key up, down, left, right, snapKey;
 	bool snapped = true;
 	SGE::Object* snapTo;
+
 public:
 	SnapCamera(const float speed, const SGE::Key up, const SGE::Key down, const SGE::Key left, const SGE::Key right, const SGE::Key snapKey, SGE::Object* snapTo)
 		:Logic(SGE::LogicPriority::Highest), speed(speed), up(up), down(down), left(left), right(right), snapKey(snapKey) ,snapTo(snapTo){}
@@ -229,10 +234,11 @@ class MouseClickedAction : public SGE::Action
 public:
     MouseClickedAction(): Action(0.f){};
     
-    virtual void action_begin(const SGE::ObjectBind&) noexcept override{}
-    virtual void action_ends(const SGE::ObjectBind&) noexcept override{}
+    virtual void action_begin(const SGE::ObjectBind&) noexcept override {}
+    virtual void action_ends(const SGE::ObjectBind&) noexcept override {}
     
-    virtual void action_main(const SGE::ObjectBind& b) noexcept override{
+    virtual void action_main(const SGE::ObjectBind& b) noexcept override
+    {
 		//assert((n - o) == 2);
 		SGE::MouseObject* mouse = dynamic_cast<SGE::MouseObject*>(b[0]);
 		SGE::Object* p = b[1];
@@ -321,7 +327,8 @@ int main(int argc, char * argv[])
     is.open(path);
     std::string s;
 	is >> s;
-    while (is >> s){
+    while (is >> s)
+    {
         l.push_back(s);
     }
     
@@ -329,9 +336,12 @@ int main(int argc, char * argv[])
     
     int x = 0, y = 0; const int w = 64, h = 64;
     
-    for (auto& ee : l){
-        for (auto& e : ee){
-            if (e == '.'){
+    for (auto& ee : l)
+    {
+        for (auto& e : ee)
+        {
+            if (e == '.')
+            {
                 free.push_back(std::make_pair(x * w, (y * h) ));
             }x++;
         }y++;
@@ -342,13 +352,15 @@ int main(int argc, char * argv[])
     srand(time(NULL));
 
     std::set<int> r;
-    for (int i = 0; i < humans; i++){
+    for (int i = 0; i < humans; i++)
+    {
         int index = rand() % free.size();
         r.insert(index);
     }
     
     std::vector<SGE::Object*> humans_id;
-    for (const int& e : r){
+    for (const int& e : r)
+    {
         std::pair<float, float> pos = free.at(e);
 		SGE::Object* temp = new Human(pos.first, pos.second, 120);
 		game->textureObject(temp,  PATH"ZombieGame/Resources/Textures/circle.png");

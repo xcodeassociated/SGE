@@ -3,12 +3,13 @@
 
 #include "sge_object.hpp"
 
-namespace SGE {
-    
+namespace SGE
+{
 	/**
      * \brief 
      */
-    class Reactive : public Object{
+    class Reactive : public Object
+    {
     protected:
 	    /**
          * \brief 

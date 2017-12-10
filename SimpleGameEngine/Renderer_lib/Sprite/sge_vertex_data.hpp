@@ -5,11 +5,13 @@
 #ifndef SGE_ZOMBIEGAME_SGE_VERTEX_DATA_HPP
 #define SGE_ZOMBIEGAME_SGE_VERTEX_DATA_HPP
 
-namespace SGE {
+namespace SGE
+{
 	/**
      * \brief 
      */
-    struct Position{
+    struct Position
+	{
 	    /**
          * \brief 
          */
@@ -39,7 +41,8 @@ namespace SGE {
 	/**
      * \brief 
      */
-    struct Color{
+    struct Color
+	{
 	    /**
          * \brief 
          * \param _r 
@@ -76,7 +79,8 @@ namespace SGE {
 	/**
      * \brief 
      */
-    struct UV{
+    struct UV
+	{
 	    /**
 	     * \brief 
 	     */

@@ -11,12 +11,13 @@
 
 #include "sge_vertex_data.hpp"
 
-namespace SGE {
-    
+namespace SGE
+{
 	/**
      * \brief 
      */
-    struct Vertex{
+    struct Vertex
+	{
 	    /**
          * \brief 
          */

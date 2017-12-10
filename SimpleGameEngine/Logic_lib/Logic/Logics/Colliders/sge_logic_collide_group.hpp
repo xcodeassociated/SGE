@@ -12,14 +12,17 @@
 #include "sge_logic_collide.hpp"
 #include <vector>
 
-namespace SGE {
+namespace SGE
+{
     
-    namespace Logics{
+    namespace Logics
+	{
         
 	    /**
          * \brief 
          */
-        class BasicColliderGroup : public Collide {
+        class BasicColliderGroup : public Collide
+		{
 	        /**
              * \brief 
              */

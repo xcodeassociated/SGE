@@ -9,12 +9,13 @@
 #ifndef sprite_h
 #define sprite_h
 
-namespace SGE {
-    
+namespace SGE
+{
 	/**
      * \brief 
      */
-    class Sprite{
+    class Sprite
+	{
         
     public:
 

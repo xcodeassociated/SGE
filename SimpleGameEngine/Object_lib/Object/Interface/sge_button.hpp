@@ -3,12 +3,14 @@
 
 #include "sge_interface.hpp"
 
-namespace SGE {
+namespace SGE
+{
     
 	/**
      * \brief 
      */
-    class Button : public Interface{
+    class Button : public Interface
+    {
     };
     
 }

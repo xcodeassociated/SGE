@@ -13,11 +13,13 @@
 
 struct SDL_Window;
 
-namespace SGE {
+namespace SGE
+{
 	/**
      * \brief 
      */
-    class WindowManager {
+    class WindowManager
+    {
 	    /**
          * \brief 
          */

@@ -1,3 +1,4 @@
+#include "sge_key.hpp"
 #include "sge_keyboard_state.hpp"
 #include <SDL2/SDL.h>
 

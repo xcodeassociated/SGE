@@ -142,20 +142,20 @@ namespace SGE
 		 * \brief 
 		 * \return 
 		 */
-		virtual Shape* getShape(void) noexcept final;
+		virtual Shape* getShape() noexcept final;
 
 		/**
 		 * \brief 
 		 * \return 
 		 * \todo Rework Lock system
 		 */
-		virtual LogicPriority getLock(void) const noexcept final;
+		virtual LogicPriority getLock() const noexcept final;
 
 		/**
 		 * \brief 
 		 * \param lock 
 		 */
-		virtual void setLock(const LogicPriority lock) noexcept final;
+		virtual void setLock(const LogicPriority& lock) noexcept final;
     };
 	
 	/**

@@ -4,7 +4,8 @@
 #include <string>
 #include <glm/vec2.hpp>
 
-namespace SGE {
+namespace SGE
+{
 	/**
 	 * \brief 
 	 * \return 

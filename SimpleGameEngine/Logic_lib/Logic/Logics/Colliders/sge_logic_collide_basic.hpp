@@ -11,14 +11,17 @@
 
 #include "sge_logic_collide.hpp"
 
-namespace SGE {
+namespace SGE
+{
     
-    namespace Logics{
+    namespace Logics
+	{
         
 	    /**
          * \brief 
          */
-        class BasicCollider : public Collide {
+        class BasicCollider : public Collide
+		{
 	        /**
 			 * \brief 
 			 */

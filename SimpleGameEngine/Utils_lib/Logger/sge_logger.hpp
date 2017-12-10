@@ -12,13 +12,15 @@
 #include <thread>
 #include <mutex>
 
-namespace SGE {
+namespace SGE
+{
 
     class Logger;
 
     class LoggerError;
 
-    class LoggerFactory {
+    class LoggerFactory
+    {
         static std::mutex logger_sync;
     public:
         static std::shared_ptr<Logger> create_logger(const std::string);
@@ -26,7 +28,8 @@ namespace SGE {
         static std::shared_ptr<LoggerError> create_logger_error(const std::string);
     };
 
-    class Logger {
+    class Logger
+    {
         friend class LoggerFactory;
 
         friend class LoggerError;
@@ -50,18 +53,21 @@ namespace SGE {
 
         typedef CoutType &(*StandardEndLine)(CoutType &);
 
-        Logger &operator<<(StandardEndLine manip) {
+        Logger &operator<<(StandardEndLine manip)
+        {
             flushed = true;
             manip(std::cout);
             return *this;
         }
 
-        Logger &operator<<(char c) {
+        Logger &operator<<(char c)
+        {
             std::lock_guard<std::mutex> lock(this->mu);
             if (c == '\n')
                 flushed = true;
 
-            if (flushed) {
+            if (flushed)
+            {
                 std::cout << '[' << this->getTimestamp() << "] " << this->component_name << ": " << c;
                 flushed = false;
             } else
@@ -70,10 +76,12 @@ namespace SGE {
         }
 
         template<typename T>
-        Logger &operator<<(const T &t) {
+        Logger &operator<<(const T &t)
+        {
             std::lock_guard<std::mutex> lock(this->mu);
 
-            if (flushed) {
+            if (flushed)
+            {
                 std::cout << '[' << this->getTimestamp() << "] " << this->component_name << ": " << t;
                 flushed = false;
             } else
@@ -84,7 +92,8 @@ namespace SGE {
 
     };
 
-    class LoggerError : public Logger {
+    class LoggerError : public Logger
+    {
         friend class LoggerFactory;
 
         using Logger::Logger;
@@ -96,18 +105,21 @@ namespace SGE {
 
         static std::shared_ptr<LoggerError> instance(const std::string component_name);
 
-        LoggerError& operator<<(StandardEndLine manip) {
+        LoggerError& operator<<(StandardEndLine manip)
+        {
             flushed = true;
             manip(std::cerr);
             return *this;
         }
 
-        LoggerError& operator<<(char c) {
+        LoggerError& operator<<(char c)
+        {
             std::lock_guard<std::mutex> lock(this->mu);
             if (c == '\n')
                 flushed = true;
 
-            if (flushed) {
+            if (flushed)
+            {
                 std::cerr << '[' << this->getTimestamp() << "] " << this->component_name << ": " << c;
                 flushed = false;
             } else
@@ -116,9 +128,11 @@ namespace SGE {
         }
 
         template<typename T>
-        LoggerError& operator<<(const T &t) {
+        LoggerError& operator<<(const T &t)
+        {
             std::lock_guard<std::mutex> lock(this->mu);
-            if (flushed) {
+            if (flushed)
+            {
                 std::cerr << '[' << this->getTimestamp() << "] " << this->component_name << ": " << t;
                 flushed = false;
             } else

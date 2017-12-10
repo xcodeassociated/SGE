@@ -18,7 +18,8 @@
 
 #include <boost/date_time/posix_time/posix_time.hpp>
 
-namespace SGE {
+namespace SGE
+{
     class Logger;
 
     UTILS_EXPORT float delta_time;

@@ -11,13 +11,16 @@
 
 #include "sge_action.hpp"
 
-namespace SGE {
-    namespace ACTION {
+namespace SGE
+{
+    namespace ACTION
+	{
 	    /**
          * \brief Immediately moves bound objects by given distance
          * \todo Make use of duration or remove it
          */
-        class Move : virtual public Action {
+        class Move : virtual public Action
+		{
 	        /**
 	         * \brief Displacement distance on X axis
 	         */

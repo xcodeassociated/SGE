@@ -11,12 +11,13 @@
 
 #include "sge_object.hpp"
 
-namespace SGE{
-    
+namespace SGE
+{
 	/**
      * \brief 
      */
-    struct ImageLoader{
+    struct ImageLoader
+	{
 	    /**
 	     * \brief 
 	     * \param filePath 

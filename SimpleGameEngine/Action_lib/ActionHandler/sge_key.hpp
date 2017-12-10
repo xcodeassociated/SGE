@@ -7,12 +7,14 @@
 
 #include <SDL2/SDL.h>
 
-namespace SGE {
+namespace SGE
+{
 
 	/**
      * \brief Enumerates SDL keycodes
      */
-    enum class Key {
+    enum class Key
+    {
         A = SDLK_a,
         B = SDLK_b,
         C = SDLK_c,

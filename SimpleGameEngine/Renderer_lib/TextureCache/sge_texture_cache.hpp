@@ -12,12 +12,13 @@
 #include <map>
 #include "sge_object.hpp"
 
-namespace SGE {
-
+namespace SGE
+{
 	/**
      * \brief 
      */
-    class TextureCache{
+    class TextureCache
+	{
         
 	    /**
          * \brief 

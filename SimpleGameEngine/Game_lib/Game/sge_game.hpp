@@ -9,8 +9,8 @@
 #include <memory>
 #include "sge_logger.hpp"
 
-namespace SGE {
-
+namespace SGE
+{
     class Object;
 	class Director;
     class Game;
@@ -31,7 +31,8 @@ namespace SGE {
 	/**
      * \brief 
      */
-    class Game final{
+    class Game final
+	{
 	    /**
          * \brief 
          */
@@ -131,12 +132,12 @@ namespace SGE {
         /**
          * \brief
          */
-        void performActions(void);
+        void performActions();
 
         /**
          * \brief
          */
-        void performLogics(void);
+        void performLogics();
 
         /**
         * \brief
@@ -146,12 +147,12 @@ namespace SGE {
         /**
          * \brief
          */
-        void run(void);
+        void run();
 
         /**
          * \brief
          */
-        void stop(void);
+        void stop();
 
         /**
          * \brief
@@ -217,7 +218,7 @@ namespace SGE {
 	     * \brief 
 	     * \return 
 	     */
-	    Object* getMouse(void);
+	    Object* getMouse();
 
 	    /**
 	     * \brief Current way of connecting OM and Director

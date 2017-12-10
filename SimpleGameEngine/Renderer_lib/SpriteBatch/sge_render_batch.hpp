@@ -7,12 +7,13 @@
 
 #include <GL/glew.h>
 
-namespace SGE {
-
+namespace SGE
+{
 	/**
      * \brief 
      */
-    class RenderBatch {
+    class RenderBatch
+    {
     public:
 	    /**
          * \brief 

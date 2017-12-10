@@ -3,12 +3,14 @@
 
 #include "sge_interface.hpp"
 
-namespace SGE {
+namespace SGE
+{
     
 	/**
      * \brief 
      */
-    class Label : public Interface{
+    class Label : public Interface
+	{
 		
 	public:
 	    /**

@@ -7,7 +7,8 @@
 
 #include "sge_object_bind.hpp"
 
-namespace SGE {
+namespace SGE
+{
 	class Logic;
 	class Object;
 
@@ -24,6 +25,7 @@ namespace SGE {
          * \brief 
          */
         ObjectBind bind;
+
     public:
 	    /**
          * \brief 

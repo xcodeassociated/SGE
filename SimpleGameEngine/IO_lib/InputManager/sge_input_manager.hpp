@@ -11,13 +11,14 @@
 
 #include <unordered_map>
 
-namespace SGE {
-
+namespace SGE
+{
 	/**
      * \brief Stores key states
      * \todo We wrapped around SDL2 keyboard state. I don't think this is needed.
      */
-    class InputManager{
+    class InputManager
+	{
 	    /**
          * \brief 
          */

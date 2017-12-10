@@ -5,10 +5,10 @@
 #include "sge_world_element.hpp"
 #include <vector>
 
-namespace SGE {
-    
-    namespace Logics{
-        
+namespace SGE
+{
+    namespace Logics
+	{
 	    /**
          * \brief 
          */

@@ -5,11 +5,13 @@
 #include <initializer_list>
 
 
-namespace SGE {
+namespace SGE
+{
 	class ObjectBind;
     class ActionBind;
 
-	class Action{
+	class Action
+	{
     protected:
         double duration = 0;
 		bool enabled = true;

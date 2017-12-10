@@ -12,9 +12,11 @@
 #include "sge_logic.hpp"
 #include <functional>
 
-namespace SGE {
+namespace SGE
+{
     class Object;
     class ObjectID;
+	class Action;
     
     namespace Logics{
         

@@ -8,12 +8,13 @@
 #include "sge_key.hpp"
 #include "sge_action_bind.hpp"
 
-namespace SGE {
-
+namespace SGE
+{
 	/**
      * \brief Binds Key with ActionBind
      */
-    class InputBinder{
+    class InputBinder
+    {
 	    /**
          * \brief bound ActionBind
          */

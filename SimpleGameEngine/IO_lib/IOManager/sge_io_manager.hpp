@@ -11,10 +11,11 @@
 
 #include <vector>
 
-
-namespace SGE {
+namespace SGE
+{
     
-    struct IOManager{
+    struct IOManager
+	{
 	    /**
 	     * \brief Reads file at given filePath and stores it in the buffer
 	     * \param filePath Path to file

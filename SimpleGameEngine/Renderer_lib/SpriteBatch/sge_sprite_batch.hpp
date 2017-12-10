@@ -18,7 +18,8 @@
 #include "sge_glyph.hpp"
 #include "sge_render_batch.hpp"
 
-namespace SGE {
+namespace SGE
+{
     
 	/**
      * \brief 

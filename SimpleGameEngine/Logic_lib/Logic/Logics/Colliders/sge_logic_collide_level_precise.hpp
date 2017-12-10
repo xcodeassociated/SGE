@@ -6,14 +6,15 @@
 #include <vector>
 #include <iostream>
 
-namespace SGE {
-
-	namespace Logics {
-
+namespace SGE
+{
+	namespace Logics
+	{
 		/**
 		 * \brief 
 		 */
-		class PreciseLevelCollider : public Collide {
+		class PreciseLevelCollider : public Collide
+		{
 			/**
 			 * \brief 
 			 */

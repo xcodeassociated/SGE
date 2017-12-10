@@ -3,12 +3,13 @@
 
 #include "sge_being.hpp"
 
-namespace SGE {
-    
+namespace SGE
+{
 	/**
      * \brief 
      */
-    class Player : public Being{
+    class Player : public Being
+    {
     };
     
 }

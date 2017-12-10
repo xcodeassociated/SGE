@@ -7,8 +7,8 @@
 
 #include "sge_shape.hpp"
 
-namespace SGE {
-
+namespace SGE
+{
 	/**
      * \brief 
      */

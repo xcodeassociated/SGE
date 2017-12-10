@@ -3,7 +3,8 @@
 
 #include <vector>
 
-namespace SGE{
+namespace SGE
+{
 	enum class LogicPriority;
 	class Action;
 	class ActionBind;
@@ -12,7 +13,8 @@ namespace SGE{
 	/**
      * \brief Workaround for std::hash not working with enums
      */
-    struct KeyHash{
+    struct KeyHash
+	{
 	    /**
          * \brief Returns undrlying value of enum
          * \tparam T Enum type
@@ -36,7 +38,8 @@ namespace SGE{
 	/**
      * \brief Handles the execution of actions
      */
-    class ActionHandler {
+    class ActionHandler
+	{
 	    /**
          * \brief Vector of queued ActionBinds
          */

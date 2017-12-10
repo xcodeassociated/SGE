@@ -5,7 +5,8 @@
 #ifndef SGE_ZOMBIEGAME_SGE_LOGIC_PRIORITY_HPP
 #define SGE_ZOMBIEGAME_SGE_LOGIC_PRIORITY_HPP
 
-namespace SGE {
+namespace SGE
+{
 	/**
      * \brief 
      */

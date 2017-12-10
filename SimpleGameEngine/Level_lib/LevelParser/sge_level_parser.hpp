@@ -6,8 +6,10 @@
 
 #include "sge_level.hpp"
 
-namespace SGE {
-	class LevelParser {
+namespace SGE
+{
+	class LevelParser
+	{
 		/**
          * \brief Maps tile codes to texture filepath
          * \todo Check for level Y Inversion.

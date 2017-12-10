@@ -62,7 +62,7 @@ SGE::LogicPriority SGE::Object::getLock() const noexcept
 	return lock;
 }
 
-void SGE::Object::setLock(const LogicPriority lock) noexcept
+void SGE::Object::setLock(const LogicPriority& lock) noexcept
 {
 	this->lock = lock;
 }

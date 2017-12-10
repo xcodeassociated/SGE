@@ -12,7 +12,8 @@ namespace SGE
     class Scene;
 	class ResourceManager;
 
-    class Renderer {
+    class Renderer
+    {
 	    /**
 	     * \brief 
 	     */
@@ -53,12 +54,12 @@ namespace SGE
 	    /**
          * \brief 
          */
-        void renderLevel(void);
+        void renderLevel();
 
 	    /**
          * \brief 
          */
-        void renderObjects(void);
+        void renderObjects();
 
     public:
 	    /**
@@ -69,12 +70,12 @@ namespace SGE
 	    /**
          * \brief 
          */
-        void initShader(void);
+        void initShader();
 
 	    /**
          * \brief 
          */
-        void spriteBatchInit(void);
+        void spriteBatchInit();
 
 	    /**
          * \brief 

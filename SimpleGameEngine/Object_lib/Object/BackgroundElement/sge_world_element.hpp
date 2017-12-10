@@ -3,8 +3,8 @@
 
 #include "sge_background_element.hpp"
 
-namespace SGE {
-    
+namespace SGE
+{
 	/**
      * \brief 
      */

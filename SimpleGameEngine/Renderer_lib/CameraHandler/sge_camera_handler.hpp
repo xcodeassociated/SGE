@@ -15,13 +15,13 @@
 
 namespace SGE
 {
-
     class Camera2d;
 
 	/**
      * \brief 
      */
-    class CameraHandler {
+    class CameraHandler
+    {
 	    /**
          * \brief 
          */

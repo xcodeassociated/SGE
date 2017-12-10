@@ -16,8 +16,8 @@
 #include "sge_action_handler.hpp"
 #include "glm/glm.hpp"
 
-namespace SGE {
-
+namespace SGE
+{
     class Game;
     class InputManager;
     class MouseObject;
@@ -55,7 +55,7 @@ namespace SGE {
 	    /**
          * \brief 
          */
-        void operator()(void) noexcept;
+        void operator()() noexcept;
 
 	    /**
          * \brief 
@@ -73,7 +73,8 @@ namespace SGE {
          * \brief 
          * \todo Move it?
          */
-        class MouseHandler {
+        class MouseHandler
+        {
 	        /**
              * \brief 
              */
@@ -83,7 +84,7 @@ namespace SGE {
 	        /**
              * \brief 
              */
-            MouseHandler(void) noexcept;
+            MouseHandler() noexcept;
 
 	        /**
              * \brief 
@@ -95,13 +96,13 @@ namespace SGE {
              * \brief 
              * \return 
              */
-            glm::vec2 getMouseCoords(void) const noexcept;
+            glm::vec2 getMouseCoords() const noexcept;
 
 	        /**
              * \brief 
              * \return 
              */
-            MouseObject *getMouseObject(void) noexcept;
+            MouseObject *getMouseObject() noexcept;
         };
 
     private:

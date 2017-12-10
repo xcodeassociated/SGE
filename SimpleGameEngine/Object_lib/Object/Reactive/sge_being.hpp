@@ -3,12 +3,13 @@
 
 #include "sge_reactive.hpp"
 
-namespace SGE {
-    
+namespace SGE
+{
 	/**
      * \brief 
      */
-    class Being : public Reactive{
+    class Being : public Reactive
+	{
 	public:
 		using Reactive::Reactive;
     };

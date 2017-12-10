@@ -7,8 +7,8 @@
 
 #include "sge_object_bind.hpp"
 
-namespace SGE {
-
+namespace SGE
+{
     class Object;
     class ActionHandler;
 	class Action;
@@ -16,7 +16,8 @@ namespace SGE {
 	/**
      * \brief Binds Action with Objects
      */
-    class ActionBind {
+    class ActionBind
+	{
 	    /**
          * \brief Bound Objects
          */
