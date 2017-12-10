@@ -1,7 +1,9 @@
 #include "sge_fps_limiter.hpp"
 #include <SDL2/SDL.h>
 
+#if !defined(_WIN32)
 float SGE::delta_time = 0;
+#endif
 
 void SGE::FpsLimiter::calculateFPS()
 {
