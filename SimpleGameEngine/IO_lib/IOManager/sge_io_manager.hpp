@@ -1,4 +1,4 @@
-//
+//oManager
 //  sge_io.hpp
 //  SimpleGameEngine_xc_1
 //

@@ -7,7 +7,7 @@
 #include "sge_logic.hpp"
 #include "sge_scene.hpp"
 #include "sge_mouse.hpp"
-#include "sge_object_manager.hpp"
+#include "sge_game.hpp"
 #include "sge_director.hpp"
 #include "sge_keyboard_state.hpp"
 

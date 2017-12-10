@@ -1,5 +1,5 @@
-#ifndef sge_object_manager_h
-#define sge_object_manager_h
+#ifndef sge_game_h
+#define sge_game_h
 
 #include <vector>
 #include <map>
@@ -31,7 +31,7 @@ namespace SGE {
 	/**
      * \brief 
      */
-    class ObjectManager final{
+    class Game final{
 	    /**
          * \brief 
          */
@@ -71,10 +71,6 @@ namespace SGE {
 		 */
 		Renderer* renderer = nullptr;
 	    /**
-		 * \brief 
-		 */
-		Game* game = nullptr;
-	    /**
          * \brief 
          */
         InputHandler* input_handler = nullptr;
@@ -100,17 +96,6 @@ namespace SGE {
 
 	    /**
 	     * \brief 
-	     */
-	    ObjectManager() noexcept;
-
-	    /**
-	     * \brief 
-	     * \return 
-	     */
-	    bool init();
-
-	    /**
-	     * \brief 
 	     * \return 
 	     */
 	    bool isOnScene();
@@ -120,12 +105,6 @@ namespace SGE {
 	     * \param s 
 	     */
 	    void showScene(Scene* s);
-
-	    /**
-	     * \brief 
-	     * \param s 
-	     */
-	    void swapScene(Scene* s);
 
 	    /**
 	     * \brief 
@@ -169,7 +148,7 @@ namespace SGE {
         /**
         * \brief
         */
-        Game(ObjectManager *, ActionHandler *);
+        explicit Game();
 
         /**
          * \brief
@@ -185,11 +164,6 @@ namespace SGE {
          * \brief
          */
         void draw(void);
-
-        /**
-         * \brief
-         */
-        void setInputHandler(InputHandler *);
         
 	public:
 	    /**
@@ -197,6 +171,12 @@ namespace SGE {
 	     * \return 
 	     */
 	    static Game* getGame();
+
+		/**
+		* \brief
+		* \return
+		*/
+		bool init(float fps);
 
 	    /**
 	     * \brief 
@@ -212,46 +192,11 @@ namespace SGE {
 
 	    /**
 	     * \brief 
-	     */
-	    void interrupt();
-
-	    /**
-	     * \brief 
 	     * \param o 
 	     * \param path 
 	     * \return 
 	     */
-	    Object* addObject(Object* o, std::string path = "");
-
-	    /**
-	     * \brief 
-	     * \param o 
-	     * \param s 
-	     * \param path 
-	     * \return 
-	     */
-	    Object* addObject(Object* o, Scene* s, std::string path = "");
-
-	    /**
-	     * \brief 
-	     * \param o 
-	     * \param s 
-	     */
-	    void bindObject(Object* o, Scene* s);
-
-	    /**
-	     * \brief 
-	     * \param o 
-	     * \param s 
-	     */
-	    void unbindObject(Object* o, Scene* s);
-
-	    /**
-	     * \brief 
-	     * \param id 
-	     * \param action 
-	     */
-	    void update(Object* id, const Action& action);
+	    Object* textureObject(Object* o, std::string path = "");
 
 	    /**
 	     * \brief 
@@ -291,4 +236,4 @@ namespace SGE {
     
 }
 
-#endif /* sge_object_manager_h */
+#endif /* sge_game_h */

@@ -9,7 +9,7 @@ SGE::ActionBind::ActionBind(const std::initializer_list<Object*>& object, Action
 {
 }
 
-SGE::ActionBind::ActionBind(Object* object, Action* action) :ActionBind({ object }, action)
+SGE::ActionBind::ActionBind(Object* object, Action* action) : ActionBind({ object }, action)
 {
 }
 

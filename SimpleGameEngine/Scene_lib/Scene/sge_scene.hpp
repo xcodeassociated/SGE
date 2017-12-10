@@ -10,8 +10,7 @@ namespace SGE {
 	
 	class Scene;
 	class Director;
-	class ObjectManager;
-
+	class Game;
 
 	/**
      * \brief 
@@ -25,7 +24,7 @@ namespace SGE {
 	    /**
          * \brief 
          */
-        using ObjectVector= std::vector<Object*>;
+        using ObjectVector = std::vector<Object*>;
         
 	    /**
 		 * \brief 
@@ -38,13 +37,14 @@ namespace SGE {
 	    /**
          * \brief 
          */
-        ObjectVector* Objects = nullptr;
+        ObjectVector objects;
 
 	public:
 	    /**
 		 * \brief 
 		 */
 		bool TextureLoaded = false;
+
 	    /**
 	     * \brief 
 	     * \return 
@@ -71,17 +71,16 @@ namespace SGE {
 
 	    /**
 	     * \brief 
-	     * \param obj 
-	     */
-	    virtual void BindObjects(ObjectVector* obj) final;
-
-	    /**
-	     * \brief 
 	     * \return 
 	     */
 	    virtual ObjectVector& getObjects() final;
 
-	    /**
+
+		void addObject(SGE::Object* object);
+
+		void removeObject(SGE::Object* object);
+
+		/**
 		 * \brief 
 		 */
 		virtual void finalize() = 0;

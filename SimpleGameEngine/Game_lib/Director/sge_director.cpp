@@ -1,5 +1,5 @@
 #include "sge_director.hpp"
-#include "sge_object_manager.hpp"
+#include "sge_game.hpp"
 #include "sge_logic_bind.hpp"
 #include <algorithm>
 #include <iostream>
@@ -29,7 +29,6 @@ std::pair<int, int> SGE::Director::getResolution()
 SGE::Scene* SGE::Director::addScene(Scene* scene)
 {
 	this->scenes.push_back(scene);
-	manager->addScene(scene);
 	return scene;
 }
 
@@ -38,8 +37,7 @@ void SGE::Director::deleteScene(Scene* scene)
 	auto sceneIt = std::find(this->scenes.begin(), this->scenes.end(), scene);
 	if (sceneIt != this->scenes.end())
 	{
-		this->scenes.erase(sceneIt);
-		this->manager->deleteScene(scene);
+		this->scenes.erase(std::remove(this->scenes.begin(), this->scenes.end(), *sceneIt), this->scenes.end());
 	}
 }
 
@@ -68,16 +66,7 @@ void SGE::Director::showScene(Scene* scene)
 	{
 		throw std::runtime_error("Scene texture not loaded");
 	}
-	this->manager->showScene(scene);
-}
-
-void SGE::Director::swapScene(Scene* scene)
-{
-	if (!scene->TextureLoaded)
-	{
-		throw std::runtime_error("Scene texture not loaded");
-	}
-	this->manager->swapScene(scene);
+	this->game->showScene(scene);
 }
 
 void SGE::Director::finalize()
@@ -85,7 +74,7 @@ void SGE::Director::finalize()
 	*logger << "Director Finalize method invoked" << std::endl;
 }
 
-void SGE::Director::bindManager(ObjectManager* objectManager)
+void SGE::Director::bindGame(Game* game)
 {
-	this->manager = objectManager;
+	this->game = game;
 }

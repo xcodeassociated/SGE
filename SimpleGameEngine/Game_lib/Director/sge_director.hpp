@@ -3,8 +3,8 @@
 
 #include <vector>
 #include <memory>
-#include <sge_logic.hpp>
-#include <sge_scene.hpp>
+#include "sge_logic.hpp"
+#include "sge_scene.hpp"
 #include "sge_logger.hpp"
 
 namespace SGE {
@@ -20,7 +20,7 @@ namespace SGE {
 	    /**
 		 * \brief 
 		 */
-		ObjectManager* manager = nullptr;
+		Game* game = nullptr;
 	    /**
 		 * \brief 
 		 */
@@ -105,21 +105,15 @@ namespace SGE {
 
 	    /**
 	     * \brief 
-	     * \param scene 
-	     */
-	    void swapScene(Scene* scene);
-
-	    /**
-	     * \brief 
 	     */
 	    void finalize();
 
 	    /**
 	     * \brief Current Current way of connecting OM and Director
-	     * \param objectManager pointer to OM Singleton
+	     * \param pointer to Game Singleton
 	     * \todo: Change this? Some Bootstraper perhaps?
 	     */
-	    void bindManager(ObjectManager* objectManager);
+	    void bindGame(Game* game);
     };
     
 }

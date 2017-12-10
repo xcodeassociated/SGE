@@ -153,9 +153,9 @@ include_directories(${SGE_DIR}/Object_lib/Object/Interface)
 include_directories(${SGE_DIR}/Object_lib/Object/Reactive)
 include_directories(${SGE_DIR}/Object_lib/Object/Shape)
 
-include_directories(${SGE_DIR}/ObjectManager_lib/ObjectManager)
-include_directories(${SGE_DIR}/ObjectManager_lib/Director)
-include_directories(${SGE_DIR}/ObjectManager_lib/Relay)
+include_directories(${SGE_DIR}/Game_lib/Director)
+include_directories(${SGE_DIR}/Game_lib/Game)
+include_directories(${SGE_DIR}/Game_lib/InputHandler)
 
 include_directories(${SGE_DIR}/Renderer_lib/Renderer)
 include_directories(${SGE_DIR}/Renderer_lib/CameraHandler)

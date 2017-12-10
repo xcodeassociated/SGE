@@ -11,74 +11,61 @@
 #include "sge_renderer.hpp"
 #include "sge_window_manager.hpp"
 #include "sge_fps_limiter.hpp"
-#include "tool/sge_input_handler.hpp"
-
-#include <iostream>
+#include "sge_input_handler.hpp"
 
 namespace SGE
 {
-    std::shared_ptr<Logger> ObjectManager::logger = LoggerFactory::create_logger("ObjectManager");
-    std::shared_ptr<LoggerError> ObjectManager::logger_err = LoggerFactory::create_logger_error("ObjectManager_ERROR");
+    std::shared_ptr<Logger> Game::logger = LoggerFactory::create_logger("Game");
+    std::shared_ptr<LoggerError> Game::logger_err = LoggerFactory::create_logger_error("Game_ERROR");
 
-    ObjectManager::ObjectManager() noexcept: action_handler(new ActionHandler)
-	{
-		Logic::action_handler = this->action_handler;
-	}
-
-	bool ObjectManager::init()
+	bool Game::init(float fps)
 	{
 		std::pair<int, int> resolution = this->director->getResolution();
 
+        this->action_handler = new ActionHandler;
+        this->limiter = new FpsLimiter;
+        this->limiter->init(fps);
 		this->window_manager = new WindowManager(resolution, this);
 		this->window_manager->createWindow();
 
-		this->camera_handler = new CameraHandler(resolution, this);
+		this->camera_handler = new CameraHandler(resolution);
 		this->camera_handler->setPosition(this->camera_handler->getScreenToWorld(0, 0));
 		this->camera_handler->setScale(.5f);
 
 		this->renderer = new Renderer(resolution, this, this->window_manager, this->camera_handler);
 
-		this->game = new Game(this, this->action_handler);
-
 		this->input_handler = new InputHandler(this);
-		this->game->setInputHandler(this->input_handler);
+
 		return true;
 	}
 
-	bool ObjectManager::isOnScene()
+	bool Game::isOnScene()
 	{
 		return this->OnScene;
 	}
 
-	void ObjectManager::showScene(Scene* s)
+	void Game::showScene(Scene* s)
 	{
 		this->currentScene = s;
-		auto sceneObjectsIt = this->sceneObjects.find(s);
-
-		if (sceneObjectsIt == this->sceneObjects.end())
-            throw std::runtime_error("Scene not Loaded");
-
-		s->BindObjects(&(*sceneObjectsIt).second);
 
 		this->OnScene = true;
 
+        //TODO: this should be executed before - required if we want to swap scene
 		this->window_manager->showWindow();
-
 		this->renderer->initShader();
-
 		this->renderer->spriteBatchInit();
 
 		s->onDraw();
 
-		this->game->run();
+		this->run();
 	}
 
-	Level& ObjectManager::getSceneData(Scene* s)
+	Level& Game::getSceneData(Scene* s)
 	{
 		return s->getLevel();
 	}
 
-	Camera2d* ObjectManager::getCamera()
+	Camera2d* Game::getCamera()
 	{
 		return this->camera_handler->getCamera();
 	}
@@ -101,13 +88,13 @@ namespace SGE
 
 	void Game::finalize()
 	{
-		*logger << "ObjectManager Finalize method invoked" << std::endl;
+		*logger << "Game Finalize method invoked" << std::endl;
  	}
 
 	void Game::windowClosing()
 	{
 		this->window_manager->finalizeWindow();
-        this->game->stop();
+        this->stop();
 	}
 
 	ActionHandler* Game::getActionHandler()
@@ -123,24 +110,17 @@ namespace SGE
 	void Game::bindDirector(Director* director)
 	{
 		this->director = director;
-		director->bindManager(this);
+        director->bindGame(this);
 	}
 
-
-
-    Game::Game(ObjectManager* m, ActionHandler* ah) :
-            manager(m),
-            limiter(new FpsLimiter()),
-            action_handler(ah),
-            logger(LoggerFactory::create_logger("Game"))
+    Game::Game()
     {
-        this->limiter->init(60);
     }
 
     //todo Reset limiter whenever scene is started
     void Game::run()
     {
-        Logic::action_handler = this->manager->action_handler;
+        Logic::action_handler = this->action_handler;
         this->playing = true;
         while (this->playing)
         {
@@ -167,13 +147,14 @@ namespace SGE
         }
     }
 
-    void Game::performActions(void) {
+    void Game::performActions(void)
+	{
         this->action_handler->performAllActions();
     }
 
     void Game::performLogics(void)
     {
-        auto& lVec = this->manager->currentScene->getLogics();
+        auto& lVec = this->currentScene->getLogics();
 
         LogicPriority objectCurrentLogicP = LogicPriority::None;
         LogicPriority nextLogicP = LogicPriority::None;
@@ -194,12 +175,21 @@ namespace SGE
         this->playing = false;
     }
 
-    void Game::draw() {
-        this->manager->renderer->render();
+    void Game::draw()
+	{
+        this->renderer->render();
     }
 
-    void Game::setInputHandler(InputHandler* e)
-    {
-        (e != nullptr) ? this->input_handler = e : throw std::runtime_error("Cannot set input_handler - passed null");
-    }
+	Object* Game::textureObject(Object *object, std::string path)
+	{
+        // TODO: Check if file exists!
+
+		if (!path.empty())
+        {
+            object->texture = this->rManager->getTexture(path.c_str());
+            object->hasTexture = true;
+        }
+        else
+			throw std::runtime_error{"Object texture path string empty"};
+	}
 }

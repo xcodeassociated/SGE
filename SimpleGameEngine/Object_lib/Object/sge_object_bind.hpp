@@ -8,14 +8,16 @@
 #include <initializer_list>
 #include <string>
 
-namespace SGE {
+namespace SGE
+{
 
     class Object;
 
 	/**
      * \brief 
      */
-    class ObjectBind {
+    class ObjectBind
+    {
 	    /**
          * \brief 
          */

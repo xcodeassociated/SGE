@@ -12,12 +12,14 @@
 #include "sge_texture_cache.hpp"
 
 
-namespace SGE {
+namespace SGE
+{
     
 	/**
      * \brief 
      */
-    class ResourceManager{
+    class ResourceManager
+	{
 	    /**
          * \brief 
          */

@@ -7,15 +7,17 @@
 #include "sge_shapeless.hpp"
 #include "sge_logic_priority.hpp"
 
-namespace SGE {
-	class ObjectManager;
+namespace SGE
+{
+	class Game;
 	class Object;
         
 	/**
      * \brief 
      * \todo Shouldn't this be a separate file?
      */
-    struct GLTexture {
+    struct GLTexture
+	{
         GLuint id;
         unsigned int width;
         unsigned int height;
@@ -52,6 +54,8 @@ namespace SGE {
 		LogicPriority lock = LogicPriority::None;
 
 	public:
+		bool hasTexture = false;
+
 		/**
 		 * \brief 
 		 */
@@ -159,7 +163,8 @@ namespace SGE {
 	 * \brief 
 	 * \todo Shouldn't this be a separate file?
 	 */
-	class VoidObject : public Object {
+	class VoidObject : public Object
+	{
 	public:
 		/**
 		 * \brief 

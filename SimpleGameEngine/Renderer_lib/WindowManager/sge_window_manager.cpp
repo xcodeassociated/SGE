@@ -9,8 +9,8 @@
 
 namespace SGE {
 
-	WindowManager::WindowManager(std::pair<int, int> resolution, ObjectManager* m) noexcept : width(resolution.first), height(resolution.second) {
-		this->manager = m;
+	WindowManager::WindowManager(std::pair<int, int> resolution, Game* m) noexcept : width(resolution.first), height(resolution.second) {
+		this->game = m;
 	}
 
 	void WindowManager::createWindow(void) {

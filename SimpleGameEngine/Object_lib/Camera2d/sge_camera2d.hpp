@@ -12,12 +12,14 @@
 #include "sge_object.hpp"
 #include <glm/mat4x4.hpp>
 
-namespace SGE {
+namespace SGE
+{
     
 	/**
      * \brief 
      */
-    class Camera2d final : public Object{
+    class Camera2d final : public Object
+	{
 	    /**
          * \brief 
          */

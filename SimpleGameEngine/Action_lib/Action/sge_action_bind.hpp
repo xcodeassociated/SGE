@@ -5,13 +5,12 @@
 #ifndef SGE_ZOMBIEGAME_SGE_ACTION_BIND_HPP
 #define SGE_ZOMBIEGAME_SGE_ACTION_BIND_HPP
 
-
 #include "sge_object_bind.hpp"
+
 namespace SGE {
 
     class Object;
     class ActionHandler;
-    class ObjectManager;
 	class Action;
 
 	/**
@@ -26,6 +25,7 @@ namespace SGE {
          * \brief Bound Actions
          */
 		Action* aid = nullptr;
+
     public:
 	    /**
          * \brief Constructs ActionBind from list of Objects and ActionID

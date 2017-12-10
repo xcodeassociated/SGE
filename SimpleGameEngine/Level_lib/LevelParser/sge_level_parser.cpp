@@ -41,21 +41,3 @@ SGE::Level SGE::LevelParser::parse()
 	}
 	return lev;
 }
-
-
-/*		Level parse()
-{
-Level lev(this->levelData[0].size(), this->levelData.size());
-for (int y = 0; y < this->levelData.size(); y++) {
-for (int x = 0; x < this->levelData[y].size(); x++) {
-char tile = this->levelData[y][x];
-auto it = this->levelMask.find(tile);
-if (it != this->levelMask.end())
-{
-lev.getBackground().emplace_back(it->second);
-}
-}
-}
-return lev;
-}
-*/

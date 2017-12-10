@@ -1,7 +1,7 @@
 #include "sge_renderer.hpp"
 #include "sge_shape_rectangle.hpp"
 #include "sge_shape_circle.hpp"
-#include "sge_object_manager.hpp"
+#include "sge_game.hpp"
 #include "sge_window_manager.hpp"
 #include "sge_camera2d.hpp"
 #include "sge_camera_handler.hpp"
@@ -15,17 +15,18 @@
 
 namespace SGE
 {
-	Renderer::Renderer(std::pair<int, int> res, ObjectManager* m, WindowManager* w, CameraHandler* c) noexcept :
+	Renderer::Renderer(std::pair<int, int> res, Game* m, WindowManager* w, CameraHandler* c) noexcept :
 	width(res.first),
 		height(res.second),
-		oManager(m),
+		game(game),
 		window_manager(w),
 		camera_handler(c)
 	{
 		;
 	}
 
-	void Renderer::initShader() {
+	void Renderer::initShader()
+	{
 		this->shaderProgram = new Shader();
 
 		this->shaderProgram->doShaders(VERT, FRAG);
@@ -37,7 +38,8 @@ namespace SGE
 		this->shaderProgram->linkShaders();
 	}
 
-	void Renderer::spriteBatchInit() {
+	void Renderer::spriteBatchInit()
+	{
 		this->sceneBatch = new SpriteBatch;
 		this->objectBatch = new SpriteBatch;
 
@@ -45,8 +47,9 @@ namespace SGE
 		this->objectBatch->init();
 	}
 
-	void Renderer::render() {
-		this->current = this->oManager->currentScene;
+	void Renderer::render()
+	{
+		this->current = this->game->currentScene;
 
 		glClearDepth(1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -81,7 +84,8 @@ namespace SGE
 		SDL_GL_SwapWindow(this->window_manager->getWindow());
 	}
 
-	void Renderer::renderLevel() {
+	void Renderer::renderLevel()
+	{
 		assert(this->current);
 
 		static glm::vec4 uv(0.0f, 0.0f, 1.0f, 1.0f);
@@ -101,12 +105,13 @@ namespace SGE
 
 		std::for_each(world.begin(), world.end(), [=](WorldElement& e) {
 			glm::vec4 destRect(e.getX() - width*.5f, e.getY() - height*.5f, width, height);
-			e.texture = this->oManager->rManager->getTexture(e.getPath().c_str());
+			e.texture = this->game->rManager->getTexture(e.getPath().c_str());
 			this->sceneBatch->draw(destRect, uv, e.texture.id, 0.0f, color);
 		});
 	}
 
-	void Renderer::renderObjects() {
+	void Renderer::renderObjects()
+	{
 		this->camera_handler->updateCamera();
 
 		static glm::vec4 uv(0.0f, 0.0f, 1.0f, 1.0f);

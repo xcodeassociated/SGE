@@ -18,7 +18,7 @@
 
 namespace SGE {
 
-    class ObjectManager;
+    class Game;
     class InputManager;
     class MouseObject;
     class InputBinder;
@@ -30,7 +30,7 @@ namespace SGE {
 	    /**
          * \brief 
          */
-        ObjectManager* manager = nullptr;
+        Game* game = nullptr;
 	    /**
          * \brief 
          */
@@ -50,7 +50,7 @@ namespace SGE {
 	    /**
          * \brief 
          */
-        InputHandler(ObjectManager *) noexcept;
+        InputHandler(Game*) noexcept;
 
 	    /**
          * \brief 

@@ -25,7 +25,6 @@ namespace SGE {
 	class Action;
 	class Object;
 	class LogicBind;
-	class ObjectManager;
 	class Game;
 	class ObjectBind;
 	class ActionHandler;
@@ -34,8 +33,6 @@ namespace SGE {
      */
     class Logic{
 		friend class Game;
-		friend class ObjectManager;
-
 		friend class DynamicVectorLogic;
 
 	public:

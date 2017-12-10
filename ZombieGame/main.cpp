@@ -16,11 +16,13 @@
 
 #include "SGE.hpp"
 
-class MainScene : public SGE::Scene{
-    SGE::ObjectManager* manager = nullptr;
+class MainScene : public SGE::Scene
+{
+    SGE::Game* game = nullptr;
     
 public:
-    MainScene(SGE::ObjectManager* _manager) : manager(_manager) {
+    MainScene(SGE::Game* game) : game(game)
+	{
         
 		std::string path = PATH"ZombieGame/Levels/level1.txt";
 		std::map<char, std::string> mask = {
@@ -34,12 +36,10 @@ public:
 
 	void finalize() override
 	{
-        ;
 	}
     
 	void onDraw() override
 	{
-        SGE::Action* move = new SGE::ACTION::Move(100, 100, 2);
 	}
 };
 
@@ -220,7 +220,8 @@ public:
 	}
 };
 
-class MouseClickedAction : public SGE::Action {
+class MouseClickedAction : public SGE::Action
+{
 public:
     MouseClickedAction(): Action(0.f){};
     
@@ -232,8 +233,8 @@ public:
 		SGE::MouseObject* mouse = dynamic_cast<SGE::MouseObject*>(b[0]);
 		SGE::Object* p = b[1];
         glm::vec2 coords = mouse->getMouseCoords();
-        SGE::ObjectManager* manager = SGE::ObjectManager::getManager();
-        SGE::Camera2d* cam = dynamic_cast<SGE::Camera2d*>(manager->getCamera());
+        SGE::Game* game = SGE::Game::getGame();
+        SGE::Camera2d* cam = dynamic_cast<SGE::Camera2d*>(game->getCamera());
         glm::vec2 worldCoords = SGE::screenToWorld(coords, cam->getPosition(), (double)cam->getScale());
 
 		std::cout << "[Clicked] - x: " << worldCoords.x << ", y: " << worldCoords.y << std::endl;
@@ -241,21 +242,26 @@ public:
     }
 };
 
-int main(int argc, char * argv[]) {
+int main(int argc, char * argv[])
+{
     std::cout.setf(std::ios::boolalpha);
     std::cout.sync_with_stdio(false);
 
-	SGE::Director* director = SGE::Director::getDirector(1024,768);
-	SGE::ObjectManager* manager = SGE::ObjectManager::getManager();
-	manager->bindDirector(director);
-    
-	SGE::Scene* S1 = director->addScene(new MainScene(manager));
-    
-    SGE::Object* camID = manager->getCamera();
-    SGE::Object* mouseID = manager->getMouse();
+	SGE::Director* director = SGE::Director::getDirector(1024, 768);
+	SGE::Game* game = SGE::Game::getGame();
+	game->bindDirector(director);
+	game->init(60);
 
-    SGE::Object* testObj0 = manager->addObject(new TestObject, S1, PATH"ZombieGame/Resources/Textures/circle.png");
-    SGE::Object* testObj1 = manager->addObject(new TestObject(200,200), S1, PATH"ZombieGame/Resources/Textures/circle.png");
+	SGE::Object* camera = game->getCamera();
+	SGE::Object* mouse = game->getMouse();
+
+	SGE::Scene* S1 = director->addScene(new MainScene(game));
+
+	SGE::Object* testObj0 = new TestObject;
+    SGE::Object* testObj1 = new TestObject(200, 200);
+
+    game->textureObject(testObj0,  PATH"ZombieGame/Resources/Textures/circle.png");
+    game->textureObject(testObj1, PATH"ZombieGame/Resources/Textures/circle.png");
     
     SGE::Action* oW = new SGE::ACTION::Move(0, 4.f, 0);
     SGE::Action* oA = new SGE::ACTION::Move(-4.f, 0, 0);
@@ -267,19 +273,19 @@ int main(int argc, char * argv[]) {
     SGE::InputBinder tb2(testObj0, oA, SGE::Key::Left);
     SGE::InputBinder tb3(testObj0, oD, SGE::Key::Right);
     
-	manager->mapAction(tb0);
-	manager->mapAction(tb1);
-	manager->mapAction(tb2);
-	manager->mapAction(tb3);
+	game->mapAction(tb0);
+	game->mapAction(tb1);
+	game->mapAction(tb2);
+	game->mapAction(tb3);
 
     SGE::Action* click = new MouseClickedAction;
-	SGE::InputBinder clickBind({ mouseID,testObj1 }, click, SGE::Key::MOUSE_LEFT_BUTTON);
-    manager->mapAction(clickBind);
+	SGE::InputBinder clickBind({ mouse, testObj1 }, click, SGE::Key::MOUSE_LEFT_BUTTON);
+	game->mapAction(clickBind);
     
 	auto L1 = new SGE::Logics::PreciseLevelCollider(S1->getLevel().getWorld());
 	SGE::Action* toggle = new LogicSwitch(L1);
-	SGE::Object* cto = manager->addObject(new SGE::VoidObject());
-	manager->mapAction(SGE::InputBinder(cto,toggle,SGE::Key::O));
+	SGE::Object* cto = new SGE::VoidObject();
+	game->mapAction(SGE::InputBinder(cto,toggle,SGE::Key::O));
 
 	auto L2a = new SGE::Logics::BasicCollider(testObj1, &SGE::Logics::Collide::CircleCollisionVec);
 	auto L2b = new SGE::Logics::BasicCollider(testObj0, &SGE::Logics::Collide::CircleCollisionVec);
@@ -293,15 +299,15 @@ int main(int argc, char * argv[]) {
 	director->addLogicBinder(S1, testObj1, L3);
 	director->addLogicBinder(S1, testObj0, L1);
 	director->addLogicBinder(S1, testObj1, L1);
-	director->addLogicBinder(S1, camID, camLogic);
-	director->addLogicBinder(S1, camID, camZoom);
+	director->addLogicBinder(S1, camera, camLogic);
+	director->addLogicBinder(S1, camera, camZoom);
 
 	auto testTile = &(S1->getLevel().getWorld().front());
 	auto moveTile = new SGE::Logics::SimpleMove(4.f, SGE::Key::I, SGE::Key::K, SGE::Key::J, SGE::Key::L);
 	director->addLogicBinder(S1, testTile, moveTile);
 
 	auto reset = new GOTO();
-	manager->mapAction(SGE::InputBinder(testObj1, reset, SGE::Key::B));
+	game->mapAction(SGE::InputBinder(testObj1, reset, SGE::Key::B));
 
     std::string path = PATH"ZombieGame/Levels/level1.txt";
     std::vector<std::string> l;
@@ -338,7 +344,9 @@ int main(int argc, char * argv[]) {
     std::vector<SGE::Object*> humans_id;
     for (const int& e : r){
         std::pair<float, float> pos = free.at(e);
-        SGE::Object* temp = manager->addObject(new Human(pos.first, pos.second,120), S1, PATH"ZombieGame/Resources/Textures/circle.png");
+		SGE::Object* temp = new Human(pos.first, pos.second, 120);
+		game->textureObject(temp,  PATH"ZombieGame/Resources/Textures/circle.png");
+		S1->addObject(temp);
         humans_id.push_back(temp);
     }
 
@@ -355,7 +363,7 @@ int main(int argc, char * argv[]) {
 
 	director->deleteScene(S1);
 	
-	manager->finalize();
+	game->finalize();
 	director->finalize();
 
     return 0;

@@ -24,7 +24,7 @@ namespace SGE {
 		return this->mouse;
 	}
 
-	InputHandler::InputHandler(ObjectManager* m) noexcept : manager(m), input_manager(new InputManager), mouseHandler(new MouseHandler) {
+	InputHandler::InputHandler(Game* game) noexcept : game(game), input_manager(new InputManager), mouseHandler(new MouseHandler) {
 	}
 
 	void InputHandler::mapAction(const InputBinder& bind)
@@ -42,7 +42,7 @@ namespace SGE {
 	{
 		auto it = this->keyMap.find(k);
 		if (it == this->keyMap.end()) return;
-		this->manager->action_handler->handleInputAction(it->second);
+		this->game->action_handler->handleInputAction(it->second);
 	}
 
 	void InputHandler::operator()(void) noexcept {
@@ -50,31 +50,26 @@ namespace SGE {
 		SDL_Event event;
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
-			case SDL_QUIT: {
-				this->manager->windowClosing();
-			}break;
+				case SDL_QUIT: {
+					this->game->windowClosing();
+				}break;
 
-			case SDL_KEYDOWN: {
-				this->pressKey(Key(event.key.keysym.sym));
-			}break;
+				case SDL_KEYDOWN: {
+					this->pressKey(Key(event.key.keysym.sym));
+				}break;
 
-			case SDL_MOUSEMOTION: {
-				this->mouseHandler->setMouseCoords({ event.motion.x, event.motion.y });
-			}break;
+				case SDL_MOUSEMOTION: {
+					this->mouseHandler->setMouseCoords({ event.motion.x, event.motion.y });
+				}break;
 
-			case SDL_MOUSEBUTTONDOWN: {
-				this->mouseHandler->setMouseCoords({ event.motion.x, event.motion.y });
-				this->pressKey(Key(-10));
+				case SDL_MOUSEBUTTONDOWN: {
+					this->mouseHandler->setMouseCoords({ event.motion.x, event.motion.y });
+					this->pressKey(Key(-10));
+				}break;
 
+				case SDL_MOUSEBUTTONUP: {
 
-				//                    glm::vec2 coords = this->camera->screenToWorld(this->inputManager->getMouseCoords());
-				//                    std::cout << "Clicked: x=" << coords.x << ", y=" << coords.y << std::endl;
-			}break;
-
-			case SDL_MOUSEBUTTONUP: {
-				//                    this->inputManager->releaseKey(event.button.button);
-			}break;
-
+				}break;
 			}
 		}
 

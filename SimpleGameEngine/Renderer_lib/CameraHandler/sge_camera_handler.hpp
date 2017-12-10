@@ -13,7 +13,8 @@
 #include <glm/glm.hpp>
 #include <utility>
 
-namespace SGE {
+namespace SGE
+{
 
     class Camera2d;
 
@@ -24,11 +25,11 @@ namespace SGE {
 	    /**
          * \brief 
          */
-        Camera2d *camera = nullptr;
+        Camera2d* camera = nullptr;
 	    /**
          * \brief 
          */
-        ObjectManager *manager = nullptr;
+        Game* game = nullptr;
 	    /**
 	     * \brief 
 	     */
@@ -46,13 +47,13 @@ namespace SGE {
 	    /**
          * \brief 
          */
-        CameraHandler(std::pair<int, int>, ObjectManager *) noexcept;
+        CameraHandler(std::pair<int, int>) noexcept;
 
 	    /**
          * \brief 
          * \return 
          */
-        Camera2d *getCamera();
+        Camera2d* getCamera();
 
 	    /**
          * \brief 
@@ -78,7 +79,7 @@ namespace SGE {
          * \brief 
          * \return 
          */
-        const glm::mat4 &getCameraMatrix(void) const noexcept;
+        const glm::mat4& getCameraMatrix(void) const noexcept;
 
 	    /**
          * \brief 

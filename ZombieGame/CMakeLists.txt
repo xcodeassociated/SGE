@@ -19,21 +19,21 @@ target_link_libraries(${PROJECT_NAME}
 		Level
 		Logic
 		Object
-		ObjectManager
+		Game
 		Renderer
 		Scene
 		Utils
 		PicoPNG)
 		
-if(NOT WIN32)
-foreach( file_i "${Boost_LIBRARIES}")
-	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-			COMMAND ${CMAKE_COMMAND} -E copy ${file_i} ${CMAKE_BINARY_DIR}/bin)
-endforeach( file_i )
-
-foreach( file_i "${CONAN_LIB_DIRS_GLEW}")
-	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-			COMMAND ${CMAKE_COMMAND} -E copy ${file_i}/* ${CMAKE_BINARY_DIR}/bin)
-endforeach( file_i )
-endif()
+#if(NOT WIN32)
+#foreach( file_i "${Boost_LIBRARIES}")
+#	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+#			COMMAND ${CMAKE_COMMAND} -E copy ${file_i} ${CMAKE_BINARY_DIR}/bin)
+#endforeach( file_i )
+#
+#foreach( file_i "${CONAN_LIB_DIRS_GLEW}")
+#	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+#			COMMAND ${CMAKE_COMMAND} -E copy ${file_i}/* ${CMAKE_BINARY_DIR}/bin)
+#endforeach( file_i )
+#endif()
 ##TODO: Copy SDL2 libs as well

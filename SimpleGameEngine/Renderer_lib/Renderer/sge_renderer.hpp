@@ -3,11 +3,11 @@
 
 #include <algorithm>
 
-namespace SGE {
-
+namespace SGE
+{
     class CameraHandler;
     class WindowManager;
-    class ObjectManager;
+    class Game;
     class SpriteBatch;
     class Shader;
     class Scene;
@@ -24,7 +24,7 @@ namespace SGE {
 	    /**
 	     * \brief 
 	     */
-	    ObjectManager* oManager = nullptr;
+	    Game* game = nullptr;
 	    /**
          * \brief 
          */
@@ -64,7 +64,7 @@ namespace SGE {
 	    /**
          * \brief 
          */
-        Renderer(std::pair<int, int>, ObjectManager *, WindowManager *, CameraHandler *) noexcept;
+        Renderer(std::pair<int, int>, Game*, WindowManager *, CameraHandler *) noexcept;
 
 	    /**
          * \brief 

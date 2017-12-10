@@ -1,20 +1,20 @@
 [requires]
-glew/2.0.0@coding3d/stable
+#glew/2.0.0@coding3d/stable
 glm/master@g-truc/stable
-rapidjson/1.1.0@knetworx/testing
-boost/1.64.0@hoxnox/testing
+#rapidjson/1.1.0@knetworx/testing
+#boost/1.64.0@hoxnox/testing
 
 #SDL2 requires disabling checksum in file: 
 # ~/.conan/data/sdl/2.0.4/chaosteil/stable/export/conanfile.py @line 31
 
-sdl/2.0.4@chaosteil/stable
+#sdl/2.0.4@chaosteil/stable
 
 [generators]
 cmake
 
 [options]
-glew:shared=True
-boost:shared=True
-boost:without_filesystem=False
-boost:system=True
-sdl:shared=True
+#glew:shared=True
+#boost:shared=True
+#boost:without_filesystem=False
+#boost:system=True
+#sdl:shared=True

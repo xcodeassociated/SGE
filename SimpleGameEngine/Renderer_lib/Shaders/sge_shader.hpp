@@ -12,12 +12,14 @@
 #include <string>
 #include <GL/glew.h>
 
-namespace SGE {
+namespace SGE
+{
     
 	/**
      * \brief 
      */
-    class Shader{
+    class Shader
+	{
 	    /**
 	     * \brief 
 	     */

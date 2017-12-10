@@ -15,7 +15,7 @@ struct SDL_Window;
 
 namespace SGE {
 
-    class ObjectManager;
+    class Game;
 
 	/**
      * \brief 
@@ -24,7 +24,7 @@ namespace SGE {
 	    /**
          * \brief 
          */
-        ObjectManager* manager = nullptr;
+        Game* game = nullptr;
 	    /**
          * \brief 
          */
@@ -42,7 +42,7 @@ namespace SGE {
 	    /**
          * \brief 
          */
-        WindowManager(std::pair<int, int>, ObjectManager*) noexcept;
+        WindowManager(std::pair<int, int>, Game*) noexcept;
 
 	    /**
          * \brief 
