@@ -46,6 +46,7 @@ namespace SGE
          * \brief 
          */
         virtual void performLogic(const ObjectBind&) = 0;
+
     protected:
 	    /**
 		 * \brief 

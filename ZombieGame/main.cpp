@@ -8,7 +8,6 @@
 
 #include <iostream>
 #include <thread>
-#include <chrono>
 #include <set>
 #include <ctime>
 #include <fstream>
@@ -26,10 +25,11 @@ public:
         
 		std::string path = PATH"ZombieGame/Levels/level1.txt";
 		std::map<char, std::string> mask = {
-			{'R',PATH"ZombieGame/Resources/Textures/red_bricks.png"},
-			{'B',PATH"ZombieGame/Resources/Textures/red_bricks.png"},
-			{'G',PATH"ZombieGame/Resources/Textures/glass.png"},
-			{'L',PATH"ZombieGame/Resources/Textures/light_bricks.png"} };
+			{'R', PATH"ZombieGame/Resources/Textures/red_bricks.png"},
+			{'B', PATH"ZombieGame/Resources/Textures/red_bricks.png"},
+			{'G', PATH"ZombieGame/Resources/Textures/glass.png"},
+			{'L', PATH"ZombieGame/Resources/Textures/light_bricks.png"}
+        };
 
 		this->loadLevel(path.c_str(), mask);
 	}
@@ -48,11 +48,21 @@ public:
 	}
 };
 
+class Portal : public SGE::Reactive
+{
+public:
+	using SGE::Reactive::Reactive;
+
+    Portal(float x, float y) : SGE::Reactive(x, y, true, new SGE::Rectangle(64, 64))
+    {}
+};
+
 class GOTO : public SGE::Action
 {
 public:
-    GOTO(): Action(0.){};
+    GOTO(): Action(0.0){};
     virtual void action_begin(const SGE::ObjectBind& ) noexcept override {}
+
     virtual void action_ends(const SGE::ObjectBind&) noexcept override {}
     
     virtual void action_main(const SGE::ObjectBind& b) noexcept override
@@ -64,7 +74,7 @@ public:
 class TestObject : public SGE::Reactive
 {
 public:
-    TestObject() : SGE::Reactive(64,64, true, new SGE::Circle(32)) {}
+    TestObject() : SGE::Reactive(64, 64, true, new SGE::Circle(32)) {}
     TestObject(const float x, const float y) : SGE::Reactive(x,y, true, new SGE::Circle(32)) {}
 };
 
@@ -90,6 +100,7 @@ public:
 		glm::vec2 pen = selfPos - oponPos;
 		float distance = glm::length(pen);
 		float radiuses = selfCircle->getRadius() + oponCircle->getRadius();
+
 		if (distance < radiuses)
 		{
 			float move = (radiuses - distance)*0.5;
@@ -97,6 +108,38 @@ public:
 			this->sendAction(player, new SGE::ACTION::Move(pen.x, pen.y, 0));
 			this->sendAction(obj[0], new SGE::ACTION::Move(-pen.x,-pen.y,0));
 		}
+	}
+};
+
+class PortalAction : public  SGE::Action
+{
+	void action_begin(const SGE::ObjectBind& bind) override
+	{
+		//TODO: implement Portal action here!
+	}
+
+	void action_main(const SGE::ObjectBind& bind) override
+	{
+		//TODO: implement Portal action here!
+	}
+
+	void action_ends(const SGE::ObjectBind& bind) override
+	{
+		//TODO: implement Portal action here!
+	}
+};
+
+class PortalCollider : public SGE::Logic
+{
+	SGE::Object* player;
+	SGE::Object* portal;
+
+public:
+	PortalCollider(SGE::Object* player, SGE::Object* portal) : Logic(SGE::LogicPriority::Highest), player(player), portal(portal) {}
+
+	void performLogic(const SGE::ObjectBind& obj) override
+	{
+		//TODO: implement Portal logic here
 	}
 };
 
@@ -130,6 +173,7 @@ class Human : public SGE::Being
 public:
 	Human(const float x, const float y) : SGE::Being(x,y,true,getCircle())
 	{}
+
 	Human(const float x, const float y, const unsigned int max) : Being(x, y, true, getCircle()), maxCount(max)
 	{}
 
@@ -235,6 +279,7 @@ public:
     MouseClickedAction(): Action(0.f){};
     
     virtual void action_begin(const SGE::ObjectBind&) noexcept override {}
+
     virtual void action_ends(const SGE::ObjectBind&) noexcept override {}
     
     virtual void action_main(const SGE::ObjectBind& b) noexcept override
@@ -271,7 +316,6 @@ int main(int argc, char * argv[])
     SGE::Object* testObj1 = new TestObject(200, 200);
     game->textureObject(testObj0,  PATH"ZombieGame/Resources/Textures/circle.png");
     game->textureObject(testObj1, PATH"ZombieGame/Resources/Textures/circle.png");
-
 	S1->addObject(testObj0);
 	S1->addObject(testObj1);
 
@@ -331,9 +375,9 @@ int main(int argc, char * argv[])
     {
         l.push_back(s);
     }
-    
+
+    std::pair<int, int> portal_location;
     std::vector<std::pair<float, float>> free;
-    
     int x = 0, y = 0; const int w = 64, h = 64;
     
     for (auto& ee : l)
@@ -343,11 +387,19 @@ int main(int argc, char * argv[])
             if (e == '.')
             {
                 free.push_back(std::make_pair(x * w, (y * h) ));
-            }x++;
+            } else if (e == '*') {
+                portal_location = std::make_pair(x * w, (y * h));
+            }
+            x++;
         }y++;
         x = 0;
     }
-    
+
+    SGE::Object* portal = new Portal(portal_location.first, portal_location.second);
+	game->textureObject(portal, PATH"ZombieGame/Resources/Textures/glass.png");
+    S1->addObject(portal);
+	//TODO: add Portal logic and action here!
+
     const int humans = 100;
     srand(time(NULL));
 
@@ -363,7 +415,7 @@ int main(int argc, char * argv[])
     {
         std::pair<float, float> pos = free.at(e);
 		SGE::Object* temp = new Human(pos.first, pos.second, 120);
-		game->textureObject(temp,  PATH"ZombieGame/Resources/Textures/circle.png");
+		game->textureObject(temp, PATH"ZombieGame/Resources/Textures/circle.png");
 		S1->addObject(temp);
         humans_id.push_back(temp);
     }
