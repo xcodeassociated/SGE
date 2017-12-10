@@ -10,7 +10,7 @@
 SGE::WindowManager::WindowManager(std::pair<int, int> resolution) noexcept : width(resolution.first), height(resolution.second) {
 }
 
-void SGE::WindowManager::createWindow(void) {
+void SGE::WindowManager::createWindow() {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 		throw std::runtime_error{"SDL init filed"};
 
@@ -37,10 +37,10 @@ void SGE::WindowManager::createWindow(void) {
 	SDL_GL_SetSwapInterval(1);
 
 	const GLubyte* version = glGetString(GL_VERSION);
-	const char* glVersionChar = reinterpret_cast< const char* >(version);
+	const char* glVersionChar = reinterpret_cast<const char*>(version);
 
 	const GLubyte* render = glGetString(GL_RENDERER);
-	const char* glRenderChar = reinterpret_cast< const char* >(render);
+	const char* glRenderChar = reinterpret_cast<const char*>(render);
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -52,16 +52,16 @@ void SGE::WindowManager::createWindow(void) {
 
 }
 
-void SGE::WindowManager::showWindow(void) noexcept {
+void SGE::WindowManager::showWindow() noexcept {
 	SDL_ShowWindow(this->window);
 }
 
-void SGE::WindowManager::finalizeWindow(void) noexcept {
+void SGE::WindowManager::finalizeWindow() noexcept {
 	SDL_DestroyWindow(this->window);
 	SDL_Quit();
 }
 
-SDL_Window* SGE::WindowManager::getWindow(void) noexcept {
+SDL_Window* SGE::WindowManager::getWindow() noexcept {
 	return this->window;
 }
 

@@ -123,7 +123,7 @@ namespace SGE
 		 * \brief 
 		 * \return 
 		 */
-		virtual bool getDrawable(void) const noexcept final;
+		virtual bool getDrawable() const noexcept final;
 
 		/**
 		 * \brief 

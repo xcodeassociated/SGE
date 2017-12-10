@@ -142,12 +142,12 @@ void SGE::Game::run()
 	}
 }
 
-void SGE::Game::performActions(void)
+void SGE::Game::performActions()
 {
 	this->action_handler->performAllActions();
 }
 
-void SGE::Game::performLogics(void)
+void SGE::Game::performLogics()
 {
 	auto& lVec = this->currentScene->getLogics();
 

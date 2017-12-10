@@ -69,13 +69,13 @@ namespace SGE
 	    /**
          * \brief 
          */
-        void updateCamera(void) const noexcept;
+        void updateCamera() const noexcept;
 
 	    /**
          * \brief 
          * \return 
          */
-        const glm::mat4& getCameraMatrix(void) const noexcept;
+        const glm::mat4& getCameraMatrix() const noexcept;
 
 	    /**
          * \brief 

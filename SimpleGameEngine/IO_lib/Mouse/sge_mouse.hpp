@@ -13,7 +13,6 @@
 
 namespace SGE
 {
-    
     class MouseObject : public Object
 	{
 	    /**
@@ -38,7 +37,7 @@ namespace SGE
 	     * \brief Returns current coordinates
 	     * \return Current MouseObjects Coordinates
 	     */
-	    glm::vec2 getMouseCoords(void) const noexcept;
+	    glm::vec2 getMouseCoords() const noexcept;
     };
     
 }

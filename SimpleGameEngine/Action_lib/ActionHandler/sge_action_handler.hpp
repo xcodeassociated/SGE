@@ -64,7 +64,7 @@ namespace SGE
 	    /**
 	     * \brief Constructs empty ActionHandler
 	     */
-	    ActionHandler(void);
+	    ActionHandler();
 
 	    /**
 	     * \brief Executes Main part of the action received as result of user input

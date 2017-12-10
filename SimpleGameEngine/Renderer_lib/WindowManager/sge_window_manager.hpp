@@ -42,23 +42,23 @@ namespace SGE
 	    /**
          * \brief 
          */
-        void createWindow(void);
+        void createWindow();
 
 	    /**
          * \brief 
          */
-        void showWindow(void) noexcept;
+        void showWindow() noexcept;
 
 	    /**
          * \brief 
          */
-        void finalizeWindow(void) noexcept;
+        void finalizeWindow() noexcept;
 
 	    /**
          * \brief 
          * \return 
          */
-        SDL_Window* getWindow(void) noexcept;
+        SDL_Window* getWindow() noexcept;
     };
 
 }

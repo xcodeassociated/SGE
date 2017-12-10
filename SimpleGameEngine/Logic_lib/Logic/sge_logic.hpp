@@ -97,7 +97,7 @@ namespace SGE
 	     * \brief 
 	     * \return 
 	     */
-	    virtual bool getOn(void) final;
+	    virtual bool getOn() final;
 
 	    /**
 	     * \brief 

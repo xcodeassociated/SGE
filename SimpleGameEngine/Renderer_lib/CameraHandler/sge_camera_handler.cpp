@@ -23,12 +23,12 @@ void SGE::CameraHandler::setPosition(int _x, int _y) noexcept
 	this->camera->setPosition(glm::vec2(_x, _y));
 }
 
-void SGE::CameraHandler::updateCamera(void) const noexcept
+void SGE::CameraHandler::updateCamera() const noexcept
 {
 	this->camera->update();
 }
 
-const glm::mat4& SGE::CameraHandler::getCameraMatrix(void) const noexcept
+const glm::mat4& SGE::CameraHandler::getCameraMatrix() const noexcept
 {
 	return this->camera->getCameraMatrix();
 }
