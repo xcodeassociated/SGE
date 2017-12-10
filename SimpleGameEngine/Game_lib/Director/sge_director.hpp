@@ -77,29 +77,6 @@ namespace SGE {
 	    /**
 	     * \brief 
 	     * \param scene 
-	     * \param logic 
-	     */
-	    void addLogicBinder(Scene* scene, Logic::Binder logic);
-
-	    /**
-	     * \brief 
-	     * \param scene 
-	     * \param obj 
-	     * \param logic 
-	     */
-	    void addLogicBinder(Scene* scene, Object* obj, Logic* logic);
-
-	    /**
-	     * \brief 
-	     * \param scene 
-	     * \param obj 
-	     * \param logic 
-	     */
-	    void unbindLogic(Scene* scene, Object* obj, Logic* logic);
-
-	    /**
-	     * \brief 
-	     * \param scene 
 	     */
 	    void showScene(Scene* scene);
 

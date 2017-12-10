@@ -300,17 +300,17 @@ int main(int argc, char * argv[])
 	auto camLogic = new SnapCamera(8, SGE::Key::Up, SGE::Key::Down, SGE::Key::Left, SGE::Key::Right, SGE::Key::Space, testObj1);
 	auto camZoom = new SGE::Logics::CameraZoom(0.1f,1.f,0.15f,SGE::Key::Q, SGE::Key::E);
 
-    director->addLogicBinder(S1, testObj0, L2a);
-    director->addLogicBinder(S1, testObj0, L1);
-    director->addLogicBinder(S1, testObj1, L2b);
-	director->addLogicBinder(S1, testObj1, L3);
-	director->addLogicBinder(S1, testObj1, L1);
-	director->addLogicBinder(S1, camera, camLogic);
-	director->addLogicBinder(S1, camera, camZoom);
+    S1->bindLogic(testObj0, L2a);
+    S1->bindLogic(testObj0, L1);
+    S1->bindLogic(testObj1, L2b);
+	S1->bindLogic(testObj1, L3);
+    S1->bindLogic(testObj1, L1);
+    S1->bindLogic(camera, camLogic);
+    S1->bindLogic(camera, camZoom);
 
 	auto testTile = &(S1->getLevel().getWorld().front());
 	auto moveTile = new SGE::Logics::SimpleMove(4.f, SGE::Key::I, SGE::Key::K, SGE::Key::J, SGE::Key::L);
-	director->addLogicBinder(S1, testTile, moveTile);
+    S1->bindLogic(testTile, moveTile);
 
 	auto reset = new GOTO();
 	game->mapAction(SGE::InputBinder(testObj1, reset, SGE::Key::B));
@@ -360,9 +360,9 @@ int main(int argc, char * argv[])
 	auto CollideLevelHumans = new DynamicVectorLogic(humans_id, L1);
 	auto CollidePlayer = new DynamicVectorLogic(humans_id, new BiCollider(testObj1));
 
-	director->addLogicBinder(S1, testObj0, MoveHumans);
-	director->addLogicBinder(S1, testObj0, CollidePlayer);
-	director->addLogicBinder(S1, testObj0, CollideLevelHumans);
+    S1->bindLogic(testObj0, MoveHumans);
+    S1->bindLogic(testObj0, CollidePlayer);
+    S1->bindLogic(testObj0, CollideLevelHumans);
 	
 
 	director->showScene(S1);

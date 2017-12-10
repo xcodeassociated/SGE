@@ -41,25 +41,6 @@ void SGE::Director::deleteScene(Scene* scene)
 	}
 }
 
-void SGE::Director::addLogicBinder(Scene* scene, Logic::Binder logic)
-{
-	scene->getLogics().push_back(logic);
-	std::stable_sort(scene->getLogics().begin(), scene->getLogics().end());
-}
-
-void SGE::Director::addLogicBinder(Scene* scene, Object* obj, Logic* logic)
-{
-	this->addLogicBinder(scene, Logic::Binder(logic, obj));
-}
-
-void SGE::Director::unbindLogic(Scene* scene, Object* obj, Logic* logic)
-{
-	auto it = std::find(scene->getLogics().begin(), scene->getLogics().end(), Logic::Binder(logic, obj));
-	if (it == scene->getLogics().end()) 
-		return;
-	scene->getLogics().erase(it);
-}
-
 void SGE::Director::showScene(Scene* scene)
 {
 	if (!scene->TextureLoaded)

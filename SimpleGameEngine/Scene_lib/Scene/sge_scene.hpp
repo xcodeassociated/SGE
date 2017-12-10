@@ -4,6 +4,7 @@
 #include <vector>
 #include <map>
 #include "sge_level.hpp"
+#include "sge_logic.hpp"
 #include "sge_logic_bind.hpp"
 
 namespace SGE {
@@ -79,6 +80,14 @@ namespace SGE {
 		void addObject(SGE::Object* object);
 
 		void removeObject(SGE::Object* object);
+
+		void bindLogic(const Logic::Binder& logic);
+
+		void bindLogic(Object* obj, Logic* logic);
+
+		void unbindLogic(SGE::Object* obj, SGE::Logic* logic);
+
+		void unbindLogic(const Logic::Binder& logic);
 
 		/**
 		 * \brief 
