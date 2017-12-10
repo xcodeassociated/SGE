@@ -34,6 +34,10 @@ public:
 		this->loadLevel(path.c_str(), mask);
 	}
 
+    ~MainScene() {
+        std::cout << "~MainScene" << std::endl;
+    }
+
 	void finalize() override
 	{
 	}
@@ -259,10 +263,12 @@ int main(int argc, char * argv[])
 
 	SGE::Object* testObj0 = new TestObject;
     SGE::Object* testObj1 = new TestObject(200, 200);
-
     game->textureObject(testObj0,  PATH"ZombieGame/Resources/Textures/circle.png");
     game->textureObject(testObj1, PATH"ZombieGame/Resources/Textures/circle.png");
-    
+
+	S1->addObject(testObj0);
+	S1->addObject(testObj1);
+
     SGE::Action* oW = new SGE::ACTION::Move(0, 4.f, 0);
     SGE::Action* oA = new SGE::ACTION::Move(-4.f, 0, 0);
     SGE::Action* oS = new SGE::ACTION::Move(0, -4.f, 0);
@@ -295,9 +301,9 @@ int main(int argc, char * argv[])
 	auto camZoom = new SGE::Logics::CameraZoom(0.1f,1.f,0.15f,SGE::Key::Q, SGE::Key::E);
 
     director->addLogicBinder(S1, testObj0, L2a);
-	director->addLogicBinder(S1, testObj1, L2b);
+    director->addLogicBinder(S1, testObj0, L1);
+    director->addLogicBinder(S1, testObj1, L2b);
 	director->addLogicBinder(S1, testObj1, L3);
-	director->addLogicBinder(S1, testObj0, L1);
 	director->addLogicBinder(S1, testObj1, L1);
 	director->addLogicBinder(S1, camera, camLogic);
 	director->addLogicBinder(S1, camera, camZoom);

@@ -8,7 +8,8 @@ namespace SGE {
 	/**
      * \brief 
      */
-    class BackgroundElement : public Object{
+    class BackgroundElement : public Object
+	{
 	protected:
 	    /**
 		 * \brief 
@@ -23,7 +24,6 @@ namespace SGE {
 	     * \param path 
 	     */
 	    BackgroundElement(float x, float y, std::string path);
-
 	    /**
 	     * \brief 
 	     * \return 

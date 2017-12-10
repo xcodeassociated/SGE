@@ -60,11 +60,6 @@ namespace SGE
 		this->run();
 	}
 
-	Level& Game::getSceneData(Scene* s)
-	{
-		return s->getLevel();
-	}
-
 	Camera2d* Game::getCamera()
 	{
 		return this->camera_handler->getCamera();
@@ -191,5 +186,7 @@ namespace SGE
         }
         else
 			throw std::runtime_error{"Object texture path string empty"};
+
+		return object;
 	}
 }

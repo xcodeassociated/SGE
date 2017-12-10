@@ -8,7 +8,8 @@ namespace SGE {
 	/**
      * \brief 
      */
-    class WorldElement : public BackgroundElement{
+    class WorldElement : public BackgroundElement
+    {
 	
 	public:
         using BackgroundElement::BackgroundElement;

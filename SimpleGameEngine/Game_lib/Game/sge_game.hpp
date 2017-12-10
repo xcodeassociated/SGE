@@ -108,13 +108,6 @@ namespace SGE {
 
 	    /**
 	     * \brief 
-	     * \param s 
-	     * \return 
-	     */
-	    Level& getSceneData(Scene* s);
-
-	    /**
-	     * \brief 
 	     * \return 
 	     */
 

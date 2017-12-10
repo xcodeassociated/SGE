@@ -34,8 +34,10 @@ SGE::Level SGE::LevelParser::parse()
 			auto it = this->levelMask.find(tile);
 			if (it != this->levelMask.end())
 			{
-				if (std::isupper(tile)) lev.getWorld().emplace_back(x * width, y * height, it->second);
-				else lev.getBackground().emplace_back(x * width, y * height, it->second);
+				if (std::isupper(tile))
+                    lev.getWorld().emplace_back(x * width, y * height, it->second);
+				else
+                    lev.getBackground().emplace_back(x * width, y * height, it->second);
 			}
 		}
 	}

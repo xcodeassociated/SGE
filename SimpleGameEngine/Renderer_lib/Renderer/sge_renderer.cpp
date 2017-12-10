@@ -15,7 +15,7 @@
 
 namespace SGE
 {
-	Renderer::Renderer(std::pair<int, int> res, Game* m, WindowManager* w, CameraHandler* c) noexcept :
+	Renderer::Renderer(std::pair<int, int> res, Game* game, WindowManager* w, CameraHandler* c) noexcept :
 	width(res.first),
 		height(res.second),
 		game(game),

@@ -4,6 +4,7 @@
 #include "sge_logic_collide.hpp"
 #include <sge_world_element.hpp>
 #include <vector>
+#include <iostream>
 
 namespace SGE {
 
@@ -24,7 +25,7 @@ namespace SGE {
 			 * \param objects 
 			 */
 			PreciseLevelCollider(std::vector<WorldElement>& objects);
-
+			~PreciseLevelCollider() { std::cout << "~PreciseLevelCollider" << std::endl; }
 			/**
 			 * \brief 
 			 * \param _obj 
