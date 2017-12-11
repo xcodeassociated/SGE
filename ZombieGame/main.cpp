@@ -121,25 +121,12 @@ class PortalAction : public  SGE::Action
 	void action_main(const SGE::ObjectBind& bind) override
 	{
 		//TODO: implement Portal action here!
+        std::cout << "Portal!!!" << std::endl;
 	}
 
 	void action_ends(const SGE::ObjectBind& bind) override
 	{
 		//TODO: implement Portal action here!
-	}
-};
-
-class PortalCollider : public SGE::Logic
-{
-	SGE::Object* player;
-	SGE::Object* portal;
-
-public:
-	PortalCollider(SGE::Object* player, SGE::Object* portal) : Logic(SGE::LogicPriority::Highest), player(player), portal(portal) {}
-
-	void performLogic(const SGE::ObjectBind& obj) override
-	{
-		//TODO: implement Portal logic here
 	}
 };
 
@@ -395,10 +382,19 @@ int main(int argc, char * argv[])
         x = 0;
     }
 
+
+
     SGE::Object* portal = new Portal(portal_location.first, portal_location.second);
 	game->textureObject(portal, PATH"ZombieGame/Resources/Textures/glass.png");
     S1->addObject(portal);
-	//TODO: add Portal logic and action here!
+
+    SGE::Logics::BasicCollider::collisionFunc collideFuncPortal = [](SGE::Object* portalObj, SGE::Object* player) -> SGE::Action* {
+        new PortalAction;
+    };
+    SGE::Logics::BasicCollider* basicColliderPortal = new SGE::Logics::BasicCollider(portal, collideFuncPortal);
+    S1->bindLogic(testObj1, basicColliderPortal);
+
+
 
     const int humans = 100;
     srand(time(NULL));
