@@ -6,7 +6,7 @@
 #include <algorithm>
 #include "sge_object_bind.hpp"
 
-SGE::Logics::PreciseLevelCollider::PreciseLevelCollider(std::vector<WorldElement>& objects): Collide(nullptr), objs(objects)
+SGE::Logics::PreciseLevelCollider::PreciseLevelCollider(std::vector<WorldElement>& objects): Collide(LogicPriority::Highest), objs(objects)
 {
 }
 

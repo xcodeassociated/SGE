@@ -161,6 +161,6 @@ bool SGE::Logics::Collide::collideWithEdgesDifferentShape(Object* self, Object* 
 	return false;
 }
 
-SGE::Logics::Collide::Collide(collisionFunc e): Logic(Priority::Highest), onCollision(e)
+SGE::Logics::Collide::Collide(const LogicPriority& logicPriority) : Logic(logicPriority)
 {
 }

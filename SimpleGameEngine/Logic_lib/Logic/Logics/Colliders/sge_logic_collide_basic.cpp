@@ -3,7 +3,8 @@
 #include "sge_object.hpp"
 #include "sge_object_bind.hpp"
 
-SGE::Logics::BasicCollider::BasicCollider(Object* obj, collisionFunc _onCollision): Collide(_onCollision), obj(obj)
+SGE::Logics::BasicCollider::BasicCollider(Object* obj, const collisionFunc& _onCollision)
+		: Collide(LogicPriority::Highest), onCollision(_onCollision), obj(obj)
 {
 }
 

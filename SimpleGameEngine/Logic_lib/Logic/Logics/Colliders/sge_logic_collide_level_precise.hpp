@@ -26,7 +26,6 @@ namespace SGE
 			 * \param objects 
 			 */
 			PreciseLevelCollider(std::vector<WorldElement>& objects);
-			~PreciseLevelCollider() { std::cout << "~PreciseLevelCollider" << std::endl; }
 			/**
 			 * \brief 
 			 * \param _obj 

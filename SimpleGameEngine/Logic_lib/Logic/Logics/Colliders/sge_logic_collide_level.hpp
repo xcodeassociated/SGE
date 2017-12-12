@@ -7,17 +7,30 @@
 
 namespace SGE
 {
+	class Object;
+	class Action;
+
     namespace Logics
 	{
 	    /**
          * \brief 
          */
-        class BasicLevelCollider : public Collide {
+        class BasicLevelCollider : public Collide
+		{
+		public:
+			/**
+			 * \brief
+			 */
+			using collisionFunc = std::function<Action*(Object*, Object*)>;
+
+		private:
 	        /**
              * \brief 
              */
-            std::vector<WorldElement>& objs;
-            
+			collisionFunc onCollision;
+
+			std::vector<WorldElement>& objs;
+
         public:
 
 	        /**
@@ -25,7 +38,7 @@ namespace SGE
 	         * \param objects 
 	         * \param _onCollision 
 	         */
-	        BasicLevelCollider(std::vector<WorldElement>& objects, collisionFunc _onCollision);
+	        BasicLevelCollider(std::vector<WorldElement>& objects, const collisionFunc& _onCollision);
 
 	        /**
 	         * \brief 

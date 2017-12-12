@@ -15,21 +15,16 @@
 namespace SGE
 {
     class Object;
-    class ObjectID;
 	class Action;
     
-    namespace Logics{
-        
+    namespace Logics
+	{
 	    /**
          * \brief 
          */
-        class Collide : public Logic{
+        class Collide : public Logic
+		{
         public:
-	        /**
-             * \brief 
-             */
-            using collisionFunc = std::function<Action*(Object*, Object*)>;
-
 	        /**
 	         * \brief 
 	         * \param still 
@@ -81,15 +76,10 @@ namespace SGE
 	        virtual bool collideWithEdgesDifferentShape(Object* self, Object* oponent);
 
 	        /**
-             * \brief 
-             */
-            collisionFunc onCollision;
-
-	        /**
 	         * \brief 
 	         * \param e 
 	         */
-	        Collide(collisionFunc e);
+	        explicit Collide(const LogicPriority& logicPriority);
         };
         
     }

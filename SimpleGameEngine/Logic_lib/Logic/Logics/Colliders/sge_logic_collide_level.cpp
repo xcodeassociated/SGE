@@ -2,7 +2,8 @@
 #include "sge_shape_rectangle.hpp"
 #include "sge_object_bind.hpp"
 
-SGE::Logics::BasicLevelCollider::BasicLevelCollider(std::vector<WorldElement>& objects, collisionFunc _onCollision): Collide(_onCollision), objs(objects)
+SGE::Logics::BasicLevelCollider::BasicLevelCollider(std::vector<WorldElement>& objects, const collisionFunc& _onCollision)
+		: Collide(LogicPriority::Highest), onCollision(_onCollision), objs(objects)
 {
 }
 

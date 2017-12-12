@@ -48,22 +48,20 @@ public:
 	}
 };
 
-class Portal : public SGE::Reactive
-{
-public:
-	using SGE::Reactive::Reactive;
-
-    Portal(float x, float y) : SGE::Reactive(x, y, true, new SGE::Rectangle(64, 64))
-    {}
-};
-
 class GOTO : public SGE::Action
 {
 public:
-    GOTO(): Action(0.0){};
-    virtual void action_begin(const SGE::ObjectBind& ) noexcept override {}
+    GOTO() : Action(0.0)
+	{
+	}
 
-    virtual void action_ends(const SGE::ObjectBind&) noexcept override {}
+    virtual void action_begin(const SGE::ObjectBind& ) noexcept override
+    {
+    }
+
+    virtual void action_ends(const SGE::ObjectBind&) noexcept override
+    {
+    }
     
     virtual void action_main(const SGE::ObjectBind& b) noexcept override
     {
@@ -86,12 +84,14 @@ SGE::Shape* getCircle()
 
 class BiCollider : public SGE::Logic
 {
-	SGE::Object* player;
+	SGE::Object* player = nullptr;
 
 public:
-	BiCollider(SGE::Object* player) : Logic(SGE::LogicPriority::Highest), player(player) {}
+	BiCollider(SGE::Object* player) : Logic(SGE::LogicPriority::Highest), player(player)
+	{
+	}
 
-	void performLogic(const SGE::ObjectBind& obj) override
+	virtual void performLogic(const SGE::ObjectBind& obj) override
 	{
 		SGE::Circle* selfCircle = reinterpret_cast<SGE::Circle*>(player->getShape());
 		SGE::Circle* oponCircle = reinterpret_cast<SGE::Circle*>(obj[0]->getShape());
@@ -111,43 +111,84 @@ public:
 	}
 };
 
+class Portal : public SGE::Reactive
+{
+public:
+    using SGE::Reactive::Reactive;
+
+    Portal(float x, float y) : SGE::Reactive(x, y, true, new SGE::Rectangle(64, 64))
+    {}
+};
+
 class PortalAction : public  SGE::Action
 {
-	void action_begin(const SGE::ObjectBind& bind) override
+	virtual void action_begin(const SGE::ObjectBind& bind) override
 	{
-		//TODO: implement Portal action here!
 	}
 
-	void action_main(const SGE::ObjectBind& bind) override
+	virtual void action_main(const SGE::ObjectBind& bind) override
 	{
-		//TODO: implement Portal action here!
         std::cout << "Portal!!!" << std::endl;
 	}
 
-	void action_ends(const SGE::ObjectBind& bind) override
+	virtual void action_ends(const SGE::ObjectBind& bind) override
 	{
-		//TODO: implement Portal action here!
 	}
+};
+
+class PortalLogic : public SGE::Logics::Collide
+{
+    SGE::Object* portal = nullptr;
+    SGE::Object* player = nullptr;
+
+public:
+    PortalLogic(SGE::Object* portal, SGE::Object* player)
+            : SGE::Logics::Collide(SGE::LogicPriority::Highest), portal(portal), player(player)
+    {
+    }
+
+    virtual void performLogic(const SGE::ObjectBind& _obj) override
+    {
+        SGE::Object* object = _obj[0];
+        if (object == this->player)
+        {
+            if (this->collideWithDifferentShape(this->portal, this->player))
+            {
+				try
+				{
+					SGE::ACTION::Move* moveAction = dynamic_cast<SGE::ACTION::Move*>(this->CircleToRectCollisionVec(
+							this->portal, this->player));
+
+					this->sendAction(this->player, moveAction);
+					this->sendAction(this->player, new PortalAction);
+				}
+				catch (const std::bad_cast& exception)
+				{
+					std::cerr << exception.what() << std::endl;
+				}
+            }
+        }
+    }
 };
 
 class LogicSwitch : public SGE::Action
 {
-	SGE::Logic* logic;
+	SGE::Logic* logic = nullptr;
 
 public:
 	LogicSwitch(SGE::Logic* id) : logic(id) {}
 
 	void action_begin(const SGE::ObjectBind&) override
-    {
+	{
 	}
-	
+
 	void action_main(const SGE::ObjectBind&) override
-    {
+	{
 		logic->toggleOn();
 	}
-	
+
 	void action_ends(const SGE::ObjectBind&) override
-    {
+	{
 	}
 };
 
@@ -158,11 +199,13 @@ class Human : public SGE::Being
 	unsigned int maxCount = 0;
 
 public:
-	Human(const float x, const float y) : SGE::Being(x,y,true,getCircle())
-	{}
+	Human(const float x, const float y) : SGE::Being(x, y, true, getCircle())
+	{
+    }
 
-	Human(const float x, const float y, const unsigned int max) : Being(x, y, true, getCircle()), maxCount(max)
-	{}
+	Human(const float x, const float y, const unsigned int max) : SGE::Being(x, y, true, getCircle()), maxCount(max)
+	{
+    }
 
 	void setMaxCount(const unsigned int max)
 	{
@@ -194,9 +237,11 @@ class HumanRandomMovement : public SGE::Logic
 	glm::vec2 velocity;
 
 public:
-	HumanRandomMovement() :Logic(SGE::LogicPriority::Mid), angle(glm::radians(-90.f), glm::radians(90.f)) {}
+	explicit HumanRandomMovement() : Logic(SGE::LogicPriority::Mid), angle(glm::radians(-90.f), glm::radians(90.f))
+    {
+    }
 
-	void performLogic(const SGE::ObjectBind& humanID) override
+	virtual void performLogic(const SGE::ObjectBind& humanID) override
 	{
 		
 		auto human = reinterpret_cast<Human*>(humanID[0]);
@@ -216,10 +261,12 @@ class DynamicVectorLogic : public SGE::Logic
 	SGE::Logic* logic;
 
 public:
-	DynamicVectorLogic(std::vector<SGE::Object*>& vector, SGE::Logic* logic): Logic(logic->getPriority()), vec(vector), logic(logic)
-	{}
+	DynamicVectorLogic(std::vector<SGE::Object*>& vector, SGE::Logic* logic)
+            : Logic(logic->getPriority()), vec(vector), logic(logic)
+	{
+    }
 
-	void performLogic(const SGE::ObjectBind&) override
+	virtual  void performLogic(const SGE::ObjectBind&) override
 	{
 		for (size_t i = 0; i < vec.size(); ++i)
 		{
@@ -263,11 +310,17 @@ public:
 class MouseClickedAction : public SGE::Action
 {
 public:
-    MouseClickedAction(): Action(0.f){};
+    MouseClickedAction() : Action(0.f)
+	{
+	}
     
-    virtual void action_begin(const SGE::ObjectBind&) noexcept override {}
+    virtual void action_begin(const SGE::ObjectBind&) noexcept override
+	{
+	}
 
-    virtual void action_ends(const SGE::ObjectBind&) noexcept override {}
+    virtual void action_ends(const SGE::ObjectBind&) noexcept override
+	{
+	}
     
     virtual void action_main(const SGE::ObjectBind& b) noexcept override
     {
@@ -287,7 +340,7 @@ public:
 int main(int argc, char * argv[])
 {
     std::cout.setf(std::ios::boolalpha);
-    std::cout.sync_with_stdio(false);
+    std::cout.sync_with_stdio(true);
 
 	SGE::Director* director = SGE::Director::getDirector(1024, 768);
 	SGE::Game* game = SGE::Game::getGame();
@@ -388,11 +441,8 @@ int main(int argc, char * argv[])
 	game->textureObject(portal, PATH"ZombieGame/Resources/Textures/glass.png");
     S1->addObject(portal);
 
-    SGE::Logics::BasicCollider::collisionFunc collideFuncPortal = [](SGE::Object* portalObj, SGE::Object* player) -> SGE::Action* {
-        new PortalAction;
-    };
-    SGE::Logics::BasicCollider* basicColliderPortal = new SGE::Logics::BasicCollider(portal, collideFuncPortal);
-    S1->bindLogic(testObj1, basicColliderPortal);
+    SGE::Logic* portalLogic = new PortalLogic(portal, testObj1);
+    S1->bindLogic(testObj1, portalLogic);
 
 
 

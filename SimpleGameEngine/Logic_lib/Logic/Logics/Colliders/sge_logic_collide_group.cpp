@@ -2,7 +2,8 @@
 #include "sge_shape.hpp"
 #include "sge_object.hpp"
 
-SGE::Logics::BasicColliderGroup::BasicColliderGroup(std::vector<Object*> objects, collisionFunc _onCollision): Collide(_onCollision), objs(objects)
+SGE::Logics::BasicColliderGroup::BasicColliderGroup(std::vector<Object*> objects, const collisionFunc& _onCollision)
+		: Collide(LogicPriority::Highest), onCollision(_onCollision), objs(objects)
 {
 }
 

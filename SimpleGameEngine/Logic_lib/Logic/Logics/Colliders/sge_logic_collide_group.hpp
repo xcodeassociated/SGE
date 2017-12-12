@@ -14,20 +14,30 @@
 
 namespace SGE
 {
-    
+	class Object;
+	class Action;
+
     namespace Logics
 	{
-        
 	    /**
          * \brief 
          */
         class BasicColliderGroup : public Collide
 		{
+		public:
+			/**
+			 * \brief
+			 */
+			using collisionFunc = std::function<Action*(Object*, Object*)>;
+
+		private:
 	        /**
              * \brief 
              */
+			collisionFunc onCollision;
+
             std::vector<Object*> objs;
-            
+
         public:
 
 	        /**
@@ -35,7 +45,7 @@ namespace SGE
 	         * \param objects 
 	         * \param _onCollision 
 	         */
-	        BasicColliderGroup(std::vector<Object*> objects, collisionFunc _onCollision);
+	        BasicColliderGroup(std::vector<Object*> objects, const collisionFunc& _onCollision);
 
 	        /**
 	         * \brief 

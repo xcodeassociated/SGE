@@ -10,23 +10,34 @@
 #define sge_logic_collide_basic_h
 
 #include "sge_logic_collide.hpp"
+#include <functional>
 
 namespace SGE
 {
-    
+	class Action;
+	class Object;
+
     namespace Logics
 	{
-        
 	    /**
          * \brief 
          */
         class BasicCollider : public Collide
 		{
+		public:
+			/**
+			 * \brief
+			 */
+			using collisionFunc = std::function<Action*(Object*, Object*)>;
+
+		private:
 	        /**
 			 * \brief 
 			 */
+			collisionFunc onCollision;
+
 			Object* obj;
-            
+
 		public:
 
 	        /**
@@ -34,7 +45,7 @@ namespace SGE
 	         * \param obj 
 	         * \param _onCollision 
 	         */
-	        BasicCollider(Object* obj, collisionFunc _onCollision);
+	        BasicCollider(Object* obj, const collisionFunc& _onCollision);
 
 	        /**
 	         * \brief 
