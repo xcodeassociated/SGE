@@ -445,8 +445,12 @@ int main(int argc, char * argv[])
     S1->bindLogic(testObj1, portalLogic);
 
 
+	SGE::Object* voidPortalActionObject = new SGE::VoidObject();
+	SGE::Action* portalAction = new PortalAction;
+	game->mapAction(SGE::InputBinder(voidPortalActionObject, portalAction, SGE::Key::P));
 
-    const int humans = 100;
+
+	const int humans = 100;
     srand(time(NULL));
 
     std::set<int> r;
