@@ -13,14 +13,14 @@ namespace SGE
 	class Action
 	{
     protected:
-        double duration = 0;
+        bool active = false;
 		Action() = default;
-		Action(double _d);
+		Action(bool active);
 
     public:
 		using Binder = ActionBind;
 
-		double getDuration() const;
+		bool isActive() const;
 		virtual ~Action() = default;
 
         virtual void action_begin(const ObjectBind& bind) = 0;

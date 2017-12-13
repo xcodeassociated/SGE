@@ -51,22 +51,23 @@ public:
 class GOTO : public SGE::Action
 {
 public:
-    GOTO() : Action(0.0)
+    GOTO() : Action(true)
 	{
 	}
 
     virtual void action_begin(const SGE::ObjectBind& ) noexcept override
     {
     }
-
-    virtual void action_ends(const SGE::ObjectBind&) noexcept override
-    {
-    }
     
     virtual void action_main(const SGE::ObjectBind& b) noexcept override
     {
 		b[0]->setPosition(200, 200);
+		//NOTE: we want this action to be active forever
     }
+
+	virtual void action_ends(const SGE::ObjectBind&) noexcept override
+	{
+	}
 };
 
 class TestObject : public SGE::Reactive
@@ -105,8 +106,8 @@ public:
 		{
 			float move = (radiuses - distance)*0.5;
 			pen = glm::normalize(pen)*move;
-			this->sendAction(player, new SGE::ACTION::Move(pen.x, pen.y, 0));
-			this->sendAction(obj[0], new SGE::ACTION::Move(-pen.x,-pen.y, 0));
+			this->sendAction(player, new SGE::ACTION::Move(pen.x, pen.y, true));
+			this->sendAction(obj[0], new SGE::ACTION::Move(-pen.x,-pen.y, true));
 		}
 	}
 };
@@ -129,6 +130,8 @@ class PortalAction : public  SGE::Action
 	virtual void action_main(const SGE::ObjectBind& bind) override
 	{
         std::cout << "Portal!!!" << std::endl;
+		//NOTE: we DON'T want this action to be active forever -- only when the logic condition form Portal is met
+		this->active = false;
 	}
 
 	virtual void action_ends(const SGE::ObjectBind& bind) override
@@ -173,7 +176,7 @@ class LogicSwitch : public SGE::Action
 	SGE::Logic* logic = nullptr;
 
 public:
-	LogicSwitch(SGE::Logic* id) : logic(id) {}
+	LogicSwitch(SGE::Logic* id) : SGE::Action(true), logic(id) {}
 
 	void action_begin(const SGE::ObjectBind&) override
 	{
@@ -182,6 +185,7 @@ public:
 	void action_main(const SGE::ObjectBind&) override
 	{
 		logic->toggleOn();
+		//NOTE: we want this action to be active forever
 	}
 
 	void action_ends(const SGE::ObjectBind&) override
@@ -248,7 +252,7 @@ public:
 			velocity = glm::rotate(velocity,angle(engine));
 			human->setVelocity(velocity);
 		}
-		this->sendAction(humanID[0], new SGE::ACTION::Move(velocity.x, velocity.y,0));
+		this->sendAction(humanID[0], new SGE::ACTION::Move(velocity.x, velocity.y, true));
 	}
 };
 
@@ -299,7 +303,7 @@ public:
 			if(isPressed(this->down)) move.y -= this->speed;
 			if(isPressed(this->right)) move.x += this->speed;
 			if(isPressed(this->left)) move.x -= this->speed;
-			this->sendAction(obj[0], new SGE::ACTION::Move(move.x, move.y, 0));
+			this->sendAction(obj[0], new SGE::ACTION::Move(move.x, move.y, true));
 		}
 	}
 };
@@ -307,7 +311,7 @@ public:
 class MouseClickedAction : public SGE::Action
 {
 public:
-    MouseClickedAction() : Action(0.f)
+    MouseClickedAction() : Action(true)
 	{
 	}
     
@@ -331,6 +335,8 @@ public:
 
 		std::cout << "[Clicked] - x: " << worldCoords.x << ", y: " << worldCoords.y << std::endl;
 		std::cout << "[Player ] - x: " << p->getX() << ", y: " << p->getY() << std::endl;
+
+		//NOTE: we want this action to be active forever
     }
 };
 

@@ -1,11 +1,11 @@
 #include "sge_action.hpp"
 
 
-SGE::Action::Action(double _d) : duration(_d)
+SGE::Action::Action(bool active) : active(active)
 {
 }
 
-double SGE::Action::getDuration() const
+bool SGE::Action::isActive() const
 {
-	return this->duration;
+	return this->active;
 }

@@ -36,9 +36,9 @@ namespace SGE
 	         * \brief Construct Move
 	         * \param _x destX value
 	         * \param _y destY value
-	         * \param _duration Unused
+	         * \param active
 	         */
-	        Move(float _x, float _y, double _duration);
+	        Move(float _x, float _y, bool active);
 
         private:
 

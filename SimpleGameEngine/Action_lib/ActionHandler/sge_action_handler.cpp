@@ -38,17 +38,17 @@ void SGE::ActionHandler::performAllActions()
 		act.getAction()->action_main(act.getBind());
 	}
 	auto last = std::remove_if(actions.begin(), actions.end(), [](const ActionBind& b)
-                           {
-	                           if (b.getAction()->getDuration() <= 0)
-	                           {
-		                           const_cast<Action*>(b.getAction())->action_ends(b.getBind());
-		                           {
-			                           delete b.getAction();
-		                           }
-		                           return true;
-	                           }
-	                           return false;
-                           });
+       {
+           if (!b.getAction()->isActive())
+           {
+               const_cast<Action*>(b.getAction())->action_ends(b.getBind());
+               {
+                   delete b.getAction();
+               }
+               return true;
+           }
+           return false;
+       });
 	this->actions.erase(last, actions.end());
 }
 
