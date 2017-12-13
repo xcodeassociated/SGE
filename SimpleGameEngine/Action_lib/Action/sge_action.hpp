@@ -14,10 +14,8 @@ namespace SGE
 	{
     protected:
         double duration = 0;
-		bool enabled = true;
 		Action() = default;
 		Action(double _d);
-		Action(double _d, bool);
 
     public:
 		using Binder = ActionBind;

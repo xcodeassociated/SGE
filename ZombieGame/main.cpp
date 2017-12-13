@@ -106,7 +106,7 @@ public:
 			float move = (radiuses - distance)*0.5;
 			pen = glm::normalize(pen)*move;
 			this->sendAction(player, new SGE::ACTION::Move(pen.x, pen.y, 0));
-			this->sendAction(obj[0], new SGE::ACTION::Move(-pen.x,-pen.y,0));
+			this->sendAction(obj[0], new SGE::ACTION::Move(-pen.x,-pen.y, 0));
 		}
 	}
 };
