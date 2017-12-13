@@ -39,6 +39,8 @@ void SGE::InputHandler::mapAction(const SGE::InputBinder& bind)
 
 void SGE::InputHandler::unmapAction(const SGE::InputBinder& bind)
 {
+    auto action_bind = bind.getBind();
+    this->game->action_handler->handleInputActionUnbind(action_bind);
 	if (this->keyMap.erase(bind.getKey()) == 0)
 		throw std::runtime_error("Could not unmap action");
 }

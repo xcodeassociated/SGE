@@ -3,12 +3,21 @@
 #include "sge_action.hpp"
 #include "sge_action_bind.hpp"
 
+#include <iostream>
 void SGE::ActionHandler::triggerAction(Action* a, const ObjectBind& b)
 {
 	a->action_begin(b);
 	a->action_main(b);
-	a->action_ends(b);
-	delete a;
+	if (!a->isActive())
+	{
+		a->action_ends(b);
+		delete a;
+	}
+    else
+    {
+        this->addAction({b[0], a});
+    }
+
 }
 
 void SGE::ActionHandler::triggerAction(const ActionBind& b)
@@ -22,7 +31,13 @@ SGE::ActionHandler::ActionHandler() : actions{}
 
 void SGE::ActionHandler::handleInputAction(ActionBind& bind)
 {
+	bind.getAction()->action_begin(bind.getBind());
 	bind.getAction()->action_main(bind.getBind());
+}
+
+void SGE::ActionHandler::handleInputActionUnbind(ActionBind& bind)
+{
+    bind.getAction()->action_ends(bind.getBind());
 }
 
 void SGE::ActionHandler::addAction(const ActionBind& bind)
@@ -35,7 +50,8 @@ void SGE::ActionHandler::performAllActions()
 {
 	for (ActionBind& act : this->actions)
 	{
-		act.getAction()->action_main(act.getBind());
+        act.getAction()->action_begin(act.getBind());
+        act.getAction()->action_main(act.getBind());
 	}
 	auto last = std::remove_if(actions.begin(), actions.end(), [](const ActionBind& b)
        {

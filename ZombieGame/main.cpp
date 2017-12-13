@@ -63,7 +63,8 @@ public:
     {
 		b[0]->setPosition(200, 200);
 		//NOTE: we want this action to be active forever
-    }
+		this->active = false;
+	}
 
 	virtual void action_ends(const SGE::ObjectBind&) noexcept override
 	{
@@ -121,21 +122,28 @@ public:
     {}
 };
 
-class PortalAction : public  SGE::Action
+class PortalAction : public SGE::Action
 {
+public:
+	PortalAction() : SGE::Action(true)
+	{
+	}
+
 	virtual void action_begin(const SGE::ObjectBind& bind) override
 	{
+		std::cout << "portal::begin" << std::endl;
 	}
 
 	virtual void action_main(const SGE::ObjectBind& bind) override
 	{
-        std::cout << "Portal!!!" << std::endl;
+        std::cout << "portal::main" << std::endl;
 		//NOTE: we DON'T want this action to be active forever -- only when the logic condition form Portal is met
 		this->active = false;
 	}
 
 	virtual void action_ends(const SGE::ObjectBind& bind) override
 	{
+		std::cout << "portal::end" << std::endl;
 	}
 };
 

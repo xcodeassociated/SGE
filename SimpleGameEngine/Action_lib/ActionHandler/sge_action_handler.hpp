@@ -72,6 +72,8 @@ namespace SGE
 	     */
 	    void handleInputAction(ActionBind& bind);
 
+		void handleInputActionUnbind(ActionBind& bind);
+
 	    /**
 	     * \brief Executes Action begin and queues it
 	     * \param bind Bound Action and Objects
