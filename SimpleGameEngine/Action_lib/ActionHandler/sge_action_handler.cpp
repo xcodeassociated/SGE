@@ -16,7 +16,7 @@ void SGE::ActionHandler::triggerAction(const ActionBind& b)
 	this->triggerAction(const_cast<Action*>(b.getAction()), b.getBind());
 }
 
-SGE::ActionHandler::ActionHandler(): actions{}
+SGE::ActionHandler::ActionHandler() : actions{}
 {
 }
 

@@ -139,33 +139,30 @@ class PortalAction : public  SGE::Action
 class PortalLogic : public SGE::Logics::Collide
 {
     SGE::Object* portal = nullptr;
-    SGE::Object* player = nullptr;
 
 public:
     PortalLogic(SGE::Object* portal, SGE::Object* player)
-            : SGE::Logics::Collide(SGE::LogicPriority::Highest), portal(portal), player(player)
+            : SGE::Logics::Collide(SGE::LogicPriority::Highest), portal(portal)
     {
     }
 
     virtual void performLogic(const SGE::ObjectBind& _obj) override
     {
         SGE::Object* object = _obj[0];
-        if (object == this->player)
-        {
-            if (this->collideWithDifferentShape(this->portal, this->player))
-            {
-				try
-				{
-					SGE::ACTION::Move* moveAction = dynamic_cast<SGE::ACTION::Move*>(this->CircleToRectCollisionVec(
-							this->portal, this->player));
 
-					this->sendAction(this->player, moveAction);
-					this->sendAction(this->player, new PortalAction);
-				}
-				catch (const std::bad_cast& exception)
-				{
-					std::cerr << exception.what() << std::endl;
-				}
+        if (this->collideWithDifferentShape(this->portal, object))
+        {
+            try
+            {
+                SGE::ACTION::Move* moveAction = dynamic_cast<SGE::ACTION::Move*>(this->CircleToRectCollisionVec(
+                        this->portal, object));
+
+                this->sendAction(object, moveAction);
+                this->sendAction(object, new PortalAction);
+            }
+            catch (const std::bad_cast& exception)
+            {
+                std::cerr << exception.what() << std::endl;
             }
         }
     }

@@ -6,74 +6,87 @@
 
 #include <glm/glm.hpp>
 
-SGE::InputHandler::MouseHandler::MouseHandler() noexcept : mouse(new SGE::MouseObject) {
-
+SGE::InputHandler::MouseHandler::MouseHandler() noexcept : mouse(new SGE::MouseObject)
+{
 }
 
-void SGE::InputHandler::MouseHandler::setMouseCoords(glm::vec2 coords) noexcept {
+void SGE::InputHandler::MouseHandler::setMouseCoords(glm::vec2 coords) noexcept
+{
 	this->mouse->setMouseCoords(coords);
 }
 
-glm::vec2 SGE::InputHandler::MouseHandler::getMouseCoords() const noexcept {
+glm::vec2 SGE::InputHandler::MouseHandler::getMouseCoords() const noexcept
+{
 	return this->mouse->getMouseCoords();
 }
 
-SGE::MouseObject* SGE::InputHandler::MouseHandler::getMouseObject() noexcept {
+SGE::MouseObject* SGE::InputHandler::MouseHandler::getMouseObject() noexcept
+{
 	return this->mouse;
 }
 
-SGE::InputHandler::InputHandler(SGE::Game* game) noexcept : game(game), input_manager(new SGE::InputManager), mouseHandler(new MouseHandler) {
+SGE::InputHandler::InputHandler(SGE::Game* game) noexcept
+		: game(game), input_manager(new SGE::InputManager), mouseHandler(new MouseHandler)
+{
 }
 
 void SGE::InputHandler::mapAction(const SGE::InputBinder& bind)
 {
 	auto p = this->keyMap.insert(std::make_pair(bind.getKey(), bind.getBind()));
-	if (!p.second) throw std::runtime_error("You are an idiot");
+	if (!p.second)
+		throw std::runtime_error("Could not map action");
 }
 
 void SGE::InputHandler::unmapAction(const SGE::InputBinder& bind)
 {
-	if (this->keyMap.erase(bind.getKey()) == 0) throw std::runtime_error("You are an idiot");
+	if (this->keyMap.erase(bind.getKey()) == 0)
+		throw std::runtime_error("Could not unmap action");
 }
 
 void SGE::InputHandler::pressKey(SGE::Key k)
 {
 	auto it = this->keyMap.find(k);
-	if (it == this->keyMap.end()) return;
+	if (it == this->keyMap.end())
+		return;
 	this->game->action_handler->handleInputAction(it->second);
 }
 
-void SGE::InputHandler::operator()() noexcept {
-
+void SGE::InputHandler::operator()() noexcept
+{
 	SDL_Event event;
-	while (SDL_PollEvent(&event)) {
+	while (SDL_PollEvent(&event))
+	{
 		switch (event.type) {
-			case SDL_QUIT: {
+			case SDL_QUIT:
+			{
 				this->game->windowClosing();
 			}break;
 
-			case SDL_KEYDOWN: {
+			case SDL_KEYDOWN:
+			{
 				this->pressKey(Key(event.key.keysym.sym));
 			}break;
 
-			case SDL_MOUSEMOTION: {
+			case SDL_MOUSEMOTION:
+			{
 				this->mouseHandler->setMouseCoords({ event.motion.x, event.motion.y });
 			}break;
 
-			case SDL_MOUSEBUTTONDOWN: {
+			case SDL_MOUSEBUTTONDOWN:
+			{
 				this->mouseHandler->setMouseCoords({ event.motion.x, event.motion.y });
 				this->pressKey(Key(-10));
 			}break;
 
-			case SDL_MOUSEBUTTONUP: {
-
+			case SDL_MOUSEBUTTONUP:
+			{
 			}break;
 		}
 	}
-
 }
 
-SGE::InputHandler::MouseHandler* SGE::InputHandler::getMouseHandler() noexcept {
+SGE::InputHandler::MouseHandler* SGE::InputHandler::getMouseHandler() noexcept
+{
 	return this->mouseHandler;
 }
 
