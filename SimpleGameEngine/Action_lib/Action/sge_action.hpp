@@ -3,7 +3,7 @@
 
 #include "sge_object.hpp"
 #include <initializer_list>
-
+#include <vector>
 
 namespace SGE
 {
@@ -22,6 +22,7 @@ namespace SGE
         virtual void action_begin() = 0;
         virtual void action_main() = 0;
         virtual void action_ends() = 0;
+        virtual std::vector<Object*> getObjects() const = 0;
     };
 }
 #endif /* sge_action_h */

@@ -29,6 +29,8 @@ namespace SGE
              */
 			collisionFunc onCollision;
 
+            Object* object = nullptr;
+
 			std::vector<WorldElement>& objs;
 
         public:
@@ -38,13 +40,13 @@ namespace SGE
 	         * \param objects 
 	         * \param _onCollision 
 	         */
-	        BasicLevelCollider(std::vector<WorldElement>& objects, const collisionFunc& _onCollision);
+	        BasicLevelCollider(Object* object, std::vector<WorldElement>& objects, const collisionFunc& _onCollision);
 
 	        /**
 	         * \brief 
 	         * \param _obj 
 	         */
-	        void performLogic(const ObjectBind& _obj) override;
+	        void performLogic() override;
         };
         
     }

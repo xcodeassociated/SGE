@@ -50,32 +50,44 @@ public:
 
 class GOTO : public SGE::Action
 {
+    SGE::Object* object = nullptr;
+
 public:
-    GOTO() : Action(true)
+    GOTO(SGE::Object* object) : Action(true), object(object)
 	{
 	}
 
-    virtual void action_begin(const SGE::ObjectBind& ) noexcept override
+    virtual void action_begin() noexcept override
     {
     }
     
-    virtual void action_main(const SGE::ObjectBind& b) noexcept override
+    virtual void action_main() noexcept override
     {
-		b[0]->setPosition(200, 200);
-		//NOTE: we want this action to be active forever
+		this->object->setPosition(200, 200);
+		//NOTE: we don't want this action to be active forever
 		this->active = false;
 	}
 
-	virtual void action_ends(const SGE::ObjectBind&) noexcept override
+	virtual void action_ends() noexcept override
 	{
 	}
+
+    virtual std::vector<SGE::Object*> getObjects() const override
+    {
+        return std::vector<SGE::Object*>{this->object};
+    }
 };
 
 class TestObject : public SGE::Reactive
 {
 public:
-    TestObject() : SGE::Reactive(64, 64, true, new SGE::Circle(32)) {}
-    TestObject(const float x, const float y) : SGE::Reactive(x,y, true, new SGE::Circle(32)) {}
+    TestObject() : SGE::Reactive(64, 64, true, new SGE::Circle(32))
+    {
+    }
+
+    TestObject(const float x, const float y) : SGE::Reactive(x, y, true, new SGE::Circle(32))
+    {
+    }
 };
 
 SGE::Shape* getCircle()
@@ -87,18 +99,19 @@ SGE::Shape* getCircle()
 class BiCollider : public SGE::Logic
 {
 	SGE::Object* player = nullptr;
+    SGE::Object* opponent = nullptr;
 
 public:
-	BiCollider(SGE::Object* player) : Logic(SGE::LogicPriority::Highest), player(player)
+	BiCollider(SGE::Object* player, SGE::Object* opponent) : Logic(SGE::LogicPriority::Highest), player(player), opponent(opponent)
 	{
 	}
 
-	virtual void performLogic(const SGE::ObjectBind& obj) override
+	virtual void performLogic() override
 	{
-		SGE::Circle* selfCircle = reinterpret_cast<SGE::Circle*>(player->getShape());
-		SGE::Circle* oponCircle = reinterpret_cast<SGE::Circle*>(obj[0]->getShape());
-		glm::vec2 selfPos = player->getPosition();
-		glm::vec2 oponPos = obj[0]->getPosition();
+		SGE::Circle* selfCircle = reinterpret_cast<SGE::Circle*>(this->player->getShape());
+		SGE::Circle* oponCircle = reinterpret_cast<SGE::Circle*>(this->opponent->getShape());
+		glm::vec2 selfPos = this->player->getPosition();
+		glm::vec2 oponPos = this->opponent->getPosition();
 		glm::vec2 pen = selfPos - oponPos;
 		float distance = glm::length(pen);
 		float radiuses = selfCircle->getRadius() + oponCircle->getRadius();
@@ -107,8 +120,8 @@ public:
 		{
 			float move = (radiuses - distance)*0.5;
 			pen = glm::normalize(pen)*move;
-			this->sendAction(player, new SGE::ACTION::Move(pen.x, pen.y, true));
-			this->sendAction(obj[0], new SGE::ACTION::Move(-pen.x,-pen.y, true));
+			this->sendAction(new SGE::ACTION::Move(this->player, pen.x, pen.y, true));
+			this->sendAction(new SGE::ACTION::Move(this->opponent, -pen.x,-pen.y, true));
 		}
 	}
 };
@@ -129,47 +142,52 @@ public:
 	{
 	}
 
-	virtual void action_begin(const SGE::ObjectBind& bind) override
+	virtual void action_begin() override
 	{
 		std::cout << "portal::begin" << std::endl;
 	}
 
-	virtual void action_main(const SGE::ObjectBind& bind) override
+	virtual void action_main() override
 	{
         std::cout << "portal::main" << std::endl;
 		//NOTE: we DON'T want this action to be active forever -- only when the logic condition form Portal is met
 		this->active = false;
 	}
 
-	virtual void action_ends(const SGE::ObjectBind& bind) override
+	virtual void action_ends() override
 	{
 		std::cout << "portal::end" << std::endl;
 	}
+
+    virtual std::vector<SGE::Object*> getObjects() const override
+    {
+        return {};
+    }
+
 };
 
 class PortalLogic : public SGE::Logics::Collide
 {
     SGE::Object* portal = nullptr;
+    SGE::Object* player = nullptr;
 
 public:
     PortalLogic(SGE::Object* portal, SGE::Object* player)
-            : SGE::Logics::Collide(SGE::LogicPriority::Highest), portal(portal)
+            : SGE::Logics::Collide(SGE::LogicPriority::Highest), portal(portal), player(player)
     {
     }
 
-    virtual void performLogic(const SGE::ObjectBind& _obj) override
+    virtual void performLogic() override
     {
-        SGE::Object* object = _obj[0];
-
-        if (this->collideWithDifferentShape(this->portal, object))
+        if (this->collideWithDifferentShape(this->portal, this->player))
         {
             try
             {
                 SGE::ACTION::Move* moveAction = dynamic_cast<SGE::ACTION::Move*>(this->CircleToRectCollisionVec(
-                        this->portal, object));
+                        this->portal, this->player));
 
-                this->sendAction(object, moveAction);
-                this->sendAction(object, new PortalAction);
+                this->sendAction(moveAction);
+                this->sendAction(new PortalAction);
             }
             catch (const std::bad_cast& exception)
             {
@@ -186,19 +204,24 @@ class LogicSwitch : public SGE::Action
 public:
 	LogicSwitch(SGE::Logic* id) : SGE::Action(true), logic(id) {}
 
-	void action_begin(const SGE::ObjectBind&) override
+	void action_begin() override
 	{
 	}
 
-	void action_main(const SGE::ObjectBind&) override
+	void action_main() override
 	{
 		logic->toggleOn();
 		//NOTE: we want this action to be active forever
 	}
 
-	void action_ends(const SGE::ObjectBind&) override
+	void action_ends() override
 	{
 	}
+
+    virtual std::vector<SGE::Object*> getObjects() const override
+    {
+        return {};
+    }
 };
 
 class Human : public SGE::Being
@@ -240,47 +263,26 @@ public:
 
 class HumanRandomMovement : public SGE::Logic
 {
+    Human* human = nullptr;
 	std::default_random_engine engine;
 	std::uniform_real_distribution<float> angle;
-	float speed;
 	glm::vec2 velocity;
 
 public:
-	explicit HumanRandomMovement() : Logic(SGE::LogicPriority::Mid), angle(glm::radians(-90.f), glm::radians(90.f))
+	explicit HumanRandomMovement(Human* human)
+            : Logic(SGE::LogicPriority::Mid), human(human), angle(glm::radians(-90.f), glm::radians(90.f))
     {
     }
 
-	virtual void performLogic(const SGE::ObjectBind& humanID) override
+	virtual void performLogic() override
 	{
-		
-		auto human = reinterpret_cast<Human*>(humanID[0]);
-		velocity = human->getVelocity();
-		if (human->getCounter() == 0)
+		this->velocity = this->human->getVelocity();
+		if (this->human->getCounter() == 0)
 		{
-			velocity = glm::rotate(velocity,angle(engine));
-			human->setVelocity(velocity);
+			this->velocity = glm::rotate(this->velocity, this->angle(this->engine));
+			this->human->setVelocity(this->velocity);
 		}
-		this->sendAction(humanID[0], new SGE::ACTION::Move(velocity.x, velocity.y, true));
-	}
-};
-
-class DynamicVectorLogic : public SGE::Logic
-{
-	std::vector<SGE::Object*>& vec;
-	SGE::Logic* logic;
-
-public:
-	DynamicVectorLogic(std::vector<SGE::Object*>& vector, SGE::Logic* logic)
-            : Logic(logic->getPriority()), vec(vector), logic(logic)
-	{
-    }
-
-	virtual  void performLogic(const SGE::ObjectBind&) override
-	{
-		for (size_t i = 0; i < vec.size(); ++i)
-		{
-			logic->performLogic(vec[i]);
-		}
+		this->sendAction(new SGE::ACTION::Move(this->human, velocity.x, velocity.y, true));
 	}
 };
 
@@ -289,21 +291,25 @@ class SnapCamera : public SGE::Logic
 	const float speed = 0;
 	const SGE::Key up, down, left, right, snapKey;
 	bool snapped = true;
-	SGE::Object* snapTo;
+	SGE::Object* snapTo = nullptr;
+    SGE::Object* object = nullptr;
 
 public:
-	SnapCamera(const float speed, const SGE::Key up, const SGE::Key down, const SGE::Key left, const SGE::Key right, const SGE::Key snapKey, SGE::Object* snapTo)
-		:Logic(SGE::LogicPriority::Highest), speed(speed), up(up), down(down), left(left), right(right), snapKey(snapKey) ,snapTo(snapTo){}
+	SnapCamera(const float speed, const SGE::Key up, const SGE::Key down, const SGE::Key left, const SGE::Key right, const SGE::Key snapKey, SGE::Object* snapTo, SGE::Object* object)
+		: Logic(SGE::LogicPriority::Highest), speed(speed), up(up), down(down), left(left), right(right), snapKey(snapKey), snapTo(snapTo), object(object)
+    {
+    }
+
 	~SnapCamera() = default;
 
-	void performLogic(const SGE::ObjectBind& obj) override
+	void performLogic() override
 	{
 		this->snapped = isPressed(snapKey); //We need to be able to send signals to actions, like sending actions to objects
-		glm::vec2 move = { 0,0 };
+		glm::vec2 move = {0, 0};
 		if(!this->snapped)
 		{
 			move = this->snapTo->getPosition();
-			obj[0]->setPosition(move.x, move.y); //Replace with action, i.e. GoTo
+			this->object->setPosition(move.x, move.y); //Replace with action, i.e. GoTo
 		}
 		else
 		{
@@ -311,40 +317,46 @@ public:
 			if(isPressed(this->down)) move.y -= this->speed;
 			if(isPressed(this->right)) move.x += this->speed;
 			if(isPressed(this->left)) move.x -= this->speed;
-			this->sendAction(obj[0], new SGE::ACTION::Move(move.x, move.y, true));
+			this->sendAction(new SGE::ACTION::Move(this->object, move.x, move.y, true));
 		}
 	}
 };
 
 class MouseClickedAction : public SGE::Action
 {
+    SGE::MouseObject* mouseObject = nullptr;
+    SGE::Object* player = nullptr;
+
 public:
-    MouseClickedAction() : Action(true)
+    MouseClickedAction(SGE::MouseObject* mouseObject, SGE::Object* player)
+            : Action(true), mouseObject(mouseObject), player(player)
 	{
 	}
     
-    virtual void action_begin(const SGE::ObjectBind&) noexcept override
+    virtual void action_begin() noexcept override
 	{
 	}
 
-    virtual void action_ends(const SGE::ObjectBind&) noexcept override
+    virtual void action_ends() noexcept override
 	{
 	}
     
-    virtual void action_main(const SGE::ObjectBind& b) noexcept override
+    virtual void action_main() noexcept override
     {
-		//assert((n - o) == 2);
-		SGE::MouseObject* mouse = dynamic_cast<SGE::MouseObject*>(b[0]);
-		SGE::Object* p = b[1];
-        glm::vec2 coords = mouse->getMouseCoords();
+        glm::vec2 coords = this->mouseObject->getMouseCoords();
         SGE::Game* game = SGE::Game::getGame();
-        SGE::Camera2d* cam = dynamic_cast<SGE::Camera2d*>(game->getCamera());
+        SGE::Camera2d* cam = game->getCamera();
         glm::vec2 worldCoords = SGE::screenToWorld(coords, cam->getPosition(), (double)cam->getScale());
 
 		std::cout << "[Clicked] - x: " << worldCoords.x << ", y: " << worldCoords.y << std::endl;
-		std::cout << "[Player ] - x: " << p->getX() << ", y: " << p->getY() << std::endl;
+		std::cout << "[Player ] - x: " << this->player->getX() << ", y: " << this->player->getY() << std::endl;
 
 		//NOTE: we want this action to be active forever
+    }
+
+    virtual std::vector<SGE::Object*> getObjects() const override
+    {
+        return std::vector<SGE::Object*>{this->player, this->mouseObject};
     }
 };
 
@@ -358,63 +370,62 @@ int main(int argc, char * argv[])
 	game->bindDirector(director);
 	game->init(60);
 
-	SGE::Object* camera = game->getCamera();
-	SGE::Object* mouse = game->getMouse();
+	SGE::Camera2d* camera = game->getCamera();
+	SGE::MouseObject* mouse = game->getMouse();
 
 	SGE::Scene* S1 = director->addScene(new MainScene(game));
 
 	SGE::Object* testObj0 = new TestObject;
     SGE::Object* testObj1 = new TestObject(200, 200);
-    game->textureObject(testObj0,  PATH"ZombieGame/Resources/Textures/circle.png");
+    game->textureObject(testObj0, PATH"ZombieGame/Resources/Textures/circle.png");
     game->textureObject(testObj1, PATH"ZombieGame/Resources/Textures/circle.png");
 	S1->addObject(testObj0);
 	S1->addObject(testObj1);
 
-    SGE::Action* oW = new SGE::ACTION::Move(0, 4.f, 0);
-    SGE::Action* oA = new SGE::ACTION::Move(-4.f, 0, 0);
-    SGE::Action* oS = new SGE::ACTION::Move(0, -4.f, 0);
-    SGE::Action* oD = new SGE::ACTION::Move(4.f, 0, 0);
+    SGE::Action* oW = new SGE::ACTION::Move(testObj0, 0, 4.f, 0);
+    SGE::Action* oA = new SGE::ACTION::Move(testObj0, -4.f, 0, 0);
+    SGE::Action* oS = new SGE::ACTION::Move(testObj0, 0, -4.f, 0);
+    SGE::Action* oD = new SGE::ACTION::Move(testObj0, 4.f, 0, 0);
 
-    SGE::InputBinder tb0(testObj0, oW, SGE::Key::Up);
-    SGE::InputBinder tb1(testObj0, oS, SGE::Key::Down);
-    SGE::InputBinder tb2(testObj0, oA, SGE::Key::Left);
-    SGE::InputBinder tb3(testObj0, oD, SGE::Key::Right);
+    SGE::InputBinder tb0(oW, SGE::Key::Up);
+    SGE::InputBinder tb1(oS, SGE::Key::Down);
+    SGE::InputBinder tb2(oA, SGE::Key::Left);
+    SGE::InputBinder tb3(oD, SGE::Key::Right);
     
 	game->mapAction(tb0);
 	game->mapAction(tb1);
 	game->mapAction(tb2);
 	game->mapAction(tb3);
 
-    SGE::Action* click = new MouseClickedAction;
-	SGE::InputBinder clickBind({ mouse, testObj1 }, click, SGE::Key::MOUSE_LEFT_BUTTON);
+    SGE::Action* click = new MouseClickedAction(mouse, testObj1);
+	SGE::InputBinder clickBind(click, SGE::Key::MOUSE_LEFT_BUTTON);
 	game->mapAction(clickBind);
     
-	auto L1 = new SGE::Logics::PreciseLevelCollider(S1->getLevel().getWorld());
+	auto L1 = new SGE::Logics::PreciseLevelCollider(testObj1, S1->getLevel().getWorld());
 	SGE::Action* toggle = new LogicSwitch(L1);
-	SGE::Object* cto = new SGE::VoidObject();
-	game->mapAction(SGE::InputBinder(cto,toggle,SGE::Key::O));
+	game->mapAction(SGE::InputBinder(toggle, SGE::Key::O));
 
-	auto L2a = new SGE::Logics::BasicCollider(testObj1, &SGE::Logics::Collide::CircleCollisionVec);
-	auto L2b = new SGE::Logics::BasicCollider(testObj0, &SGE::Logics::Collide::CircleCollisionVec);
-	auto L3 = new SGE::Logics::SimpleMove(200.f,SGE::Key::W,SGE::Key::S, SGE::Key::A, SGE::Key::D);
+	auto L2a = new SGE::Logics::BasicCollider(testObj1, testObj0, &SGE::Logics::Collide::CircleCollisionVec);
+	auto L2b = new SGE::Logics::BasicCollider(testObj0, testObj1, &SGE::Logics::Collide::CircleCollisionVec);
+	auto L3 = new SGE::Logics::SimpleMove(testObj1, 200.f, SGE::Key::W,SGE::Key::S, SGE::Key::A, SGE::Key::D);
 
-	auto camLogic = new SnapCamera(8, SGE::Key::Up, SGE::Key::Down, SGE::Key::Left, SGE::Key::Right, SGE::Key::Space, testObj1);
-	auto camZoom = new SGE::Logics::CameraZoom(0.1f,1.f,0.15f,SGE::Key::Q, SGE::Key::E);
+	auto camLogic = new SnapCamera(8, SGE::Key::Up, SGE::Key::Down, SGE::Key::Left, SGE::Key::Right, SGE::Key::Space, testObj1, camera);
+	auto camZoom = new SGE::Logics::CameraZoom(camera, 0.1f, 1.f, 0.15f, SGE::Key::Q, SGE::Key::E);
 
-    S1->bindLogic(testObj0, L2a);
-    S1->bindLogic(testObj0, L1);
-    S1->bindLogic(testObj1, L2b);
-	S1->bindLogic(testObj1, L3);
-    S1->bindLogic(testObj1, L1);
-    S1->bindLogic(camera, camLogic);
-    S1->bindLogic(camera, camZoom);
+    S1->addLogic(L2a);
+    S1->addLogic(L1);
+    S1->addLogic(L2b);
+	S1->addLogic(L3);
+    S1->addLogic(L1);
+    S1->addLogic(camLogic);
+    S1->addLogic(camZoom);
 
 	auto testTile = &(S1->getLevel().getWorld().front());
-	auto moveTile = new SGE::Logics::SimpleMove(4.f, SGE::Key::I, SGE::Key::K, SGE::Key::J, SGE::Key::L);
-    S1->bindLogic(testTile, moveTile);
+	auto moveTileLogic = new SGE::Logics::SimpleMove(testTile, 4.f, SGE::Key::I, SGE::Key::K, SGE::Key::J, SGE::Key::L);
+    S1->addLogic(moveTileLogic);
 
-	auto reset = new GOTO();
-	game->mapAction(SGE::InputBinder(testObj1, reset, SGE::Key::B));
+	auto reset = new GOTO(testObj1);
+	game->mapAction(SGE::InputBinder(reset, SGE::Key::B));
 
     std::string path = PATH"ZombieGame/Levels/level1.txt";
     std::vector<std::string> l;
@@ -453,12 +464,11 @@ int main(int argc, char * argv[])
     S1->addObject(portal);
 
     SGE::Logic* portalLogic = new PortalLogic(portal, testObj1);
-    S1->bindLogic(testObj1, portalLogic);
+    S1->addLogic(portalLogic);
 
 
-	SGE::Object* voidPortalActionObject = new SGE::VoidObject();
 	SGE::Action* portalAction = new PortalAction;
-	game->mapAction(SGE::InputBinder(voidPortalActionObject, portalAction, SGE::Key::P));
+	game->mapAction(SGE::InputBinder(portalAction, SGE::Key::P));
 
 
 	const int humans = 100;
@@ -471,26 +481,29 @@ int main(int argc, char * argv[])
         r.insert(index);
     }
     
-    std::vector<SGE::Object*> humans_id;
+    std::vector<Human*> humansVec;
     for (const int& e : r)
     {
         std::pair<float, float> pos = free.at(e);
-		SGE::Object* temp = new Human(pos.first, pos.second, 120);
+		Human* temp = new Human(pos.first, pos.second, 120);
 		game->textureObject(temp, PATH"ZombieGame/Resources/Textures/circle.png");
 		S1->addObject(temp);
-        humans_id.push_back(temp);
+        humansVec.push_back(temp);
     }
 
-	auto MoveHumans = new DynamicVectorLogic(humans_id, new HumanRandomMovement());
-	auto CollideLevelHumans = new DynamicVectorLogic(humans_id, L1);
-	auto CollidePlayer = new DynamicVectorLogic(humans_id, new BiCollider(testObj1));
+    for (auto human : humansVec)
+    {
+        S1->addLogic(new HumanRandomMovement(human));
+        S1->addLogic(new BiCollider(human, testObj1));
+        S1->addLogic(new BiCollider(human, testObj0));
+        S1->addLogic(new SGE::Logics::PreciseLevelCollider(human, S1->getLevel().getWorld()));
+    }
 
-    S1->bindLogic(testObj0, MoveHumans);
-    S1->bindLogic(testObj0, CollidePlayer);
-    S1->bindLogic(testObj0, CollideLevelHumans);
 	
 
 	director->showScene(S1);
+
+    //...
 
 	director->deleteScene(S1);
 	

@@ -15,6 +15,7 @@ target_link_libraries(${PROJECT_NAME}
 
 ## SGE LIBS: ##
 		Action
+		ActionHandler
 		IO
 		Level
 		Logic

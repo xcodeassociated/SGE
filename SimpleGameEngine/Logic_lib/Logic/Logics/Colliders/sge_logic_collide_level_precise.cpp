@@ -5,13 +5,14 @@
 #include <glm/ext.hpp>
 #include <algorithm>
 
-SGE::Logics::PreciseLevelCollider::PreciseLevelCollider(std::vector<WorldElement>& objects): Collide(LogicPriority::Highest), objs(objects)
+SGE::Logics::PreciseLevelCollider::PreciseLevelCollider(Object* object, std::vector<WorldElement>& objects)
+		: Collide(LogicPriority::Highest), object(object), objs(objects)
 {
 }
 
-void SGE::Logics::PreciseLevelCollider::performLogic(const ObjectBind& _obj)
+void SGE::Logics::PreciseLevelCollider::performLogic()
 {
-	Object* oponent = _obj[0];
+	Object* oponent = this->object;
 	glm::vec2 tileShape = {getBaseTileShape()->getWidth(), getBaseTileShape()->getHeight()};
 	glm::vec2 move = {0,0};
 	glm::vec2 tilePos = {0,0};
@@ -75,7 +76,7 @@ void SGE::Logics::PreciseLevelCollider::performLogic(const ObjectBind& _obj)
 			}
 			if (collided)
 			{
-				this->sendAction(_obj[0], new ACTION::Move(move.x, move.y, 0.));
+				this->sendAction(new ACTION::Move(this->object, move.x, move.y, 0.));
 			}
 		}
 		break;

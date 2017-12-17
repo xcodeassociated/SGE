@@ -2,11 +2,12 @@
 #define sge_logic_camera_zoom_h
 
 #include "sge_logic.hpp"
-#include "sge_action_handler.hpp"
 #include "sge_key.hpp"
 
 namespace SGE
 {
+	class Camera2d;
+
 	namespace Logics
 	{
 		/**
@@ -14,6 +15,8 @@ namespace SGE
 		 */
 		class CameraZoom : public Logic
 		{
+			Camera2d* cameraObject = nullptr;
+
 			/**
 			 * \brief 
 			 */
@@ -34,6 +37,7 @@ namespace SGE
 			 * \brief 
 			 */
 			const Key zoomOut;
+
 		public:
 			/**
 			 * \brief 
@@ -43,7 +47,7 @@ namespace SGE
 			 * \param in 
 			 * \param out 
 			 */
-			CameraZoom(const float speed, const float min, const float max, const SGE::Key in, const SGE::Key out);
+			CameraZoom(Camera2d* camera, const float speed, const float min, const float max, const SGE::Key in, const SGE::Key out);
 			/**
 			 * \brief 
 			 */
@@ -53,7 +57,7 @@ namespace SGE
 			 * \brief 
 			 * \param camObj 
 			 */
-			void performLogic(const ObjectBind& camObj) override;
+			void performLogic() override;
 		};
 	}
 }

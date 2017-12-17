@@ -36,6 +36,8 @@ namespace SGE
              */
 			collisionFunc onCollision;
 
+            Object* object = nullptr;
+
             std::vector<Object*> objs;
 
         public:
@@ -45,13 +47,13 @@ namespace SGE
 	         * \param objects 
 	         * \param _onCollision 
 	         */
-	        BasicColliderGroup(std::vector<Object*> objects, const collisionFunc& _onCollision);
+	        BasicColliderGroup(Object* object, std::vector<Object*> objects, const collisionFunc& _onCollision);
 
 	        /**
 	         * \brief 
 	         * \param _obj 
 	         */
-	        void performLogic(Object* _obj);
+	        virtual void performLogic() override;
         };
         
     }

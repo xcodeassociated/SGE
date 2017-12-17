@@ -13,6 +13,8 @@
 
 namespace SGE
 {
+	class Object;
+
     namespace ACTION
 	{
 	    /**
@@ -21,6 +23,8 @@ namespace SGE
          */
         class Move : virtual public Action
 		{
+			Object* object = nullptr;
+
 	        /**
 	         * \brief Displacement distance on X axis
 	         */
@@ -38,25 +42,27 @@ namespace SGE
 	         * \param _y destY value
 	         * \param active
 	         */
-	        Move(float _x, float _y, bool active);
+	        Move(Object* object, float _x, float _y, bool active);
 
-        private:
+			virtual std::vector<Object*> getObjects() const override;
+
+		private:
 
 	        /**
 	         * \brief Unused
 	         */
-	        virtual void action_begin(const ObjectBind&) noexcept override;
+	        virtual void action_begin() noexcept override;
 
 	        /**
 	         * \brief Moves each object by given distance
 	         * \param bind Objects to execute
 	         */
-	        virtual void action_main(const ObjectBind& bind) noexcept override;
+	        virtual void action_main() noexcept override;
 
 	        /**
 	         * \brief Unused
 	         */
-	        virtual void action_ends(const ObjectBind&) noexcept override;
+	        virtual void action_ends() noexcept override;
         };
     }
 }

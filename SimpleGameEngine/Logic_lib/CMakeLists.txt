@@ -31,7 +31,7 @@ add_library (Logic SHARED
 target_link_libraries(Logic
 		Object
 		IO
-		Action
+		ActionHandler
 		Utils)
 		
 if(WIN32)

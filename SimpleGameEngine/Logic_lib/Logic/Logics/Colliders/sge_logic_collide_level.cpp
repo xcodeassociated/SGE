@@ -1,14 +1,14 @@
 #include "sge_logic_collide_level.hpp"
 #include "sge_shape_rectangle.hpp"
 
-SGE::Logics::BasicLevelCollider::BasicLevelCollider(std::vector<WorldElement>& objects, const collisionFunc& _onCollision)
-		: Collide(LogicPriority::Highest), onCollision(_onCollision), objs(objects)
+SGE::Logics::BasicLevelCollider::BasicLevelCollider(Object* object, std::vector<WorldElement>& objects, const collisionFunc& _onCollision)
+		: Collide(LogicPriority::Highest), onCollision(_onCollision), object(object), objs(objects)
 {
 }
 
-void SGE::Logics::BasicLevelCollider::performLogic(const ObjectBind& _obj)
+void SGE::Logics::BasicLevelCollider::performLogic()
 {
-	Object* oponent = _obj[0];
+	Object* oponent = this->object;
 	Shape* selfShape = getBaseTileShape();
 	Shape* oponentShape = oponent->getShape();
 
@@ -23,8 +23,8 @@ void SGE::Logics::BasicLevelCollider::performLogic(const ObjectBind& _obj)
 
 		if (collision)
 		{
-			Action* aid = this->onCollision(&objs[i], _obj[0]);
-			this->sendAction(_obj[0], aid);
+			Action* aid = this->onCollision(&objs[i], this->object);
+			this->sendAction(aid);
 		}
 	}
 }

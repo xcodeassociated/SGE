@@ -21,7 +21,6 @@ bool SGE::Game::init(float fps)
 {
 	std::pair<int, int> resolution = this->director->getResolution();
 
-	this->action_handler = new ActionHandler;
 	this->limiter = new FpsLimiter;
 	this->limiter->init(fps);
 	this->window_manager = new WindowManager(resolution);
@@ -46,6 +45,7 @@ bool SGE::Game::isOnScene()
 void SGE::Game::showScene(Scene* s)
 {
 	this->currentScene = s;
+	this->action_handler = new ActionHandler(this->currentScene->getActions());
 
 	this->OnScene = true;
 
@@ -96,7 +96,7 @@ SGE::ActionHandler* SGE::Game::getActionHandler()
 	return this->action_handler;
 }
 
-SGE::Object* SGE::Game::getMouse()
+SGE::MouseObject* SGE::Game::getMouse()
 {
 	return this->input_handler->getMouseHandler()->getMouseObject();
 }
@@ -125,7 +125,7 @@ void SGE::Game::run()
 			this->performLogics();
 			this->draw(this->currentScene);
 
-			this->input_handler->operator()();
+			this->input_handler->pollEvents();
 		}
 		this->fps = this->limiter->end();
 
@@ -141,7 +141,12 @@ void SGE::Game::run()
 
 void SGE::Game::performActions()
 {
-	this->action_handler->performAllActions();
+	auto& actions = this->action_handler->getActions();
+	for (auto action : actions)
+	{
+		this->action_handler->triggerAction(action);
+	}
+	this->action_handler->remove_inactive_actions();
 }
 
 void SGE::Game::performLogics()
@@ -153,11 +158,11 @@ void SGE::Game::performLogics()
 
 	for (auto it = lVec.begin(), end = lVec.end(); it != end; ++it)
 	{
-		nextLogicP = it->getLogic()->getPriority();
-
-		if (nextLogicP <= objectCurrentLogicP) {
-			if (it->getLogic()->getOn())
-				it->getLogic()->performLogic(it->getObject());
+		nextLogicP = (*it)->getPriority();
+		if (nextLogicP <= objectCurrentLogicP)
+		{
+			if ((*it)->getOn())
+				(*it)->performLogic();
 		}
 	}
 }

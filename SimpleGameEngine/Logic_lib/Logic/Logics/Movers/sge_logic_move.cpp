@@ -3,11 +3,12 @@
 #include <sge_keyboard_state.hpp>
 #include <sge_fps_limiter.hpp>
 
-SGE::Logics::SimpleMove::SimpleMove(const float speed, const SGE::Key up, const SGE::Key down, const SGE::Key left, const SGE::Key right): Logic(LogicPriority::Highest), speed(speed), up(up), down(down), left(left), right(right)
+SGE::Logics::SimpleMove::SimpleMove(Object* object, const float speed, const SGE::Key up, const SGE::Key down, const SGE::Key left, const SGE::Key right)
+        : Logic(LogicPriority::Highest), object(object), speed(speed), up(up), down(down), left(left), right(right)
 {
 }
 
-void SGE::Logics::SimpleMove::performLogic(const ObjectBind& obj)
+void SGE::Logics::SimpleMove::performLogic()
 {
 	glm::vec2 move = {0,0};
 	if (isPressed(this->up)) move.y += this->speed;
@@ -17,7 +18,7 @@ void SGE::Logics::SimpleMove::performLogic(const ObjectBind& obj)
 	if (glm::vec2{ 0,0 }!=move)
 	{
 		move *= delta_time;
-		this->sendAction(obj[0], new SGE::ACTION::Move(move.x, move.y, 0));
+		this->sendAction(new SGE::ACTION::Move(this->object, move.x, move.y, 0));
 	}
 
 }

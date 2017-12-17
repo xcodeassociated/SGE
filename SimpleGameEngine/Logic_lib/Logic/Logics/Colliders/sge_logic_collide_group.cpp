@@ -2,16 +2,16 @@
 #include "sge_shape.hpp"
 #include "sge_object.hpp"
 
-SGE::Logics::BasicColliderGroup::BasicColliderGroup(std::vector<Object*> objects, const collisionFunc& _onCollision)
-		: Collide(LogicPriority::Highest), onCollision(_onCollision), objs(objects)
+SGE::Logics::BasicColliderGroup::BasicColliderGroup(Object* object, std::vector<Object*> objects, const collisionFunc& _onCollision)
+		: Collide(LogicPriority::Highest), onCollision(_onCollision), object(object), objs(objects)
 {
 }
 
-void SGE::Logics::BasicColliderGroup::performLogic(Object* _obj)
+void SGE::Logics::BasicColliderGroup::performLogic()
 {
 	Object* current;
 	Object* self = nullptr;
-	Object* oponent = _obj;
+	Object* oponent = this->object;
 
 	Shape* selfShape = nullptr;
 	Shape* oponentShape = oponent->getShape();
@@ -30,8 +30,8 @@ void SGE::Logics::BasicColliderGroup::performLogic(Object* _obj)
 
 		if (collision)
 		{
-			Action* aid = this->onCollision(current, _obj);
-			sendAction(current, aid);
+			Action* aid = this->onCollision(current, this->object);
+			sendAction(aid);
 		}
 	}
 }

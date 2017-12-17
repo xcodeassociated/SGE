@@ -27,6 +27,7 @@ namespace SGE
 	class Scene;
 	class Logic;
 	class Action;
+    class MouseObject;
 
 	/**
      * \brief 
@@ -214,7 +215,7 @@ namespace SGE
 	     * \brief 
 	     * \return 
 	     */
-	    Object* getMouse();
+        MouseObject* getMouse();
 
 	    /**
 	     * \brief Current way of connecting OM and Director

@@ -20,7 +20,9 @@ namespace SGE
          * \brief 
          */
         using ObjectVector = std::vector<Object*>;
-        
+        using LogicVector = std::vector<Logic*>;
+        using ActionVector = std::vector<Action*>;
+
 	    /**
 		 * \brief 
 		 */
@@ -28,7 +30,11 @@ namespace SGE
 	    /**
 		 * \brief 
 		 */
-		LogicVector Logics;
+		LogicVector logics;
+        /**
+        * \brief
+        */
+        ActionVector actions;
 	    /**
          * \brief 
          */
@@ -45,6 +51,8 @@ namespace SGE
 	     * \return 
 	     */
 	    LogicVector& getLogics();
+
+        ActionVector& getActions();
 
 	    /**
 		 * \brief 
@@ -74,13 +82,13 @@ namespace SGE
 
 		void removeObject(SGE::Object* object);
 
-		void bindLogic(const Logic::Binder& logic);
+		void addLogic(Logic* logic);
 
-		void bindLogic(Object* obj, Logic* logic);
+		void removeLogic(Logic* logic);
 
-		void unbindLogic(SGE::Object* obj, SGE::Logic* logic);
+        void addAction(Action* action);
 
-		void unbindLogic(const Logic::Binder& logic);
+        void removeAction(Action* action);
 
 		/**
 		 * \brief 

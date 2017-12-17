@@ -16,19 +16,23 @@ set (ActionHandlerSOURCES
 		ActionHandler/sge_action_handler.hpp
 		ActionHandler/sge_action_handler.cpp)
 
+add_library (ActionHandler SHARED ${ActionHandlerSOURCES})
+
+target_link_libraries(ActionHandler Action)
+
 add_library (Game SHARED
 		${GameSOURCES}
-		${ActionHandlerSOURCES}
+		#${ActionHandlerSOURCES}
 		${InputHandlerSOURCES}
 		${DirectorSOURCES})
 		
 	
 target_link_libraries(Game
 		Object
-		Logic
 		Utils
 		IO
 		Level
 		Scene
 		Renderer
-		Utils)
+		Utils
+		ActionHandler)

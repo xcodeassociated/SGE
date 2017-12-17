@@ -33,6 +33,9 @@ namespace SGE
 			 * \brief 
 			 */
 			const Key right;
+
+			Object* object = nullptr;
+
 		public:
 			/**
 			 * \brief 
@@ -42,7 +45,7 @@ namespace SGE
 			 * \param left 
 			 * \param right 
 			 */
-			SimpleMove(const float speed, const SGE::Key up, const SGE::Key down, const SGE::Key left, const SGE::Key right);
+			SimpleMove(Object* object, const float speed, const SGE::Key up, const SGE::Key down, const SGE::Key left, const SGE::Key right);
 			/**
 			 * \brief 
 			 */
@@ -52,7 +55,7 @@ namespace SGE
 			 * \brief 
 			 * \param obj 
 			 */
-			void performLogic(const ObjectBind& obj) override;
+			void performLogic() override;
 		};
 	}
 }

@@ -32,14 +32,14 @@ SGE::InputHandler::InputHandler(SGE::Game* game) noexcept
 
 void SGE::InputHandler::mapAction(const SGE::InputBinder& bind)
 {
-	auto p = this->keyMap.insert(std::make_pair(bind.getKey(), bind.getBind()));
+	auto p = this->keyMap.insert(std::make_pair(bind.getKey(), bind.getAction()));
 	if (!p.second)
 		throw std::runtime_error("Could not map action");
 }
 
 void SGE::InputHandler::unmapAction(const SGE::InputBinder& bind)
 {
-    auto action_bind = bind.getBind();
+    auto action_bind = bind.getAction();
     this->game->action_handler->handleInputActionUnbind(action_bind);
 	if (this->keyMap.erase(bind.getKey()) == 0)
 		throw std::runtime_error("Could not unmap action");
@@ -53,7 +53,7 @@ void SGE::InputHandler::pressKey(SGE::Key k)
 	this->game->action_handler->handleInputAction(it->second);
 }
 
-void SGE::InputHandler::operator()() noexcept
+void SGE::InputHandler::pollEvents() noexcept
 {
 	SDL_Event event;
 	while (SDL_PollEvent(&event))

@@ -5,7 +5,12 @@
 
 SGE::Scene::LogicVector& SGE::Scene::getLogics()
 {
-	return this->Logics;
+	return this->logics;
+}
+
+SGE::Scene::ActionVector& SGE::Scene::getActions()
+{
+	return this->actions;
 }
 
 void SGE::Scene::loadLevel(const char* path, std::map<char, std::string> levelMask)
@@ -42,27 +47,31 @@ void SGE::Scene::removeObject(SGE::Object* object)
 	this->objects.erase(std::remove(this->objects.begin(), this->objects.end(), *it), this->objects.end());
 }
 
-void SGE::Scene::bindLogic(const SGE::Logic::Binder& logic)
+void SGE::Scene::addLogic(SGE::Logic* logic)
 {
-	this->Logics.push_back(logic);
-	std::stable_sort(this->Logics.begin(), this->Logics.end());
+	this->logics.push_back(logic);
+	std::stable_sort(this->logics.begin(), this->logics.end());
 }
 
-void SGE::Scene::bindLogic(SGE::Object* obj, SGE::Logic* logic)
+void SGE::Scene::removeLogic(SGE::Logic* logic)
 {
-	this->bindLogic(Logic::Binder(logic, obj));
+	auto it = std::find(this->logics.begin(), this->logics.end(), logic);
+	if (it == this->logics.end())
+		throw std::runtime_error{"Could not find LogicBinder to remove from Scene"};
+
+	this->logics.erase(std::remove(this->logics.begin(), this->logics.end(), logic), this->logics.end());
 }
 
-void SGE::Scene::unbindLogic(SGE::Object* obj, SGE::Logic* logic)
+void SGE::Scene::addAction(Action* action)
 {
-	this->unbindLogic(Logic::Binder(logic, obj));
+	this->actions.push_back(action);
 }
 
-void SGE::Scene::unbindLogic(const SGE::Logic::Binder& logic)
+void SGE::Scene::removeAction(Action* action)
 {
-	auto it = std::find(this->Logics.begin(), this->Logics.end(), logic);
-	if (it == this->Logics.end())
-		throw std::runtime_error{"Could not find LogicBinder to unbind in Scene"};
+	auto it = std::find(this->actions.begin(), this->actions.end(), action);
+	if (it == this->actions.end())
+		throw std::runtime_error{"Could not find Action to remove from Scene"};
 
-	this->Logics.erase(std::remove(this->Logics.begin(), this->Logics.end(), logic), this->Logics.end());
+	this->actions.erase(std::remove(this->actions.begin(), this->actions.end(), action), this->actions.end());
 }

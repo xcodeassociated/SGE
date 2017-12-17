@@ -15,6 +15,8 @@ namespace SGE
 		 */
 		class PreciseLevelCollider : public Collide
 		{
+            Object* object = nullptr;
+
 			/**
 			 * \brief 
 			 */
@@ -25,12 +27,12 @@ namespace SGE
 			 * \brief 
 			 * \param objects 
 			 */
-			PreciseLevelCollider(std::vector<WorldElement>& objects);
+			PreciseLevelCollider(Object* object, std::vector<WorldElement>& objects);
 			/**
 			 * \brief 
 			 * \param _obj 
 			 */
-			virtual void performLogic(const ObjectBind& _obj) override;
+			virtual void performLogic() override;
 		};
 
 	}

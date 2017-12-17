@@ -4,16 +4,16 @@
 
 #include "sge_input_binder.hpp"
 
-SGE::InputBinder::InputBinder(Action* action, Key key): bind(object, action), kid(key)
+SGE::InputBinder::InputBinder(Action* action, Key key) : action(action), key(key)
 {
 }
 
-SGE::ActionBind SGE::InputBinder::getBind() const
+SGE::Action* SGE::InputBinder::getAction() const
 {
-    return this->bind;
+    return this->action;
 }
 
 SGE::Key SGE::InputBinder::getKey() const
 {
-    return this->kid;
+    return this->key;
 }

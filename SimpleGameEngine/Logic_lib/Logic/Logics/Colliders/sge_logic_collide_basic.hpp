@@ -36,22 +36,23 @@ namespace SGE
 			 */
 			collisionFunc onCollision;
 
-			Object* obj;
+            Object* object_a = nullptr;
+			Object* object_b = nullptr;
 
 		public:
 
 	        /**
 	         * \brief 
-	         * \param obj 
+	         * \param object
 	         * \param _onCollision 
 	         */
-	        BasicCollider(Object* obj, const collisionFunc& _onCollision);
+	        BasicCollider(Object* object_a, Object* object_b, const collisionFunc& _onCollision);
 
 	        /**
 	         * \brief 
 	         * \param _obj 
 	         */
-	        virtual void performLogic(const ObjectBind& _obj) override;
+	        virtual void performLogic() override;
         };
         
     }

@@ -2,15 +2,15 @@
 #include "sge_shape.hpp"
 #include "sge_object.hpp"
 
-SGE::Logics::BasicCollider::BasicCollider(Object* obj, const collisionFunc& _onCollision)
-		: Collide(LogicPriority::Highest), onCollision(_onCollision), obj(obj)
+SGE::Logics::BasicCollider::BasicCollider(Object* object_a, Object* object_b, const collisionFunc& _onCollision)
+		: Collide(LogicPriority::Highest), onCollision(_onCollision), object_a(object_a), object_b(object_b)
 {
 }
 
-void SGE::Logics::BasicCollider::performLogic(const ObjectBind& _obj)
+void SGE::Logics::BasicCollider::performLogic()
 {
-	Object* self = this->obj;
-	Object* oponent = _obj[0];
+	Object* self = this->object_a;
+	Object* oponent = this->object_b;
 
 	Shape* selfShape = self->getShape();
 	Shape* oponentShape = oponent->getShape();
@@ -24,7 +24,7 @@ void SGE::Logics::BasicCollider::performLogic(const ObjectBind& _obj)
 
 	if (collision)
 	{
-		Action* aid = this->onCollision(obj, _obj[0]);
-		this->sendAction(_obj[0], aid);
+		Action* aid = this->onCollision(self, oponent);
+		this->sendAction(aid);
 	}
 }

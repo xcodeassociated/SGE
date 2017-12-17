@@ -11,9 +11,9 @@ SGE::Logic::Logic(Priority _p): priority(_p)
 {
 }
 
-void SGE::Logic::sendAction(Object* obj, Action* action) const
+void SGE::Logic::sendAction(Action* action) const
 {
-	action_handler->performSingleAction(ActionBind(obj, action), this->priority);
+	action_handler->performSingleAction(action, this->priority);
 }
 
 SGE::Logic::Priority SGE::Logic::getPriority() const

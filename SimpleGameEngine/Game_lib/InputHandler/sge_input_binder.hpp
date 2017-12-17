@@ -9,19 +9,21 @@
 
 namespace SGE
 {
+    class Action;
+
 	/**
-     * \brief Binds Key with ActionBind
+     * \brief Binds Key with Action
      */
     class InputBinder
     {
 	    /**
-         * \brief bound ActionBind
+         * \brief Action pointer
          */
-        ActionBind bind;
+        Action* action = nullptr;
 	    /**
          * \brief bound Key
          */
-        Key kid;
+        Key key;
 
     public:
 
@@ -34,10 +36,10 @@ namespace SGE
         InputBinder(Action* action, Key key);
 
 	    /**
-         * \brief Returns bound ActionBind
-         * \return bound ActionBind
+         * \brief Returns bound Action pointer
+         * \return bound Action pointer
          */
-        ActionBind getBind() const;
+        Action* getAction() const;
 
 	    /**
          * \brief Returns bound Key

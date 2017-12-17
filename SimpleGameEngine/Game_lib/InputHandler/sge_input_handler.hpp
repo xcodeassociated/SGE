@@ -37,7 +37,7 @@ namespace SGE
 	    /**
          * \brief 
          */
-        std::unordered_map <Key, ActionBind, KeyHashAlias<Key>> keyMap;
+        std::unordered_map <Key, Action*, KeyHashAlias<Key>> keyMap;
 
 	    /**
          * \brief 
@@ -49,12 +49,12 @@ namespace SGE
 	    /**
          * \brief 
          */
-        InputHandler(Game*) noexcept;
+        explicit InputHandler(Game* game) noexcept;
 
 	    /**
          * \brief 
          */
-        void operator()() noexcept;
+        void pollEvents() noexcept;
 
 	    /**
          * \brief 

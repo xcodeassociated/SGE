@@ -11,9 +11,9 @@ SGE::Action* SGE::Logics::Collide::RectangleCollisionVec(Object* still, Object* 
 	float penx = (reinterpret_cast<Rectangle*>(toMove->getShape())->getWidth() + reinterpret_cast<Rectangle*>(still->getShape())->getWidth()) * 0.5f - std::abs(vx);
 	float peny = (reinterpret_cast<Rectangle*>(toMove->getShape())->getHeight() + reinterpret_cast<Rectangle*>(still->getShape())->getHeight()) * 0.5f - std::abs(vy);
 	if (penx < peny)
-		return new ACTION::Move((vx > 0 ? penx : -penx), 0, true);
+		return new ACTION::Move(toMove, (vx > 0 ? penx : -penx), 0, true);
 	else
-		return new ACTION::Move(0, (vy > 0 ? peny : -peny), true);
+		return new ACTION::Move(toMove, 0, (vy > 0 ? peny : -peny), true);
 }
 
 SGE::Action* SGE::Logics::Collide::CircleCollisionVec(Object* still, Object* toMove)
@@ -22,7 +22,7 @@ SGE::Action* SGE::Logics::Collide::CircleCollisionVec(Object* still, Object* toM
 	float dist = reinterpret_cast<Circle*>(toMove->getShape())->getRadius() + reinterpret_cast<Circle*>(still->getShape())->getRadius();
 	float l = glm::length(pen);
 	pen *= ((dist - l) / l);
-	return new ACTION::Move(pen.x, pen.y, true);
+	return new ACTION::Move(toMove, pen.x, pen.y, true);
 }
 
 SGE::Action* SGE::Logics::Collide::CircleToRectCollisionVec(Object* still, Object* toMove)
@@ -34,7 +34,7 @@ SGE::Action* SGE::Logics::Collide::CircleToRectCollisionVec(Object* still, Objec
 	difference = toMove->getPosition() - halfs;
 	const float l = glm::length(difference);
 	difference *= ((reinterpret_cast<Circle*>(toMove->getShape())->getRadius() - l) / l);
-	return new ACTION::Move(difference.x, difference.y, true);
+	return new ACTION::Move(toMove, difference.x, difference.y, true);
 }
 
 bool SGE::Logics::Collide::collideWithSameShape(Object* self, Object* oponent)

@@ -43,7 +43,7 @@ namespace SGE
 	    /**
          * \brief 
          */
-        virtual void performLogic(const ObjectBind&) = 0;
+        virtual void performLogic() = 0;
 
     protected:
 	    /**
@@ -55,7 +55,7 @@ namespace SGE
 	     * \brief 
 	     * \param _p 
 	     */
-	    Logic(Priority _p);
+	    explicit Logic(Priority _p);
 
 	    /**
          * \brief 
@@ -64,14 +64,14 @@ namespace SGE
 	    /**
 		 * \brief 
 		 */
-		Priority priority;// = Priority::Low;
+		Priority priority;
 
 	    /**
 	     * \brief 
 	     * \param obj 
 	     * \param action 
 	     */
-	    void sendAction(Object* obj, Action* action) const;
+	    void sendAction(Action* action) const;
 
     public:
 

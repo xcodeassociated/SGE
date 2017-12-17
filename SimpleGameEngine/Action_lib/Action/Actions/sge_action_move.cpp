@@ -1,24 +1,30 @@
 #include "sge_action_move.hpp"
+#include <cassert>
+#include <vector>
 
-SGE::ACTION::Move::Move(float _x, float _y, bool active): Action(active), destX(_x), destY(_y)
+SGE::ACTION::Move::Move(Object* object, float _x, float _y, bool active) : Action(active), object(object), destX(_x), destY(_y)
 {
 }
 
-void SGE::ACTION::Move::action_begin(const ObjectBind&) noexcept
+void SGE::ACTION::Move::action_begin() noexcept
 {
 }
 
-void SGE::ACTION::Move::action_main(const ObjectBind& bind) noexcept
+void SGE::ACTION::Move::action_main() noexcept
 {
-	glm::vec2 pos = {0,0};
-	for (Object* id : bind)
-	{
-		pos = id->getPosition();
-		id->setPosition(pos.x + this->destX, pos.y + this->destY);
-	}
+	assert(object);
+
+	glm::vec2 pos = object->getPosition();
+	object->setPosition(pos.x + this->destX, pos.y + this->destY);
+
 	this->active = false;
 }
 
-void SGE::ACTION::Move::action_ends(const ObjectBind&) noexcept
+void SGE::ACTION::Move::action_ends() noexcept
 {
+}
+
+std::vector<SGE::Object*> SGE::ACTION::Move::getObjects() const
+{
+	return std::vector<Object*>{this->object};
 }
