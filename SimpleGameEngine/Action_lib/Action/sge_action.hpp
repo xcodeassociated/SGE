@@ -7,27 +7,21 @@
 
 namespace SGE
 {
-	class ObjectBind;
-    class ActionBind;
-
 	class Action
 	{
     protected:
         bool active = false;
 		Action() = default;
-		Action(bool active);
+		explicit Action(bool active);
 
     public:
-		using Binder = ActionBind;
 
 		bool isActive() const;
 		virtual ~Action() = default;
 
-        virtual void action_begin(const ObjectBind& bind) = 0;
-        virtual void action_main(const ObjectBind& bind) = 0;
-        virtual void action_ends(const ObjectBind& bind) = 0;
-        
+        virtual void action_begin() = 0;
+        virtual void action_main() = 0;
+        virtual void action_ends() = 0;
     };
-
 }
 #endif /* sge_action_h */

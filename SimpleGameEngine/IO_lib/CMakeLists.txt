@@ -7,6 +7,7 @@ set (IOSOURCES_IOManager
 		IOManager/sge_io_manager.cpp)
 
 set (IOSOURCES_KeyboardState
+		Key/sge_key.hpp
 		KeyboardState/sge_keyboard_state.hpp
 		KeyboardState/sge_keyboard_state.cpp)
 

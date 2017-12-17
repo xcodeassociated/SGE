@@ -1,7 +1,6 @@
 #include "sge_action_handler.hpp"
 #include <algorithm>
 #include "sge_action.hpp"
-#include "sge_action_bind.hpp"
 
 #include <iostream>
 void SGE::ActionHandler::triggerAction(Action* a, const ObjectBind& b)

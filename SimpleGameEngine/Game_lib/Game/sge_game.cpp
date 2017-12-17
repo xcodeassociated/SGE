@@ -1,6 +1,5 @@
 #include "sge_game.hpp"
 #include "sge_director.hpp"
-#include "sge_logic_bind.hpp"
 #include "sge_input_binder.hpp"
 #include "sge_mouse.hpp"
 #include "sge_object.hpp"
@@ -127,8 +126,6 @@ void SGE::Game::run()
 			this->draw(this->currentScene);
 
 			this->input_handler->operator()();
-
-			this->time += 0.01f;
 		}
 		this->fps = this->limiter->end();
 

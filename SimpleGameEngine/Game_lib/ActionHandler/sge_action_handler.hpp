@@ -7,8 +7,6 @@ namespace SGE
 {
 	enum class LogicPriority;
 	class Action;
-	class ActionBind;
-	class ObjectBind;
 
 	/**
      * \brief Workaround for std::hash not working with enums

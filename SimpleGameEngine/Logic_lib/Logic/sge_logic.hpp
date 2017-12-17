@@ -25,8 +25,6 @@ namespace SGE
 	class Logic;
 	class Action;
 	class Object;
-	class LogicBind;
-	class ObjectBind;
 	class ActionHandler;
 	class Game;
 	/**
@@ -76,11 +74,6 @@ namespace SGE
 	    void sendAction(Object* obj, Action* action) const;
 
     public:
-	  
-    	/**
-		 * \brief 
-		 */
-		using Binder = LogicBind;
 
 	    /**
 	     * \brief 

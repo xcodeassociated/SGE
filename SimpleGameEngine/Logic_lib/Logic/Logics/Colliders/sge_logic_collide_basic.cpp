@@ -1,7 +1,6 @@
 #include "sge_logic_collide_basic.hpp"
 #include "sge_shape.hpp"
 #include "sge_object.hpp"
-#include "sge_object_bind.hpp"
 
 SGE::Logics::BasicCollider::BasicCollider(Object* obj, const collisionFunc& _onCollision)
 		: Collide(LogicPriority::Highest), onCollision(_onCollision), obj(obj)

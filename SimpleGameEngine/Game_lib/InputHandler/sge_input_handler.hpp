@@ -12,7 +12,6 @@
 #include <unordered_map>
 
 #include "sge_key.hpp"
-#include "sge_action_bind.hpp"
 #include "sge_action_handler.hpp"
 #include "glm/glm.hpp"
 

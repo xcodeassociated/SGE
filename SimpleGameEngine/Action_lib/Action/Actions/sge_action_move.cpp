@@ -1,5 +1,4 @@
 #include "sge_action_move.hpp"
-#include "sge_object_bind.hpp"
 
 SGE::ACTION::Move::Move(float _x, float _y, bool active): Action(active), destX(_x), destY(_y)
 {

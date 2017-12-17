@@ -5,7 +5,6 @@
 #include <map>
 #include "sge_level.hpp"
 #include "sge_logic.hpp"
-#include "sge_logic_bind.hpp"
 
 namespace SGE
 {
@@ -17,10 +16,6 @@ namespace SGE
      */
     class Scene
     {
-	    /**
-		 * \brief 
-		 */
-		using LogicVector = std::vector<LogicBind>;
 	    /**
          * \brief 
          */

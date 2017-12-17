@@ -1,7 +1,6 @@
 #include "sge_logic_move.hpp"
 #include <sge_action_move.hpp>
 #include <sge_keyboard_state.hpp>
-#include "sge_object_bind.hpp"
 #include <sge_fps_limiter.hpp>
 
 SGE::Logics::SimpleMove::SimpleMove(const float speed, const SGE::Key up, const SGE::Key down, const SGE::Key left, const SGE::Key right): Logic(LogicPriority::Highest), speed(speed), up(up), down(down), left(left), right(right)

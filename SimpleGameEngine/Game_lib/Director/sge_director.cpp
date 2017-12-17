@@ -1,6 +1,5 @@
 #include "sge_director.hpp"
 #include "sge_game.hpp"
-#include "sge_logic_bind.hpp"
 #include <algorithm>
 #include <iostream>
 

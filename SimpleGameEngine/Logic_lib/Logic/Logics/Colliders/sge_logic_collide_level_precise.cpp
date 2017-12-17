@@ -4,7 +4,6 @@
 #include "sge_shape_circle.hpp"
 #include <glm/ext.hpp>
 #include <algorithm>
-#include "sge_object_bind.hpp"
 
 SGE::Logics::PreciseLevelCollider::PreciseLevelCollider(std::vector<WorldElement>& objects): Collide(LogicPriority::Highest), objs(objects)
 {

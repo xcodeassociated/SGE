@@ -20,7 +20,6 @@
 #include "sge_label.hpp"
 
 #include "sge_action_move.hpp"
-#include "sge_logic_bind.hpp"
 #include "sge_logic_collide.hpp"
 #include "sge_logic_collide_level_precise.hpp"
 #include "sge_logic_collide_basic.hpp"

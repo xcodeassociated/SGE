@@ -6,7 +6,6 @@
 #define SGE_ZOMBIEGAME_SGE_INPUT_BINDER_HPP
 
 #include "sge_key.hpp"
-#include "sge_action_bind.hpp"
 
 namespace SGE
 {
@@ -25,13 +24,6 @@ namespace SGE
         Key kid;
 
     public:
-	    /**
-         * \brief Constructs Input binder
-         * \param object List of objects to bind
-         * \param action Action ID to bind
-         * \param key Key to bind
-         */
-        InputBinder(std::initializer_list<Object*> object, Action* action, Key key);
 
 		/**
 		 * \brief Constructs Input binder
@@ -39,7 +31,7 @@ namespace SGE
 		 * \param action Action ID to bind
 		 * \param key Key to bind
 		 */
-        InputBinder(Object* object, Action* action, Key key);
+        InputBinder(Action* action, Key key);
 
 	    /**
          * \brief Returns bound ActionBind

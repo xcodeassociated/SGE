@@ -131,12 +131,12 @@ include_directories(${SGE_DIR})
 
 include_directories(${SGE_DIR}/Action_lib/Action)
 include_directories(${SGE_DIR}/Action_lib/Action/Actions)
-include_directories(${SGE_DIR}/Action_lib/ActionHandler)
 
 include_directories(${SGE_DIR}/IO_lib/InputManager)
 include_directories(${SGE_DIR}/IO_lib/IOManager)
 include_directories(${SGE_DIR}/IO_lib/KeyboardState)
 include_directories(${SGE_DIR}/IO_lib/Mouse)
+include_directories(${SGE_DIR}/IO_lib/Key)
 
 include_directories(${SGE_DIR}/Level_lib/Level)
 include_directories(${SGE_DIR}/Level_lib/LevelParser)
@@ -156,6 +156,7 @@ include_directories(${SGE_DIR}/Object_lib/Object/Shape)
 include_directories(${SGE_DIR}/Game_lib/Director)
 include_directories(${SGE_DIR}/Game_lib/Game)
 include_directories(${SGE_DIR}/Game_lib/InputHandler)
+include_directories(${SGE_DIR}/Game_lib/ActionHandler)
 
 include_directories(${SGE_DIR}/Renderer_lib/Renderer)
 include_directories(${SGE_DIR}/Renderer_lib/CameraHandler)

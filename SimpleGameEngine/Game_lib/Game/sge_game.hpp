@@ -123,10 +123,6 @@ namespace SGE
         /**
          * \brief
          */
-        float time = 0;
-        /**
-         * \brief
-         */
         float fps = 0;
 
         /**

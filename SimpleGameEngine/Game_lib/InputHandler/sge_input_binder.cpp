@@ -4,11 +4,7 @@
 
 #include "sge_input_binder.hpp"
 
-SGE::InputBinder::InputBinder(std::initializer_list<Object*> object, Action* action, Key key): bind(object, action), kid(key)
-{
-}
-
-SGE::InputBinder::InputBinder(Object* object, Action* action, Key key): bind(object, action), kid(key)
+SGE::InputBinder::InputBinder(Action* action, Key key): bind(object, action), kid(key)
 {
 }
 

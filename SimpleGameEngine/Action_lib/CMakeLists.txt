@@ -1,8 +1,6 @@
 set (ActionSOURCES
 		Action/sge_action.hpp
-		Action/sge_action.cpp
-		Action/sge_action_bind.hpp
-		Action/sge_action_bind.cpp)
+		Action/sge_action.cpp)
 
 set (ActionsSources
 		Action/Actions/sge_action_move.hpp
@@ -12,18 +10,10 @@ set (ActionsSources
 		Action/Actions/sge_action_scale.hpp
 		Action/Actions/sge_action_scale.cpp)
 
-set (ActionHandlerSOURCES
-		ActionHandler/sge_action_handler.hpp
-		ActionHandler/sge_action_handler.cpp
-		ActionHandler/sge_input_binder.hpp
-		ActionHandler/sge_input_binder.cpp
-		ActionHandler/sge_action_handler.hpp
-		ActionHandler/sge_key.hpp)
 
 add_library(Action SHARED 
 		${ActionSOURCES}
-		${ActionsSources}
-		${ActionHandlerSOURCES})
+		${ActionsSources})
 
 target_link_libraries(Action
 		Object
