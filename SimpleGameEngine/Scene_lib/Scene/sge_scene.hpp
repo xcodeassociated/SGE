@@ -64,19 +64,19 @@ namespace SGE
 	     * \param path 
 	     * \param levelMask 
 	     */
-	    virtual void loadLevel(const char* path, std::map<char, std::string> levelMask) final;
+	    virtual void loadLevel(const char* path, std::map<char, std::string> levelMask);
 
 	    /**
 	     * \brief 
 	     * \return 
 	     */
-	    virtual Level& getLevel() final;
+	    virtual Level& getLevel();
 
 	    /**
 	     * \brief 
 	     * \return 
 	     */
-	    virtual ObjectVector& getObjects() final;
+	    virtual ObjectVector& getObjects();
 
 		void addObject(SGE::Object* object);
 

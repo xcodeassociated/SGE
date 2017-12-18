@@ -41,7 +41,7 @@ namespace SGE
 	    /**
          * \brief Vector of queued Action pointers
          */
-        std::vector<Action*> actions;
+        std::vector<Action*>* actions;
 
 	public:
 
@@ -51,23 +51,13 @@ namespace SGE
 	    explicit ActionHandler();
 
 	    /**
-	     * \brief Executes Main part of the action received as result of user input
-	     * \param bind Bound Action and Objects
-	     */
-	    void handleInputAction(Action* action);
-
-		void handleInputActionUnbind(Action* bind);
-
-	    /**
 	     * \brief Immediately executes actions sent by Highest priority Logics, otherwise adds them to the queue.
 	     * \param bind Bound Action and Objects
 	     * \param priority Priority of Logic that sent this action.
 	     */
 	    void performSingleAction(Action* action, LogicPriority priority);
 
-		void setActions(const std::vector<Action*>& actionsVec); //TODO: this method has tobe triggered when swapping scene
-
-		void remove_inactive_actions();
+		void setActions(std::vector<Action*>& actionsVec); //TODO: this method has tobe triggered when swapping scene
 
 		/**
 		* \brief Immediately executes Action a with objects b
@@ -76,8 +66,6 @@ namespace SGE
 		void triggerActionSingle(Action* action);
 
 		void addAction(Action* action);
-
-		void triggerAction(Action* action);
 
 		std::vector<Action*>& getActions();
 

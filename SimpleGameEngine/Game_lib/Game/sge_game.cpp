@@ -12,6 +12,7 @@
 #include "sge_fps_limiter.hpp"
 #include "sge_input_handler.hpp"
 #include "sge_resource_manager.hpp"
+#include "sge_action.hpp"
 
 
 std::shared_ptr<SGE::Logger> SGE::Game::logger = SGE::LoggerFactory::create_logger("Game");
@@ -38,7 +39,7 @@ bool SGE::Game::init(float fps)
 	return true;
 }
 
-bool SGE::Game::isOnScene()
+bool SGE::Game::isOnScene() const
 {
 	return this->OnScene;
 }
@@ -82,6 +83,7 @@ void SGE::Game::unmapAction(const SGE::InputBinder& bind)
 
 void SGE::Game::finalize()
 {
+	this->input_handler->clear();
 	*logger << "Game Finalize method invoked" << std::endl;
 }
 
@@ -116,16 +118,16 @@ void SGE::Game::run()
 {
 	Logic::action_handler = this->action_handler;
 	this->playing = true;
+	this->limiter->reset();
 	while (this->playing)
 	{
 		//On first iteration time is less than 10^10, but that may change with sceene swapping.
 		this->limiter->begin();
 		{
-			this->performActions();
-			this->performLogics();
-			this->draw(this->currentScene);
-
 			this->input_handler->pollEvents();
+			this->performLogics();
+			this->performActions();
+			this->draw(this->currentScene);
 		}
 		this->fps = this->limiter->end();
 
@@ -141,12 +143,28 @@ void SGE::Game::run()
 
 void SGE::Game::performActions()
 {
-	auto& actions = this->action_handler->getActions();
-	for (auto action : actions)
+	auto& actions = this->currentScene->getActions();
+	auto last = std::remove_if(actions.begin(),actions.end(), [](Action*const action)
 	{
-		this->action_handler->triggerAction(action);
-	}
-	this->action_handler->remove_inactive_actions();
+		action->action_main();
+		if (!action->isActive())
+		{
+			action->action_ends();
+			// release object locks
+			auto objects = action->getObjects();
+			if (objects)
+			{
+				for (auto object : *objects)
+				{
+					object->setLock(LogicPriority::None);
+				}
+			}
+			delete action;
+			return true;
+		}
+		return false;
+	});
+	actions.erase(last,actions.end());
 }
 
 void SGE::Game::performLogics()

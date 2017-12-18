@@ -1,6 +1,7 @@
 #include "sge_camera2d.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
+#include "sge_utils.hpp"
 
 SGE::Camera2d::Camera2d(unsigned _width, unsigned _height): Object(0.f, 0.f), cameraMatrix(1.f), matUpdate(true)
 {
@@ -60,4 +61,9 @@ void SGE::Camera2d::update()
 
 		this->matUpdate = false;
 	}
+}
+
+glm::vec2 SGE::Camera2d::screenToWorld(glm::vec2 coords)
+{
+	return SGE::screenToWorld(coords, this->getPosition(), double(scale));
 }

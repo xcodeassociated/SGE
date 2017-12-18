@@ -13,6 +13,7 @@
 
 #include "sge_key.hpp"
 #include "sge_action_handler.hpp"
+#include "sge_action.hpp"
 #include "glm/glm.hpp"
 
 namespace SGE
@@ -67,6 +68,15 @@ namespace SGE
          * \param bind 
          */
         void unmapAction(const InputBinder& bind);
+
+	    void clear()
+	    {
+		    for(auto bind : this->keyMap)
+		    {
+				delete bind.second;
+		    }
+			this->keyMap.clear();
+	    }
 
 	    /**
          * \brief 

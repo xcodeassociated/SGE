@@ -3,6 +3,7 @@
 #include "sge_input_manager.hpp"
 #include "sge_mouse.hpp"
 #include "sge_input_binder.hpp"
+#include "sge_action.hpp"
 
 #include <glm/glm.hpp>
 
@@ -35,14 +36,15 @@ void SGE::InputHandler::mapAction(const SGE::InputBinder& bind)
 	auto p = this->keyMap.insert(std::make_pair(bind.getKey(), bind.getAction()));
 	if (!p.second)
 		throw std::runtime_error("Could not map action");
+	bind.getAction()->action_begin();
 }
 
 void SGE::InputHandler::unmapAction(const SGE::InputBinder& bind)
 {
-    auto action_bind = bind.getAction();
-    this->game->action_handler->handleInputActionUnbind(action_bind);
+    auto action = bind.getAction();
 	if (this->keyMap.erase(bind.getKey()) == 0)
 		throw std::runtime_error("Could not unmap action");
+	action->action_ends();
 }
 
 void SGE::InputHandler::pressKey(SGE::Key k)
@@ -50,7 +52,7 @@ void SGE::InputHandler::pressKey(SGE::Key k)
 	auto it = this->keyMap.find(k);
 	if (it == this->keyMap.end())
 		return;
-	this->game->action_handler->handleInputAction(it->second);
+	it->second->action_main();
 }
 
 void SGE::InputHandler::pollEvents() noexcept

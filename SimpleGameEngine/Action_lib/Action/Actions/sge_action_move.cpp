@@ -23,8 +23,3 @@ void SGE::ACTION::Move::action_main() noexcept
 void SGE::ACTION::Move::action_ends() noexcept
 {
 }
-
-std::vector<SGE::Object*> SGE::ACTION::Move::getObjects() const
-{
-	return std::vector<Object*>{this->object};
-}
