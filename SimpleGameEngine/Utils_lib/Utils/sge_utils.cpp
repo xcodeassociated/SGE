@@ -24,6 +24,7 @@ const std::string& SGE::getPath()
 	return base_path;
 }
 
+//TODO Make scale float?
 glm::vec2 SGE::screenToWorld(glm::vec2 _screenCoords, glm::vec2 coords, double scale)
 {
 	_screenCoords.y = SCREEN_HEIGHT - _screenCoords.y;

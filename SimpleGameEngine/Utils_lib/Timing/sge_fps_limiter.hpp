@@ -86,6 +86,8 @@ namespace SGE
 	     * \return 
 	     */
 	    float end();
+
+		void reset();
     };
     
 }

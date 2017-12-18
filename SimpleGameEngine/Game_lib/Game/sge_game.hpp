@@ -1,11 +1,6 @@
 #ifndef sge_game_h
 #define sge_game_h
 
-#include <vector>
-#include <map>
-#include <stdexcept>
-#include <ctime>
-#include <string>
 #include <memory>
 #include "sge_logger.hpp"
 
@@ -100,7 +95,7 @@ namespace SGE
 	     * \brief 
 	     * \return 
 	     */
-	    bool isOnScene();
+	    bool isOnScene() const;
 
 	    /**
 	     * \brief 

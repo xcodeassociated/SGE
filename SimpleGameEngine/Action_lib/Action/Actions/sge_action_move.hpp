@@ -44,8 +44,6 @@ namespace SGE
 	         */
 	        Move(Object* object, float _x, float _y, bool active);
 
-			virtual std::vector<Object*> getObjects() const override;
-
 		private:
 
 	        /**

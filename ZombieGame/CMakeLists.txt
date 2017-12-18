@@ -1,7 +1,16 @@
 ## TODO: Add game lib -- extract code from main.cpp into lib
 
 ## setting game sources:
-set(GAME_SOURCE_FILES main.cpp)
+set(GAME_SOURCE_FILES main.cpp
+		Actions.cpp 
+		Actions.hpp 
+		Logics.cpp 
+		Logics.hpp 
+		Objects.cpp
+		Objects.hpp
+		ZombieScene.cpp
+		ZombieScene.hpp)
+
 add_executable(${PROJECT_NAME} ${GAME_SOURCE_FILES})
 
 target_link_libraries(${PROJECT_NAME}

@@ -105,25 +105,25 @@ namespace SGE
 		 * \brief 
 		 * \return 
 		 */
-		virtual float& getX() noexcept final;
+		virtual float& getX() noexcept;
 
 		/**
 		 * \brief 
 		 * \return 
 		 */
-		virtual float& getY() noexcept final;
+		virtual float& getY() noexcept;
 
 		/**
 		 * \brief 
 		 * \param e 
 		 */
-		virtual void setDrawable(bool e) noexcept final;
+		virtual void setDrawable(bool e) noexcept;
 
 		/**
 		 * \brief 
 		 * \return 
 		 */
-		virtual bool getDrawable() const noexcept final;
+		virtual bool getDrawable() const noexcept;
 
 		/**
 		 * \brief 
@@ -142,20 +142,20 @@ namespace SGE
 		 * \brief 
 		 * \return 
 		 */
-		virtual Shape* getShape() noexcept final;
+		virtual Shape* getShape() noexcept;
 
 		/**
 		 * \brief 
 		 * \return 
 		 * \todo Rework Lock system
 		 */
-		virtual LogicPriority getLock() const noexcept final;
+		virtual LogicPriority getLock() const noexcept;
 
 		/**
 		 * \brief 
 		 * \param lock 
 		 */
-		virtual void setLock(const LogicPriority& lock) noexcept final;
+		virtual void setLock(const LogicPriority& lock) noexcept;
     };
 	
 	/**

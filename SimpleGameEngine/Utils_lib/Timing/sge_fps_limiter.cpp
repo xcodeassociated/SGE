@@ -59,6 +59,7 @@ SGE::FpsLimiter::~FpsLimiter()
 void SGE::FpsLimiter::init(float maxFPS)
 {
 	setMaxFPS(maxFPS);
+	this->time = boost::posix_time::microsec_clock::local_time();
 }
 
 void SGE::FpsLimiter::setMaxFPS(float maxFPS)
@@ -86,4 +87,10 @@ float SGE::FpsLimiter::end()
 	}
 
 	return _fps;
+}
+
+void SGE::FpsLimiter::reset()
+{
+	delta_time = 0;
+	this->time = boost::posix_time::microsec_clock::local_time();
 }

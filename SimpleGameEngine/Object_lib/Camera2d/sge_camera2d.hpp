@@ -95,6 +95,8 @@ namespace SGE
 	     * \brief 
 	     */
 	    void update();
+
+	    glm::vec2 screenToWorld(glm::vec2 vec);
     };
     
 }
