@@ -264,13 +264,14 @@ public:
 class HumanRandomMovement : public SGE::Logic
 {
     Human* human = nullptr;
-	std::default_random_engine engine;
+	std::random_device rd;
+	std::mt19937 engine;
 	std::uniform_real_distribution<float> angle;
 	glm::vec2 velocity;
 
 public:
 	explicit HumanRandomMovement(Human* human)
-            : Logic(SGE::LogicPriority::Mid), human(human), angle(glm::radians(-90.f), glm::radians(90.f))
+            : Logic(SGE::LogicPriority::Mid), human(human), engine(rd()), angle(glm::radians(-90.f), glm::radians(90.f))
     {
     }
 
@@ -401,8 +402,10 @@ int main(int argc, char * argv[])
 	SGE::InputBinder clickBind(click, SGE::Key::MOUSE_LEFT_BUTTON);
 	game->mapAction(clickBind);
     
-	auto L1 = new SGE::Logics::PreciseLevelCollider(testObj1, S1->getLevel().getWorld());
-	SGE::Action* toggle = new LogicSwitch(L1);
+	auto L1a = new SGE::Logics::PreciseLevelCollider(testObj1, S1->getLevel().getWorld());
+	auto L1b = new SGE::Logics::PreciseLevelCollider(testObj0, S1->getLevel().getWorld());
+
+	SGE::Action* toggle = new LogicSwitch(L1a);
 	game->mapAction(SGE::InputBinder(toggle, SGE::Key::O));
 
 	auto L2a = new SGE::Logics::BasicCollider(testObj1, testObj0, &SGE::Logics::Collide::CircleCollisionVec);
@@ -413,10 +416,10 @@ int main(int argc, char * argv[])
 	auto camZoom = new SGE::Logics::CameraZoom(camera, 0.1f, 1.f, 0.15f, SGE::Key::Q, SGE::Key::E);
 
     S1->addLogic(L2a);
-    S1->addLogic(L1);
+    S1->addLogic(L1a);
     S1->addLogic(L2b);
 	S1->addLogic(L3);
-    S1->addLogic(L1);
+    S1->addLogic(L1b);
     S1->addLogic(camLogic);
     S1->addLogic(camZoom);
 
