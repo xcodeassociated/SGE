@@ -33,6 +33,7 @@ bool SGE::Game::init(float fps)
 	this->renderer = new Renderer(resolution, this->window_manager, this->camera_handler, this->resourceManager);
 
 	this->input_handler = new InputHandler(this);
+    this->action_handler = new ActionHandler();
 
 	return true;
 }
@@ -45,8 +46,7 @@ bool SGE::Game::isOnScene()
 void SGE::Game::showScene(Scene* s)
 {
 	this->currentScene = s;
-	this->action_handler = new ActionHandler(this->currentScene->getActions());
-
+    this->action_handler->setActions(this->currentScene->getActions());
 	this->OnScene = true;
 
 	//TODO: this should be executed before - required if we want to swap scene

@@ -41,14 +41,14 @@ namespace SGE
 	    /**
          * \brief Vector of queued Action pointers
          */
-        std::vector<Action*>& actions;
+        std::vector<Action*> actions;
 
 	public:
 
 	    /**
 	     * \brief Constructs empty ActionHandler
 	     */
-	    explicit ActionHandler(std::vector<Action*>& actions_referance);
+	    explicit ActionHandler();
 
 	    /**
 	     * \brief Executes Main part of the action received as result of user input
@@ -65,7 +65,7 @@ namespace SGE
 	     */
 	    void performSingleAction(Action* action, LogicPriority priority);
 
-		void setActionsReferance(std::vector<Action*>& actions_ref); //TODO: this method has tobe triggered when swapping scene
+		void setActions(const std::vector<Action*>& actionsVec); //TODO: this method has tobe triggered when swapping scene
 
 		void remove_inactive_actions();
 

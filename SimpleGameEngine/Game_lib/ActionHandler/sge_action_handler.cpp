@@ -2,13 +2,13 @@
 #include "sge_action.hpp"
 #include <algorithm>
 
-SGE::ActionHandler::ActionHandler(std::vector<Action*>& actions_referance) : actions(actions_referance)
+SGE::ActionHandler::ActionHandler()
 {
 }
 
-void SGE::ActionHandler::setActionsReferance(std::vector<Action*>& actions_ref)
+void SGE::ActionHandler::setActions(const std::vector<Action*>& actionsVec)
 {
-    this->actions = actions_ref;
+    this->actions = actionsVec;
 }
 
 void SGE::ActionHandler::triggerActionSingle(Action* action)
