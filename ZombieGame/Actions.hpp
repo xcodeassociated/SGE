@@ -4,6 +4,7 @@
 #include <sge_action.hpp>
 #include <sge_logic.hpp>
 #include <sge_mouse.hpp>
+#include "sge_game.hpp"
 
 
 class GOTO : public SGE::Action
@@ -59,6 +60,17 @@ public:
 	virtual void action_ends() noexcept override;
 
 	virtual void action_main() noexcept override;
+};
+
+class Load : public SGE::Action
+{
+	SGE::Scene* nextScene = nullptr;
+public:
+	explicit Load(SGE::Scene* scene);
+	void action_begin() override;
+	void action_main() override;
+	void action_ends() override;
+	
 };
 
 #endif

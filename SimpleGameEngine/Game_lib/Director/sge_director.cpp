@@ -76,3 +76,9 @@ void SGE::Director::prepareScene(Scene* scene)
 		throw std::runtime_error("Cannot prepare Scene ID:"+scene->id);
 	}
 }
+
+void SGE::Director::toNextScene(Scene* scene)
+{
+	this->nextScene = scene;
+	this->game->playing = false;
+}

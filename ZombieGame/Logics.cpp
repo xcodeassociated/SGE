@@ -96,3 +96,20 @@ void SnapCamera::performLogic()
 		this->sendAction(new SGE::ACTION::Move(this->cam, move.x, move.y, true));
 	}
 }
+
+Timer::Timer(float time, SGE::Action* action) : Logic(SGE::LogicPriority::Low), time(time), action(action)
+{
+}
+
+void Timer::performLogic()
+{
+	if(this->time > .0f)
+	{
+		this->time -= SGE::delta_time;
+	}
+	else
+	{
+		this->isOn = false;
+		this->sendAction(this->action);
+	}
+}

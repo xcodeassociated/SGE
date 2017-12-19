@@ -39,4 +39,10 @@ public:
 	void setVelocity(const glm::vec2 vel);
 };
 
+class Image : public SGE::Object
+{
+public:
+	using Object::Object;
+};
+
 #endif

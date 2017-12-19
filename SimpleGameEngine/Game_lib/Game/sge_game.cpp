@@ -49,6 +49,7 @@ void SGE::Game::run()
 	//TODO: this should be executed before - required if we want to swap scene
 	this->renderer->initShader();
 	this->renderer->spriteBatchInit();
+	//TODO delay it a bit more
 	this->window_manager->showWindow();
 	this->running = true;
 	while(this->running)

@@ -2,6 +2,7 @@
 #include <iostream>
 #include "sge_game.hpp"
 #include "sge_camera2d.hpp"
+#include "sge_director.hpp"
 
 GOTO::GOTO(SGE::Object* object): Action(false), object(object)
 {
@@ -56,6 +57,24 @@ void MouseClickedAction::action_main() noexcept
 	std::cout << "[Player ] - x: " << this->player->getX() << ", y: " << this->player->getY() << std::endl;
 
 	//NOTE: we want this action to be active forever
+}
+
+Load::Load(SGE::Scene* scene) : nextScene(scene)
+{
+}
+
+void Load::action_begin()
+{
+}
+
+void Load::action_main()
+{
+	auto d = SGE::Director::getDirector();
+	d->toNextScene(this->nextScene);
+}
+
+void Load::action_ends()
+{
 }
 
 //TODO Make them normal virtual?

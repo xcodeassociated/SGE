@@ -60,4 +60,13 @@ public:
 	void performLogic() override;
 };
 
+class Timer : public SGE::Logic
+{
+	float time = .0f;
+	SGE::Action* action = nullptr;
+public:
+	Timer(float time, SGE::Action* action);
+	void performLogic() override;
+};
+
 #endif

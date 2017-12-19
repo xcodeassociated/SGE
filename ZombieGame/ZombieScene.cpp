@@ -24,6 +24,7 @@ void ZombieScene::loadScene()
 	this->Scene::loadLevel(this->path.c_str(), mask);
 	
 	SGE::Camera2d* camera = game->getCamera();
+	camera->setScale(0.5f);
 	SGE::MouseObject* mouse = game->getMouse();
 	SGE::Object* player = new Player(200, 200);
 
@@ -120,6 +121,8 @@ void ZombieScene::loadScene()
 
 	SGE::Action* portalAction = new PortalAction;
 	game->mapAction(SGE::InputBinder(portalAction, SGE::Key::P));
+
+	this->state = SGE::SceneState::Ready;
 }
 
 ZombieScene::~ZombieScene()

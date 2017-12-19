@@ -91,6 +91,7 @@ namespace SGE
 	    Scene* getNextScene();
 	    void setNextScene(Scene* next);
 	    void prepareScene(Scene* scene);
+	    void toNextScene(Scene* scene);
     };
     
 }

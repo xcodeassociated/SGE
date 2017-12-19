@@ -8,6 +8,7 @@
 
 #include <SGE.hpp>
 #include "ZombieScene.hpp"
+#include "IntroScene.hpp"
 
 int main(int argc, char * argv[])
 {
@@ -19,12 +20,17 @@ int main(int argc, char * argv[])
 	game->bindDirector(director);
 	game->init(60);
 
-	SGE::Scene* S1 = director->addScene(new ZombieScene(game,PATH"ZombieGame/Levels/level1.txt"));
+	SGE::Scene* S1 = new ZombieScene(game, PATH"ZombieGame/Levels/level1.txt");
+	SGE::Scene* S0 = new IntroScene(S1, PATH"ZombieGame/Resources/Textures/zombie-game.png");
 
-	director->setNextScene(S1);
+	director->addScene(S0);
+	director->addScene(S1);
+
+	director->setNextScene(S0);
 	
 	game->run();
 
+	director->deleteScene(S0);
 	director->deleteScene(S1);
 	
 	game->finalize();
