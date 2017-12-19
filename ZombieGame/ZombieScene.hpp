@@ -14,7 +14,7 @@ public:
 
 	ZombieScene(SGE::Game* game, const char* path);
 
-	virtual void fetch();
+	virtual void loadScene() override;
 
 	virtual ~ZombieScene();
 

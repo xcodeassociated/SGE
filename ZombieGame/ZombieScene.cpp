@@ -11,18 +11,18 @@
 
 ZombieScene::ZombieScene(SGE::Game* game, const char* path): game(game), path(path)
 {
-	std::map<char, std::string> mask = {
-		{'R', PATH"ZombieGame/Resources/Textures/red_bricks.png"},
-		{'B', PATH"ZombieGame/Resources/Textures/red_bricks.png"},
-		{'G', PATH"ZombieGame/Resources/Textures/glass.png"},
-		{'L', PATH"ZombieGame/Resources/Textures/light_bricks.png"}
-	};
-	this->Scene::loadLevel(this->path.c_str(), mask);
-	this->ZombieScene::fetch();
 }
 
-void ZombieScene::fetch()
+void ZombieScene::loadScene()
 {
+	std::map<char, std::string> mask = {
+		{ 'R', PATH"ZombieGame/Resources/Textures/red_bricks.png" },
+		{ 'B', PATH"ZombieGame/Resources/Textures/red_bricks.png" },
+		{ 'G', PATH"ZombieGame/Resources/Textures/glass.png" },
+		{ 'L', PATH"ZombieGame/Resources/Textures/light_bricks.png" }
+	};
+	this->Scene::loadLevel(this->path.c_str(), mask);
+	
 	SGE::Camera2d* camera = game->getCamera();
 	SGE::MouseObject* mouse = game->getMouse();
 	SGE::Object* player = new Player(200, 200);

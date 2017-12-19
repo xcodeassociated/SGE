@@ -5,6 +5,7 @@
 #include <map>
 #include "sge_level.hpp"
 #include "sge_logic.hpp"
+#include "sge_scene_state.hpp"
 
 namespace SGE
 {
@@ -39,8 +40,10 @@ namespace SGE
          * \brief 
          */
         ObjectVector objects;
-
-	public:
+	    
+    public:
+		unsigned long id = 0;
+		SceneState state = SceneState::Standby;
 	    /**
 		 * \brief 
 		 */
@@ -89,6 +92,11 @@ namespace SGE
         void addAction(Action* action);
 
         void removeAction(Action* action);
+
+		virtual void loadScene();
+		virtual void suspendScene();
+		virtual void resumeScene();
+		virtual void unloadScene();
 
 		/**
 		 * \brief 

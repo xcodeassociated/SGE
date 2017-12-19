@@ -99,12 +99,6 @@ namespace SGE
 
 	    /**
 	     * \brief 
-	     * \param s 
-	     */
-	    void showScene(Scene* s);
-
-	    /**
-	     * \brief 
 	     * \return 
 	     */
 
@@ -116,6 +110,10 @@ namespace SGE
          * \brief
          */
         bool playing = false;
+    	/**
+         * \brief
+         */
+		bool running = false;
         /**
          * \brief
          */
@@ -139,7 +137,7 @@ namespace SGE
         /**
          * \brief
          */
-        void run();
+        void loop();
 
         /**
          * \brief
@@ -152,6 +150,8 @@ namespace SGE
         void draw(Scene*);
         
 	public:
+		void run();
+
 	    /**
 	     * \brief 
 	     * \return 

@@ -1,4 +1,5 @@
 set (SceneSOURCES
+		Scene/sge_scene_state.hpp
 		Scene/sge_scene.hpp
 		Scene/sge_scene.cpp)
 

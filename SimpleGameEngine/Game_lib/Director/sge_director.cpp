@@ -40,15 +40,6 @@ void SGE::Director::deleteScene(Scene* scene)
 	}
 }
 
-void SGE::Director::showScene(Scene* scene)
-{
-	if (!scene->TextureLoaded)
-	{
-		throw std::runtime_error("Scene texture not loaded");
-	}
-	this->game->showScene(scene);
-}
-
 void SGE::Director::finalize()
 {
 	*logger << "Director Finalize method invoked" << std::endl;
@@ -57,4 +48,31 @@ void SGE::Director::finalize()
 void SGE::Director::bindGame(Game* game)
 {
 	this->game = game;
+}
+
+SGE::Scene* SGE::Director::getNextScene()
+{
+	Scene* next = this->nextScene;
+	this->nextScene = nullptr;
+	return next;
+}
+
+void SGE::Director::setNextScene(Scene* next)
+{
+	this->nextScene = next;
+}
+
+void SGE::Director::prepareScene(Scene* scene)
+{
+	switch(scene->state)
+	{
+	case SceneState::Standby:
+		scene->loadScene();
+		break;
+	case SceneState::Suspended:
+		scene->resumeScene();
+		break;
+	default:
+		throw std::runtime_error("Cannot prepare Scene ID:"+scene->id);
+	}
 }

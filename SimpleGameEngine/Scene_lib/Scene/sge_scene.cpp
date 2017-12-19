@@ -75,3 +75,19 @@ void SGE::Scene::removeAction(Action* action)
 
 	this->actions.erase(std::remove(this->actions.begin(), this->actions.end(), action), this->actions.end());
 }
+
+void SGE::Scene::loadScene()
+{
+}
+
+void SGE::Scene::suspendScene()
+{
+}
+
+void SGE::Scene::resumeScene()
+{
+}
+
+void SGE::Scene::unloadScene()
+{
+}

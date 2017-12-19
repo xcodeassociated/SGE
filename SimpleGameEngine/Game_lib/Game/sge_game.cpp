@@ -13,7 +13,7 @@
 #include "sge_input_handler.hpp"
 #include "sge_resource_manager.hpp"
 #include "sge_action.hpp"
-
+#include "sge_scene_state.hpp"
 
 std::shared_ptr<SGE::Logger> SGE::Game::logger = SGE::LoggerFactory::create_logger("Game");
 std::shared_ptr<SGE::LoggerError> SGE::Game::logger_err = SGE::LoggerFactory::create_logger_error("Game_ERROR");
@@ -44,20 +44,25 @@ bool SGE::Game::isOnScene() const
 	return this->OnScene;
 }
 
-void SGE::Game::showScene(Scene* s)
+void SGE::Game::run()
 {
-	this->currentScene = s;
-    this->action_handler->setActions(this->currentScene->getActions());
-	this->OnScene = true;
-
 	//TODO: this should be executed before - required if we want to swap scene
-	this->window_manager->showWindow();
 	this->renderer->initShader();
 	this->renderer->spriteBatchInit();
-
-	s->onDraw();
-
-	this->run();
+	this->window_manager->showWindow();
+	this->running = true;
+	while(this->running)
+	{	
+		this->currentScene = director->getNextScene();
+		this->action_handler->setActions(this->currentScene->getActions());
+		if(this->currentScene->state != SceneState::Ready)
+		{
+			this->director->prepareScene(this->currentScene);
+		}
+		this->OnScene = true;
+		this->currentScene->onDraw();
+		this->loop();
+	}
 }
 
 SGE::Camera2d* SGE::Game::getCamera()
@@ -113,15 +118,13 @@ SGE::Game::Game() : resourceManager(SGE::ResourceManager::getSingleton())
 {
 }
 
-//todo Reset limiter whenever scene is started
-void SGE::Game::run()
+void SGE::Game::loop()
 {
 	Logic::action_handler = this->action_handler;
 	this->playing = true;
 	this->limiter->reset();
 	while (this->playing)
 	{
-		//On first iteration time is less than 10^10, but that may change with sceene swapping.
 		this->limiter->begin();
 		{
 			this->input_handler->pollEvents();
@@ -187,7 +190,7 @@ void SGE::Game::performLogics()
 
 void SGE::Game::stop()
 {
-	this->playing = false;
+	this->running = this->playing = false;
 }
 
 void SGE::Game::draw(SGE::Scene* scene)

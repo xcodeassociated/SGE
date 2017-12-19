@@ -30,6 +30,8 @@ namespace SGE
 		 */
 		int Height = 0;
 
+	    Scene* nextScene;
+
 	    /**
 	     * \brief 
 	     * \param w 
@@ -76,12 +78,6 @@ namespace SGE
 
 	    /**
 	     * \brief 
-	     * \param scene 
-	     */
-	    void showScene(Scene* scene);
-
-	    /**
-	     * \brief 
 	     */
 	    void finalize();
 
@@ -91,6 +87,10 @@ namespace SGE
 	     * \todo: Change this? Some Bootstraper perhaps?
 	     */
 	    void bindGame(Game* game);
+
+	    Scene* getNextScene();
+	    void setNextScene(Scene* next);
+	    void prepareScene(Scene* scene);
     };
     
 }

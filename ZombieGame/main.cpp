@@ -21,9 +21,9 @@ int main(int argc, char * argv[])
 
 	SGE::Scene* S1 = director->addScene(new ZombieScene(game,PATH"ZombieGame/Levels/level1.txt"));
 
-	director->showScene(S1);
-
-    //...
+	director->setNextScene(S1);
+	
+	game->run();
 
 	director->deleteScene(S1);
 	

@@ -2,8 +2,8 @@
 // Created by Janusz Majchrzak on 30/10/2017.
 //
 
-#ifndef SGE_ZOMBIEGAME_SGE_LOGIC_PRIORITY_HPP
-#define SGE_ZOMBIEGAME_SGE_LOGIC_PRIORITY_HPP
+#ifndef SGE_LOGIC_PRIORITY_HPP
+#define SGE_LOGIC_PRIORITY_HPP
 
 namespace SGE
 {
