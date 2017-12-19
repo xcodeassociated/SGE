@@ -7,6 +7,7 @@
 #include <random>
 #include "Objects.hpp"
 #include "sge_key.hpp"
+#include "sge_camera2d.hpp"
 
 class BiCollider : public SGE::Logic
 {
@@ -49,10 +50,10 @@ class SnapCamera : public SGE::Logic
 	const SGE::Key up, down, left, right, snapKey;
 	bool snapped = true;
 	SGE::Object* snapTo = nullptr;
-	SGE::Object* object = nullptr;
+	SGE::Camera2d* cam = nullptr;
 
 public:
-	SnapCamera(const float speed, const SGE::Key up, const SGE::Key down, const SGE::Key left, const SGE::Key right, const SGE::Key snapKey, SGE::Object* snapTo, SGE::Object* object);
+	SnapCamera(const float specamed, const SGE::Key up, const SGE::Key down, const SGE::Key left, const SGE::Key right, const SGE::Key snapKey, SGE::Object* snapTo, SGE::Camera2d* cam);
 
 	~SnapCamera() = default;
 

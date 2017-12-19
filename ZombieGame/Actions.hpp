@@ -1,12 +1,9 @@
 ﻿#ifndef ZOMBIEGAME_ACTIONS
 #define ZOMBIEGAME_ACTIONS
 
-#include <iostream>
 #include <sge_action.hpp>
 #include <sge_logic.hpp>
 #include <sge_mouse.hpp>
-#include <sge_game.hpp>
-#include <sge_camera2d.hpp>
 
 
 class GOTO : public SGE::Action

@@ -1,4 +1,7 @@
 ﻿#include "Actions.hpp"
+#include <iostream>
+#include "sge_game.hpp"
+#include "sge_camera2d.hpp"
 
 GOTO::GOTO(SGE::Object* object): Action(false), object(object)
 {

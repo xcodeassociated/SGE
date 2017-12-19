@@ -74,7 +74,7 @@ void HumanRandomMovement::performLogic()
 	}
 }
 
-SnapCamera::SnapCamera(const float speed, const SGE::Key up, const SGE::Key down, const SGE::Key left, const SGE::Key right, const SGE::Key snapKey, SGE::Object* snapTo, SGE::Object* object): Logic(SGE::LogicPriority::Highest), speed(speed), up(up), down(down), left(left), right(right), snapKey(snapKey), snapTo(snapTo), object(object)
+SnapCamera::SnapCamera(const float speed, const SGE::Key up, const SGE::Key down, const SGE::Key left, const SGE::Key right, const SGE::Key snapKey, SGE::Object* snapTo, SGE::Camera2d* cam): Logic(SGE::LogicPriority::Highest), speed(speed), up(up), down(down), left(left), right(right), snapKey(snapKey), snapTo(snapTo), cam(cam)
 {
 }
 
@@ -85,7 +85,7 @@ void SnapCamera::performLogic()
 	if (!this->snapped)
 	{
 		move = this->snapTo->getPosition();
-		this->object->setPosition(move.x, move.y); //Replace with action, i.e. GoTo
+		this->cam->setPosition(move.x, move.y); //Replace with action, i.e. GoTo
 	}
 	else
 	{
@@ -93,6 +93,6 @@ void SnapCamera::performLogic()
 		if (SGE::isPressed(this->down)) move.y -= this->speed;
 		if (SGE::isPressed(this->right)) move.x += this->speed;
 		if (SGE::isPressed(this->left)) move.x -= this->speed;
-		this->sendAction(new SGE::ACTION::Move(this->object, move.x, move.y, true));
+		this->sendAction(new SGE::ACTION::Move(this->cam, move.x, move.y, true));
 	}
 }
