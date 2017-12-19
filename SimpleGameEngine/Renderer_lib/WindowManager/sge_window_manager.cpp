@@ -65,4 +65,9 @@ SDL_Window* SGE::WindowManager::getWindow() noexcept {
 	return this->window;
 }
 
+bool SGE::WindowManager::isHidden() const
+{
+	return SDL_WINDOW_HIDDEN & SDL_GetWindowFlags(this->window);
+}
+
 

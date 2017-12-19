@@ -59,6 +59,7 @@ namespace SGE
          * \return 
          */
         SDL_Window* getWindow() noexcept;
+	    bool isHidden() const;
     };
 
 }

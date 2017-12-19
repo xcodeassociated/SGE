@@ -121,8 +121,6 @@ void ZombieScene::loadScene()
 
 	SGE::Action* portalAction = new PortalAction;
 	game->mapAction(SGE::InputBinder(portalAction, SGE::Key::P));
-
-	this->state = SGE::SceneState::Ready;
 }
 
 ZombieScene::~ZombieScene()

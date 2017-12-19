@@ -9,7 +9,9 @@ set(GAME_SOURCE_FILES main.cpp
 		Objects.cpp
 		Objects.hpp
 		ZombieScene.cpp
-		ZombieScene.hpp)
+		ZombieScene.hpp
+		IntroScene.cpp
+		IntroScene.hpp)
 
 add_executable(${PROJECT_NAME} ${GAME_SOURCE_FILES})
 

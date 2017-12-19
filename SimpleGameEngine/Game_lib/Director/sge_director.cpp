@@ -72,9 +72,12 @@ void SGE::Director::prepareScene(Scene* scene)
 	case SceneState::Suspended:
 		scene->resumeScene();
 		break;
+	case SceneState::Ready:
+		break;
 	default:
 		throw std::runtime_error("Cannot prepare Scene ID:"+scene->id);
 	}
+	scene->state = SceneState::Ready;
 }
 
 void SGE::Director::toNextScene(Scene* scene)

@@ -15,8 +15,7 @@ void IntroScene::loadScene()
 	auto g = SGE::Game::getGame();
 	g->textureObject(o, path);
 	this->addObject(o);
-	this->addLogic(new Timer(10, new Load(next)));
-	this->state = SGE::SceneState::Ready;
+	this->addLogic(new Timer(5, new Load(next)));
 	g->getCamera()->setPosition(0, 0);
 	g->getCamera()->setScale(1.28f);
 }

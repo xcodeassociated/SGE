@@ -50,7 +50,6 @@ void SGE::Game::run()
 	this->renderer->initShader();
 	this->renderer->spriteBatchInit();
 	//TODO delay it a bit more
-	this->window_manager->showWindow();
 	this->running = true;
 	while(this->running)
 	{	
@@ -59,6 +58,11 @@ void SGE::Game::run()
 		if(this->currentScene->state != SceneState::Ready)
 		{
 			this->director->prepareScene(this->currentScene);
+		}
+		//Do something with renderer
+		if(this->window_manager->isHidden())
+		{
+			this->window_manager->showWindow();
 		}
 		this->OnScene = true;
 		this->currentScene->onDraw();
