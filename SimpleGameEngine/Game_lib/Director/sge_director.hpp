@@ -90,8 +90,11 @@ namespace SGE
 
 	    Scene* getNextScene();
 	    void setNextScene(Scene* next);
-	    void prepareScene(Scene* scene);
-	    void toNextScene(Scene* scene);
+		void loadScene(Scene* scene);
+		void unloadScene(Scene* scene);
+		void resumeScene(Scene* scene);
+		void suspendScene(Scene* scene);
+		void toNextScene(Scene* scene);
     };
     
 }

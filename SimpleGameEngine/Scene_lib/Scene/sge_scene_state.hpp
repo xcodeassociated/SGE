@@ -6,10 +6,13 @@ namespace SGE
 	enum class SceneState : int
 	{
 		Standby,
-		Loading,
 		Ready,
 		Playing,
-		Suspended
+		Suspended,
+		Loading,
+		Unloading,
+		Resuming,
+		Suspending
 	};
 }
 

@@ -57,7 +57,7 @@ void SGE::Game::run()
 		this->action_handler->setActions(this->currentScene->getActions());
 		if(this->currentScene->state != SceneState::Ready)
 		{
-			this->director->prepareScene(this->currentScene);
+			this->director->loadScene(this->currentScene);
 		}
 		//Do something with renderer
 		if(this->window_manager->isHidden())
@@ -66,7 +66,9 @@ void SGE::Game::run()
 		}
 		this->OnScene = true;
 		this->currentScene->onDraw();
+		this->currentScene->state = SceneState::Playing;
 		this->loop();
+		this->currentScene->state = SceneState::Ready;
 	}
 }
 

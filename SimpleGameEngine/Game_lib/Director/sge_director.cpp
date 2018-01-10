@@ -62,7 +62,7 @@ void SGE::Director::setNextScene(Scene* next)
 	this->nextScene = next;
 }
 
-void SGE::Director::prepareScene(Scene* scene)
+void SGE::Director::loadScene(Scene* scene)
 {
 	switch(scene->state)
 	{
@@ -75,9 +75,59 @@ void SGE::Director::prepareScene(Scene* scene)
 	case SceneState::Ready:
 		break;
 	default:
-		throw std::runtime_error("Cannot prepare Scene ID:"+scene->id);
+		throw std::runtime_error("Cannot load Scene ID:"+scene->id);
 	}
 	scene->state = SceneState::Ready;
+}
+
+void SGE::Director::unloadScene(Scene* scene)
+{
+	switch (scene->state)
+	{
+	case SceneState::Ready:
+	case SceneState::Suspended:
+		//prevent unloading of scene?
+	case SceneState::Playing:
+		scene->unloadScene();
+		break;
+	case SceneState::Standby:
+		break;
+	default:
+		throw std::runtime_error("Cannot prepare Scene ID:" + scene->id);
+	}
+	scene->state = SceneState::Standby;
+}
+
+void SGE::Director::resumeScene(Scene* scene)
+{
+	switch (scene->state)
+	{
+	case SceneState::Suspended:
+		scene->resumeScene();
+		break;
+	case SceneState::Ready:
+		break;
+	default:
+		throw std::runtime_error("Cannot resume Scene ID:" + scene->id);
+	}
+	scene->state = SceneState::Ready;
+}
+
+void SGE::Director::suspendScene(Scene* scene)
+{
+	switch (scene->state)
+	{
+	case SceneState::Playing:
+	case SceneState::Ready:
+		scene->suspendScene();
+		break;
+	case SceneState::Suspended:
+		break;
+	default:
+		throw std::runtime_error("Cannot resume Scene ID:" + scene->id);
+	}
+	scene->state = SceneState::Suspended;
+
 }
 
 void SGE::Director::toNextScene(Scene* scene)
