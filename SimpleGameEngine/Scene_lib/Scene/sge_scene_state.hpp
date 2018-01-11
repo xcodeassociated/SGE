@@ -27,6 +27,7 @@ namespace SGE
 		case SceneState::Resuming: return "Resuming";
 		case SceneState::Suspending: return "Suspending";
 		case SceneState::Unloading: return "Unloading";
+		default: return "";
 		}
 	}
 }
