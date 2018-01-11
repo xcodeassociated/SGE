@@ -20,5 +20,4 @@ void SGE::Logics::SimpleMove::performLogic()
 		move *= delta_time;
 		this->sendAction(new SGE::ACTION::Move(this->object, move.x, move.y, 0));
 	}
-
 }

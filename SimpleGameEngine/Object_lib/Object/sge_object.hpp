@@ -105,13 +105,13 @@ namespace SGE
 		 * \brief 
 		 * \return 
 		 */
-		virtual float& getX() noexcept;
+		virtual float getX() const noexcept;
 
 		/**
 		 * \brief 
 		 * \return 
 		 */
-		virtual float& getY() noexcept;
+		virtual float getY() const noexcept;
 
 		/**
 		 * \brief 

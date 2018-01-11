@@ -5,9 +5,31 @@
 #include <sge_logic_collide.hpp>
 #include <vector>
 #include <random>
+#include <Box2D/Dynamics/b2World.h>
 #include "Objects.hpp"
 #include "sge_key.hpp"
 #include "sge_camera2d.hpp"
+
+class StepWorld : public SGE::Logic
+{
+	b2World* world;
+public:
+	explicit StepWorld(b2World*) noexcept;
+	void performLogic() override;
+};
+
+class SimpleMove : public SGE::Logic
+{
+	float speed = 0;
+	const SGE::Key up;
+	const SGE::Key down;
+	const SGE::Key left;
+	const SGE::Key right;
+	Physical* object = nullptr;
+public:
+	SimpleMove(Physical* object, const float speed, const SGE::Key up, const SGE::Key down, const SGE::Key left, const SGE::Key right);
+	void performLogic() override;
+};
 
 class BiCollider : public SGE::Logic
 {

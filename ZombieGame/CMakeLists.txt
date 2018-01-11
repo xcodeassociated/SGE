@@ -35,7 +35,9 @@ target_link_libraries(${PROJECT_NAME}
 		Renderer
 		Scene
 		Utils
-		PicoPNG)
+		PicoPNG
+		Box2D
+)
 		
 #if(NOT WIN32)
 #foreach( file_i "${Boost_LIBRARIES}")

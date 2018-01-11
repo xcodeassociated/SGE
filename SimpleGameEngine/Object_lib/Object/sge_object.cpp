@@ -21,12 +21,12 @@ SGE::Object::~Object()
 	if (this->shape->isDisposable()) delete this->shape;
 }
 
-float& SGE::Object::getX() noexcept
+float SGE::Object::getX() const noexcept
 {
 	return this->X;
 }
 
-float& SGE::Object::getY() noexcept
+float SGE::Object::getY() const noexcept
 {
 	return this->Y;
 }
