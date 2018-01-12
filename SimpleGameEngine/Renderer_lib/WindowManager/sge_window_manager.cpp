@@ -4,7 +4,7 @@
 #include <stdexcept>
 
 #ifdef _WIN32
-#include <GL.h>
+#include <gl/GL.h>
 #endif
 
 SGE::WindowManager::WindowManager(std::pair<int, int> resolution) noexcept : width(resolution.first), height(resolution.second) {
