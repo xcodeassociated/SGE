@@ -1,9 +1,8 @@
 [requires]
 glew/2.0.0-1@lasote/vcpkg
-opengl/10.0.10240.0@lasote/vcpkg
+opengl/0.0-3.0@lasote/vcpkg
 glm/master@g-truc/stable
-sdl2/2.0.4@lasote/vcpkg
-rapidjson/1.1.0@lasote/vcpkg
+SDL2/2.0.5@lasote/stable
 Boost/1.64.0@conan/stable
 
 [generators]
@@ -17,3 +16,6 @@ Boost:shared=True
 bin, glew32* -> ./dlls
 bin, SDL2* -> ./dlls
 bin, boost_date_time* -> ./dlls
+
+## Tested on Conan version 0.28.0: https://github.com/conan-io/conan/releases/download/0.28.0/conan-win_0_28_0.exe
+## To run install: conan install Conan\Windows\ --build missing
