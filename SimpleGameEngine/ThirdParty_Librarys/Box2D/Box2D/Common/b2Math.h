@@ -19,6 +19,12 @@
 #ifndef B2_MATH_H
 #define B2_MATH_H
 
+#ifdef _WIN32
+#include <box2d_export.h>
+#else
+#define BOX2D_EXPORT
+#endif
+
 #include "Box2D/Common/b2Settings.h"
 #include <math.h>
 
@@ -400,7 +406,7 @@ struct b2Sweep
 };
 
 /// Useful constant
-extern const b2Vec2 b2Vec2_zero;
+BOX2D_EXPORT extern const b2Vec2 b2Vec2_zero;
 
 /// Perform the dot product on two vectors.
 inline float32 b2Dot(const b2Vec2& a, const b2Vec2& b)

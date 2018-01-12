@@ -10,9 +10,9 @@ void SGE::FpsLimiter::calculateFPS()
 	static const int NUM_SAMPLES = 10;
 	static float frameTimes[NUM_SAMPLES];
 	static int currentFrame = 0;
-	static float prevTicks = SDL_GetTicks();
+	static float prevTicks = float(SDL_GetTicks());
 
-	float currentTicks = SDL_GetTicks();
+	float currentTicks = float(SDL_GetTicks());
 
 	_frameTime = currentTicks - prevTicks;
 	frameTimes[currentFrame % NUM_SAMPLES] = _frameTime;
@@ -80,7 +80,7 @@ float SGE::FpsLimiter::end()
 {
 	calculateFPS();
 
-	float frameTicks = SDL_GetTicks() - _startTicks;
+	float frameTicks = float(SDL_GetTicks()) - _startTicks;
 	if (1000.0f / _maxFPS > frameTicks)
 	{
 		SDL_Delay((Uint32)(1000.0f / _maxFPS - frameTicks));

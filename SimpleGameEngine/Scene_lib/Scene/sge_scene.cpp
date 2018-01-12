@@ -32,9 +32,6 @@ SGE::Scene::ObjectVector& SGE::Scene::getObjects()
 
 void SGE::Scene::addObject(SGE::Object* object)
 {
-	if (!object->hasTexture)
-		throw std::runtime_error{"Object missing texture"};
-
 	this->objects.emplace_back(object);
 }
 

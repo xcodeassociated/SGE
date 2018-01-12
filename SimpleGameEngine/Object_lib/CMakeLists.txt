@@ -48,4 +48,6 @@ add_library (Object SHARED
 		${ObjectReactiveSOURCES}
 		${ObjectShapeSOURCES})
 
-target_link_libraries(Object Utils)
+target_link_libraries(Object
+			Utils
+			Box2D)

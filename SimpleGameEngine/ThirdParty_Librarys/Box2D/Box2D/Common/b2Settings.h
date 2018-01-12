@@ -23,6 +23,12 @@
 #include <assert.h>
 #include <float.h>
 
+#ifdef _WIN32
+#include <box2d_export.h>
+#else
+#define BOX2D_EXPORT
+#endif
+
 #if !defined(NDEBUG)
 	#define b2DEBUG
 #endif
@@ -150,6 +156,6 @@ struct b2Version
 };
 
 /// Current version.
-extern b2Version b2_version;
+BOX2D_EXPORT extern b2Version b2_version;
 
 #endif

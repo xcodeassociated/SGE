@@ -1,6 +1,5 @@
 [requires]
 glew/2.0.0-1@lasote/vcpkg
-opengl/0.0-3.0@lasote/vcpkg
 glm/master@g-truc/stable
 SDL2/2.0.5@lasote/ci
 Boost/1.64.0@conan/stable

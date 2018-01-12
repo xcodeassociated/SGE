@@ -47,14 +47,15 @@ elseif(WIN32)
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS 1)
     ## TODO: WIN32 compiler flags here!!!
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W2")
-    ##Remove that for Box2D
-    ##set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Za")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /NODEFAULT:MSVCRT.lib")
+    ## Remove that for Box2D
+    ## set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Za")
+	SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:msvcrt.lib" )
     ## Adds export libraries directory
     link_directories("${CMAKE_CURRENT_BINARY_DIR}/lib")
 	##Add exports
 	include_directories("${CMAKE_CURRENT_BINARY_DIR}/SimpleGameEngine/Logic_lib")
 	include_directories("${CMAKE_CURRENT_BINARY_DIR}/SimpleGameEngine/Utils_lib")
+	include_directories("${CMAKE_CURRENT_BINARY_DIR}/SimpleGameEngine/ThirdParty_Librarys/Box2D")
 
 endif()
 
@@ -175,8 +176,8 @@ include_directories(${SGE_DIR}/Renderer_lib/WindowManager)
 include_directories(${SGE_DIR}/Scene_lib/Scene)
 
 include_directories(${SGE_DIR}/ThirdParty_Librarys/PicoPNG) 
-include_directories(${SGE_DIR}/ThirdParty_Librarys/) 
 include_directories(${SGE_DIR}/ThirdParty_Librarys/Box2D) 
+
 include_directories(${SGE_DIR}/Utils_lib/Timing)
 include_directories(${SGE_DIR}/Utils_lib/Utils)
 include_directories(${SGE_DIR}/Utils_lib/Logger)

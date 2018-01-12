@@ -10,4 +10,5 @@ target_link_libraries(Scene
 		Object
 		Level
 		Logic
-		Utils)
+		Utils
+		Box2D)

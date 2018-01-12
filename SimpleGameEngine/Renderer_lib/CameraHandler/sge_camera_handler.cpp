@@ -35,7 +35,7 @@ const glm::mat4& SGE::CameraHandler::getCameraMatrix() const noexcept
 
 void SGE::CameraHandler::setPosition(glm::vec2 pos) noexcept
 {
-	this->setPosition(pos.x, pos.y);
+	this->setPosition(int(pos.x), int(pos.y));
 }
 
 glm::vec2 SGE::CameraHandler::getScreenToWorld(glm::vec2 pos) const noexcept

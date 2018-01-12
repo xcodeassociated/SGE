@@ -11,10 +11,6 @@ namespace SGE
     class Reactive : public Object
     {
     protected:
-	    /**
-         * \brief 
-         */
-        double lifeTime = 0;
         
     public:
         using Object::Object;

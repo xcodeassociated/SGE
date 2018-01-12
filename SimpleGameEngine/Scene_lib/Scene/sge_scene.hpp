@@ -20,10 +20,11 @@ namespace SGE
 	    /**
          * \brief 
          */
+    public:
         using ObjectVector = std::vector<Object*>;
         using LogicVector = std::vector<Logic*>;
         using ActionVector = std::vector<Action*>;
-
+    protected:
 	    /**
 		 * \brief 
 		 */
@@ -81,7 +82,7 @@ namespace SGE
 	     */
 	    virtual ObjectVector& getObjects();
 
-		void addObject(SGE::Object* object);
+		virtual void addObject(SGE::Object* object);
 
 		void removeObject(SGE::Object* object);
 
