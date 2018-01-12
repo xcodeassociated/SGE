@@ -2,16 +2,15 @@
 #define ZOMBIE_SCENE
 #include <sge_game.hpp>
 #include <sge_scene.hpp>
-#include <Box2D.h>
+#include <sge_box2dscene.hpp>
 #include "Objects.hpp"
 
-class ZombieScene : public SGE::Scene
+class ZombieScene : public SGE::Box2DScene
 {
 	//TODO Make Game ptr part of basic class?
 	SGE::Game* game = nullptr;
 	std::string path;
 	std::vector<Human*> humans;
-	b2World world;
 public:
 
 	ZombieScene(SGE::Game* game, const char* path);

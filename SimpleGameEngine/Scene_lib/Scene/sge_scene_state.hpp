@@ -1,5 +1,6 @@
 #ifndef SGE_SCENE_STATE_HPP
 #define SGE_SCENE_STATE_HPP
+#include <string>
 
 namespace SGE
 {

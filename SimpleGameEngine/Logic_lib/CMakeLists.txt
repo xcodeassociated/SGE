@@ -21,12 +21,17 @@ set (LogicsCollidersSOURCES
 set (LogicMoversSOURCES
 		Logic/Logics/Movers/sge_logic_move.hpp
 		Logic/Logics/Movers/sge_logic_move.cpp)
+		
+set (LogicWorldSOURCES
+		Logic/Logics/World/sge_worldstep.hpp
+		Logic/Logics/World/sge_worldstep.cpp)
 
 add_library (Logic SHARED
 		${LogicSOURCES}
 		${LogicsCameraSOURCES}
 		${LogicsCollidersSOURCES}
-		${LogicMoversSOURCES})
+		${LogicMoversSOURCES}
+		${LogicWorldSOURCES})
 
 target_link_libraries(Logic
 		Object

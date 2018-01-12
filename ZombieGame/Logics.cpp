@@ -10,16 +10,7 @@
 #include <sge_keyboard_state.hpp>
 #include <sge_fps_limiter.hpp>
 
-StepWorld::StepWorld(b2World* w) noexcept : Logic(SGE::LogicPriority::Highest), world(w)
-{
-}
-
-void StepWorld::performLogic()
-{
-	this->world->Step(SGE::delta_time, 2, 3);
-}
-
-SimpleMove::SimpleMove(Physical* object, const float speed, const SGE::Key up, const SGE::Key down, const SGE::Key left, const SGE::Key right)
+SimpleMove::SimpleMove(SGE::Reactive* object, const float speed, const SGE::Key up, const SGE::Key down, const SGE::Key left, const SGE::Key right)
 	: Logic(SGE::LogicPriority::Highest), object(object), speed(speed), up(up), down(down), left(left), right(right)
 {
 }
@@ -33,7 +24,7 @@ void SimpleMove::performLogic()
 	if (isPressed(this->left)) move.x -= this->speed;
 	if (b2Vec2{ 0,0 } != move)
 	{
-		object->body->SetLinearVelocity(move);
+		object->getBody()->SetLinearVelocity(move);
 	}
 }
 
@@ -94,12 +85,11 @@ void HumanRandomMovement::performLogic()
 		this->velocity = human->getVelocity();
 		if (human->getCounter() == 0)
 		{
-			this->velocity = glm::rotate(this->velocity, this->angle(this->engine));
+			this->velocity = b2Mul(b2Rot(this->angle(this->engine)), this->velocity);
 			human->setVelocity(this->velocity);
 			//human->body->ApplyForce(b2Vec2(this->velocity.x,this->velocity.y),human->body->GetPosition(),true);
-			human->body->SetLinearVelocity(b2Vec2(this->velocity.x, this->velocity.y));
+			human->getBody()->SetLinearVelocity(this->velocity);
 		}
-		//this->sendAction(new SGE::ACTION::Move(human, velocity.x*SGE::delta_time, velocity.y*SGE::delta_time, true));
 	}
 }
 

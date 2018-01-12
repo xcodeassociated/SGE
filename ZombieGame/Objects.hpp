@@ -1,32 +1,18 @@
 ﻿#ifndef ZOMBIEGAME_OBJECTS
 #define ZOMBIEGAME_OBJECTS
 #include <sge_reactive.hpp>
-#include <sge_being.hpp>
-#include "Dynamics/b2Body.h"
+#include "sge_shape_circle.hpp"
 
-class Physical : public SGE::Being
+inline SGE::Shape* getCircle()
 {
-	//For testing
-public:
-	using Being::Being;
-	b2Body* body;
-	
-	glm::vec2 getPosition() const noexcept override;
-	void setPosition(float,float) override;
-	float getX() const noexcept override;
-	float getY() const noexcept override;
+	static SGE::Circle c(32, false);
+	return &c;
+}
 
-	virtual void setBody(b2Body* b2Body);
-	virtual void addFixture(const b2FixtureDef& humanFixture);
-	virtual void addFixture(const b2Shape& humanFixture);
-};
-
-class Player : public Physical
+class Player : public SGE::Reactive
 {
 public:
-	Player();
-
-	Player(const float x, const float y);
+	using Reactive::Reactive;
 };
 
 class Portal : public SGE::Reactive
@@ -37,9 +23,9 @@ public:
 	Portal(float x, float y);
 };
 
-class Human : public Physical
+class Human : public SGE::Reactive
 {
-	glm::vec2 velocity = { 200.f,0.f };
+	b2Vec2 velocity = { 200.f,0.f };
 	unsigned int counter = 1;
 	unsigned int maxCount = 0;
 
@@ -52,9 +38,9 @@ public:
 
 	unsigned int getCounter();
 
-	glm::vec2 getVelocity() const;
+	b2Vec2 getVelocity() const;
 
-	void setVelocity(const glm::vec2 vel);
+	void setVelocity(const b2Vec2 vel);
 };
 
 class Image : public SGE::Object
