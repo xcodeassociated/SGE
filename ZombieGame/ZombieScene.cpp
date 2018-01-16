@@ -11,6 +11,7 @@
 #include <Box2D/Collision/Shapes/b2PolygonShape.h>
 #include <Box2D/Collision/Shapes/b2CircleShape.h>
 #include "Logics/World/sge_worldstep.hpp"
+#include "Box2D/Dynamics/Contacts/b2Contact.h"
 
 ZombieScene::ZombieScene(SGE::Game* game, const char* path) : Box2DScene(b2Vec2_zero), game(game), path(path)
 {
@@ -52,10 +53,15 @@ void ZombieScene::loadScene()
 	SGE::MouseObject* mouse = game->getMouse();
 	Player* player = new Player(200, 200,true,getCircle());
 	
+	b2Filter playerFilter;
+	playerFilter.categoryBits = uint16(Category::Player);
+	playerFilter.maskBits = Category::Player | Category::Human | Category::Zombie | Category::Level;
+
 	game->textureObject(player, PATH"ZombieGame/Resources/Textures/circle.png");
 	this->addObject(player,&humanBodyDef);
 	player->addFixture(humanShape);
 	player->getBody()->SetLinearDamping(10);
+	player->getBody()->GetFixtureList()->SetFilterData(playerFilter);
 
 	SGE::Action* click = new MouseClickedAction(mouse, player);
 	SGE::InputBinder clickBind(click, SGE::Key::MOUSE_LEFT_BUTTON);
@@ -114,6 +120,20 @@ void ZombieScene::loadScene()
 		r.insert(index);
 	}
 
+	b2Filter humanFilter;
+	humanFilter.categoryBits = uint16(Category::Human);
+	humanFilter.maskBits = Category::Player | Category::Human | Category::Zombie | Category::Level | Category::ZombieSensor;
+
+	b2CircleShape sensorShape;
+	sensorShape.m_p = b2Vec2_zero;
+	sensorShape.m_radius = 32 * 3;
+
+	b2FixtureDef Sensor;
+	Sensor.isSensor = true;
+	Sensor.shape = &sensorShape;
+	Sensor.filter.categoryBits = uint16(Category::HumanSensor);
+	Sensor.filter.maskBits = uint16(Category::Zombie);
+
 	for (const int& e : r)
 	{
 		std::pair<float, float> pos = free.at(e);
@@ -121,8 +141,25 @@ void ZombieScene::loadScene()
 		game->textureObject(temp, PATH"ZombieGame/Resources/Textures/circle.png");
 		this->addObject(temp,&humanBodyDef);
 		this->humans.push_back(temp);
-		temp->addFixture(humanShape);
+		temp->addFixture(humanShape)->SetFilterData(humanFilter);
+		temp->addFixture(Sensor);
 	}
+
+	b2Filter zombieFilter;
+	zombieFilter.categoryBits = uint16(Category::Zombie);
+	zombieFilter.maskBits = Category::Player | Category::Human | Category::Zombie | Category::Level | Category::HumanSensor;
+
+	b2Filter zombieSensorFilter;
+	zombieSensorFilter.categoryBits = uint16(Category::ZombieSensor);
+	zombieSensorFilter.maskBits = uint16(Category::Human);
+
+	auto changeToZombie = [zombieFilter,zombieSensorFilter](Human* human)
+	{
+		b2Fixture* fixture = human->getBody()->GetFixtureList();
+		fixture->SetFilterData(zombieFilter);
+		fixture->GetNext()->SetFilterData(zombieSensorFilter);
+	};
+	changeToZombie(this->humans.at(0));
 
 	this->addLogic(new HumanRandomMovement(&this->humans));
 	SGE::Reactive* portal = new Portal(float(portal_location.first), float(portal_location.second));

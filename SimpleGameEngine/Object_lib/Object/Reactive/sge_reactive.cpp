@@ -59,8 +59,9 @@ void SGE::Reactive::addFixture(const b2FixtureDef& fixtureDef)
 	fixture->SetUserData(this);
 }
 
-void SGE::Reactive::addFixture(const b2Shape& shape)
+b2Fixture* SGE::Reactive::addFixture(const b2Shape& shape)
 {
 	b2Fixture* fixture = this->body->CreateFixture(&shape, 0);
 	fixture->SetUserData(this);
+	return fixture;
 }

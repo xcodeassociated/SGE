@@ -2,6 +2,37 @@
 #define ZOMBIEGAME_OBJECTS
 #include <sge_reactive.hpp>
 #include "sge_shape_circle.hpp"
+#include <forward_list>
+
+enum class Category : unsigned short
+{
+	Player = 1 << 0,
+	Human = 1 << 1,
+	Zombie = 1 << 2,
+	HumanSensor = 1 << 4,
+	ZombieSensor = 1 << 5,
+	Level = 1 << 15,
+};
+
+inline unsigned short operator|(const Category a, const Category b)
+{
+	return unsigned short(a) | unsigned short(b);
+}
+
+inline unsigned short operator|(const unsigned short a, const Category b)
+{
+	return a | unsigned short(b);
+}
+
+inline unsigned short operator&(const Category a, const Category b)
+{
+	return unsigned short(a) & unsigned short(b);
+}
+
+inline unsigned short operator&(const unsigned short a, const Category b)
+{
+	return a & unsigned short(b);
+}
 
 inline SGE::Shape* getCircle()
 {
@@ -25,10 +56,11 @@ public:
 
 class Human : public SGE::Reactive
 {
+	using BodyList = std::forward_list<Human*>;
 	b2Vec2 velocity = { 200.f,0.f };
 	unsigned int counter = 1;
 	unsigned int maxCount = 0;
-
+	BodyList bodies;
 public:
 	Human(const float x, const float y);
 
@@ -41,6 +73,8 @@ public:
 	b2Vec2 getVelocity() const;
 
 	void setVelocity(const b2Vec2 vel);
+
+	Human::BodyList& getBodies();
 };
 
 class Image : public SGE::Object

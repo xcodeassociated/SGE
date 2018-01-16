@@ -40,7 +40,7 @@ namespace SGE
 	     * \brief Adds fixture using given shape with 0 density.
 	     * \param shape 
 	     */
-	    void addFixture(const b2Shape& shape);
+	    b2Fixture* addFixture(const b2Shape& shape);
     };
     
 }

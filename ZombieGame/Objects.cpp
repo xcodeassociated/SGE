@@ -33,3 +33,8 @@ void Human::setVelocity(const b2Vec2 vel)
 {
 	this->velocity = vel;
 }
+
+Human::BodyList& Human::getBodies()
+{
+	return this->bodies;	
+}
