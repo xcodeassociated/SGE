@@ -34,7 +34,7 @@ namespace SGE
 
 	    virtual float getY() const noexcept override;
 
-	    void addFixture(const b2FixtureDef& fixtureDef);
+	    b2Fixture* addFixture(const b2FixtureDef& fixtureDef);
 
 	    /**
 	     * \brief Adds fixture using given shape with 0 density.

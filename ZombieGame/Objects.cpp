@@ -24,17 +24,32 @@ unsigned Human::getCounter()
 	else return (this->counter = this->maxCount);
 }
 
-b2Vec2 Human::getVelocity() const
+b2Vec2 Human::getDirection() const
 {
-	return this->velocity;
+	return this->direction;
 }
 
-void Human::setVelocity(const b2Vec2 vel)
+void Human::setDirection(const b2Vec2 vel)
 {
-	this->velocity = vel;
+	this->direction = vel;
+}
+
+float Human::getSpeed() const
+{
+	return this->speed;
+}
+
+void Human::setSpeed(float s)
+{
+	this->speed = speed;
 }
 
 Human::BodyList& Human::getBodies()
 {
 	return this->bodies;	
+}
+
+void Human::Zombify()
+{
+	this->zombified = true;
 }

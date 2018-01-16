@@ -34,6 +34,11 @@ inline unsigned short operator&(const unsigned short a, const Category b)
 	return a & unsigned short(b);
 }
 
+inline bool isCat(b2Fixture* fixture, Category cat)
+{
+	return fixture->GetFilterData().categoryBits & cat;
+}
+
 inline SGE::Shape* getCircle()
 {
 	static SGE::Circle c(32, false);
@@ -57,9 +62,11 @@ public:
 class Human : public SGE::Reactive
 {
 	using BodyList = std::forward_list<Human*>;
-	b2Vec2 velocity = { 200.f,0.f };
+	float speed = 5 * 64.f;
+	b2Vec2 direction = { 1.f,0.f };
 	unsigned int counter = 1;
 	unsigned int maxCount = 0;
+	bool zombified = false;
 	BodyList bodies;
 public:
 	Human(const float x, const float y);
@@ -70,12 +77,25 @@ public:
 
 	unsigned int getCounter();
 
-	b2Vec2 getVelocity() const;
+	b2Vec2 getDirection() const;
 
-	void setVelocity(const b2Vec2 vel);
+	void setDirection(const b2Vec2 vel);
 
-	Human::BodyList& getBodies();
+	float getSpeed() const;
+
+	void setSpeed(float s);
+
+	BodyList& getBodies();
+
+	void Zombify();
+
+	inline bool getZombified() const;
 };
+
+bool Human::getZombified() const
+{
+	return this->zombified;
+}
 
 class Image : public SGE::Object
 {

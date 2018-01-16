@@ -5,6 +5,7 @@
 #include <sge_logic_collide.hpp>
 #include <vector>
 #include <random>
+#include <functional>
 #include "Objects.hpp"
 #include "sge_key.hpp"
 #include "sge_camera2d.hpp"
@@ -46,13 +47,27 @@ public:
 
 class HumanRandomMovement : public SGE::Logic
 {
+protected:
 	std::vector<Human*>* humans = nullptr;
 	std::default_random_engine engine;
 	std::uniform_real_distribution<float> angle;
-	b2Vec2 velocity;
+
+	void randomMovement(Human* human);
 
 public:
 	explicit HumanRandomMovement(std::vector<Human*>* humans);
+	virtual void performLogic() override;
+};
+
+class HumanMovement : public HumanRandomMovement
+{
+	using ZombifyFunc = std::function<void(Human*)>;
+protected:
+	ZombifyFunc zombifier = nullptr;
+	void zombieMovement(Human* human);
+	void humanMovement(Human* human);
+public:
+	explicit HumanMovement(std::vector<Human*>* humans, ZombifyFunc fun);
 
 	virtual void performLogic() override;
 };

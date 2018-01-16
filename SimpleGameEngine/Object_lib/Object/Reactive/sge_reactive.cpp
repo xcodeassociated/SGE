@@ -53,10 +53,11 @@ float SGE::Reactive::getY() const noexcept
 	return this->body->GetPosition().y;
 }
 
-void SGE::Reactive::addFixture(const b2FixtureDef& fixtureDef)
+b2Fixture* SGE::Reactive::addFixture(const b2FixtureDef& fixtureDef)
 {
 	b2Fixture* fixture = this->body->CreateFixture(&fixtureDef);
 	fixture->SetUserData(this);
+	return fixture;
 }
 
 b2Fixture* SGE::Reactive::addFixture(const b2Shape& shape)

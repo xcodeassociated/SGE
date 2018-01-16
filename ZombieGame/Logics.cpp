@@ -18,13 +18,14 @@ SimpleMove::SimpleMove(SGE::Reactive* object, const float speed, const SGE::Key 
 void SimpleMove::performLogic()
 {
 	b2Vec2 move = { 0,0 };
-	if (isPressed(this->up)) move.y += this->speed;
-	if (isPressed(this->down)) move.y -= this->speed;
-	if (isPressed(this->right)) move.x += this->speed;
-	if (isPressed(this->left)) move.x -= this->speed;
+	if (isPressed(this->up)) move.y += 1;
+	if (isPressed(this->down)) move.y -= 1;
+	if (isPressed(this->right)) move.x += 1;
+	if (isPressed(this->left)) move.x -= 1;
 	if (b2Vec2{ 0,0 } != move)
 	{
-		object->getBody()->SetLinearVelocity(move);
+		move.Normalize();
+		object->getBody()->SetLinearVelocity(this->speed * move);
 	}
 }
 
@@ -51,7 +52,7 @@ void BiCollider::performLogic()
 	}
 }
 
-PortalLogic::PortalLogic(SGE::Object* portal, SGE::Object* player): SGE::Logics::Collide(SGE::LogicPriority::Highest), portal(portal), player(player)
+PortalLogic::PortalLogic(SGE::Object* portal, SGE::Object* player): Collide(SGE::LogicPriority::Highest), portal(portal), player(player)
 {
 }
 
@@ -74,21 +75,101 @@ void PortalLogic::performLogic()
 	}
 }
 
-HumanRandomMovement::HumanRandomMovement(std::vector<Human*>* humans): Logic(SGE::LogicPriority::Mid), humans(humans), angle(glm::radians(-90.f), glm::radians(90.f))
+HumanRandomMovement::HumanRandomMovement(std::vector<Human*>* humans) 
+	: Logic(SGE::LogicPriority::Mid), humans(humans), angle(glm::radians(-90.f), glm::radians(90.f))
 {
+}
+
+void HumanRandomMovement::randomMovement(Human* human)
+{
+	if (human->getCounter() == 0)
+	{
+		b2Vec2 dir = human->getDirection();
+		dir = b2Mul(b2Rot(this->angle(this->engine)), dir);
+		human->setDirection(dir);
+		human->getBody()->SetLinearVelocity(human->getSpeed()*dir);
+	}
 }
 
 void HumanRandomMovement::performLogic()
 {
 	for (auto human : *humans)
 	{
-		this->velocity = human->getVelocity();
-		if (human->getCounter() == 0)
+		this->randomMovement(human);
+	}
+}
+
+HumanMovement::HumanMovement(std::vector<Human*>* humans, ZombifyFunc fun) : HumanRandomMovement(humans), zombifier(fun)
+{
+}
+
+void HumanMovement::zombieMovement(Human* zombie)
+{
+	auto& humans = zombie->getBodies();
+	if (humans.empty())
+	{
+		this->randomMovement(zombie);
+	}
+	else
+	{
+		const b2Vec2 pos = zombie->getBody()->GetPosition();
+		b2Vec2 direction = { 0,0 };
+		b2Vec2 humanPos = { 0,0 };
+		float maxSqrDist = 640.f*640.f;
+		float sqrDist = 0.f;
+		for (auto* human : humans)
 		{
-			this->velocity = b2Mul(b2Rot(this->angle(this->engine)), this->velocity);
-			human->setVelocity(this->velocity);
-			//human->body->ApplyForce(b2Vec2(this->velocity.x,this->velocity.y),human->body->GetPosition(),true);
-			human->getBody()->SetLinearVelocity(this->velocity);
+			humanPos = human->getBody()->GetPosition();
+			sqrDist = (pos - humanPos).LengthSquared();
+			if (sqrDist < maxSqrDist)
+			{
+				direction = human->getBody()->GetPosition() - pos;
+			}
+		}
+		direction.Normalize();
+		zombie->getBody()->SetLinearVelocity(zombie->getSpeed() * direction);
+	}
+}
+
+void HumanMovement::humanMovement(Human* human)
+{
+	auto& zombies = human->getBodies();
+	if (zombies.empty())
+	{
+		this->randomMovement(human);
+	}
+	else
+	{
+		const b2Vec2 pos = human->getBody()->GetPosition();
+		b2Vec2 direction = { 0,0 };
+		for (auto* zombie : zombies)
+		{
+			direction += zombie->getBody()->GetPosition() - pos;
+		}
+		direction.Normalize();
+		human->getBody()->SetLinearVelocity(human->getSpeed() * -direction);
+	}
+}
+
+void HumanMovement::performLogic()
+{
+	for (auto human : *humans)
+	{
+		if(isCat(human->getBody()->GetFixtureList(),Category::Human))
+		{
+			if(human->getZombified())
+			{
+				this->zombifier(human);
+				this->zombieMovement(human);
+			}
+			else
+			{
+				this->humanMovement(human);
+			}
+		}
+		else
+		{
+			this->zombieMovement(human);
 		}
 	}
 }
