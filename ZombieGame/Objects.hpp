@@ -16,22 +16,22 @@ enum class Category : unsigned short
 
 inline unsigned short operator|(const Category a, const Category b)
 {
-	return unsigned short(a) | unsigned short(b);
+	return (unsigned short)(a) | (unsigned short)(b);
 }
 
 inline unsigned short operator|(const unsigned short a, const Category b)
 {
-	return a | unsigned short(b);
+	return a | (unsigned short)(b);
 }
 
 inline unsigned short operator&(const Category a, const Category b)
 {
-	return unsigned short(a) & unsigned short(b);
+	return (unsigned short)(a) & (unsigned short)(b);
 }
 
 inline unsigned short operator&(const unsigned short a, const Category b)
 {
-	return a & unsigned short(b);
+	return a & (unsigned short)(b);
 }
 
 inline bool isCat(b2Fixture* fixture, Category cat)
