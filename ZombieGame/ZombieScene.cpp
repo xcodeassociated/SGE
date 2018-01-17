@@ -13,62 +13,57 @@
 #include "Logics/World/sge_worldstep.hpp"
 #include "Box2D/Dynamics/Contacts/b2Contact.h"
 
-class ZListener : public b2ContactListener
+void ZListener::BeginContact(b2Contact* contact)
 {
-public:
-	virtual void BeginContact(b2Contact* contact) override
+	b2Fixture* A = contact->GetFixtureA();
+	b2Fixture* B = contact->GetFixtureB();
+	if (isCat(A, Category::Human) && isCat(B, Category::ZombieSensor))
 	{
-		b2Fixture *A = contact->GetFixtureA();
-		b2Fixture *B = contact->GetFixtureB();
-		if(isCat(A,Category::Human)&&isCat(B,Category::ZombieSensor))
-		{
-			reinterpret_cast<Human*>(B->GetUserData())->getBodies().push_front(reinterpret_cast<Human*>(A->GetUserData()));
-		}
-		else if (isCat(A, Category::ZombieSensor) && isCat(B, Category::Human))
-		{
-			reinterpret_cast<Human*>(A->GetUserData())->getBodies().push_front(reinterpret_cast<Human*>(B->GetUserData()));
-		}
-		else if (isCat(A, Category::Zombie) && isCat(B, Category::HumanSensor))
-		{
-			reinterpret_cast<Human*>(B->GetUserData())->getBodies().push_front(reinterpret_cast<Human*>(A->GetUserData()));
-		}
-		else if (isCat(A, Category::HumanSensor) && isCat(B, Category::Zombie))
-		{
-			reinterpret_cast<Human*>(B->GetUserData())->getBodies().push_front(reinterpret_cast<Human*>(A->GetUserData()));
-		}
-		else if (isCat(A, Category::Human) && isCat(B, Category::Zombie))
-		{
-			reinterpret_cast<Human*>(A->GetUserData())->Zombify();
-		}
-		else if (isCat(A, Category::Zombie) && isCat(B, Category::Human))
-		{
-			reinterpret_cast<Human*>(B->GetUserData())->Zombify();
-		}
+		reinterpret_cast<Human*>(B->GetUserData())->getBodies().push_front(reinterpret_cast<Human*>(A->GetUserData()));
 	}
-	virtual void EndContact(b2Contact* contact) override
+	else if (isCat(A, Category::ZombieSensor) && isCat(B, Category::Human))
 	{
-		b2Fixture *A = contact->GetFixtureA();
-		b2Fixture *B = contact->GetFixtureB();
-		if (isCat(A, Category::Human) && isCat(B, Category::ZombieSensor))
-		{
-			reinterpret_cast<Human*>(B->GetUserData())->getBodies().remove(reinterpret_cast<Human*>(A->GetUserData()));
-		}
-		else if (isCat(A, Category::ZombieSensor) && isCat(B, Category::Human))
-		{
-			reinterpret_cast<Human*>(A->GetUserData())->getBodies().remove(reinterpret_cast<Human*>(B->GetUserData()));
-		}
-		else if (isCat(A, Category::Zombie) && isCat(B, Category::HumanSensor))
-		{
-			reinterpret_cast<Human*>(B->GetUserData())->getBodies().remove(reinterpret_cast<Human*>(A->GetUserData()));
-		}
-		else if (isCat(A, Category::HumanSensor) && isCat(B, Category::Zombie))
-		{
-			reinterpret_cast<Human*>(B->GetUserData())->getBodies().remove(reinterpret_cast<Human*>(A->GetUserData()));
-		}
+		reinterpret_cast<Human*>(A->GetUserData())->getBodies().push_front(reinterpret_cast<Human*>(B->GetUserData()));
 	}
-};
+	else if (isCat(A, Category::Zombie) && isCat(B, Category::HumanSensor))
+	{
+		reinterpret_cast<Human*>(B->GetUserData())->getBodies().push_front(reinterpret_cast<Human*>(A->GetUserData()));
+	}
+	else if (isCat(A, Category::HumanSensor) && isCat(B, Category::Zombie))
+	{
+		reinterpret_cast<Human*>(B->GetUserData())->getBodies().push_front(reinterpret_cast<Human*>(A->GetUserData()));
+	}
+	else if (isCat(A, Category::Human) && isCat(B, Category::Zombie))
+	{
+		reinterpret_cast<Human*>(A->GetUserData())->Zombify();
+	}
+	else if (isCat(A, Category::Zombie) && isCat(B, Category::Human))
+	{
+		reinterpret_cast<Human*>(B->GetUserData())->Zombify();
+	}
+}//We really need a better way of texturing objects
+void ZListener::EndContact(b2Contact* contact)
+{
+	b2Fixture* A = contact->GetFixtureA();
+	b2Fixture* B = contact->GetFixtureB();
+	if (isCat(A, Category::Human) && isCat(B, Category::ZombieSensor))
+	{
+		reinterpret_cast<Human*>(B->GetUserData())->getBodies().remove(reinterpret_cast<Human*>(A->GetUserData()));
+	}
+	else if (isCat(A, Category::ZombieSensor) && isCat(B, Category::Human))
+	{
+		reinterpret_cast<Human*>(A->GetUserData())->getBodies().remove(reinterpret_cast<Human*>(B->GetUserData()));
+	}
+	else if (isCat(A, Category::Zombie) && isCat(B, Category::HumanSensor))
+	{
+		reinterpret_cast<Human*>(B->GetUserData())->getBodies().remove(reinterpret_cast<Human*>(A->GetUserData()));
+	}
+	else if (isCat(A, Category::HumanSensor) && isCat(B, Category::Zombie))
+	{
+		reinterpret_cast<Human*>(B->GetUserData())->getBodies().remove(reinterpret_cast<Human*>(A->GetUserData()));
+	}
+}
 
-//We really need a better way of texturing objects
 SGE::GLTexture ZombieScene::zombieTexture;
 b2Filter ZombieScene::zombieFilter;
 b2Filter ZombieScene::zombieSensorFilter;
@@ -81,6 +76,7 @@ b2BodyDef ZombieScene::humanBodyDef;
 b2CircleShape ZombieScene::humanShape;
 b2PolygonShape ZombieScene::worldShape;
 b2BodyDef ZombieScene::worldBodyDef;
+b2Filter ZombieScene::worldFilter;
 
 bool ZombieScene::init()
 {
@@ -113,6 +109,9 @@ bool ZombieScene::init()
 
 	worldBodyDef.type = b2_staticBody;
 	worldShape.SetAsBox(32, 32);
+
+	worldFilter.categoryBits = uint16(Category::Level);
+	worldFilter.maskBits = Category::Player | Category::Human | Category::Zombie;
 
 	return true;
 }
@@ -150,7 +149,7 @@ void ZombieScene::loadScene()
 	{
 		b2Body* body = world.CreateBody(&worldBodyDef);
 		body->SetTransform(b2Vec2(e.getX(), e.getY()), 0);
-		body->CreateFixture(&worldShape, 0);
+		body->CreateFixture(&worldShape, 0)->SetFilterData(worldFilter);
 	}
 
 	SGE::Camera2d* camera = game->getCamera();
@@ -160,7 +159,7 @@ void ZombieScene::loadScene()
 	Player* player = new Player(200, 200,true,getCircle());
 
 	game->textureObject(player, PATH"ZombieGame/Resources/Textures/circle.png");
-	this->addObject(player,&humanBodyDef);
+	this->addReactive(player,&humanBodyDef);
 	player->addFixture(humanShape);
 	player->getBody()->SetLinearDamping(64);
 	player->getBody()->GetFixtureList()->SetFilterData(playerFilter);
@@ -171,7 +170,7 @@ void ZombieScene::loadScene()
 
 	auto L3 = new SimpleMove(player, 8*64.f, SGE::Key::W, SGE::Key::S, SGE::Key::A, SGE::Key::D);
 
-	auto camLogic = new SnapCamera(8, SGE::Key::Up, SGE::Key::Down, SGE::Key::Left, SGE::Key::Right, SGE::Key::Space, player, camera);
+	auto camLogic = new SnapCamera(8, SGE::Key::Up, SGE::Key::Down, SGE::Key::Left, SGE::Key::Right, SGE::Key::O, player, camera);
 	auto camZoom = new SGE::Logics::CameraZoom(camera, 0.1f, 1.f, 0.15f, SGE::Key::Q, SGE::Key::E);
 
 	this->addLogic(new SGE::WorldStep(&this->world,2,4));
@@ -227,7 +226,7 @@ void ZombieScene::loadScene()
 		std::pair<float, float> pos = free.at(e);
 		Human* temp = new Human(pos.first, pos.second, 60 + rand() % 120);
 		game->textureObject(temp, PATH"ZombieGame/Resources/Textures/circle.png");
-		this->addObject(temp,&humanBodyDef);
+		this->addReactive(temp,&humanBodyDef);
 		this->humans.push_back(temp);
 		temp->addFixture(sensorFixture)->SetFilterData(humanSensorFilter);
 		temp->addFixture(humanShape)->SetFilterData(humanFilter);
@@ -239,16 +238,22 @@ void ZombieScene::loadScene()
 
 	zombieTexture = this->humans.at(0)->texture;
 
-	this->addLogic(new HumanMovement(&this->humans,zombify));
+	this->addLogic(new HumanMovement(&this->humans,zombify,&world));
 	SGE::Reactive* portal = new Portal(float(portal_location.first), float(portal_location.second));
 	game->textureObject(portal, PATH"ZombieGame/Resources/Textures/glass.png");
-	this->addObject(portal,&worldBodyDef);
+	this->addReactive(portal,&worldBodyDef);
 	portal->getBody()->CreateFixture(&worldShape, 0);
 
 	SGE::Action* portalAction = new PortalAction;
 	game->mapAction(SGE::InputBinder(portalAction, SGE::Key::P));
 
 	world.SetContactListener(new ZListener());
+
+	Pointer* pointer = new Pointer();
+	this->addObject(pointer);
+	this->game->textureObject(pointer, PATH"ZombieGame/Resources/Textures/pointer.png");
+	
+	this->addLogic(new AimPointer(&this->world, player, pointer, mouse, camera, 6 * 64.f));
 }
 
 ZombieScene::~ZombieScene()

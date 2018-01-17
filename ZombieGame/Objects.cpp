@@ -53,3 +53,7 @@ void Human::Zombify()
 {
 	this->zombified = true;
 }
+
+Pointer::Pointer() : Object(0.f,0.f,true,new SGE::Circle(6.f))
+{
+}

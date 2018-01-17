@@ -18,7 +18,7 @@ namespace SGE
 		explicit Box2DScene(const b2Vec2& gravity);
 		explicit Box2DScene(const b2World& world);
 
-		virtual void addObject(Reactive* object,const b2BodyDef* bodyDef);
+		virtual void addReactive(Reactive* object,const b2BodyDef* bodyDef);
 	};
 }
 #endif

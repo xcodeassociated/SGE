@@ -5,6 +5,14 @@
 #include <sge_box2dscene.hpp>
 #include "Objects.hpp"
 
+class ZListener : public b2ContactListener
+{
+public:
+	virtual void BeginContact(b2Contact* contact) override;
+
+	virtual void EndContact(b2Contact* contact) override;
+};
+
 class ZombieScene : public SGE::Box2DScene
 {	
 protected:
@@ -25,6 +33,7 @@ protected:
 	static b2CircleShape humanShape;
 	static b2PolygonShape worldShape;
 	static b2BodyDef worldBodyDef;
+	static b2Filter worldFilter;
 
 	static bool init();
 	static void zombify(Human* human);

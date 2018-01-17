@@ -9,6 +9,14 @@
 #include "Objects.hpp"
 #include "sge_key.hpp"
 #include "sge_camera2d.hpp"
+#include "Box2D/Dynamics/b2WorldCallbacks.h"
+#include "sge_mouse.hpp"
+
+struct CheckWall : public b2RayCastCallback
+{
+	bool hitWall = false;
+	virtual float32 ReportFixture(b2Fixture* fixture, const b2Vec2& point, const b2Vec2& normal, float32 fraction) override;
+};
 
 class SimpleMove : public SGE::Logic
 {
@@ -64,10 +72,11 @@ class HumanMovement : public HumanRandomMovement
 	using ZombifyFunc = std::function<void(Human*)>;
 protected:
 	ZombifyFunc zombifier = nullptr;
+	b2World* world = nullptr;
 	void zombieMovement(Human* human);
 	void humanMovement(Human* human);
 public:
-	explicit HumanMovement(std::vector<Human*>* humans, ZombifyFunc fun);
+	explicit HumanMovement(std::vector<Human*>* humans, ZombifyFunc fun, b2World* world);
 
 	virtual void performLogic() override;
 };
@@ -97,4 +106,27 @@ public:
 	void performLogic() override;
 };
 
+struct Aimcast: b2RayCastCallback
+{
+	b2Vec2 point = b2Vec2_zero;
+	bool hit = false;
+	b2Fixture* fixture;
+	float32 ReportFixture(b2Fixture* fixture, const b2Vec2& point, const b2Vec2& normal, float32 fraction) override;
+};
+
+class AimPointer : public SGE::Logic
+{
+protected:
+	b2World* world;
+	SGE::Object* aimer;
+	Pointer* pointer;
+	SGE::MouseObject* mouse;
+	SGE::Camera2d* cam;
+	float range;
+	float reload = -1.f;
+	void aim(b2Vec2 pos, b2Vec2 target);
+public:
+	AimPointer(b2World* world, SGE::Reactive* aimer, Pointer* pointer, SGE::MouseObject* mouse, SGE::Camera2d* cam, float range);
+	void performLogic() override;
+};
 #endif

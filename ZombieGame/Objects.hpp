@@ -103,4 +103,9 @@ public:
 	using Object::Object;
 };
 
+class Pointer : public SGE::Object
+{
+public:
+	Pointer();
+};
 #endif

@@ -9,6 +9,17 @@
 #include <glm/ext.hpp>
 #include <sge_keyboard_state.hpp>
 #include <sge_fps_limiter.hpp>
+#include "Box2D/Dynamics/b2World.h"
+
+float32 CheckWall::ReportFixture(b2Fixture* fixture, const b2Vec2& point, const b2Vec2& normal, float32 fraction)
+{
+	if(isCat(fixture,Category::Level))
+	{
+		this->hitWall = true;
+		return 0.f;
+	}
+	return 1.f;
+}
 
 SimpleMove::SimpleMove(SGE::Reactive* object, const float speed, const SGE::Key up, const SGE::Key down, const SGE::Key left, const SGE::Key right)
 	: Logic(SGE::LogicPriority::Highest), object(object), speed(speed), up(up), down(down), left(left), right(right)
@@ -99,7 +110,7 @@ void HumanRandomMovement::performLogic()
 	}
 }
 
-HumanMovement::HumanMovement(std::vector<Human*>* humans, ZombifyFunc fun) : HumanRandomMovement(humans), zombifier(fun)
+HumanMovement::HumanMovement(std::vector<Human*>* humans, ZombifyFunc fun, b2World* world) : HumanRandomMovement(humans), zombifier(fun), world(world)
 {
 }
 
@@ -117,17 +128,28 @@ void HumanMovement::zombieMovement(Human* zombie)
 		b2Vec2 humanPos = { 0,0 };
 		float maxSqrDist = 640.f*640.f;
 		float sqrDist = 0.f;
+		CheckWall los;
 		for (auto* human : humans)
 		{
 			humanPos = human->getBody()->GetPosition();
 			sqrDist = (pos - humanPos).LengthSquared();
 			if (sqrDist < maxSqrDist)
 			{
+				this->world->RayCast(&los, pos, humanPos);
+				if(los.hitWall)
+					continue;
 				direction = human->getBody()->GetPosition() - pos;
 			}
 		}
-		direction.Normalize();
-		zombie->getBody()->SetLinearVelocity(zombie->getSpeed() * direction);
+		if(direction!=b2Vec2_zero)
+		{
+			direction.Normalize();
+			zombie->getBody()->SetLinearVelocity(zombie->getSpeed() * direction);
+		}
+		else
+		{
+			this->randomMovement(zombie);
+		}
 	}
 }
 
@@ -155,7 +177,7 @@ void HumanMovement::performLogic()
 {
 	for (auto human : *humans)
 	{
-		if(isCat(human->getBody()->GetFixtureList(),Category::Human))
+		if(human->getDrawable() && isCat(human->getBody()->GetFixtureList(),Category::Human))
 		{
 			if(human->getZombified())
 			{
@@ -212,4 +234,61 @@ void Timer::performLogic()
 		this->isOn = false;
 		this->sendAction(this->action);
 	}
+}
+
+float32 Aimcast::ReportFixture(b2Fixture* fixture, const b2Vec2& point, const b2Vec2& normal, float32 fraction)
+{
+	if(fixture->IsSensor())
+	{
+		return 1.f;
+	}
+	this->fixture = fixture;
+	this->point = point;
+	this->hit = true;
+	return fraction;
+}
+
+AimPointer::AimPointer(b2World* world, SGE::Reactive* aimer, Pointer* pointer, SGE::MouseObject* mouse, SGE::Camera2d* cam, float range)
+	: Logic(SGE::LogicPriority::High), world(world), aimer(aimer), pointer(pointer), mouse(mouse), cam(cam), range(range)
+{
+}
+
+void AimPointer::aim(b2Vec2 pos, b2Vec2 target)
+{
+	Aimcast callback;
+	this->world->RayCast(&callback, pos, target);
+	if(callback.hit)
+	{	
+		if (reload < 0.f && SGE::isPressed(SGE::Key::Space)
+			&& (isCat(callback.fixture,Category::Human) || isCat(callback.fixture,Category::Zombie)))
+		{
+			reinterpret_cast<Human*>(callback.fixture->GetUserData())->setDrawable(false);
+			world->DestroyBody(callback.fixture->GetBody());
+			reload = 1.f;
+			this->aim(pos, target);
+		}
+		else 
+		{
+			this->pointer->setPosition(callback.point.x, callback.point.y);
+		}
+	}
+	else
+	{
+		this->pointer->setPosition(target.x, target.y);
+	}
+}
+
+void AimPointer::performLogic()
+{
+	if (reload > 0.f)
+	{
+		reload -= SGE::delta_time;
+	}
+	auto dir = this->cam->screenToWorld(this->mouse->getMouseCoords()) - this->aimer->getPosition();
+	b2Vec2 direction{ dir.x, dir.y };
+	direction.Normalize();
+	//std::cout << direction.x << ", " << direction.y << std::endl;
+	b2Vec2 pos{ this->aimer->getX(), this->aimer->getY() };
+	b2Vec2 target = pos + this->range*direction;
+	aim(pos, target);
 }
