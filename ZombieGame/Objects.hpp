@@ -67,6 +67,7 @@ class Human : public SGE::Reactive
 	unsigned int counter = 1;
 	unsigned int maxCount = 0;
 	bool zombified = false;
+	bool killed = false;
 	BodyList bodies;
 public:
 	Human(const float x, const float y);
@@ -84,15 +85,19 @@ public:
 	float getSpeed() const;
 
 	void setSpeed(float s);
-
+	
 	BodyList& getBodies();
 
 	void Zombify();
 
-	inline bool getZombified() const;
+	inline bool isZombified() const;
+
+	void kill();
+	
+	bool isDead();
 };
 
-bool Human::getZombified() const
+bool Human::isZombified() const
 {
 	return this->zombified;
 }

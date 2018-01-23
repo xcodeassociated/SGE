@@ -124,9 +124,26 @@ protected:
 	SGE::Camera2d* cam;
 	float range;
 	float reload = -1.f;
+	std::size_t& counter;
 	void aim(b2Vec2 pos, b2Vec2 target);
 public:
-	AimPointer(b2World* world, SGE::Reactive* aimer, Pointer* pointer, SGE::MouseObject* mouse, SGE::Camera2d* cam, float range);
+	AimPointer(b2World* world, SGE::Reactive* aimer, Pointer* pointer, SGE::MouseObject* mouse, SGE::Camera2d* cam, std::size_t& counter, float range);
 	void performLogic() override;
+};
+
+namespace SGE
+{
+	class Scene;
+}
+
+class WinCondition : public SGE::Logic
+{
+protected:
+	size_t& zombies;
+	size_t& killedZombies;
+	SGE::Scene* endGame = nullptr;
+public:
+	WinCondition(size_t& zombies, size_t& killedZombies, SGE::Scene* endGame);
+	virtual void performLogic() override;
 };
 #endif

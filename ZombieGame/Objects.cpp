@@ -54,6 +54,16 @@ void Human::Zombify()
 	this->zombified = true;
 }
 
+void Human::kill()
+{
+	this->killed = true;
+}
+
+bool Human::isDead()
+{
+	return this->killed;
+}
+
 Pointer::Pointer() : Object(0.f,0.f,true,new SGE::Circle(6.f))
 {
 }

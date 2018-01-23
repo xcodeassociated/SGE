@@ -116,7 +116,7 @@ bool ZombieScene::init()
 	return true;
 }
 
-void ZombieScene::zombify(Human* human)
+void ZombieScene::zombify(Human* human, size_t& counter)
 {
 	b2Body* body = human->getBody();
 	for(b2Fixture* next = body->GetFixtureList(), *temp = nullptr; next!=nullptr ; next=temp)
@@ -128,6 +128,7 @@ void ZombieScene::zombify(Human* human)
 	human->setSpeed(8 * 64.f);
 	human->addFixture(sensorFixture)->SetFilterData(zombieSensorFilter);
 	human->addFixture(humanShape)->SetFilterData(zombieFilter);
+	++counter;
 }
 
 ZombieScene::ZombieScene(SGE::Game* game, const char* path) : Box2DScene(b2Vec2_zero), game(game), path(path)
@@ -232,13 +233,13 @@ void ZombieScene::loadScene()
 		temp->addFixture(humanShape)->SetFilterData(humanFilter);
 	}
 
-	zombify(this->humans.at(0));
+	zombify(this->humans.at(0), this->zombieCount);
 
 	game->textureObject(this->humans.at(0), PATH"ZombieGame/Resources/Textures/zombie.png");
 
 	zombieTexture = this->humans.at(0)->texture;
 
-	this->addLogic(new HumanMovement(&this->humans,zombify,&world));
+	this->addLogic(new HumanMovement(&this->humans,std::bind(zombify,std::placeholders::_1,this->zombieCount),&world));
 	SGE::Reactive* portal = new Portal(float(portal_location.first), float(portal_location.second));
 	game->textureObject(portal, PATH"ZombieGame/Resources/Textures/glass.png");
 	this->addReactive(portal,&worldBodyDef);
@@ -253,7 +254,11 @@ void ZombieScene::loadScene()
 	this->addObject(pointer);
 	this->game->textureObject(pointer, PATH"ZombieGame/Resources/Textures/pointer.png");
 	
-	this->addLogic(new AimPointer(&this->world, player, pointer, mouse, camera, 6 * 64.f));
+	this->addLogic(new AimPointer(&this->world, player, pointer, mouse, camera, this->killCount, 8 * 64.f));
+}
+
+void ZombieScene::unloadScene()
+{
 }
 
 ZombieScene::~ZombieScene()

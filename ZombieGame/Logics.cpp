@@ -10,6 +10,7 @@
 #include <sge_keyboard_state.hpp>
 #include <sge_fps_limiter.hpp>
 #include "Box2D/Dynamics/b2World.h"
+#include "sge_director.hpp"
 
 float32 CheckWall::ReportFixture(b2Fixture* fixture, const b2Vec2& point, const b2Vec2& normal, float32 fraction)
 {
@@ -106,7 +107,10 @@ void HumanRandomMovement::performLogic()
 {
 	for (auto human : *humans)
 	{
-		this->randomMovement(human);
+		if(!human->isDead())
+		{
+			this->randomMovement(human);
+		}
 	}
 }
 
@@ -177,9 +181,9 @@ void HumanMovement::performLogic()
 {
 	for (auto human : *humans)
 	{
-		if(human->getDrawable() && isCat(human->getBody()->GetFixtureList(),Category::Human))
+		if(!human->isDead() && isCat(human->getBody()->GetFixtureList(),Category::Human))
 		{
-			if(human->getZombified())
+			if(human->isZombified())
 			{
 				this->zombifier(human);
 				this->zombieMovement(human);
@@ -248,8 +252,8 @@ float32 Aimcast::ReportFixture(b2Fixture* fixture, const b2Vec2& point, const b2
 	return fraction;
 }
 
-AimPointer::AimPointer(b2World* world, SGE::Reactive* aimer, Pointer* pointer, SGE::MouseObject* mouse, SGE::Camera2d* cam, float range)
-	: Logic(SGE::LogicPriority::High), world(world), aimer(aimer), pointer(pointer), mouse(mouse), cam(cam), range(range)
+AimPointer::AimPointer(b2World* world, SGE::Reactive* aimer, Pointer* pointer, SGE::MouseObject* mouse, SGE::Camera2d* cam, std::size_t& counter, float range)
+	: Logic(SGE::LogicPriority::High), world(world), aimer(aimer), pointer(pointer), mouse(mouse), cam(cam), range(range), counter(counter)
 {
 }
 
@@ -262,8 +266,19 @@ void AimPointer::aim(b2Vec2 pos, b2Vec2 target)
 		if (reload < 0.f && SGE::isPressed(SGE::Key::Space)
 			&& (isCat(callback.fixture,Category::Human) || isCat(callback.fixture,Category::Zombie)))
 		{
-			reinterpret_cast<Human*>(callback.fixture->GetUserData())->setDrawable(false);
-			world->DestroyBody(callback.fixture->GetBody());
+			Human* human = reinterpret_cast<Human*>(callback.fixture->GetUserData());
+			human->kill();
+			if(human->isZombified())
+			{
+				++this->counter;
+			}
+			//world->DestroyBody(callback.fixture->GetBody());
+			b2Body* body = callback.fixture->GetBody();
+			while(body->GetFixtureList())
+			{
+				body->DestroyFixture(body->GetFixtureList());
+			}
+			body->SetActive(false);
 			reload = 1.f;
 			this->aim(pos, target);
 		}
@@ -291,4 +306,17 @@ void AimPointer::performLogic()
 	b2Vec2 pos{ this->aimer->getX(), this->aimer->getY() };
 	b2Vec2 target = pos + this->range*direction;
 	aim(pos, target);
+}
+
+WinCondition::WinCondition(size_t& zombies, size_t& killedZombies, SGE::Scene* endGame)
+	: Logic(SGE::LogicPriority::Low), zombies(zombies), killedZombies(killedZombies), endGame(endGame)
+{
+}
+
+void WinCondition::performLogic()
+{
+	if(zombies == killedZombies)
+	{
+		SGE::Director::getDirector()->setNextScene(this->endGame);
+	}
 }

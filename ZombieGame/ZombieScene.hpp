@@ -20,6 +20,8 @@ protected:
 	SGE::Game* game = nullptr;
 	std::string path;
 	std::vector<Human*> humans;
+	std::size_t zombieCount = 0;
+	std::size_t killCount = 0;
 
 	static SGE::GLTexture zombieTexture;
 	static b2Filter zombieFilter;
@@ -34,14 +36,14 @@ protected:
 	static b2PolygonShape worldShape;
 	static b2BodyDef worldBodyDef;
 	static b2Filter worldFilter;
-
 	static bool init();
-	static void zombify(Human* human);
+	static void zombify(Human* human, size_t& counter);
 public:
 
 	ZombieScene(SGE::Game* game, const char* path);
 
 	virtual void loadScene() override;
+	virtual void unloadScene() override;
 
 	virtual ~ZombieScene();
 
