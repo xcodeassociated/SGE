@@ -241,7 +241,7 @@ void Timer::performLogic()
 	}
 }
 
-OnKey::OnKey(SGE::Key key, SGE::Action* action) : Logic(SGE::LogicPriority::Low), key(key), action(action)
+OnKey::OnKey(SGE::Key key, SGE::Scene* scene) : Logic(SGE::LogicPriority::Low), key(key), scene(scene)
 {
 }
 
@@ -249,7 +249,7 @@ void OnKey::performLogic()
 {
 	if (SGE::isPressed(this->key))
 	{
-		this->sendAction(this->action);
+		this->sendAction(new Load(scene));
 	}
 }
 

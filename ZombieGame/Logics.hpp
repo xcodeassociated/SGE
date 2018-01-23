@@ -12,6 +12,10 @@
 #include "Box2D/Dynamics/b2WorldCallbacks.h"
 #include "sge_mouse.hpp"
 
+namespace SGE {
+	class Scene;
+}
+
 struct CheckWall : public b2RayCastCallback
 {
 	bool hitWall = false;
@@ -109,9 +113,9 @@ public:
 class OnKey : public SGE::Logic
 {
 	SGE::Key key;
-	SGE::Action* action = nullptr;
+	SGE::Scene* scene = nullptr;
 public:
-	OnKey(SGE::Key key, SGE::Action* action);
+	OnKey(SGE::Key key, SGE::Scene* scene);
 	void performLogic() override;
 };
 

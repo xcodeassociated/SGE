@@ -32,16 +32,15 @@ void SGE::ActionHandler::performSingleAction(Action* action, LogicPriority prior
 	else
 	{
 		this->addAction(action);
-
-        // set object locks
-        auto objects = action->getObjects();
-        if (objects)
-        {
-            for (auto object : *objects)
-            {
-                object->setLock(priority);
-            }
-        }
+        //set object locks
+        //auto objects = action->getObjects();
+        //if (objects)
+        //{
+        //    for (auto object : *objects)
+        //    {
+        //        object->setLock(priority);
+        //    }
+        //}
 	}
 }
 

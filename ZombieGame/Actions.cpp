@@ -71,6 +71,7 @@ void Load::action_main()
 {
 	auto d = SGE::Director::getDirector();
 	d->toNextScene(this->nextScene);
+	this->active = false;
 }
 
 void Load::action_ends()

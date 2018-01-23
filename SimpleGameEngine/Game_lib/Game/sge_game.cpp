@@ -161,14 +161,14 @@ void SGE::Game::performActions()
 		{
 			action->action_ends();
 			// release object locks
-			auto objects = action->getObjects();
+			/*auto objects = action->getObjects();
 			if (objects)
 			{
 				for (auto object : *objects)
 				{
 					object->setLock(LogicPriority::None);
 				}
-			}
+			}*/
 			delete action;
 			return true;
 		}

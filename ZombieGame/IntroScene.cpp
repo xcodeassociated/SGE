@@ -31,6 +31,9 @@ void IntroScene::finalize()
 
 void IntroScene::onDraw()
 {
+	auto g = SGE::Game::getGame();
+	g->getCamera()->setPosition(0, 0);
+	g->getCamera()->setScale(1.f);
 }
 
 void EndScene::loadScene()
@@ -40,7 +43,7 @@ void EndScene::loadScene()
 	auto g = SGE::Game::getGame();
 	g->textureObject(o, path);
 	this->addObject(o);
-	this->addLogic(new OnKey(SGE::Key::Return, new Load(next)));
+	this->addLogic(new OnKey(SGE::Key::Return, next));
 	g->getCamera()->setPosition(0, 0);
 	g->getCamera()->setScale(1.f);
 }
