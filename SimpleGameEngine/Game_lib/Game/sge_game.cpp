@@ -95,6 +95,7 @@ void SGE::Game::unmapAction(const SGE::InputBinder& bind)
 
 void SGE::Game::finalize()
 {
+	SDL_Quit();
 	this->input_handler->clear();
 	*logger << "Game Finalize method invoked" << std::endl;
 }
@@ -182,7 +183,8 @@ void SGE::Game::performLogics()
 
 void SGE::Game::stop()
 {
-	this->running = this->playing = false;
+	this->running = false;
+	this->playing = false;
 }
 
 void SGE::Game::draw(SGE::Scene* scene)

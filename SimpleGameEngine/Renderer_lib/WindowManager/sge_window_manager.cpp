@@ -58,7 +58,6 @@ void SGE::WindowManager::showWindow() noexcept {
 
 void SGE::WindowManager::finalizeWindow() noexcept {
 	SDL_DestroyWindow(this->window);
-	SDL_Quit();
 }
 
 SDL_Window* SGE::WindowManager::getWindow() noexcept {
