@@ -73,6 +73,8 @@ namespace SGE
 		 * \return Vector of world elements
 		 */
 		std::vector<WorldElement>& getWorld();
+
+		void clear();
 	};
 }
 

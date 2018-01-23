@@ -165,7 +165,7 @@ void ZombieScene::loadScene()
 	this->addObject(Dummy1);
 	SGE::Object* Dummy2 = new Image(-1000, -1000);
 	game->textureObject(Dummy2, PATH"ZombieGame/Resources/Textures/deadhuman.png");
-	deadHumanTexture = Dummy1->texture;
+	deadHumanTexture = Dummy2->texture;
 	this->addObject(Dummy2);
 
 	SGE::Camera2d* camera = game->getCamera();
@@ -174,11 +174,11 @@ void ZombieScene::loadScene()
 
 	Player* player = new Player(200, 200,true,getCircle());
 
-	SGE::Action* click = new MouseClickedAction(mouse, player);
-	SGE::InputBinder clickBind(click, SGE::Key::MOUSE_LEFT_BUTTON);
-	game->mapAction(clickBind);
+	//SGE::Action* click = new MouseClickedAction(mouse, player);
+	//SGE::InputBinder clickBind(click, SGE::Key::MOUSE_LEFT_BUTTON);
+	//game->mapAction(clickBind);
 
-	auto L3 = new SimpleMove(player, 12*64.f, SGE::Key::W, SGE::Key::S, SGE::Key::A, SGE::Key::D);
+	auto L3 = new SimpleMove(player, 8*4*64.f, SGE::Key::W, SGE::Key::S, SGE::Key::A, SGE::Key::D);
 
 	auto camLogic = new SnapCamera(8, SGE::Key::Up, SGE::Key::Down, SGE::Key::Left, SGE::Key::Right, SGE::Key::O, player, camera);
 	auto camZoom = new SGE::Logics::CameraZoom(camera, 0.1f, 1.f, 0.15f, SGE::Key::Q, SGE::Key::E);
@@ -188,9 +188,9 @@ void ZombieScene::loadScene()
 	this->addLogic(camLogic);
 	this->addLogic(camZoom);
 
-	auto reset = new GOTO(player);
-	game->mapAction(SGE::InputBinder(reset, SGE::Key::B));
-
+	//auto reset = new GOTO(player);
+	//game->mapAction(SGE::InputBinder(reset, SGE::Key::B));
+	
 	std::vector<std::string> l;
 	std::fstream is;
 	is.open(path);
@@ -247,14 +247,11 @@ void ZombieScene::loadScene()
 	zombieTexture = this->humans.at(0)->texture;
 	this->humans.at(0)->Zombify();
 
-	this->addLogic(new HumanMovement(&this->humans,std::bind(zombify,std::placeholders::_1),&world));
+	this->addLogic(new HumanMovement(&this->humans,std::bind(&ZombieScene::zombify,this,std::placeholders::_1),&world));
 	SGE::Reactive* portal = new Portal(float(portal_location.first), float(portal_location.second));
 	game->textureObject(portal, PATH"ZombieGame/Resources/Textures/glass.png");
 	this->addReactive(portal,&worldBodyDef);
 	portal->getBody()->CreateFixture(&worldShape, 0);
-
-	SGE::Action* portalAction = new PortalAction;
-	game->mapAction(SGE::InputBinder(portalAction, SGE::Key::P));
 
 	world.SetContactListener(new ZListener());
 
@@ -276,7 +273,10 @@ void ZombieScene::loadScene()
 void ZombieScene::unloadScene()
 {
 	this->finalize();
-	this->world = b2World(b2Vec2_zero);
+	while(this->world.GetBodyList())
+	{
+		this->world.DestroyBody(this->world.GetBodyList());
+	}
 }
 
 ZombieScene::~ZombieScene()
@@ -285,7 +285,7 @@ ZombieScene::~ZombieScene()
 }
 
 template<typename Vec>
-void vec_clear(Vec vec)
+void vec_clear(Vec& vec)
 {
 	for (auto h : vec)
 	{
@@ -296,8 +296,9 @@ void vec_clear(Vec vec)
 
 void ZombieScene::finalize()
 {
-	
-	vec_clear(this->humans);
+	//vec_clear(this->humans);
+	this->level.clear();
+	this->humans.clear();
 	vec_clear(this->getLogics());
 	vec_clear(this->getActions());
 	vec_clear(this->getObjects());

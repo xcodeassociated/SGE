@@ -30,12 +30,12 @@ SimpleMove::SimpleMove(SGE::Reactive* object, const float speed, const SGE::Key 
 
 void SimpleMove::performLogic()
 {
-	b2Vec2 move = { 0,0 };
+	b2Vec2 move = b2Vec2_zero;
 	if (isPressed(this->up)) move.y += 1;
 	if (isPressed(this->down)) move.y -= 1;
 	if (isPressed(this->right)) move.x += 1;
 	if (isPressed(this->left)) move.x -= 1;
-	if (b2Vec2{ 0,0 } != move)
+	if (b2Vec2_zero != move)
 	{
 		move.Normalize();
 		object->getBody()->SetLinearVelocity(this->speed * move);

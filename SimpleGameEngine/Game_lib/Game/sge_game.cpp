@@ -181,16 +181,16 @@ void SGE::Game::performLogics()
 {
 	auto& lVec = this->currentScene->getLogics();
 
-	LogicPriority objectCurrentLogicP = LogicPriority::None;
-	LogicPriority nextLogicP = LogicPriority::None;
+//	LogicPriority objectCurrentLogicP = LogicPriority::None;
+//	LogicPriority nextLogicP = LogicPriority::None;
 
-	for (auto it = lVec.begin(), end = lVec.end(); it != end; ++it)
+	for(auto logic : lVec)
 	{
-		nextLogicP = (*it)->getPriority();
-		if (nextLogicP <= objectCurrentLogicP)
+		//nextLogicP = (*it)->getPriority();
+		//if (nextLogicP <= objectCurrentLogicP)
 		{
-			if ((*it)->getOn())
-				(*it)->performLogic();
+			if(logic->getOn())
+				logic->performLogic();
 		}
 	}
 }

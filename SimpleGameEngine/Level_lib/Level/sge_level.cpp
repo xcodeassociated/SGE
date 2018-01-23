@@ -23,3 +23,9 @@ std::vector<SGE::WorldElement>& SGE::Level::getWorld()
 {
 	return this->world;
 }
+
+void SGE::Level::clear()
+{
+	this->background.clear();
+	this->world.clear();
+}
