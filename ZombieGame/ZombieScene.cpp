@@ -174,11 +174,7 @@ void ZombieScene::loadScene()
 
 	Player* player = new Player(200, 200,true,getCircle());
 
-	//SGE::Action* click = new MouseClickedAction(mouse, player);
-	//SGE::InputBinder clickBind(click, SGE::Key::MOUSE_LEFT_BUTTON);
-	//game->mapAction(clickBind);
-
-	auto L3 = new SimpleMove(player, 8*4*64.f, SGE::Key::W, SGE::Key::S, SGE::Key::A, SGE::Key::D);
+	auto L3 = new SimpleMove(player, 8*10*64.f, SGE::Key::W, SGE::Key::S, SGE::Key::A, SGE::Key::D);
 
 	auto camLogic = new SnapCamera(8, SGE::Key::Up, SGE::Key::Down, SGE::Key::Left, SGE::Key::Right, SGE::Key::O, player, camera);
 	auto camZoom = new SGE::Logics::CameraZoom(camera, 0.1f, 1.f, 0.15f, SGE::Key::Q, SGE::Key::E);
@@ -187,9 +183,6 @@ void ZombieScene::loadScene()
 	this->addLogic(L3);
 	this->addLogic(camLogic);
 	this->addLogic(camZoom);
-
-	//auto reset = new GOTO(player);
-	//game->mapAction(SGE::InputBinder(reset, SGE::Key::B));
 	
 	std::vector<std::string> l;
 	std::fstream is;
@@ -296,7 +289,6 @@ void vec_clear(Vec& vec)
 
 void ZombieScene::finalize()
 {
-	//vec_clear(this->humans);
 	this->level.clear();
 	this->humans.clear();
 	vec_clear(this->getLogics());

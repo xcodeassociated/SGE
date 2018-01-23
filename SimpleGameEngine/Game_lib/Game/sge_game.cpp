@@ -160,15 +160,6 @@ void SGE::Game::performActions()
 		if (!action->isActive())
 		{
 			action->action_ends();
-			// release object locks
-			/*auto objects = action->getObjects();
-			if (objects)
-			{
-				for (auto object : *objects)
-				{
-					object->setLock(LogicPriority::None);
-				}
-			}*/
 			delete action;
 			return true;
 		}
@@ -180,17 +171,11 @@ void SGE::Game::performActions()
 void SGE::Game::performLogics()
 {
 	auto& lVec = this->currentScene->getLogics();
-
-//	LogicPriority objectCurrentLogicP = LogicPriority::None;
-//	LogicPriority nextLogicP = LogicPriority::None;
-
 	for(auto logic : lVec)
 	{
-		//nextLogicP = (*it)->getPriority();
-		//if (nextLogicP <= objectCurrentLogicP)
+		if(logic->getOn())
 		{
-			if(logic->getOn())
-				logic->performLogic();
+			logic->performLogic();
 		}
 	}
 }

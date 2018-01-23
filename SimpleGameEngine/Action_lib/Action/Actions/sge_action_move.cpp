@@ -1,6 +1,7 @@
 #include "sge_action_move.hpp"
+#include "sge_object.hpp"
 #include <cassert>
-#include <vector>
+#include <glm/detail/type_vec2.hpp>
 
 SGE::ACTION::Move::Move(Object* object, float _x, float _y, bool active) : Action(active), object(object), destX(_x), destY(_y)
 {

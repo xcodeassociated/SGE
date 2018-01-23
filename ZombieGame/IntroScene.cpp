@@ -34,11 +34,11 @@ void IntroScene::onDraw()
 	auto g = SGE::Game::getGame();
 	g->getCamera()->setPosition(0, 0);
 	g->getCamera()->setScale(1.f);
+	SGE::Director::getDirector()->unloadScene(next);
 }
 
 void EndScene::loadScene()
 {
-	SGE::Director::getDirector()->unloadScene(next);
 	auto o = new Image(0, 0, new SGE::Rectangle(1024, 768, true));
 	auto g = SGE::Game::getGame();
 	g->textureObject(o, path);

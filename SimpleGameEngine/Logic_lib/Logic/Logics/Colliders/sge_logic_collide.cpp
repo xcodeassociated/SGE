@@ -3,6 +3,7 @@
 #include "sge_shape_rectangle.hpp"
 #include "sge_shape_circle.hpp"
 #include <glm/geometric.hpp>
+#include "sge_object.hpp"
 
 SGE::Action* SGE::Logics::Collide::RectangleCollisionVec(Object* still, Object* toMove)
 {

@@ -1,6 +1,6 @@
 #include "sge_action_handler.hpp"
 #include "sge_action.hpp"
-#include <algorithm>
+#include "sge_logic.hpp"
 
 SGE::ActionHandler::ActionHandler()
 {
@@ -32,15 +32,6 @@ void SGE::ActionHandler::performSingleAction(Action* action, LogicPriority prior
 	else
 	{
 		this->addAction(action);
-        //set object locks
-        //auto objects = action->getObjects();
-        //if (objects)
-        //{
-        //    for (auto object : *objects)
-        //    {
-        //        object->setLock(priority);
-        //    }
-        //}
 	}
 }
 
