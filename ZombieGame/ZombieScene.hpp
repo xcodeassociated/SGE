@@ -23,7 +23,6 @@ protected:
 	std::size_t zombieCount = 0;
 	std::size_t killCount = 0;
 
-	static SGE::GLTexture zombieTexture;
 	static b2Filter zombieFilter;
 	static b2Filter zombieSensorFilter;
 	static b2Filter playerFilter;
@@ -37,8 +36,13 @@ protected:
 	static b2BodyDef worldBodyDef;
 	static b2Filter worldFilter;
 	static bool init();
-	static void zombify(Human* human, size_t& counter);
 public:
+	void zombify(Human* human);
+	SGE::Scene* endScene;
+
+	static SGE::GLTexture zombieTexture;
+	static SGE::GLTexture deadZombieTexture;
+	static SGE::GLTexture deadHumanTexture;
 
 	ZombieScene(SGE::Game* game, const char* path);
 

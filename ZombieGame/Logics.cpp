@@ -11,6 +11,7 @@
 #include <sge_fps_limiter.hpp>
 #include "Box2D/Dynamics/b2World.h"
 #include "sge_director.hpp"
+#include "ZombieScene.hpp"
 
 float32 CheckWall::ReportFixture(b2Fixture* fixture, const b2Vec2& point, const b2Vec2& normal, float32 fraction)
 {
@@ -240,6 +241,18 @@ void Timer::performLogic()
 	}
 }
 
+OnKey::OnKey(SGE::Key key, SGE::Action* action) : Logic(SGE::LogicPriority::Low), key(key), action(action)
+{
+}
+
+void OnKey::performLogic()
+{
+	if (SGE::isPressed(this->key))
+	{
+		this->sendAction(this->action);
+	}
+}
+
 float32 Aimcast::ReportFixture(b2Fixture* fixture, const b2Vec2& point, const b2Vec2& normal, float32 fraction)
 {
 	if(fixture->IsSensor())
@@ -271,6 +284,11 @@ void AimPointer::aim(b2Vec2 pos, b2Vec2 target)
 			if(human->isZombified())
 			{
 				++this->counter;
+				human->texture = ZombieScene::deadZombieTexture;
+			}
+			else
+			{
+				human->texture = ZombieScene::deadHumanTexture;
 			}
 			//world->DestroyBody(callback.fixture->GetBody());
 			b2Body* body = callback.fixture->GetBody();
@@ -317,6 +335,6 @@ void WinCondition::performLogic()
 {
 	if(zombies == killedZombies)
 	{
-		SGE::Director::getDirector()->setNextScene(this->endGame);
+		this->sendAction(new Load(endGame));
 	}
 }

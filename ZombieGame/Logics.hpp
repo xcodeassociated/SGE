@@ -106,6 +106,15 @@ public:
 	void performLogic() override;
 };
 
+class OnKey : public SGE::Logic
+{
+	SGE::Key key;
+	SGE::Action* action = nullptr;
+public:
+	OnKey(SGE::Key key, SGE::Action* action);
+	void performLogic() override;
+};
+
 struct Aimcast: b2RayCastCallback
 {
 	b2Vec2 point = b2Vec2_zero;
@@ -139,8 +148,8 @@ namespace SGE
 class WinCondition : public SGE::Logic
 {
 protected:
-	size_t& zombies;
-	size_t& killedZombies;
+	volatile size_t& zombies;
+	volatile size_t& killedZombies;
 	SGE::Scene* endGame = nullptr;
 public:
 	WinCondition(size_t& zombies, size_t& killedZombies, SGE::Scene* endGame);

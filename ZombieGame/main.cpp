@@ -20,11 +20,15 @@ int main(int argc, char * argv[])
 	game->bindDirector(director);
 	game->init(60);
 
-	SGE::Scene* S1 = new ZombieScene(game, PATH"ZombieGame/Levels/level1.txt");
+	ZombieScene* S1 = new ZombieScene(game, PATH"ZombieGame/Levels/level1.txt");
 	SGE::Scene* S0 = new IntroScene(S1, PATH"ZombieGame/Resources/Textures/zombie-game.png");
+	SGE::Scene* S2 = new EndScene(S1, PATH"ZombieGame/Resources/Textures/end-game.png");
+	
+	S1->endScene = S2;
 
 	director->addScene(S0);
 	director->addScene(S1);
+	director->addScene(S2);
 
 	director->setNextScene(S0);
 	
@@ -32,6 +36,7 @@ int main(int argc, char * argv[])
 
 	director->deleteScene(S0);
 	director->deleteScene(S1);
+	director->deleteScene(S2);
 	
 	game->finalize();
 	director->finalize();

@@ -8,10 +8,12 @@
 #include <sge_input_binder.hpp>
 #include <fstream>
 #include <set>
+#include <functional>
 #include <Box2D/Collision/Shapes/b2PolygonShape.h>
 #include <Box2D/Collision/Shapes/b2CircleShape.h>
 #include "Logics/World/sge_worldstep.hpp"
 #include "Box2D/Dynamics/Contacts/b2Contact.h"
+#include "sge_director.hpp"
 
 void ZListener::BeginContact(b2Contact* contact)
 {
@@ -65,6 +67,8 @@ void ZListener::EndContact(b2Contact* contact)
 }
 
 SGE::GLTexture ZombieScene::zombieTexture;
+SGE::GLTexture ZombieScene::deadZombieTexture;
+SGE::GLTexture ZombieScene::deadHumanTexture;
 b2Filter ZombieScene::zombieFilter;
 b2Filter ZombieScene::zombieSensorFilter;
 b2Filter ZombieScene::playerFilter;
@@ -116,8 +120,9 @@ bool ZombieScene::init()
 	return true;
 }
 
-void ZombieScene::zombify(Human* human, size_t& counter)
+void ZombieScene::zombify(Human* human)
 {
+	++this->zombieCount;
 	b2Body* body = human->getBody();
 	for(b2Fixture* next = body->GetFixtureList(), *temp = nullptr; next!=nullptr ; next=temp)
 	{
@@ -128,7 +133,6 @@ void ZombieScene::zombify(Human* human, size_t& counter)
 	human->setSpeed(8 * 64.f);
 	human->addFixture(sensorFixture)->SetFilterData(zombieSensorFilter);
 	human->addFixture(humanShape)->SetFilterData(zombieFilter);
-	++counter;
 }
 
 ZombieScene::ZombieScene(SGE::Game* game, const char* path) : Box2DScene(b2Vec2_zero), game(game), path(path)
@@ -138,6 +142,8 @@ ZombieScene::ZombieScene(SGE::Game* game, const char* path) : Box2DScene(b2Vec2_
 
 void ZombieScene::loadScene()
 {
+	this->killCount = 0;
+	this->zombieCount = 0;
 	std::map<char, std::string> mask = {
 		{ 'R', PATH"ZombieGame/Resources/Textures/red_bricks.png" },
 		{ 'B', PATH"ZombieGame/Resources/Textures/red_bricks.png" },
@@ -153,23 +159,26 @@ void ZombieScene::loadScene()
 		body->CreateFixture(&worldShape, 0)->SetFilterData(worldFilter);
 	}
 
+	SGE::Object* Dummy1 = new Image(-1000, -1000);
+	game->textureObject(Dummy1, PATH"ZombieGame/Resources/Textures/deadzombie.png");
+	deadZombieTexture = Dummy1->texture;
+	this->addObject(Dummy1);
+	SGE::Object* Dummy2 = new Image(-1000, -1000);
+	game->textureObject(Dummy2, PATH"ZombieGame/Resources/Textures/deadhuman.png");
+	deadHumanTexture = Dummy1->texture;
+	this->addObject(Dummy2);
+
 	SGE::Camera2d* camera = game->getCamera();
 	camera->setScale(0.5f);
 	SGE::MouseObject* mouse = game->getMouse();
 
 	Player* player = new Player(200, 200,true,getCircle());
 
-	game->textureObject(player, PATH"ZombieGame/Resources/Textures/circle.png");
-	this->addReactive(player,&humanBodyDef);
-	player->addFixture(humanShape);
-	player->getBody()->SetLinearDamping(64);
-	player->getBody()->GetFixtureList()->SetFilterData(playerFilter);
-
 	SGE::Action* click = new MouseClickedAction(mouse, player);
 	SGE::InputBinder clickBind(click, SGE::Key::MOUSE_LEFT_BUTTON);
 	game->mapAction(clickBind);
 
-	auto L3 = new SimpleMove(player, 8*64.f, SGE::Key::W, SGE::Key::S, SGE::Key::A, SGE::Key::D);
+	auto L3 = new SimpleMove(player, 12*64.f, SGE::Key::W, SGE::Key::S, SGE::Key::A, SGE::Key::D);
 
 	auto camLogic = new SnapCamera(8, SGE::Key::Up, SGE::Key::Down, SGE::Key::Left, SGE::Key::Right, SGE::Key::O, player, camera);
 	auto camZoom = new SGE::Logics::CameraZoom(camera, 0.1f, 1.f, 0.15f, SGE::Key::Q, SGE::Key::E);
@@ -233,13 +242,12 @@ void ZombieScene::loadScene()
 		temp->addFixture(humanShape)->SetFilterData(humanFilter);
 	}
 
-	zombify(this->humans.at(0), this->zombieCount);
-
+	this->zombify(this->humans.at(0));
 	game->textureObject(this->humans.at(0), PATH"ZombieGame/Resources/Textures/zombie.png");
-
 	zombieTexture = this->humans.at(0)->texture;
+	this->humans.at(0)->Zombify();
 
-	this->addLogic(new HumanMovement(&this->humans,std::bind(zombify,std::placeholders::_1,this->zombieCount),&world));
+	this->addLogic(new HumanMovement(&this->humans,std::bind(zombify,std::placeholders::_1),&world));
 	SGE::Reactive* portal = new Portal(float(portal_location.first), float(portal_location.second));
 	game->textureObject(portal, PATH"ZombieGame/Resources/Textures/glass.png");
 	this->addReactive(portal,&worldBodyDef);
@@ -255,10 +263,20 @@ void ZombieScene::loadScene()
 	this->game->textureObject(pointer, PATH"ZombieGame/Resources/Textures/pointer.png");
 	
 	this->addLogic(new AimPointer(&this->world, player, pointer, mouse, camera, this->killCount, 8 * 64.f));
+	this->addLogic(new WinCondition(this->zombieCount, this->killCount, endScene));
+
+	//Puts player on top
+	game->textureObject(player, PATH"ZombieGame/Resources/Textures/player.png");
+	this->addReactive(player, &humanBodyDef);
+	player->addFixture(humanShape);
+	player->getBody()->SetLinearDamping(64);
+	player->getBody()->GetFixtureList()->SetFilterData(playerFilter);
 }
 
 void ZombieScene::unloadScene()
 {
+	this->finalize();
+	this->world = b2World(b2Vec2_zero);
 }
 
 ZombieScene::~ZombieScene()
