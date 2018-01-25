@@ -131,7 +131,7 @@ void HumanMovement::zombieMovement(Human* zombie)
 		const b2Vec2 pos = zombie->getBody()->GetPosition();
 		b2Vec2 direction = { 0,0 };
 		b2Vec2 humanPos = { 0,0 };
-		float maxSqrDist = 640.f*640.f;
+		float maxSqrDist = 36.f;
 		float sqrDist = 0.f;
 		CheckWall los;
 		for (auto* human : humans)
@@ -257,7 +257,7 @@ float32 Aimcast::ReportFixture(b2Fixture* fixture, const b2Vec2& point, const b2
 {
 	if(fixture->IsSensor())
 	{
-		return 1.f;
+		return -1.f;
 	}
 	this->fixture = fixture;
 	this->point = point;
@@ -297,17 +297,17 @@ void AimPointer::aim(b2Vec2 pos, b2Vec2 target)
 				body->DestroyFixture(body->GetFixtureList());
 			}
 			body->SetActive(false);
-			reload = 1.f;
+			reload = 0.5f;
 			this->aim(pos, target);
 		}
 		else 
 		{
-			this->pointer->setPosition(callback.point.x, callback.point.y);
+			this->pointer->setPosition(callback.point.x * 64.f, callback.point.y * 64.f);
 		}
 	}
 	else
 	{
-		this->pointer->setPosition(target.x, target.y);
+		this->pointer->setPosition(target.x * 64.f, target.y * 64.f);
 	}
 }
 
@@ -321,8 +321,8 @@ void AimPointer::performLogic()
 	b2Vec2 direction{ dir.x, dir.y };
 	direction.Normalize();
 	//std::cout << direction.x << ", " << direction.y << std::endl;
-	b2Vec2 pos{ this->aimer->getX(), this->aimer->getY() };
-	b2Vec2 target = pos + this->range*direction;
+	b2Vec2 pos{ this->aimer->getX() / 64.f, this->aimer->getY() / 64.f };
+	b2Vec2 target = pos + this->range * direction;
 	aim(pos, target);
 }
 

@@ -49,6 +49,10 @@ class Player : public SGE::Reactive
 {
 public:
 	using Reactive::Reactive;
+	virtual glm::vec2 getPosition() const noexcept override;
+	virtual void setPosition(float x, float y) override;
+	virtual float getX() const noexcept override;
+	virtual float getY() const noexcept override;
 };
 
 class Portal : public SGE::Reactive
@@ -62,7 +66,7 @@ public:
 class Human : public SGE::Reactive
 {
 	using BodyList = std::forward_list<Human*>;
-	float speed = 5 * 64.f;
+	float speed = 2;
 	b2Vec2 direction = { 1.f,0.f };
 	unsigned int counter = 1;
 	unsigned int maxCount = 0;
@@ -94,7 +98,12 @@ public:
 
 	void kill();
 	
-	bool isDead();
+	bool isDead() const;
+
+	virtual glm::vec2 getPosition() const noexcept override;
+	virtual void setPosition(float x, float y) override;
+	virtual float getX() const noexcept override;
+	virtual float getY() const noexcept override;
 };
 
 bool Human::isZombified() const

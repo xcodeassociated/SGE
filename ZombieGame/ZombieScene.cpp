@@ -5,7 +5,6 @@
 #include <sge_logic_collide_level_precise.hpp>
 #include <sge_logic_move.hpp>
 #include <sge_logic_camera_zoom.hpp>
-#include <sge_input_binder.hpp>
 #include <fstream>
 #include <set>
 #include <functional>
@@ -100,7 +99,7 @@ bool ZombieScene::init()
 	humanSensorFilter.maskBits = uint16(Category::Zombie);
 
 	sensorShape.m_p = b2Vec2_zero;
-	sensorShape.m_radius = 64.f * 5;
+	sensorShape.m_radius = 5;
 
 	sensorFixture.isSensor = true;
 	sensorFixture.shape = &sensorShape;
@@ -108,11 +107,11 @@ bool ZombieScene::init()
 	humanBodyDef.fixedRotation = true;
 	humanBodyDef.type = b2_dynamicBody;
 
-	humanShape.m_radius = 32;
+	humanShape.m_radius = 0.5f;
 	humanShape.m_p = b2Vec2_zero;
 
 	worldBodyDef.type = b2_staticBody;
-	worldShape.SetAsBox(32, 32);
+	worldShape.SetAsBox(0.5f, 0.5f);
 
 	worldFilter.categoryBits = uint16(Category::Level);
 	worldFilter.maskBits = Category::Player | Category::Human | Category::Zombie;
@@ -130,7 +129,7 @@ void ZombieScene::zombify(Human* human)
 		body->DestroyFixture(next);
 	}
 	human->texture = zombieTexture;
-	human->setSpeed(8 * 64.f);
+	human->setSpeed(3);
 	human->addFixture(sensorFixture)->SetFilterData(zombieSensorFilter);
 	human->addFixture(humanShape)->SetFilterData(zombieFilter);
 }
@@ -155,7 +154,7 @@ void ZombieScene::loadScene()
 	for(SGE::WorldElement& e: this->getLevel().getWorld())
 	{
 		b2Body* body = world.CreateBody(&worldBodyDef);
-		body->SetTransform(b2Vec2(e.getX(), e.getY()), 0);
+		body->SetTransform(b2Vec2(e.getX()/64.f, e.getY()/64.f), 0);
 		body->CreateFixture(&worldShape, 0)->SetFilterData(worldFilter);
 	}
 
@@ -174,7 +173,7 @@ void ZombieScene::loadScene()
 
 	Player* player = new Player(200, 200,true,getCircle());
 
-	auto L3 = new SimpleMove(player, 8*10*64.f, SGE::Key::W, SGE::Key::S, SGE::Key::A, SGE::Key::D);
+	auto L3 = new SimpleMove(player, 6, SGE::Key::W, SGE::Key::S, SGE::Key::A, SGE::Key::D);
 
 	auto camLogic = new SnapCamera(8, SGE::Key::Up, SGE::Key::Down, SGE::Key::Left, SGE::Key::Right, SGE::Key::O, player, camera);
 	auto camZoom = new SGE::Logics::CameraZoom(camera, 0.1f, 1.f, 0.15f, SGE::Key::Q, SGE::Key::E);
@@ -230,6 +229,7 @@ void ZombieScene::loadScene()
 		Human* temp = new Human(pos.first, pos.second, 60 + rand() % 120);
 		game->textureObject(temp, PATH"ZombieGame/Resources/Textures/circle.png");
 		this->addReactive(temp,&humanBodyDef);
+		temp->setPosition(pos.first, pos.second);
 		this->humans.push_back(temp);
 		temp->addFixture(sensorFixture)->SetFilterData(humanSensorFilter);
 		temp->addFixture(humanShape)->SetFilterData(humanFilter);
@@ -241,10 +241,6 @@ void ZombieScene::loadScene()
 	this->humans.at(0)->Zombify();
 
 	this->addLogic(new HumanMovement(&this->humans,std::bind(&ZombieScene::zombify,this,std::placeholders::_1),&world));
-	SGE::Reactive* portal = new Portal(float(portal_location.first), float(portal_location.second));
-	game->textureObject(portal, PATH"ZombieGame/Resources/Textures/glass.png");
-	this->addReactive(portal,&worldBodyDef);
-	portal->getBody()->CreateFixture(&worldShape, 0);
 
 	world.SetContactListener(new ZListener());
 
@@ -252,14 +248,15 @@ void ZombieScene::loadScene()
 	this->addObject(pointer);
 	this->game->textureObject(pointer, PATH"ZombieGame/Resources/Textures/pointer.png");
 	
-	this->addLogic(new AimPointer(&this->world, player, pointer, mouse, camera, this->killCount, 8 * 64.f));
+	this->addLogic(new AimPointer(&this->world, player, pointer, mouse, camera, this->killCount, 8));
 	this->addLogic(new WinCondition(this->zombieCount, this->killCount, endScene));
 
 	//Puts player on top
 	game->textureObject(player, PATH"ZombieGame/Resources/Textures/player.png");
 	this->addReactive(player, &humanBodyDef);
+	player->setPosition(200, 200);
 	player->addFixture(humanShape);
-	player->getBody()->SetLinearDamping(64);
+	player->getBody()->SetLinearDamping(16);
 	player->getBody()->GetFixtureList()->SetFilterData(playerFilter);
 }
 
@@ -298,4 +295,10 @@ void ZombieScene::finalize()
 
 void ZombieScene::onDraw()
 {
+}
+
+void ZombieScene::addReactive(SGE::Reactive* object, const b2BodyDef* bodyDef)
+{
+	this->Scene::addObject(object);
+	object->setBody(this->world.CreateBody(bodyDef));
 }

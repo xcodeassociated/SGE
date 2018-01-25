@@ -54,6 +54,7 @@ public:
 	virtual void finalize() override;
 
 	virtual void onDraw() override;
+	virtual void addReactive(SGE::Reactive* object, const b2BodyDef* bodyDef) override;
 };
 
 #endif
