@@ -179,7 +179,7 @@ void ZombieScene::loadScene()
 	auto camLogic = new SnapCamera(8, SGE::Key::Up, SGE::Key::Down, SGE::Key::Left, SGE::Key::Right, SGE::Key::O, player, camera);
 	auto camZoom = new SGE::Logics::CameraZoom(camera, 0.1f, 1.f, 0.15f, SGE::Key::Q, SGE::Key::E);
 
-	this->addLogic(new SGE::WorldStep(&this->world,2,4));
+	this->addLogic(new SGE::WorldStep(&this->world));
 	this->addLogic(L3);
 	this->addLogic(camLogic);
 	this->addLogic(camZoom);

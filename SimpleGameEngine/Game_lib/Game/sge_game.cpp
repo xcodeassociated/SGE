@@ -142,12 +142,17 @@ void SGE::Game::loop()
 		}
 		this->fps = this->limiter->end();
 
-		static int frameCounter = 0;
-		frameCounter++;
-		if (frameCounter == 100) {
-			frameCounter = 0;
+		//static int frameCounter = 0;
+		//frameCounter++;
+		//if (frameCounter == 100) {
+		//	frameCounter = 0;
+		static float time_counter = 0.f;
+		time_counter += delta_time;
+		while (time_counter > 1.f)
+		{
 			*logger << "fps: " << this->fps << std::endl;
 			*logger << "delta_time: " << delta_time << std::endl;
+			time_counter -= 1.f;
 		}
 	}
 }

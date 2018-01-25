@@ -10,11 +10,11 @@ void SGE::FpsLimiter::calculateFPS()
 	static const int NUM_SAMPLES = 10;
 	static float frameTimes[NUM_SAMPLES];
 	static int currentFrame = 0;
-	static float prevTicks = float(SDL_GetTicks());
+	static unsigned int prevTicks = SDL_GetTicks();
 
-	float currentTicks = float(SDL_GetTicks());
+	unsigned int currentTicks = SDL_GetTicks();
 
-	_frameTime = currentTicks - prevTicks;
+	_frameTime = float(currentTicks - prevTicks);
 	frameTimes[currentFrame % NUM_SAMPLES] = _frameTime;
 
 	prevTicks = currentTicks;

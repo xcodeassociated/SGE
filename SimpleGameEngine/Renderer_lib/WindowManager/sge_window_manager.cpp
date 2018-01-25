@@ -34,7 +34,8 @@ void SGE::WindowManager::createWindow() {
 
 	glClearColor(.7f, .7f, .7f, 1.0f);
 
-	SDL_GL_SetSwapInterval(1);
+	if (SDL_GL_SetSwapInterval(-1) != 0)
+		throw std::runtime_error{ "SDL_GL_SetSwapInterval not supported" };
 
 	const GLubyte* version = glGetString(GL_VERSION);
 	const char* glVersionChar = reinterpret_cast<const char*>(version);

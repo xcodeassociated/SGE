@@ -9,8 +9,8 @@ namespace SGE
 	class WorldStep : public Logic
 	{
 		b2World* world;
-		int vel = 1;
-		int pos = 2;
+		int vel = 8;
+		int pos = 3;
 	public:
 		explicit WorldStep(b2World*) noexcept;
 		WorldStep(b2World*,int,int) noexcept;
