@@ -296,7 +296,8 @@ void AimPointer::aim(b2Vec2 pos, b2Vec2 target)
 			{
 				body->DestroyFixture(body->GetFixtureList());
 			}
-			body->SetActive(false);
+			human->addFixture(ZombieScene::corpseFixture);
+			body->SetType(b2_staticBody);
 			reload = 0.5f;
 			this->aim(pos, target);
 		}

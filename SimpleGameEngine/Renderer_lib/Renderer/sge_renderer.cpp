@@ -123,24 +123,27 @@ void SGE::Renderer::renderObjects()
 
     for (auto id : objects)
     {
-        switch (id->getShape()->getType()) {
-        case ShapeType::Circle:
-        {
-            circle = reinterpret_cast<Circle*>(id->getShape());
-            const float radius = circle->getRadius();
-            destRect = { id->getX() - radius, id->getY() - radius, radius*2.f, radius*2.f };
-            this->objectBatch->draw(destRect, uv, id->texture.id, .0f, color);
-        }break;
-
-        case ShapeType::Rectangle:
-        {
-            rect = reinterpret_cast<Rectangle*>(id->getShape());
-            destRect = { id->getX() - rect->getWidth()*.5f, id->getY() - rect->getHeight()*.5f, rect->getWidth(), rect->getHeight() };
-            this->objectBatch->draw(destRect, uv, id->texture.id, .0f, color);
-        }break;
-
-        default:
-            break;
+		if (!(id->getVisible() && id->getDrawable()))
+			continue;
+        switch (id->getShape()->getType())
+		{
+			case ShapeType::Circle:
+			{
+				circle = reinterpret_cast<Circle*>(id->getShape());
+				const float radius = circle->getRadius();
+				destRect = { id->getX() - radius, id->getY() - radius, radius*2.f, radius*2.f };
+				this->objectBatch->draw(destRect, uv, id->texture.id, .0f, color);
+				break;
+			}
+			case ShapeType::Rectangle:
+			{
+				rect = reinterpret_cast<Rectangle*>(id->getShape());
+				destRect = { id->getX() - rect->getWidth()*.5f, id->getY() - rect->getHeight()*.5f, rect->getWidth(), rect->getHeight() };
+				this->objectBatch->draw(destRect, uv, id->texture.id, .0f, color);
+				break;
+			}
+			default:
+				break;
         }
     }
 }

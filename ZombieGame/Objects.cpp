@@ -103,4 +103,6 @@ float Human::getY() const noexcept
 
 Pointer::Pointer() : Object(0.f,0.f,true,new SGE::Circle(6.f))
 {
+	this->drawable = true;
+	this->visible = true;
 }

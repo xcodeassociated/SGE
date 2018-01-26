@@ -5,7 +5,20 @@
 #include <sge_box2dscene.hpp>
 #include "Objects.hpp"
 
-class ZListener : public b2ContactListener
+class CullingListener : public b2ContactListener
+{
+protected:
+	SGE::Camera2d* camera = SGE::Game::getGame()->getCamera();
+	unsigned short camCategory = (unsigned short)(Category::Camera);
+	bool cull(b2Fixture* A, b2Fixture* B);
+	bool uncull(b2Fixture* A, b2Fixture* B);
+public:
+	virtual void BeginContact(b2Contact* contact) override;
+	virtual void EndContact(b2Contact* contact) override;
+	
+};
+
+class ZListener : public CullingListener
 {
 public:
 	virtual void BeginContact(b2Contact* contact) override;
@@ -40,6 +53,7 @@ public:
 	void zombify(Human* human);
 	SGE::Scene* endScene;
 
+	static b2FixtureDef corpseFixture;
 	static SGE::GLTexture zombieTexture;
 	static SGE::GLTexture deadZombieTexture;
 	static SGE::GLTexture deadHumanTexture;

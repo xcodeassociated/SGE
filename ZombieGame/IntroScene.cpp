@@ -14,6 +14,8 @@ void IntroScene::loadScene()
 {
 	auto o = new Image(0, 0, new SGE::Rectangle(1024, 768, true));
 	auto g = SGE::Game::getGame();
+	o->setVisible(true);
+	o->setDrawable(true);
 	g->textureObject(o, path);
 	this->addObject(o);
 	this->addLogic(new Timer(5, new Load(next)));
@@ -40,6 +42,8 @@ void IntroScene::onDraw()
 void EndScene::loadScene()
 {
 	auto o = new Image(0, 0, new SGE::Rectangle(1024, 768, true));
+	o->setVisible(true);
+	o->setDrawable(true);
 	auto g = SGE::Game::getGame();
 	g->textureObject(o, path);
 	this->addObject(o);

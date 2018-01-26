@@ -11,7 +11,9 @@ enum class Category : unsigned short
 	Zombie = 1 << 2,
 	HumanSensor = 1 << 4,
 	ZombieSensor = 1 << 5,
-	Level = 1 << 15,
+	Corpse = 1 << 13,
+	Level = 1 << 14,
+	Camera = 1 << 15,
 };
 
 inline unsigned short operator|(const Category a, const Category b)

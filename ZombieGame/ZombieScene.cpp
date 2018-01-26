@@ -14,10 +14,62 @@
 #include "Box2D/Dynamics/Contacts/b2Contact.h"
 #include "sge_director.hpp"
 
+bool CullingListener::cull(b2Fixture* A, b2Fixture* B)
+{
+	if(isCat(A, Category::Camera) && !B->IsSensor())
+	{
+		SGE::Object* o = reinterpret_cast<SGE::Object*>(B->GetUserData());
+		o->setVisible(true);
+		return true;
+	}
+	if(isCat(B, Category::Camera) && !A->IsSensor())
+	{
+		SGE::Object* o = reinterpret_cast<SGE::Object*>(A->GetUserData());
+		o->setVisible(true);
+		return true;
+	}
+	return false;
+}
+
+bool CullingListener::uncull(b2Fixture* A, b2Fixture* B)
+{
+	if (isCat(A, Category::Camera) && !B->IsSensor())
+	{
+		SGE::Object* o = reinterpret_cast<SGE::Object*>(B->GetUserData());
+		o->setVisible(false);
+		return true;
+	}
+	if (isCat(B, Category::Camera) && !A->IsSensor())
+	{
+		SGE::Object* o = reinterpret_cast<SGE::Object*>(A->GetUserData());
+		o->setVisible(false);
+		return true;
+	}
+	return false;
+}
+
+void CullingListener::BeginContact(b2Contact* contact)
+{
+	b2Fixture* A = contact->GetFixtureA();
+	b2Fixture* B = contact->GetFixtureB();
+	this->cull(A, B);
+}
+
+void CullingListener::EndContact(b2Contact* contact)
+{
+	b2Fixture* A = contact->GetFixtureA();
+	b2Fixture* B = contact->GetFixtureB();
+	this->uncull(A, B);
+}
+
 void ZListener::BeginContact(b2Contact* contact)
 {
 	b2Fixture* A = contact->GetFixtureA();
 	b2Fixture* B = contact->GetFixtureB();
+	if(this->cull(A, B))
+	{
+		return;
+	}
 	if (isCat(A, Category::Human) && isCat(B, Category::ZombieSensor))
 	{
 		reinterpret_cast<Human*>(B->GetUserData())->getBodies().push_front(reinterpret_cast<Human*>(A->GetUserData()));
@@ -47,6 +99,10 @@ void ZListener::EndContact(b2Contact* contact)
 {
 	b2Fixture* A = contact->GetFixtureA();
 	b2Fixture* B = contact->GetFixtureB();
+	if (this->uncull(A, B))
+	{
+		return;
+	}
 	if (isCat(A, Category::Human) && isCat(B, Category::ZombieSensor))
 	{
 		reinterpret_cast<Human*>(B->GetUserData())->getBodies().remove(reinterpret_cast<Human*>(A->GetUserData()));
@@ -80,20 +136,21 @@ b2CircleShape ZombieScene::humanShape;
 b2PolygonShape ZombieScene::worldShape;
 b2BodyDef ZombieScene::worldBodyDef;
 b2Filter ZombieScene::worldFilter;
+b2FixtureDef ZombieScene::corpseFixture;
 
 bool ZombieScene::init()
 {
 	playerFilter.categoryBits = uint16(Category::Player);
-	playerFilter.maskBits = Category::Player | Category::Human | Category::Zombie | Category::Level;
+	playerFilter.maskBits = Category::Player | Category::Human | Category::Zombie | Category::Level | Category::Camera;
 
 	zombieFilter.categoryBits = uint16(Category::Zombie);
-	zombieFilter.maskBits = Category::Player | Category::Human | Category::Zombie | Category::Level | Category::HumanSensor;
+	zombieFilter.maskBits = Category::Player | Category::Human | Category::Zombie | Category::Level | Category::HumanSensor | Category::Camera;
 
 	zombieSensorFilter.categoryBits = uint16(Category::ZombieSensor);
 	zombieSensorFilter.maskBits = uint16(Category::Human);
 
 	humanFilter.categoryBits = uint16(Category::Human);
-	humanFilter.maskBits = Category::Player | Category::Human | Category::Zombie | Category::Level | Category::ZombieSensor;
+	humanFilter.maskBits = Category::Player | Category::Human | Category::Zombie | Category::Level | Category::ZombieSensor | Category::Camera;
 
 	humanSensorFilter.categoryBits = uint16(Category::HumanSensor);
 	humanSensorFilter.maskBits = uint16(Category::Zombie);
@@ -114,7 +171,10 @@ bool ZombieScene::init()
 	worldShape.SetAsBox(0.5f, 0.5f);
 
 	worldFilter.categoryBits = uint16(Category::Level);
-	worldFilter.maskBits = Category::Player | Category::Human | Category::Zombie;
+	worldFilter.maskBits = Category::Player | Category::Human | Category::Zombie | Category::Camera;
+
+	corpseFixture.shape = &humanShape;
+	corpseFixture.filter.categoryBits = uint16(Category::Corpse);
 
 	return true;
 }
@@ -155,7 +215,9 @@ void ZombieScene::loadScene()
 	{
 		b2Body* body = world.CreateBody(&worldBodyDef);
 		body->SetTransform(b2Vec2(e.getX()/64.f, e.getY()/64.f), 0);
-		body->CreateFixture(&worldShape, 0)->SetFilterData(worldFilter);
+		b2Fixture* worldfix = body->CreateFixture(&worldShape, 0);
+		worldfix->SetFilterData(worldFilter);
+		worldfix->SetUserData(&e);
 	}
 
 	SGE::Object* Dummy1 = new Image(-1000, -1000);
@@ -176,7 +238,7 @@ void ZombieScene::loadScene()
 	auto L3 = new SimpleMove(player, 6, SGE::Key::W, SGE::Key::S, SGE::Key::A, SGE::Key::D);
 
 	auto camLogic = new SnapCamera(8, SGE::Key::Up, SGE::Key::Down, SGE::Key::Left, SGE::Key::Right, SGE::Key::O, player, camera);
-	auto camZoom = new SGE::Logics::CameraZoom(camera, 0.1f, 1.f, 0.15f, SGE::Key::Q, SGE::Key::E);
+	auto camZoom = new SGE::Logics::CameraZoom(camera, 0.1f, 0.5f, 0.15f, SGE::Key::Q, SGE::Key::E);
 
 	this->addLogic(new SGE::WorldStep(&this->world));
 	this->addLogic(L3);
@@ -255,18 +317,31 @@ void ZombieScene::loadScene()
 	game->textureObject(player, PATH"ZombieGame/Resources/Textures/player.png");
 	this->addReactive(player, &humanBodyDef);
 	player->setPosition(200, 200);
+	//Will hijack player for now
+	b2PolygonShape camBox;
+	b2FixtureDef camFixtureDef;
+	camBox.SetAsBox(camera->getWidth()/64.f, camera->getHeight()/64.f);
+	camFixtureDef.shape = &camBox;
+	camFixtureDef.isSensor = true;
+	camFixtureDef.filter.categoryBits = (unsigned short)(Category::Camera);
+	player->addFixture(camFixtureDef)->SetUserData(camera);
+	player->setVisible(true);
+	//Generalize this after finals
 	player->addFixture(humanShape);
 	player->getBody()->SetLinearDamping(16);
 	player->getBody()->GetFixtureList()->SetFilterData(playerFilter);
+
+
+
 }
 
 void ZombieScene::unloadScene()
 {
-	this->finalize();
-	while(this->world.GetBodyList())
+	while (this->world.GetBodyList())
 	{
 		this->world.DestroyBody(this->world.GetBodyList());
 	}
+	this->finalize();
 }
 
 ZombieScene::~ZombieScene()
