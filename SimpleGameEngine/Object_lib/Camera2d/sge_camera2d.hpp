@@ -97,6 +97,8 @@ namespace SGE
 	    void update();
 
 	    glm::vec2 screenToWorld(glm::vec2 vec);
+		int getWidth() const;
+		int getHeight() const;
     };
     
 }

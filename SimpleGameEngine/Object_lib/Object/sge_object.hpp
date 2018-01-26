@@ -43,6 +43,8 @@ namespace SGE
 		 * \brief 
 		 */
 		bool drawable = false;
+
+		bool visible = false;
 		/**
 		 * \brief 
 		 */
@@ -123,7 +125,15 @@ namespace SGE
 		 * \brief 
 		 * \return 
 		 */
-		virtual bool getDrawable() const noexcept;
+		virtual bool getDrawable() const noexcept; 
+		
+		virtual void setVisible(bool e) noexcept;
+
+		/**
+		* \brief
+		* \return
+		*/
+		virtual bool getVisible() const noexcept;
 
 		/**
 		 * \brief 

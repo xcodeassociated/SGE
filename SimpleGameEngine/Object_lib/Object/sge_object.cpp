@@ -31,14 +31,24 @@ float SGE::Object::getY() const noexcept
 	return this->Y;
 }
 
-void SGE::Object::setDrawable(bool e) noexcept
+void SGE::Object::setDrawable(bool b) noexcept
 {
-	this->drawable = e;
+	this->drawable = b;
 }
 
 bool SGE::Object::getDrawable() const noexcept
 {
 	return this->drawable;
+}
+
+void SGE::Object::setVisible(bool b) noexcept
+{
+	this->visible = b;
+}
+
+bool SGE::Object::getVisible() const noexcept
+{
+	return this->visible;
 }
 
 void SGE::Object::setPosition(float x, float y)

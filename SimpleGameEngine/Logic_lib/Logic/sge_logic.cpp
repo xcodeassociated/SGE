@@ -1,5 +1,4 @@
 #include "sge_logic.hpp"
-#include "sge_object.hpp"
 #include "sge_action_handler.hpp"
 
 SGE::Logic::~Logic() {}
