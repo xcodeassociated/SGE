@@ -136,7 +136,6 @@ b2CircleShape ZombieScene::humanShape;
 b2PolygonShape ZombieScene::worldShape;
 b2BodyDef ZombieScene::worldBodyDef;
 b2Filter ZombieScene::worldFilter;
-b2FixtureDef ZombieScene::corpseFixture;
 
 bool ZombieScene::init()
 {
@@ -171,10 +170,7 @@ bool ZombieScene::init()
 	worldShape.SetAsBox(0.5f, 0.5f);
 
 	worldFilter.categoryBits = uint16(Category::Level);
-	worldFilter.maskBits = Category::Player | Category::Human | Category::Zombie | Category::Camera;
-
-	corpseFixture.shape = &humanShape;
-	corpseFixture.filter.categoryBits = uint16(Category::Corpse);
+	worldFilter.maskBits = Category::Player | Category::Human | Category::Zombie | Category::Camera | Category::Corpse;
 
 	return true;
 }
@@ -240,10 +236,10 @@ void ZombieScene::loadScene()
 	auto camLogic = new SnapCamera(8, SGE::Key::Up, SGE::Key::Down, SGE::Key::Left, SGE::Key::Right, SGE::Key::O, player, camera);
 	auto camZoom = new SGE::Logics::CameraZoom(camera, 0.1f, 0.5f, 0.15f, SGE::Key::Q, SGE::Key::E);
 
-	this->addLogic(new SGE::WorldStep(&this->world));
 	this->addLogic(L3);
 	this->addLogic(camLogic);
 	this->addLogic(camZoom);
+	this->addLogic(new SGE::WorldStep(&this->world));
 	
 	std::vector<std::string> l;
 	std::fstream is;
@@ -324,7 +320,9 @@ void ZombieScene::loadScene()
 	camFixtureDef.shape = &camBox;
 	camFixtureDef.isSensor = true;
 	camFixtureDef.filter.categoryBits = (unsigned short)(Category::Camera);
-	player->addFixture(camFixtureDef)->SetUserData(camera);
+	auto cf = player->addFixture(camFixtureDef);
+	cf->SetUserData(camera);
+	cf->GetBody()->SetSleepingAllowed(false);
 	player->setVisible(true);
 	//Generalize this after finals
 	player->addFixture(humanShape);

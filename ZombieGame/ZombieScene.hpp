@@ -53,7 +53,6 @@ public:
 	void zombify(Human* human);
 	SGE::Scene* endScene;
 
-	static b2FixtureDef corpseFixture;
 	static SGE::GLTexture zombieTexture;
 	static SGE::GLTexture deadZombieTexture;
 	static SGE::GLTexture deadHumanTexture;

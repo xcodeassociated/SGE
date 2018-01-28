@@ -182,7 +182,9 @@ void HumanMovement::performLogic()
 {
 	for (auto human : *humans)
 	{
-		if(!human->isDead() && isCat(human->getBody()->GetFixtureList(),Category::Human))
+		if(human->isDead())
+			continue;
+		if(isCat(human->getBody()->GetFixtureList(),Category::Human))
 		{
 			if(human->isZombified())
 			{
@@ -255,7 +257,7 @@ void OnKey::performLogic()
 
 float32 Aimcast::ReportFixture(b2Fixture* fixture, const b2Vec2& point, const b2Vec2& normal, float32 fraction)
 {
-	if(fixture->IsSensor())
+	if(fixture->IsSensor() || isCat(fixture, Category::Corpse))
 	{
 		return -1.f;
 	}
@@ -268,6 +270,8 @@ float32 Aimcast::ReportFixture(b2Fixture* fixture, const b2Vec2& point, const b2
 AimPointer::AimPointer(b2World* world, SGE::Reactive* aimer, Pointer* pointer, SGE::MouseObject* mouse, SGE::Camera2d* cam, std::size_t& counter, float range)
 	: Logic(SGE::LogicPriority::High), world(world), aimer(aimer), pointer(pointer), mouse(mouse), cam(cam), range(range), counter(counter)
 {
+	this->corpseFilter.categoryBits = uint16(Category::Corpse);
+	this->corpseFilter.maskBits = Category::Level | Category::Camera;
 }
 
 void AimPointer::aim(b2Vec2 pos, b2Vec2 target)
@@ -290,14 +294,19 @@ void AimPointer::aim(b2Vec2 pos, b2Vec2 target)
 			{
 				human->texture = ZombieScene::deadHumanTexture;
 			}
-			//world->DestroyBody(callback.fixture->GetBody());
 			b2Body* body = callback.fixture->GetBody();
-			while(body->GetFixtureList())
+			for(b2Fixture* f = body->GetFixtureList(), *n = f; f; f=n)
 			{
-				body->DestroyFixture(body->GetFixtureList());
+				n = f->GetNext();
+				if(f->IsSensor())
+					body->DestroyFixture(f);
 			}
-			human->addFixture(ZombieScene::corpseFixture);
-			body->SetType(b2_staticBody);
+			body->GetFixtureList()->SetFilterData(this->corpseFilter);
+			b2Vec2 dir = (target - pos);
+			dir.Normalize();
+			body->SetLinearVelocity(b2Vec2_zero);
+			body->ApplyForceToCenter(16.f*dir,true);
+			body->SetLinearDamping(2);
 			reload = 0.5f;
 			this->aim(pos, target);
 		}

@@ -47,7 +47,7 @@ void SGE::Scene::removeObject(SGE::Object* object)
 void SGE::Scene::addLogic(SGE::Logic* logic)
 {
 	this->logics.push_back(logic);
-	std::stable_sort(this->logics.begin(), this->logics.end());
+	std::stable_sort(this->logics.begin(), this->logics.end(), [](Logic* lhs, Logic* rhs)->bool { return lhs->getPriority() < rhs->getPriority(); });
 }
 
 void SGE::Scene::removeLogic(SGE::Logic* logic)

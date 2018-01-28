@@ -138,6 +138,7 @@ protected:
 	float range;
 	float reload = -1.f;
 	std::size_t& counter;
+	b2Filter corpseFilter;
 	void aim(b2Vec2 pos, b2Vec2 target);
 public:
 	AimPointer(b2World* world, SGE::Reactive* aimer, Pointer* pointer, SGE::MouseObject* mouse, SGE::Camera2d* cam, std::size_t& counter, float range);
