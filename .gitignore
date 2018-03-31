@@ -45,3 +45,5 @@ build/*
 
 conanbuildinfo.txt
 conan_imports_manifest.txt
+/.vs
+/dlls

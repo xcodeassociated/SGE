@@ -12,14 +12,33 @@ set(BUILD_SHARED_LIBS ON)
 include(${CMAKE_CURRENT_SOURCE_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
+message(STATUS "CMAKE_VERSION: ${CMAKE_VERSION}")
+message(STATUS "CMAKE_SYSTEM:  ${CMAKE_SYSTEM}")
+message(STATUS "CMAKE_COMMAND: ${CMAKE_COMMAND}")
+message(STATUS "CMAKE_C_COMPILER: ${CMAKE_C_COMPILER}")
+message(STATUS "CMAKE_CXX_COMPILER: ${CMAKE_CXX_COMPILER}")
+message(STATUS "CMAKE_AR: ${CMAKE_AR}")
+message(STATUS "CMAKE_RANLIB: ${CMAKE_RANLIB}")
+message(STATUS "BUILD_SHARED_LIBS on: ${BUILD_SHARED_LIBS}")
+message(STATUS "CMAKE_ROOT: ${CMAKE_ROOT}")
+message(STATUS "CMAKE_CURRENT_LIST_FILE: ${CMAKE_CURRENT_LIST_FILE}")
 message(STATUS "Source DIR: ${CMAKE_CURRENT_SOURCE_DIR}")
 message(STATUS "Build DIR: ${CMAKE_CURRENT_BINARY_DIR}")
 message(STATUS "Binary DIR: ${CMAKE_BINARY_DIR}")
-message(STATUS "LIbrary Output DIR: ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
+message(STATUS "Library Output DIR: ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
+message(STATUS "CMAKE_RUNTIME_OUTPUT_DIRECTORY: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+message(STATUS "EXECUTABLE_OUTPUT_PATH: ${EXECUTABLE_OUTPUT_PATH}")
 
 set(CMAKE_VERBOSE_MAKEFILE on)
-
 set(CMAKE_CXX_STANDARD 14)
+
+## Setting default build type is no has been selected
+if (NOT CMAKE_BUILD_TYPE)
+    message(STATUS "No build type selected -- default is Release")
+    set(CMAKE_BUILD_TYPE "Release")
+endif()
+
+message(STATUS "BUILD TYPE: ${CMAKE_BUILD_TYPE}")
 
 if (UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
@@ -37,26 +56,61 @@ if (UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive")
 
+    if (CMAKE_BUILD_TYPE MATCHES "Debug")
+        message(STATUS "DEBUG MODE -- UNIX")
+        ## ..
+    elseif (CMAKE_BUILD_TYPE MATCHES "Release")
+        message(STATUS "RELEASE MODE -- UNIX")
+        ## ..
+    endif()
+
+    SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
+    SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
+
 elseif(WIN32)
     message(STATUS "WIN32")
-	## These mess up release builds. Use Only for Debug
-	##SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:msvcrt.lib" )
-	##SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:MSVCRT" )
-	##SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:msvcrt.lib" )
-	## Set Project
-	set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT SGE-ZombieGame)
-    ## Force exports without adding macros in sources.
-    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS 1)
-    ## TODO: WIN32 compiler flags here!!!
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W2")
-    ## Remove that for Box2D
-    ## set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Za")
-    ## Adds export libraries directory
-    link_directories("${CMAKE_CURRENT_BINARY_DIR}/lib")
-	## Add exports
-	include_directories("${CMAKE_CURRENT_BINARY_DIR}/SimpleGameEngine/Logic_lib")
-	include_directories("${CMAKE_CURRENT_BINARY_DIR}/SimpleGameEngine/Utils_lib")
-	include_directories("${CMAKE_CURRENT_BINARY_DIR}/SimpleGameEngine/ThirdParty_Librarys/Box2D")
+
+        if (MSVC)
+            message (STATUS "MSVC")
+
+            ## Use all cores during the compilation
+            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
+
+            ## These mess up release builds. Use Only for Debug
+            ##SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:msvcrt.lib" )
+            ##SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:MSVCRT" )
+            ##SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:msvcrt.lib" )
+
+            ## Set Project
+            set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT SGE-ZombieGame)
+            ## Force exports without adding macros in sources.
+            set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS 1)
+            ## TODO: WIN32 compiler flags here!!!
+            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W2")
+            ## Remove that for Box2D
+            ## set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Za")
+            ## Adds export libraries directory
+            link_directories("${CMAKE_CURRENT_BINARY_DIR}/lib")
+            ## Add exports
+            include_directories("${CMAKE_CURRENT_BINARY_DIR}/SimpleGameEngine/Logic_lib")
+            include_directories("${CMAKE_CURRENT_BINARY_DIR}/SimpleGameEngine/Utils_lib")
+            include_directories("${CMAKE_CURRENT_BINARY_DIR}/SimpleGameEngine/ThirdParty_Librarys/Box2D")
+
+            if (CMAKE_BUILD_TYPE MATCHES "Debug")
+                message(STATUS "DEBUG MODE -- WIN MSVC")
+                ## ..
+            elseif (CMAKE_BUILD_TYPE MATCHES "Release")
+                message(STATUS "RELEASE MODE -- WIN MSVC")
+                ## ..
+            endif()
+
+            SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Od")
+            SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2")
+
+        elseif(MINGW)
+            status(FATAL_ERROR "MinGW in curentley not supported for Windows build!")
+            return()
+        endif()
 
 endif()
 
@@ -125,6 +179,15 @@ else()
     endif()
 
 endif()
+
+## CXX Flags print out:
+message(STATUS "USED CXX Flags: ${CMAKE_CXX_FLAGS}")
+
+message(STATUS "Possible CXX_FLAGS for platform: ")
+message("       CMAKE_CXX_FLAGS_DEBUG is ${CMAKE_CXX_FLAGS_DEBUG}")
+message("       CMAKE_CXX_FLAGS_RELEASE is ${CMAKE_CXX_FLAGS_RELEASE}")
+message("       CMAKE_CXX_FLAGS_RELWITHDEBINFO is ${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
+message("       CMAKE_CXX_FLAGS_MINSIZEREL is ${CMAKE_CXX_FLAGS_MINSIZEREL}")
 
 ## Setting SGE directory
 set (SGE_DIR "SimpleGameEngine")
@@ -197,3 +260,9 @@ if(WIN32)
 	file(GLOB CONAN_PDBS "dlls/*.pdb")
 	file(COPY ${CONAN_PDBS} DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/bin")
 endif()
+
+## More info:
+message(STATUS "CMAKE_MODULE_LINKER_FLAGS: ${CMAKE_MODULE_LINKER_FLAGS}")
+message(STATUS "CMAKE_SHARED_LINKER_FLAGS: ${CMAKE_SHARED_LINKER_FLAGS}")
+message(STATUS "CMAKE_INCLUDE_PATH: ${CMAKE_INCLUDE_PATH}")
+message(STATUS "CMAKE_LIBRARY_PATH: ${CMAKE_LIBRARY_PATH}")

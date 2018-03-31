@@ -22,7 +22,6 @@ target_link_libraries(ActionHandler Action)
 
 add_library (Game SHARED
 		${GameSOURCES}
-		#${ActionHandlerSOURCES}
 		${InputHandlerSOURCES}
 		${DirectorSOURCES})
 		
