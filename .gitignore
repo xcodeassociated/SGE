@@ -45,7 +45,8 @@ build/*
 
 conanbuildinfo.txt
 conan_imports_manifest.txt
+
 /.vs
 /dlls
 /CMakeSettings.json
-/SimpleGameEngine/ThirdParty_Librarys/HUNTER_ROOT/_Base/Download/Hunter/0.16.15/6974c21
+/SimpleGameEngine/ThirdParty_Librarys/HUNTER_ROOT/_Base

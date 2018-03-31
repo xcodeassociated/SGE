@@ -10,32 +10,18 @@ else()
 		set(PKG "CONAN")
 	elseif(PACKAGE_MANAGER STREQUAL "Hunter" OR PACKAGE_MANAGER STREQUAL "hunter" OR PACKAGE_MANAGER STREQUAL "HUNTER")
 		set(PKG "HUNTER")
+		set(HUNTER_ROOT "${CMAKE_SOURCE_DIR}/SimpleGameEngine/ThirdParty_Librarys/HUNTER_ROOT")
+		
+		include("${CMAKE_SOURCE_DIR}/CMakeModules/HunterGate.cmake")
+		HunterGate(
+			URL "https://github.com/ruslo/hunter/archive/v0.20.31.tar.gz"
+			SHA1 "65c8f2292566aedb2fe10e08e09c74dda8e5d07a"
+		)
 	else()
+
 		message(FATAL_ERROR "INCORRECT Package Manager: ${PACKAGE_MANAGER}")
 		return()
 	endif()
-endif()
-
-if(PKG STREQUAL "HUNTER")
-	message(STATUS "Using PACKAGE_MANAGER: HUNTER")
-
-	set(HUNTER_ROOT "${CMAKE_SOURCE_DIR}/SimpleGameEngine/ThirdParty_Librarys/HUNTER_ROOT")
-	include("${CMAKE_SOURCE_DIR}/CMakeModules/HunterGate.cmake")
-	HunterGate(
-		URL "https://github.com/ruslo/hunter/archive/v0.16.15.tar.gz"
-		SHA1 "6974c2150fc0d3b09de3ad1efcbf15d360647ffa"
-	)
-
-	#hunter_add_package(Boost COMPONENTS date_time program_options system filesystem filesystem)
-	#hunter_add_package(SDL2)
-
-endif()
-
-if (PKG STREQUAL "CONAN")
-	message(STATUS "Using PACKAGE_MANAGER: CONAN")
-
-	include(${CMAKE_CURRENT_SOURCE_DIR}/conanbuildinfo.cmake)
-	conan_basic_setup()
 endif()
 
 ## Project name 
@@ -148,9 +134,28 @@ elseif(WIN32)
 
 endif()
 
+if(PKG STREQUAL "HUNTER")
+	message(STATUS "Using PACKAGE_MANAGER: HUNTER")
+
+	hunter_add_package(SDL2)
+	hunter_add_package(glew)
+	hunter_add_package(glm)
+	hunter_add_package(Boost COMPONENTS date_time program_options system filesystem filesystem)
+
+endif()
+
+if (PKG STREQUAL "CONAN")
+	message(STATUS "Using PACKAGE_MANAGER: CONAN")
+
+	include(${CMAKE_CURRENT_SOURCE_DIR}/conanbuildinfo.cmake)
+	conan_basic_setup()
+endif()
+
 
 ## FINDING MODULES
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMakeModules")
+
+message(STATUS "Libs status:")
 
 ## Boost:
 find_package(Boost COMPONENTS date_time program_options system filesystem REQUIRED)
@@ -159,10 +164,9 @@ if(NOT Boost_FOUND)
 else()
     include_directories(${Boost_INCLUDE_DIRS})
 
-    message(STATUS "Boost Found!")
-    message(STATUS "Boost version: ${Boost_VERSION}")
-    message(STATUS "Boost include: ${Boost_INCLUDE_DIRS}")
-    message(STATUS "Boost libs: ${Boost_LIBRARY_DIRS}")
+    message(STATUS "	Boost version: ${Boost_VERSION}")
+    message(STATUS "	Boost include: ${Boost_INCLUDE_DIRS}")
+    message(STATUS "	Boost libs: ${Boost_LIBRARY_DIRS}")
 endif()
 
 ## SDL:
@@ -174,8 +178,10 @@ else()
 	link_directories(${SDL2_INCLUDE_DIR})
     add_definitions(${SDL2_DEFINITIONS})
 
+	message(STATUS "	SDL2_INCLUDE_DIR: ${SDL2_INCLUDE_DIR}")
+	message(STATUS "	SDL2_INCLUDE_DIR: ${SDL2_INCLUDE_DIR}")
+	message(STATUS "	SDL2_DEFINITIONS: ${SDL2_DEFINITIONS}")
 endif()
-
 
 ## GLM:
 find_package(GLM REQUIRED)
@@ -185,6 +191,10 @@ else()
     include_directories(${GLM_INCLUDE_DIRS})
     link_directories(${GLM_LIBRARY_DIRS})
     add_definitions(${GLM_DEFINITIONS})
+
+	message(STATUS "	GLM_INCLUDE_DIRS: ${GLM_INCLUDE_DIRS}")
+	message(STATUS "	GLM_LIBRARY_DIRS: ${GLM_LIBRARY_DIRS}")
+	message(STATUS "	GLM_DEFINITIONS: ${GLM_DEFINITIONS}")
 endif()
 
 ## OpenGL:
@@ -195,6 +205,10 @@ else()
 	include_directories(${OpenGL_INCLUDE_DIRS})
 	link_directories(${OpenGL_LIBRARY_DIRS})
 	add_definitions(${OpenGL_DEFINITIONS})
+
+	message(STATUS "	OpenGL_INCLUDE_DIRS: ${OpenGL_INCLUDE_DIRS}")
+	message(STATUS "	OpenGL_LIBRARY_DIRS: ${OpenGL_LIBRARY_DIRS}")
+	message(STATUS "	OpenGL_DEFINITIONS: ${OpenGL_DEFINITIONS}")
 endif()
 
 ## GLEW:
@@ -213,6 +227,9 @@ else()
         set(GLEW_LIBRARIES "libGLEW.dylib")
     endif()
 
+	message(STATUS "	GLEW_INCLUDE_DIRS: ${GLEW_INCLUDE_DIRS}")
+	message(STATUS "	GLEW_LIBRARY_DIRS: ${GLEW_LIBRARY_DIRS}")
+	message(STATUS "	GLEW_DEFINITIONS: ${GLEW_DEFINITIONS}")
 endif()
 
 ## CXX Flags print out:
