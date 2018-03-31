@@ -1,5 +1,43 @@
 cmake_minimum_required(VERSION 3.5)
 
+set(PKG "")
+
+if (NOT PACKAGE_MANAGER)
+	message(FATAL_ERROR "Package Manager Not Set")
+	return()
+else()
+	if (PACKAGE_MANAGER STREQUAL "Conan" OR PACKAGE_MANAGER STREQUAL "conan" OR PACKAGE_MANAGER STREQUAL "CONAN")
+		set(PKG "CONAN")
+	elseif(PACKAGE_MANAGER STREQUAL "Hunter" OR PACKAGE_MANAGER STREQUAL "hunter" OR PACKAGE_MANAGER STREQUAL "HUNTER")
+		set(PKG "HUNTER")
+	else()
+		message(FATAL_ERROR "INCORRECT Package Manager: ${PACKAGE_MANAGER}")
+		return()
+	endif()
+endif()
+
+if(PKG STREQUAL "HUNTER")
+	message(STATUS "Using PACKAGE_MANAGER: HUNTER")
+
+	set(HUNTER_ROOT "${CMAKE_SOURCE_DIR}/SimpleGameEngine/ThirdParty_Librarys/HUNTER_ROOT")
+	include("${CMAKE_SOURCE_DIR}/CMakeModules/HunterGate.cmake")
+	HunterGate(
+		URL "https://github.com/ruslo/hunter/archive/v0.16.15.tar.gz"
+		SHA1 "6974c2150fc0d3b09de3ad1efcbf15d360647ffa"
+	)
+
+	#hunter_add_package(Boost COMPONENTS date_time program_options system filesystem filesystem)
+	#hunter_add_package(SDL2)
+
+endif()
+
+if (PKG STREQUAL "CONAN")
+	message(STATUS "Using PACKAGE_MANAGER: CONAN")
+
+	include(${CMAKE_CURRENT_SOURCE_DIR}/conanbuildinfo.cmake)
+	conan_basic_setup()
+endif()
+
 ## Project name 
 project(SGE-ZombieGame)
 
@@ -7,10 +45,6 @@ project(SGE-ZombieGame)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/$<CONFIG>")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/$<CONFIG>")
 set(BUILD_SHARED_LIBS ON)
-
-## include conan cmake file
-include(${CMAKE_CURRENT_SOURCE_DIR}/conanbuildinfo.cmake)
-conan_basic_setup()
 
 message(STATUS "CMAKE_VERSION: ${CMAKE_VERSION}")
 message(STATUS "CMAKE_SYSTEM:  ${CMAKE_SYSTEM}")
@@ -113,6 +147,7 @@ elseif(WIN32)
         endif()
 
 endif()
+
 
 ## FINDING MODULES
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMakeModules")
