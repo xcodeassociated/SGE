@@ -38,7 +38,7 @@ target_link_libraries(${PROJECT_NAME}
 		PicoPNG
 		Box2D
 )
-		
+
 #if(NOT WIN32)
 #foreach( file_i "${Boost_LIBRARIES}")
 #	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD

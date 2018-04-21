@@ -40,7 +40,7 @@ set (ObjectShapeSOURCES
 		Object/Shape/sge_shapeless.hpp
 		Object/Shape/sge_shapeless.cpp)
 
-add_library (Object SHARED 
+add_library (Object
 		${ObjectCameraSOURCES}
 		${ObjectSOURCES}
 		${ObjectBackgroundElementSOURCES}

@@ -5,7 +5,7 @@ set (SceneSOURCES
 		Scene/sge_box2dscene.hpp
 		Scene/sge_box2dscene.cpp)
 
-add_library (Scene SHARED
+add_library (Scene
 		${SceneSOURCES})
 
 target_link_libraries(Scene 

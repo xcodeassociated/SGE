@@ -26,7 +26,7 @@ set (LogicWorldSOURCES
 		Logic/Logics/World/sge_worldstep.hpp
 		Logic/Logics/World/sge_worldstep.cpp)
 
-add_library (Logic SHARED
+add_library (Logic
 		${LogicSOURCES}
 		${LogicsCameraSOURCES}
 		${LogicsCollidersSOURCES}

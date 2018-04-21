@@ -11,7 +11,7 @@ set (ActionsSources
 		Action/Actions/sge_action_scale.cpp)
 
 
-add_library(Action SHARED 
+add_library(Action
 		${ActionSOURCES}
 		${ActionsSources})
 

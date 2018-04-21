@@ -1,0 +1,1 @@
+This directory contains SGE project dependencies as well as CMake files.

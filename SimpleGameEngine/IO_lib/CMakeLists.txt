@@ -15,7 +15,7 @@ set (IOSOURCES_Mouse
 		Mouse/sge_mouse.hpp
 		Mouse/sge_mouse.cpp)
 
-add_library(IO SHARED 
+add_library(IO
 		${IOSOURCES_InputManager}
 		${IOSOURCES_IOManager}
 		${IOSOURCES_KeyboardState}

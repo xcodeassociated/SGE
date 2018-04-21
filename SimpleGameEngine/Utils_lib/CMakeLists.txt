@@ -10,7 +10,7 @@ set (UtilsSOURCES
 		Utils/sge_utils.hpp
 		Utils/sge_utils.cpp)
 
-add_library (Utils SHARED
+add_library (Utils
 		${LoggerSOURCES}
 		${TimingSOURCES}
 		${UtilsSOURCES})

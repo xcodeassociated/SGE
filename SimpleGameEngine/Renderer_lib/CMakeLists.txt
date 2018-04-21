@@ -40,7 +40,7 @@ set (TextureLoaderSOURCES
 		TextureLoader/sge_imageLoader.hpp
 		TextureLoader/sge_imageLoader.cpp)
 
-add_library (Renderer SHARED
+add_library (Renderer
 		${RendererSOURCES}
 		${ResourceManagerSOURCES}
 		${ShadersSOURCES}
