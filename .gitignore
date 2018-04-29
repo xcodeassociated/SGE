@@ -49,4 +49,4 @@ conan_imports_manifest.txt
 /.vs
 /dlls
 /CMakeSettings.json
-/SimpleGameEngine/ThirdParty_Librarys/HUNTER_ROOT/_Base
+/Setup/build/*

@@ -148,14 +148,18 @@ elseif(PKG STREQUAL "LOCAL")
     set(INSTALL_RPATH_USE_LINK_PATH TRUE)
 
     set(BOOST_ROOT "${SETUP_BUILD_DIR}/boost")
-
-	set(Boost_USE_STATIC_LIBS ON)
-    set(Boost_USE_STATIC_RUNTIME ON)
+	set(BOOST_LIBRARYDIR "${BOOST_ROOT}/lib")
+	set(BOOST_INCLUDEDIR "${BOOST_ROOT}/include/boost-1_65_1")
 	set(Boost_NO_SYSTEM_PATHS ON)
+	set(Boost_USE_MULTITHREADED ON)
+	set(Boost_DEBUG ON)
 
     if (WIN32)
-	    set(Boost_COMPILER "-vc1413")
+		set(Boost_COMPILER "-vc1413")
     endif()
+
+	## Helps to debug Boost find_package(...)
+	#set(BOOST_DEBUG ON) 
 
     if (NOT ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
         set(SDL2_DIR "${SETUP_BUILD_DIR}/sdl")
@@ -172,7 +176,7 @@ elseif(PKG STREQUAL "LOCAL")
     if (UNIX)
         set(GLEW_LIBRARIES "libGLEW.a")
     elseif(WIN32)
-        set(GLEW_LIBRARIES "libGLEW.lib")
+        set(GLEW_LIBRARIES "glew.lib")
     endif()
 
     include_directories(${GLEW_INCLUDE_DIR})
@@ -202,7 +206,8 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMakeModules")
 
 ## Boost:
 if (WIN32)
-    find_package(Boost COMPONENTS date_time-vc1413 program_options-vc1413 system-vc1413 filesystem-vc1413 REQUIRED)
+    find_package(Boost COMPONENTS date_time program_options system filesystem REQUIRED)
+    #find_package(Boost COMPONENTS date_time-vc1413-mt-1_65_1 program_options-vc1413-mt-1_65_1 system-vc1413-mt-1_65_1 filesystem-vc1413-mt-1_65_1 REQUIRED)
 else()
     find_package(Boost COMPONENTS date_time program_options system filesystem REQUIRED)
 endif()
@@ -230,7 +235,8 @@ if (NOT SDL2_FOUND)
 else()
 
 	set(SDL2_INCLUDE_DIR "${SDL2_INCLUDE_DIR}")
-	include_directories(${SDL2_INCLUDE_DIR})
+	include_directories("${SDL2_INCLUDE_DIR}")
+	include_directories("${SDL2_INCLUDE_DIR}/SDL2")
 
 	link_directories(${SDL2_INCLUDE_DIR})
     add_definitions(${SDL2_DEFINITIONS})
