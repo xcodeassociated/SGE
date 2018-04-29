@@ -25,37 +25,46 @@ include(ExternalSDL2.cmake)
 include(ExternalGLM.cmake)
 include(ExternalGLEW.cmake)
 
+if (UNIX)
 
-add_custom_command(TARGET BOOST_EXTERNAL
-        POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/build/boost/lib/*.dylib ${CMAKE_CURRENT_SOURCE_DIR}/build/bin)
+	set_target_properties(BOOST_EXTERNAL PROPERTIES
+		BUILD_WITH_INSTALL_RPATH TRUE
+		INSTALL_RPATH_USE_LINK_PATH TRUE)
 
-set_target_properties(BOOST_EXTERNAL PROPERTIES
-        BUILD_WITH_INSTALL_RPATH TRUE
-        INSTALL_RPATH_USE_LINK_PATH TRUE)
+	add_custom_command(TARGET BOOST_EXTERNAL
+		POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/build/boost/lib/*.a ${CMAKE_CURRENT_SOURCE_DIR}/build/bin)
 
-add_custom_command(TARGET GLEW_EXTERNAL
-        POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/build/glew/lib/*.dylib ${CMAKE_CURRENT_SOURCE_DIR}/build/bin)
+	set_target_properties(BOOST_EXTERNAL PROPERTIES
+		BUILD_WITH_INSTALL_RPATH TRUE
+		INSTALL_RPATH_USE_LINK_PATH TRUE)
 
-add_custom_command(TARGET SDL2_EXTERNAL
-        POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/build/sdl/lib/*.dylib ${CMAKE_CURRENT_SOURCE_DIR}/build/bin)
+	add_custom_command(TARGET GLEW_EXTERNAL
+		POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/build/glew/lib/*.a ${CMAKE_CURRENT_SOURCE_DIR}/build/bin)
+		
+	if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+		add_custom_command(TARGET SDL2_EXTERNAL
+		POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/build/sdl/*.framework ${CMAKE_CURRENT_SOURCE_DIR}/build/bin)
+	endif()
 
+	add_custom_command(TARGET SDL2_EXTERNAL
+		POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/build/sdl/lib/*.a ${CMAKE_CURRENT_SOURCE_DIR}/build/bin)
 
+elseif(WIN32)
 
-add_custom_command(TARGET BOOST_EXTERNAL
-        POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/build/boost/lib/*.a ${CMAKE_CURRENT_SOURCE_DIR}/build/bin)
+	add_custom_command(TARGET BOOST_EXTERNAL
+		POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/build/boost/lib/*.lib ${CMAKE_CURRENT_SOURCE_DIR}/build/bin)
 
-set_target_properties(BOOST_EXTERNAL PROPERTIES
-        BUILD_WITH_INSTALL_RPATH TRUE
-        INSTALL_RPATH_USE_LINK_PATH TRUE)
+	add_custom_command(TARGET GLEW_EXTERNAL
+		POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/build/glew/lib/*.lib ${CMAKE_CURRENT_SOURCE_DIR}/build/bin)
 
-add_custom_command(TARGET GLEW_EXTERNAL
-        POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/build/glew/lib/*.a ${CMAKE_CURRENT_SOURCE_DIR}/build/bin)
+	add_custom_command(TARGET SDL2_EXTERNAL
+		POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/build/sdl/lib/*.lib ${CMAKE_CURRENT_SOURCE_DIR}/build/bin)
 
-add_custom_command(TARGET SDL2_EXTERNAL
-        POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/build/sdl/lib/*.a ${CMAKE_CURRENT_SOURCE_DIR}/build/bin)
+endif()
