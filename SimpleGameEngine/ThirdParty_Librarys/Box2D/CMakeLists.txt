@@ -93,7 +93,7 @@ set(Box2DSOURCES
 	Box2D/Rope/b2Rope.cpp
 	Box2D/Rope/b2Rope.h)
 
-add_library(Box2D SHARED ${Box2DSOURCES})
+add_library(Box2D ${Box2DSOURCES})
 
 if(WIN32)
 	include(GenerateExportHeader)

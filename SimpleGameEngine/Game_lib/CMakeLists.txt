@@ -16,7 +16,7 @@ set (ActionHandlerSOURCES
 		ActionHandler/sge_action_handler.hpp
 		ActionHandler/sge_action_handler.cpp)
 
-add_library (ActionHandler SHARED ${ActionHandlerSOURCES})
+add_library (ActionHandler ${ActionHandlerSOURCES})
 
 target_link_libraries(ActionHandler Action)
 

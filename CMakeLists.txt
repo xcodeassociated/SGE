@@ -145,37 +145,40 @@ elseif(PKG STREQUAL "LOCAL")
 	message(STATUS "Using PACKAGE_MANAGER: LOCAL")
 	
 	set(SETUP_BUILD_DIR "Setup/build")
-
     set(INSTALL_RPATH_USE_LINK_PATH TRUE)
 
     set(BOOST_ROOT "${SETUP_BUILD_DIR}/boost")
 
-	#set(Boost_USE_STATIC_LIBS OFF)
 	set(Boost_USE_STATIC_LIBS ON)
-
-	#set(Boost_USE_MULTITHREADED ON)
-    #set(Boost_USE_STATIC_RUNTIME OFF)
     set(Boost_USE_STATIC_RUNTIME ON)
-
 	set(Boost_NO_SYSTEM_PATHS ON)
 
     if (WIN32)
 	    set(Boost_COMPILER "-vc1413")
     endif()
 
-	set(SDL2_DIR "${SETUP_BUILD_DIR}/sdl")
-
-	set(SDL2_INCLUDE_DIR "${SETUP_BUILD_DIR}/sdl/include")
-	set(SDL2_LIBRARY_TEMP "${SETUP_BUILD_DIR}/sdl/lib")
+    if (NOT ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+        set(SDL2_DIR "${SETUP_BUILD_DIR}/sdl")
+        set(SDL2_PATH ${SDL2_DIR})
+        set(SDL2_INCLUDE_DIR "${SETUP_BUILD_DIR}/sdl/include")
+    endif()
 
 	set(GLM_ROOT "${SETUP_BUILD_DIR}/glm")
 	set(GLM_INCLUDE_DIRS "${SETUP_BUILD_DIR}/glm")
 
 	set(GLEW_ROOT "${SETUP_BUILD_DIR}/glew")
 	set(GLEW_INCLUDE_DIR "${SETUP_BUILD_DIR}/glew/include")
-	set(GLEW_LIBRARY_DIRS "${SETUP_BUILD_DIR}/glew/lib")
-	
-	
+	set(GLEW_LIBRARY_DIR "${SETUP_BUILD_DIR}/glew/lib")
+    if (UNIX)
+        set(GLEW_LIBRARIES "libGLEW.a")
+    elseif(WIN32)
+        set(GLEW_LIBRARIES "libGLEW.lib")
+    endif()
+
+    include_directories(${GLEW_INCLUDE_DIR})
+    link_directories(${GLEW_LIBRARY_DIR})
+
+
 else()
 	message(STATUS "Using PACKAGE_MANAGER: NONE")
 	message(STATUS "No ROOT for libs will be set up")
@@ -190,6 +193,7 @@ message(STATUS "BOOST_LIBRARYDIR: ${BOOST_LIBRARYDIR}")
 message(STATUS "SDL2_ROOT: ${SDL2_DIR}")
 message(STATUS "SDL2_INCLUDE_DIR: ${SDL2_INCLUDE_DIR}")
 message(STATUS "SDL2_LIBRARY_TEMP: ${SDL2_LIBRARY_TEMP}")
+message(STATUS "SDL2_LIBRARY: ${SDL2_LIBRARY}")
 
 message(STATUS "GLM_ROOT: ${GLM_ROOT}")
 message(STATUS "GLEW_ROOT: ${GLEW_ROOT}")
@@ -212,20 +216,20 @@ else()
     message(STATUS "	Boost include: ${Boost_INCLUDE_DIRS}")
     message(STATUS "	Boost libs: ${Boost_LIBRARY_DIRS}")
 endif()
-message(STATUS "found?: ${Boost_FOUND}")
-message(STATUS "version: ${Boost_VERSION}")
-message(STATUS "inc: ${Boost_INCLUDE_DIRS}")
-message(STATUS "libs: ${Boost_LIBRARIES}")
-message(STATUS "libs dir: ${Boost_LIBRARY_DIRS}")
+message(STATUS "Boost_FOUND: ${Boost_FOUND}")
+message(STATUS "Boost_VERSION: ${Boost_VERSION}")
+message(STATUS "Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
+message(STATUS "Boost_LIBRARIES: ${Boost_LIBRARIES}")
+message(STATUS "Boost_LIBRARY_DIRS: ${Boost_LIBRARY_DIRS}")
 
 
-## SDL:
+# SDL:
 find_package(SDL2 REQUIRED)
 if (NOT SDL2_FOUND)
 	message(Error "SDL2 not found")
 else()
-	
-	set(SDL2_INCLUDE_DIR "${SDL2_INCLUDE_DIR}")	
+
+	set(SDL2_INCLUDE_DIR "${SDL2_INCLUDE_DIR}")
 	include_directories(${SDL2_INCLUDE_DIR})
 
 	link_directories(${SDL2_INCLUDE_DIR})
@@ -236,27 +240,10 @@ else()
 	message(STATUS "	SDL2_LIBRARIES: ${SDL2_LIBRARIES}")
 endif()
 
-## GLEW:
-find_package(GLEW REQUIRED)
-if(NOT GLEW_FOUND)
-        message(Error "GLEW not found")
-else()
-	include_directories(${GLEW_INCLUDE_DIRS})
-	link_directories(${GLEW_LIBRARY_DIRS})
-	add_definitions(${GLEW_DEFINITIONS})
-
-    ## TODO: Remove this work-around - on Unix find_package(GLEW REQUIRED) uses static lib
-    if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-        set(GLEW_LIBRARIES "libGLEW.so")
-    elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-        #set(GLEW_LIBRARIES "libGLEW.dylib")
-	    set(GLEW_LIBRARIES "libGLEW.dylib")
-    endif()
-
-	message(STATUS "	GLEW_INCLUDE_DIRS: ${GLEW_INCLUDE_DIRS}")
-	message(STATUS "	GLEW_LIBRARY_DIRS: ${GLEW_LIBRARY_DIRS}")
-	message(STATUS "	GLEW_DEFINITIONS: ${GLEW_DEFINITIONS}")
-endif()
+message(STATUS "	GLEW_INCLUDE_DIRS: ${GLEW_INCLUDE_DIRS}")
+message(STATUS "	GLEW_LIBRARY_DIRS: ${GLEW_LIBRARY_DIRS}")
+message(STATUS "	GLEW_DEFINITIONS: ${GLEW_DEFINITIONS}")
+message(STATUS "    GLEW_LIBRARIES: ${GLEW_LIBRARIES}")
 
 ## GLM:
 include_directories(${GLM_INCLUDE_DIRS})

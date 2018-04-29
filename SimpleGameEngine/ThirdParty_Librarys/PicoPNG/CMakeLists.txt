@@ -2,4 +2,4 @@ set(PicoPNGSOURCES
 	picopng.cpp
 	picopng.h)
 
-add_library(PicoPNG SHARED ${PicoPNGSOURCES})
+add_library(PicoPNG ${PicoPNGSOURCES})

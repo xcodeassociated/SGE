@@ -5,7 +5,7 @@ set(INSTALL_DEPENDENCIES_DIR "${CMAKE_SOURCE_DIR}/build" CACHE STRING "" FORCE)
 
 option(PROCESSOR_COUNT "Set processor count, default 4" "4")
 
-set(PROCESSOR_COUNT 4) ## temp
+set(PROCESSOR_COUNT 4)
 
 message(STATUS "INSTALL_DEPENDENCIES_DIR: ${INSTALL_DEPENDENCIES_DIR}")
 message(STATUS "CPUs: ${PROCESSOR_COUNT}")
@@ -42,16 +42,15 @@ if (UNIX)
 	add_custom_command(TARGET GLEW_EXTERNAL
 		POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/build/glew/lib/*.a ${CMAKE_CURRENT_SOURCE_DIR}/build/bin)
-		
-	if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-		add_custom_command(TARGET SDL2_EXTERNAL
-		POST_BUILD
-		COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/build/sdl/*.framework ${CMAKE_CURRENT_SOURCE_DIR}/build/bin)
-	endif()
 
-	add_custom_command(TARGET SDL2_EXTERNAL
-		POST_BUILD
-		COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/build/sdl/lib/*.a ${CMAKE_CURRENT_SOURCE_DIR}/build/bin)
+	if (NOT (${CMAKE_SYSTEM_NAME} MATCHES "Darwin"))
+		add_custom_command(TARGET SDL2_EXTERNAL
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/build/sdl/lib/*.a ${CMAKE_CURRENT_SOURCE_DIR}/build/bin)
+	else()
+		message(WARNING "MAC OS: PLEASE DOWNLOAD SDL2.framework AND INSTALL MANUALLY TO THE /Libraries/Framework")
+
+	endif()
 
 elseif(WIN32)
 
