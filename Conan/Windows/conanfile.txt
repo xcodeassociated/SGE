@@ -8,14 +8,8 @@ Boost/1.64.0@conan/stable
 cmake
 
 [options]
-Boost:shared=True
-SDL2:shared=True
-
-
-[imports]
-bin, glew32* -> ./dlls
-bin, SDL2* -> ./dlls
-bin, boost_date_time* -> ./dlls
+Boost:shared=False
+SDL2:shared=False
 
 ## Tested on Conan version 0.28.0: https://github.com/conan-io/conan/releases/download/0.28.0/conan-win_0_28_0.exe
 ## To run install: conan install Conan\Windows\ --build missing
