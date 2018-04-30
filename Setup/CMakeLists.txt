@@ -25,7 +25,12 @@ include(ExternalBoost.cmake)
 include(ExternalGLM.cmake)
 
 if(NOT ${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    include(ExternalSDL2.cmake)
+	if (NOT ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+		include(ExternalSDL2.cmake)
+	else()
+		message(WARNING  "On macOS please manually download and extract `SDL2.framework` from `https://www.libsdl.org/download-2.0.php`  into `/Library/Frameworks` folder.")
+	endif()
+
     include(ExternalGLEW.cmake)
 else()
     message(WARNING "On Linux please install SDL2 and GLEW manually -- there are too many dependencies on this system, use following commands: ")
