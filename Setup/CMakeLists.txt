@@ -20,50 +20,15 @@ message(STATUS "CMAKE_RUNTIME_OUTPUT_DIRECTORY: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY
 set(BUILD_SHARED_LIBS ON)
 
 include("${CMAKE_ROOT}/Modules/ExternalProject.cmake")
+
 include(ExternalBoost.cmake)
-include(ExternalSDL2.cmake)
 include(ExternalGLM.cmake)
-include(ExternalGLEW.cmake)
 
-if (UNIX)
-
-	set_target_properties(BOOST_EXTERNAL PROPERTIES
-		BUILD_WITH_INSTALL_RPATH TRUE
-		INSTALL_RPATH_USE_LINK_PATH TRUE)
-
-	add_custom_command(TARGET BOOST_EXTERNAL
-		POST_BUILD
-		COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/build/boost/lib/*.a ${CMAKE_CURRENT_SOURCE_DIR}/build/bin)
-
-	set_target_properties(BOOST_EXTERNAL PROPERTIES
-		BUILD_WITH_INSTALL_RPATH TRUE
-		INSTALL_RPATH_USE_LINK_PATH TRUE)
-
-	add_custom_command(TARGET GLEW_EXTERNAL
-		POST_BUILD
-		COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/build/glew/lib/*.a ${CMAKE_CURRENT_SOURCE_DIR}/build/bin)
-
-	if (NOT (${CMAKE_SYSTEM_NAME} MATCHES "Darwin"))
-		add_custom_command(TARGET SDL2_EXTERNAL
-			POST_BUILD
-			COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/build/sdl/lib/*.a ${CMAKE_CURRENT_SOURCE_DIR}/build/bin)
-	else()
-		message(WARNING "MAC OS: PLEASE DOWNLOAD SDL2.framework AND INSTALL MANUALLY TO THE /Libraries/Framework")
-
-	endif()
-
-elseif(WIN32)
-
-	add_custom_command(TARGET BOOST_EXTERNAL
-		POST_BUILD
-		COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/build/boost/lib/*.lib ${CMAKE_CURRENT_SOURCE_DIR}/build/bin)
-
-	add_custom_command(TARGET GLEW_EXTERNAL
-		POST_BUILD
-		COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/build/glew/lib/*.lib ${CMAKE_CURRENT_SOURCE_DIR}/build/bin)
-
-	add_custom_command(TARGET SDL2_EXTERNAL
-		POST_BUILD
-		COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/build/sdl/lib/*.lib ${CMAKE_CURRENT_SOURCE_DIR}/build/bin)
-
+if(NOT ${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    include(ExternalSDL2.cmake)
+    include(ExternalGLEW.cmake)
+else()
+    message(WARNING "On Linux please install SDL2 and GLEW manually -- there are too many dependencies on this system, use following commands: ")
+    message(WARNING "$ sudo apt-get install freeglut3 freeglut3-dev libglew1.5 libglew1.5-dev libglu1-mesa libglu1-mesa-dev libgl1-mesa-glx libgl1-mesa-dev")
+    message(WARNING "$ sudo apt-get install libsdl2-dev")
 endif()

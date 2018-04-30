@@ -80,7 +80,7 @@ if (UNIX)
 
     endif()
 
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -ldl")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive")
 
     if (CMAKE_BUILD_TYPE MATCHES "Debug")
@@ -143,8 +143,9 @@ if (PKG STREQUAL "CONAN")
 	conan_basic_setup()
 elseif(PKG STREQUAL "LOCAL")
 	message(STATUS "Using PACKAGE_MANAGER: LOCAL")
-	
-	set(SETUP_BUILD_DIR "Setup/build")
+    message(STATUS "SETUP_BUILD_DIR: ${SETUP_BUILD_DIR}")
+
+    set(SETUP_BUILD_DIR "Setup/build")
     set(INSTALL_RPATH_USE_LINK_PATH TRUE)
 
     set(BOOST_ROOT "${SETUP_BUILD_DIR}/boost")
@@ -152,16 +153,17 @@ elseif(PKG STREQUAL "LOCAL")
 	set(BOOST_INCLUDEDIR "${BOOST_ROOT}/include/boost-1_65_1")
 	set(Boost_NO_SYSTEM_PATHS ON)
 	set(Boost_USE_MULTITHREADED ON)
-	set(Boost_DEBUG ON)
+	set(Boost_USE_STATIC_LIBS ON)
 
     if (WIN32)
 		set(Boost_COMPILER "-vc1413")
     endif()
 
 	## Helps to debug Boost find_package(...)
-	#set(BOOST_DEBUG ON) 
+	#set(BOOST_DEBUG ON)
 
-    if (NOT ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    ##NOTE: For UNIX systems libSDL has too many dependencies and has to be manually installed
+    if (WIN32)
         set(SDL2_DIR "${SETUP_BUILD_DIR}/sdl")
         set(SDL2_PATH ${SDL2_DIR})
         set(SDL2_INCLUDE_DIR "${SETUP_BUILD_DIR}/sdl/include")
@@ -170,13 +172,20 @@ elseif(PKG STREQUAL "LOCAL")
 	set(GLM_ROOT "${SETUP_BUILD_DIR}/glm")
 	set(GLM_INCLUDE_DIRS "${SETUP_BUILD_DIR}/glm")
 
-	set(GLEW_ROOT "${SETUP_BUILD_DIR}/glew")
-	set(GLEW_INCLUDE_DIR "${SETUP_BUILD_DIR}/glew/include")
-	set(GLEW_LIBRARY_DIR "${SETUP_BUILD_DIR}/glew/lib")
-    if (UNIX)
-        set(GLEW_LIBRARIES "libGLEW.a")
-    elseif(WIN32)
-        set(GLEW_LIBRARIES "glew.lib")
+    if (NOT ${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+        set(GLEW_ROOT "${SETUP_BUILD_DIR}/glew")
+        set(GLEW_INCLUDE_DIR "${SETUP_BUILD_DIR}/glew/include")
+        set(GLEW_LIBRARY_DIR "${SETUP_BUILD_DIR}/glew/lib")
+        if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+            set(GLEW_LIBRARIES "libGLEW.a")
+        else()
+            set(GLEW_LIBRARIES "glew.lib")
+        endif()
+    else()
+        find_package(GLEW REQUIRED)
+        if (NOT GLEW_FOUND)
+            message(Error "GLEW not found")
+        endif()
     endif()
 
     include_directories(${GLEW_INCLUDE_DIR})
@@ -186,28 +195,18 @@ elseif(PKG STREQUAL "LOCAL")
 else()
 	message(STATUS "Using PACKAGE_MANAGER: NONE")
 	message(STATUS "No ROOT for libs will be set up")
-	
+
+    find_package(GLEW REQUIRED)
+    if (NOT GLEW_FOUND)
+        message(Error "GLEW not found")
+    endif()
 endif()
-
-message(STATUS "SETUP_BUILD_DIR: ${SETUP_BUILD_DIR}")
-message(STATUS "BOOST_ROOT: ${BOOST_ROOT}")
-message(STATUS "BOOST_INCLUDEDIR: ${BOOST_INCLUDEDIR}")
-message(STATUS "BOOST_LIBRARYDIR: ${BOOST_LIBRARYDIR}")
-
-message(STATUS "SDL2_ROOT: ${SDL2_DIR}")
-message(STATUS "SDL2_INCLUDE_DIR: ${SDL2_INCLUDE_DIR}")
-message(STATUS "SDL2_LIBRARY_TEMP: ${SDL2_LIBRARY_TEMP}")
-message(STATUS "SDL2_LIBRARY: ${SDL2_LIBRARY}")
-
-message(STATUS "GLM_ROOT: ${GLM_ROOT}")
-message(STATUS "GLEW_ROOT: ${GLEW_ROOT}")
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMakeModules")
 
 ## Boost:
 if (WIN32)
     find_package(Boost COMPONENTS date_time program_options system filesystem REQUIRED)
-    #find_package(Boost COMPONENTS date_time-vc1413-mt-1_65_1 program_options-vc1413-mt-1_65_1 system-vc1413-mt-1_65_1 filesystem-vc1413-mt-1_65_1 REQUIRED)
 else()
     find_package(Boost COMPONENTS date_time program_options system filesystem REQUIRED)
 endif()
@@ -216,40 +215,20 @@ if(NOT Boost_FOUND)
 	message(Error "Boost not found")
 else()
     include_directories(${Boost_INCLUDE_DIRS})
-
-    message(STATUS "	Boost version: ${Boost_VERSION}")
-    message(STATUS "	Boost include: ${Boost_INCLUDE_DIRS}")
-    message(STATUS "	Boost libs: ${Boost_LIBRARY_DIRS}")
 endif()
-message(STATUS "Boost_FOUND: ${Boost_FOUND}")
-message(STATUS "Boost_VERSION: ${Boost_VERSION}")
-message(STATUS "Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
-message(STATUS "Boost_LIBRARIES: ${Boost_LIBRARIES}")
-message(STATUS "Boost_LIBRARY_DIRS: ${Boost_LIBRARY_DIRS}")
-
 
 # SDL:
 find_package(SDL2 REQUIRED)
 if (NOT SDL2_FOUND)
 	message(Error "SDL2 not found")
 else()
-
 	set(SDL2_INCLUDE_DIR "${SDL2_INCLUDE_DIR}")
 	include_directories("${SDL2_INCLUDE_DIR}")
 	include_directories("${SDL2_INCLUDE_DIR}/SDL2")
 
 	link_directories(${SDL2_INCLUDE_DIR})
     add_definitions(${SDL2_DEFINITIONS})
-
-	message(STATUS "	SDL2_INCLUDE_DIR: ${SDL2_INCLUDE_DIR}")
-	message(STATUS "	SDL2_DEFINITIONS: ${SDL2_DEFINITIONS}")
-	message(STATUS "	SDL2_LIBRARIES: ${SDL2_LIBRARIES}")
 endif()
-
-message(STATUS "	GLEW_INCLUDE_DIRS: ${GLEW_INCLUDE_DIRS}")
-message(STATUS "	GLEW_LIBRARY_DIRS: ${GLEW_LIBRARY_DIRS}")
-message(STATUS "	GLEW_DEFINITIONS: ${GLEW_DEFINITIONS}")
-message(STATUS "    GLEW_LIBRARIES: ${GLEW_LIBRARIES}")
 
 ## GLM:
 include_directories(${GLM_INCLUDE_DIRS})
@@ -262,11 +241,33 @@ else()
 	include_directories(${OpenGL_INCLUDE_DIRS})
 	link_directories(${OpenGL_LIBRARY_DIRS})
 	add_definitions(${OpenGL_DEFINITIONS})
-
-	message(STATUS "	OpenGL_INCLUDE_DIRS: ${OpenGL_INCLUDE_DIRS}")
-	message(STATUS "	OpenGL_LIBRARY_DIRS: ${OpenGL_LIBRARY_DIRS}")
-	message(STATUS "	OpenGL_DEFINITIONS: ${OpenGL_DEFINITIONS}")
 endif()
+
+## Debug info:
+message(STATUS "GLM_ROOT: ${GLM_ROOT}")
+
+message(STATUS "BOOST_ROOT: ${BOOST_ROOT}")
+message(STATUS "    Boost_FOUND: ${Boost_FOUND}")
+message(STATUS "    Boost_VERSION: ${Boost_VERSION}")
+message(STATUS "    Boost_INCLUDE_DIRS: ${Boost_INCLUDE_DIRS}")
+message(STATUS "    Boost_LIBRARIES: ${Boost_LIBRARIES}")
+message(STATUS "    Boost_LIBRARY_DIRS: ${Boost_LIBRARY_DIRS}")
+
+message(STATUS "SDL2_ROOT: ${SDL2_DIR}")
+message(STATUS "	SDL2_INCLUDE_DIR: ${SDL2_INCLUDE_DIR}")
+message(STATUS "	SDL2_DEFINITIONS: ${SDL2_DEFINITIONS}")
+message(STATUS "	SDL2_LIBRARIES: ${SDL2_LIBRARIES}")
+
+message(STATUS "GLEW_ROOT: ${GLEW_ROOT}")
+message(STATUS "	GLEW_INCLUDE_DIRS: ${GLEW_INCLUDE_DIRS}")
+message(STATUS "	GLEW_LIBRARY_DIRS: ${GLEW_LIBRARY_DIRS}")
+message(STATUS "	GLEW_DEFINITIONS: ${GLEW_DEFINITIONS}")
+message(STATUS "    GLEW_LIBRARIES: ${GLEW_LIBRARIES}")
+
+message(STATUS "OpenGL: ")
+message(STATUS "	OpenGL_INCLUDE_DIRS: ${OpenGL_INCLUDE_DIRS}")
+message(STATUS "	OpenGL_LIBRARY_DIRS: ${OpenGL_LIBRARY_DIRS}")
+message(STATUS "	OpenGL_DEFINITIONS: ${OpenGL_DEFINITIONS}")
 
 ## CXX Flags print out:
 message(STATUS "USED CXX Flags: ${CMAKE_CXX_FLAGS}")
@@ -331,15 +332,6 @@ include_directories(${SGE_DIR}/Utils_lib/Logger)
 
 add_subdirectory(${SGE_DIR})
 add_subdirectory(${Game_DIR})
-
-
-## Conan legacy remove!
-if(WIN32)
-	file(GLOB CONAN_DLLS "dlls/*.dll")
-	file(COPY ${CONAN_DLLS} DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/bin")
-	file(GLOB CONAN_PDBS "dlls/*.pdb")
-	file(COPY ${CONAN_PDBS} DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/bin")
-endif()
 
 message(STATUS "CMAKE_MODULE_LINKER_FLAGS: ${CMAKE_MODULE_LINKER_FLAGS}")
 message(STATUS "CMAKE_SHARED_LINKER_FLAGS: ${CMAKE_SHARED_LINKER_FLAGS}")

@@ -12,6 +12,7 @@
 
 int main(int argc, char * argv[])
 {
+
     std::cout.setf(std::ios::boolalpha);
     std::cout.sync_with_stdio(true);
 
