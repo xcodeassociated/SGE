@@ -50,3 +50,4 @@ conan_imports_manifest.txt
 /dlls
 /CMakeSettings.json
 /Setup/build/*
+/CppProperties.json
