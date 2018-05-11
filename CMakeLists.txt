@@ -156,7 +156,13 @@ elseif(PKG STREQUAL "LOCAL")
     endif()
 
 	set(Boost_USE_MULTITHREADED ON)
-	set(Boost_USE_STATIC_LIBS ON)
+
+	if (BUILD_SHARED_LIBS)
+		set(Boost_USE_STATIC_LIBS OFF)
+	else()
+		set(Boost_USE_STATIC_LIBS ON)
+	endif()
+
 	set(BOOST_DEBUG ON)
 
     ## NOTE: For UNIX systems libSDL has too many dependencies and has to be manually installed

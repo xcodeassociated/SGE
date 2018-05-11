@@ -59,7 +59,7 @@ ExternalProject_Add(BOOST_EXTERNAL
 	URL ${Boost_url}
 	UPDATE_COMMAND ""
 	CONFIGURE_COMMAND ${Boost_Bootstrap_Command} --prefix=${INSTALL_DEPENDENCIES_DIR}/boost_prefix
-	BUILD_COMMAND ${Boost_b2_Command} install -j${PROCESSOR_COUNT} --prefix=${INSTALL_DEPENDENCIES_DIR}/boost --with-thread --with-filesystem --with-system --with-date_time --with-program_options --threading=multi link=static 
+	BUILD_COMMAND ${Boost_b2_Command} install -j${PROCESSOR_COUNT} --prefix=${INSTALL_DEPENDENCIES_DIR}/boost --with-thread --with-filesystem --with-system --with-date_time --with-program_options --threading=multi link=static,shared
 	INSTALL_COMMAND ""
 	INSTALL_DIR ${INSTALL_DEPENDENCIES_DIR}/boost
 	LOG_DOWNLOAD ON
