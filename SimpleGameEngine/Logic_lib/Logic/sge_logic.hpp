@@ -10,9 +10,13 @@
 #define sge_logic_h
 
 #ifdef _WIN32
-#include <logic_export.h>
+	#ifdef SGE_SHARED
+		#include <logic_export.h>
+	#else
+		#define LOGIC_EXPORT
+	#endif
 #else
-#define LOGIC_EXPORT
+	#define LOGIC_EXPORT
 #endif
 
 #include "sge_logic_priority.hpp"

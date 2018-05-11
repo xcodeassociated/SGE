@@ -39,7 +39,7 @@ target_link_libraries(Logic
 		ActionHandler
 		Utils)
 		
-if(WIN32)
+if(WIN32 AND BUILD_SHARED_LIBS)
 	include(GenerateExportHeader)
 	generate_export_header(Logic)
 endif()

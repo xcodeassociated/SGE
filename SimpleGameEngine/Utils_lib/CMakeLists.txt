@@ -19,7 +19,7 @@ target_link_libraries(Utils
 		${Boost_LIBRARIES}
 		${SDL2_LIBRARY})
 		
-if(WIN32)
+if(WIN32 AND BUILD_SHARED_LIBS)
 	include(GenerateExportHeader)
 	generate_export_header(Utils)
 endif()

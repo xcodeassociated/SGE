@@ -10,10 +10,15 @@
 #define Timing_h
 
 #ifdef _WIN32
-#include <utils_export.h>
-#include <boost/config/platform/win32.hpp>
+	#ifdef SGE_SHARED
+		#include <utils_export.h>
+	#else
+		#define UTILS_EXPORT extern
+	#endif
+
+	#include <boost/config/platform/win32.hpp>
 #else
-#define UTILS_EXPORT extern
+	#define UTILS_EXPORT extern
 #endif
 
 #include <boost/date_time/posix_time/posix_time.hpp>
