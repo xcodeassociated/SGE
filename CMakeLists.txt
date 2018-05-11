@@ -22,8 +22,10 @@ endif()
 
 set(SGE_DIR "SimpleGameEngine")
 set(Game_DIR "ZombieGame")
+
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/$<CONFIG>")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/$<CONFIG>")
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH ON)
 
 message(STATUS "BUILD_SHARED_LIBS: ${BUILD_SHARED_LIBS}")
 message(STATUS "CMAKE_VERSION: ${CMAKE_VERSION}")
@@ -120,10 +122,6 @@ elseif(WIN32)
     endif()
 endif()
 
-set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
-set(CMAKE_INSTALL_RPATH_USE_LINK_PATH ON)
-set(CMAKE_SKIP_INSTALL_RPATH OFF)
-
 if (PKG STREQUAL "CONAN")
 	message(STATUS "Using PACKAGE_MANAGER: CONAN")
 
@@ -137,9 +135,9 @@ if (PKG STREQUAL "CONAN")
 	endif()
 
 	## GLM:
-	find_package(glm REQUIRED)
+	find_package(GLM)
 	if (NOT GLM_INCLUDE_DIRS)
-		message(Error "GLM not found")
+		message(WARNING "GLM not found! GLM includes may not be found")
 	else()
 		include_directories(${GLM_INCLUDE_DIRS})
 	endif()
@@ -207,9 +205,9 @@ else()
 	endif()
 
 	## GLM:
-	find_package(glm REQUIRED)
+	find_package(GLM)
 	if (NOT GLM_INCLUDE_DIRS)
-		message(Error "GLM not found")
+		message(WARNING "GLM not found! GLM includes may not be found")
 	else()
 		include_directories(${GLM_INCLUDE_DIRS})
 	endif()
