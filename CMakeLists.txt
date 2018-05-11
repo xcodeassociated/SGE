@@ -69,8 +69,8 @@ if (UNIX)
     if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
         message(STATUS "Linux")
 
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fext-numeric-literals -pthread")
-        set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -fext-numeric-literals -pthread")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fext-numeric-literals -pthread -ldl")
+        set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -fext-numeric-literals -pthread -ldl")
     
 	elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
         message(STATUS "Darwin")
@@ -78,8 +78,6 @@ if (UNIX)
         set(CMAKE_MACOSX_RPATH ON)
 	endif()
 
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ldl")
-    set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -ldl")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive")
 
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
