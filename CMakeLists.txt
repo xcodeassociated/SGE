@@ -1,21 +1,13 @@
 cmake_minimum_required(VERSION 3.5)
 project(SGE-ZombieGame)
   
-option(PACKAGE_MANAGER "Default project package manager default: LOCAL -- Requires to build Setup project")
+option(PACKAGE_MANAGER "Default project package manager default: NONE")
 option(CMAKE_BUILD_TYPE "Default project build type: Debug")
 
-set(CMAKE_INSTALL_RPATH_USE_LINK_PATH ON)
-
 if (NOT PACKAGE_MANAGER)
-	message(WARNING "Option PACKAGE_MANAGER not passed, setting: LOCAL")
-	set(PACKAGE_MANAGER "LOCAL")
+	message(WARNING "Option PACKAGE_MANAGER not passed, setting: NONE")
+	set(PACKAGE_MANAGER "NONE")
 endif()
-
-if (NOT CMAKE_BUILD_TYPE)
-	message(WARNING "Option CMAKE_BUILD_TYPE not passed. Setting: Debug")
-	set(CMAKE_BUILD_TYPE "Debug" )
-endif()
-
 set(PKG "")
 if (${PACKAGE_MANAGER} STREQUAL "Conan" OR ${PACKAGE_MANAGER} STREQUAL "conan" OR ${PACKAGE_MANAGER} STREQUAL "CONAN")
 	set(PKG "CONAN")
@@ -30,12 +22,10 @@ endif()
 
 set(SGE_DIR "SimpleGameEngine")
 set(Game_DIR "ZombieGame")
-
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/$<CONFIG>")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/$<CONFIG>")
 
 message(STATUS "BUILD_SHARED_LIBS: ${BUILD_SHARED_LIBS}")
-
 message(STATUS "CMAKE_VERSION: ${CMAKE_VERSION}")
 message(STATUS "CMAKE_SYSTEM:  ${CMAKE_SYSTEM}")
 message(STATUS "CMAKE_COMMAND: ${CMAKE_COMMAND}")
@@ -65,82 +55,95 @@ endif()
 
 message(STATUS "BUILD TYPE: ${CMAKE_BUILD_TYPE}")
 
+if (BUILD_SHARED_LIBS AND WIN32)
+	message(STATUS "BUILD_SHARED_LIBS is ON. Adding compiler defintion.")
+	add_definitions(-DSGE_SHARED)
+endif()
+
 if (UNIX)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
+    set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
+
     if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
         message(STATUS "Linux")
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fext-numeric-literals")
 
-    elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fext-numeric-literals -pthread")
+        set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -fext-numeric-literals -pthread")
+    
+	elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
         message(STATUS "Darwin")
 
         set(CMAKE_MACOSX_RPATH ON)
+	endif()
 
-    endif()
-
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -ldl")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ldl")
+    set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -ldl")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive")
 
-    if (CMAKE_BUILD_TYPE MATCHES "Debug")
-        message(STATUS "DEBUG MODE -- UNIX")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} -O3")
 
-    elseif (CMAKE_BUILD_TYPE MATCHES "Release")
-        message(STATUS "RELEASE MODE -- UNIX")
-
-    endif()
-
-    SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
-    SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
-
-    set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
-    set(CMAKE_INSTALL_RPATH_USE_LINK_PATH ON)
-    set(CMAKE_SKIP_INSTALL_RPATH OFF)
+	set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
+    set(CMAKE_C_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
+    set(CMAKE_C_FLAGS_RELWITHDEBINFO "${CMAKE_C_FLAGS_RELWITHDEBINFO} -O3")
 
 elseif(WIN32)
     message(STATUS "WIN32")
 
-        if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-            message (STATUS "MSVC ${MSVC_VERSION}v")
+    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+        message (STATUS "MSVC ${MSVC_VERSION}v")
 
-            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
+        set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
-            ## These mess up release builds. Use Only for Debug
-            ##SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:msvcrt.lib" )
-            ##SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:MSVCRT" )
-            ##SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:msvcrt.lib" )
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
+		set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Od /W2")
+        set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2")
+        set(CMAKE_CXX_FLAGS_RELWITHDEBINFO  "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /O2")
 
-            set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT SGE-ZombieGame)
-            set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS 1)
-            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W2")
-            link_directories("${CMAKE_CURRENT_BINARY_DIR}/lib")
-            include_directories("${CMAKE_CURRENT_BINARY_DIR}/SimpleGameEngine/Logic_lib")
-            include_directories("${CMAKE_CURRENT_BINARY_DIR}/SimpleGameEngine/Utils_lib")
-            include_directories("${CMAKE_CURRENT_BINARY_DIR}/SimpleGameEngine/ThirdParty_Librarys/Box2D")
+        set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} /MP")
+		set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Od /W2")
+        set(CMAKE_C_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2")
+        set(CMAKE_C_FLAGS_RELWITHDEBINFO "${CMAKE_C_FLAGS_RELWITHDEBINFO} /O2")
 
-            if (CMAKE_BUILD_TYPE MATCHES "Debug")
-                message(STATUS "DEBUG MODE -- WIN MSVC")
-                ## ..
-            elseif (CMAKE_BUILD_TYPE MATCHES "Release")
-                message(STATUS "RELEASE MODE -- WIN MSVC")
-                ## ..
-            endif()
+        set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT SGE-ZombieGame)
+        link_directories("${CMAKE_CURRENT_BINARY_DIR}/lib")
 
-            SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Od")
-            SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2")
+        include_directories("${CMAKE_CURRENT_BINARY_DIR}/SimpleGameEngine/Logic_lib")
+        include_directories("${CMAKE_CURRENT_BINARY_DIR}/SimpleGameEngine/Utils_lib")
+        include_directories("${CMAKE_CURRENT_BINARY_DIR}/SimpleGameEngine/ThirdParty_Librarys/Box2D")
 
-        else()
-            status(FATAL_ERROR "Other compiler than MSVC in curentley not supported for Windows build!")
-            return()
-        endif()
+    else()
+		## TODO: Add support for MinGW on Windows platform
+        status(FATAL_ERROR "Other compiler than MSVC in curentley not supported for Windows build!")
+        return()
+    endif()
 endif()
+
+set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH ON)
+set(CMAKE_SKIP_INSTALL_RPATH OFF)
 
 if (PKG STREQUAL "CONAN")
 	message(STATUS "Using PACKAGE_MANAGER: CONAN")
 
 	include(${CMAKE_CURRENT_SOURCE_DIR}/conanbuildinfo.cmake)
 	conan_basic_setup()
+
+	## GLEW: 
+	find_package(GLEW REQUIRED)
+	if (NOT GLEW_FOUND)
+		message(Error "GLEW not found")
+	endif()
+
+	## GLM:
+	find_package(glm REQUIRED)
+	if (NOT GLM_INCLUDE_DIRS)
+		message(Error "GLM not found")
+	else()
+		include_directories(${GLM_INCLUDE_DIRS})
+	endif()
+
 elseif(PKG STREQUAL "LOCAL")
 	message(STATUS "Using PACKAGE_MANAGER: LOCAL")
     message(STATUS "SETUP_BUILD_DIR: ${SETUP_BUILD_DIR}")
@@ -148,30 +151,31 @@ elseif(PKG STREQUAL "LOCAL")
     set(SETUP_BUILD_DIR "Setup/build")
     set(INSTALL_RPATH_USE_LINK_PATH TRUE)
 
-    set(BOOST_ROOT "${SETUP_BUILD_DIR}/boost")
+    set(BOOST_ROOT "${CMAKE_SOURCE_DIR}/${SETUP_BUILD_DIR}/boost")
 	set(BOOST_LIBRARYDIR "${BOOST_ROOT}/lib")
-	set(BOOST_INCLUDEDIR "${BOOST_ROOT}/include/boost-1_65_1")
-	set(Boost_NO_SYSTEM_PATHS ON)
+	set(BOOST_INCLUDEDIR "${BOOOT_ROOT}/include/boost-1_65_1")
+	
+	if (WIN32 AND NOT Boost_COMPILER)
+		message(WARNING "On windows, please pass `Boost_COMPILER` (e.g. -DBoost_COMPILER=-vc1413 -- for VS2017)")
+    endif()
+
 	set(Boost_USE_MULTITHREADED ON)
 	set(Boost_USE_STATIC_LIBS ON)
+	set(BOOST_DEBUG ON)
 
-    if (WIN32)
-		set(Boost_COMPILER "-vc1413")
-    endif()
-
-	## Helps to debug Boost find_package(...)
-	#set(BOOST_DEBUG ON)
-
-    ##NOTE: For UNIX systems libSDL has too many dependencies and has to be manually installed
+    ## NOTE: For UNIX systems libSDL has too many dependencies and has to be manually installed
+	## There are Linux & macOS instructions on how to install required libs on these platforms in Setup project
     if (WIN32)
         set(SDL2_DIR "${SETUP_BUILD_DIR}/sdl")
-        set(SDL2_PATH ${SDL2_DIR})
-        set(SDL2_INCLUDE_DIR "${SETUP_BUILD_DIR}/sdl/include")
-    endif()
+		set(SDL2_INCLUDE_DIR "${SETUP_BUILD_DIR}/sdl/include")
+	endif()
 
+	## GLM:
 	set(GLM_ROOT "${SETUP_BUILD_DIR}/glm")
 	set(GLM_INCLUDE_DIRS "${SETUP_BUILD_DIR}/glm")
+	include_directories(${GLM_INCLUDE_DIRS})
 
+	## GLEW:
     if (NOT ${CMAKE_SYSTEM_NAME} MATCHES "Linux")
         set(GLEW_ROOT "${SETUP_BUILD_DIR}/glew")
         set(GLEW_INCLUDE_DIR "${SETUP_BUILD_DIR}/glew/include")
@@ -179,7 +183,7 @@ elseif(PKG STREQUAL "LOCAL")
         if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
             set(GLEW_LIBRARIES "libGLEW.a")
         else()
-            set(GLEW_LIBRARIES "glew.lib")
+            set(GLEW_LIBRARIES "glew32s.lib")
         endif()
     else()
         find_package(GLEW REQUIRED)
@@ -191,30 +195,36 @@ elseif(PKG STREQUAL "LOCAL")
     include_directories(${GLEW_INCLUDE_DIR})
     link_directories(${GLEW_LIBRARY_DIR})
 
-
 else()
 	message(STATUS "Using PACKAGE_MANAGER: NONE")
 	message(STATUS "No ROOT for libs will be set up")
+	message(STATUS "CMAKE_TOOLCHAIN_FILE: ${CMAKE_TOOLCHAIN_FILE}")
 
-    find_package(GLEW REQUIRED)
-    if (NOT GLEW_FOUND)
-        message(Error "GLEW not found")
-    endif()
+	## GLEW:
+	find_package(GLEW REQUIRED)
+	if (NOT GLEW_FOUND)
+		message(Error "GLEW not found")
+	endif()
+
+	## GLM:
+	find_package(glm REQUIRED)
+	if (NOT GLM_INCLUDE_DIRS)
+		message(Error "GLM not found")
+	else()
+		include_directories(${GLM_INCLUDE_DIRS})
+	endif()
+
 endif()
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMakeModules")
 
 ## Boost:
-if (WIN32)
-    find_package(Boost COMPONENTS date_time program_options system filesystem REQUIRED)
-else()
-    find_package(Boost COMPONENTS date_time program_options system filesystem REQUIRED)
-endif()
-
+find_package(Boost COMPONENTS date_time program_options system filesystem REQUIRED)
 if(NOT Boost_FOUND)
 	message(Error "Boost not found")
 else()
-    include_directories(${Boost_INCLUDE_DIRS})
+	include_directories(${Boost_INCLUDE_DIRS})
+	link_directories(${Boost_LIBRARY_DIRS})
 endif()
 
 # SDL:
@@ -222,16 +232,11 @@ find_package(SDL2 REQUIRED)
 if (NOT SDL2_FOUND)
 	message(Error "SDL2 not found")
 else()
-	set(SDL2_INCLUDE_DIR "${SDL2_INCLUDE_DIR}")
 	include_directories("${SDL2_INCLUDE_DIR}")
 	include_directories("${SDL2_INCLUDE_DIR}/SDL2")
-
-	link_directories(${SDL2_INCLUDE_DIR})
-    add_definitions(${SDL2_DEFINITIONS})
+	link_directories("${SDL2_DIR}/lib")
+	add_definitions(${SDL2_DEFINITIONS})
 endif()
-
-## GLM:
-include_directories(${GLM_INCLUDE_DIRS})
 
 ## OpenGL:
 find_package(OpenGL REQUIRED)
@@ -245,6 +250,7 @@ endif()
 
 ## Debug info:
 message(STATUS "GLM_ROOT: ${GLM_ROOT}")
+message(STATUS "	GLM_INCLUDE_DIRS: ${GLM_INCLUDE_DIRS}")
 
 message(STATUS "BOOST_ROOT: ${BOOST_ROOT}")
 message(STATUS "    Boost_FOUND: ${Boost_FOUND}")
