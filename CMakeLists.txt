@@ -1,8 +1,10 @@
 cmake_minimum_required(VERSION 3.5)
 project(SGE-ZombieGame)
   
-option(PACKAGE_MANAGER "Default project package manager default: NONE")
 option(CMAKE_BUILD_TYPE "Default project build type: Debug")
+
+## Package Manager option handling section
+option(PACKAGE_MANAGER "Default project package manager default: NONE" NONE)
 
 if (NOT PACKAGE_MANAGER)
 	message(WARNING "Option PACKAGE_MANAGER not passed, setting: NONE")
@@ -15,6 +17,11 @@ elseif(${PACKAGE_MANAGER} STREQUAL "None" OR ${PACKAGE_MANAGER} STREQUAL "none" 
 	set(PKG "NONE")
 elseif(${PACKAGE_MANAGER} STREQUAL "Local" OR ${PACKAGE_MANAGER} STREQUAL "local" OR ${PACKAGE_MANAGER} STREQUAL "LOCAL")
 	set(PKG "LOCAL")
+
+	if (NOT SETUP_BUILD_DIR)
+		message(WARNING "Option SETUP_BUILD_DIR has not been provided. Using default value: Setup/build")
+		set(SETUP_BUILD_DIR "Setup/build")
+	endif()
 else()
 	message(WARNING "PACKAGE_MANAGER defined error: ${PACKAGE_MANAGER} ${PKG}")
 	return()
@@ -89,7 +96,7 @@ if (UNIX)
     set(CMAKE_C_FLAGS_RELWITHDEBINFO "${CMAKE_C_FLAGS_RELWITHDEBINFO} -O3")
 
 elseif(WIN32)
-    message(STATUS "WIN32")
+    message(STATUS "WINDOWS")
 
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
         message (STATUS "MSVC ${MSVC_VERSION}v")
@@ -144,7 +151,6 @@ elseif(PKG STREQUAL "LOCAL")
 	message(STATUS "Using PACKAGE_MANAGER: LOCAL")
     message(STATUS "SETUP_BUILD_DIR: ${SETUP_BUILD_DIR}")
 
-    set(SETUP_BUILD_DIR "Setup/build")
     set(INSTALL_RPATH_USE_LINK_PATH TRUE)
 
     set(BOOST_ROOT "${CMAKE_SOURCE_DIR}/${SETUP_BUILD_DIR}/boost")
@@ -156,21 +162,9 @@ elseif(PKG STREQUAL "LOCAL")
     endif()
 
 	set(Boost_USE_MULTITHREADED ON)
-
-	if (BUILD_SHARED_LIBS)
-		set(Boost_USE_STATIC_LIBS OFF)
-	else()
-		set(Boost_USE_STATIC_LIBS ON)
-	endif()
+	set(Boost_USE_STATIC_LIBS ON)
 
 	set(BOOST_DEBUG ON)
-
-    ## NOTE: For UNIX systems libSDL has too many dependencies and has to be manually installed
-	## There are Linux & macOS instructions on how to install required libs on these platforms in Setup project
-    if (WIN32)
-        set(SDL2_DIR "${SETUP_BUILD_DIR}/sdl")
-		set(SDL2_INCLUDE_DIR "${SETUP_BUILD_DIR}/sdl/include")
-	endif()
 
 	## GLM:
 	set(GLM_ROOT "${SETUP_BUILD_DIR}/glm")
@@ -178,19 +172,16 @@ elseif(PKG STREQUAL "LOCAL")
 	include_directories(${GLM_INCLUDE_DIRS})
 
 	## GLEW:
-    if (NOT ${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+		## so far glew from setup project works only on macOS
         set(GLEW_ROOT "${SETUP_BUILD_DIR}/glew")
         set(GLEW_INCLUDE_DIR "${SETUP_BUILD_DIR}/glew/include")
         set(GLEW_LIBRARY_DIR "${SETUP_BUILD_DIR}/glew/lib")
-        if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-            set(GLEW_LIBRARIES "libGLEW.a")
-        else()
-            set(GLEW_LIBRARIES "glew32s.lib")
-        endif()
+        set(GLEW_LIBRARIES "libGLEW.a")
     else()
-        find_package(GLEW REQUIRED)
+        find_package(GLEW)
         if (NOT GLEW_FOUND)
-            message(Error "GLEW not found")
+            message(WARNING "GLEW not found! The linking may not succeed.")
         endif()
     endif()
 
