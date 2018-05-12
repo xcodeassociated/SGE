@@ -23,3 +23,5 @@ if(WIN32 AND BUILD_SHARED_LIBS)
 	include(GenerateExportHeader)
 	generate_export_header(Utils)
 endif()
+
+install(TARGETS Utils DESTINATION "${CMAKE_INSTALL_PREFIX}/lib")

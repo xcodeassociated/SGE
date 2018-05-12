@@ -14,3 +14,5 @@ target_link_libraries(Scene
 		Logic
 		Utils
 		Box2D)
+
+install(TARGETS Scene DESTINATION "${CMAKE_INSTALL_PREFIX}/lib")

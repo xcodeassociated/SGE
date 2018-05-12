@@ -61,3 +61,5 @@ target_link_libraries(Renderer
 		Utils
 		${OPENGL_LIBRARIES}
 		${GLEW_LIBRARIES})
+
+install(TARGETS Renderer DESTINATION "${CMAKE_INSTALL_PREFIX}/lib")

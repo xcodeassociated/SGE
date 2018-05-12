@@ -43,3 +43,5 @@ if(WIN32 AND BUILD_SHARED_LIBS)
 	include(GenerateExportHeader)
 	generate_export_header(Logic)
 endif()
+
+install(TARGETS Logic DESTINATION "${CMAKE_INSTALL_PREFIX}/lib")

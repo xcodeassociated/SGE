@@ -35,3 +35,5 @@ target_link_libraries(Game
 		Renderer
 		Utils
 		ActionHandler)
+
+install(TARGETS Game DESTINATION "${CMAKE_INSTALL_PREFIX}/lib")

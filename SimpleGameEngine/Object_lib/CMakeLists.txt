@@ -51,3 +51,5 @@ add_library (Object
 target_link_libraries(Object
 			Utils
 			Box2D)
+
+install(TARGETS Object DESTINATION "${CMAKE_INSTALL_PREFIX}/lib")

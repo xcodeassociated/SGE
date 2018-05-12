@@ -18,3 +18,5 @@ add_library(Action
 target_link_libraries(Action
 		Object
 		Utils)
+
+install(TARGETS Action DESTINATION "${CMAKE_INSTALL_PREFIX}/lib")

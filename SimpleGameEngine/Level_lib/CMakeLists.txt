@@ -13,3 +13,5 @@ add_library (Level
 target_link_libraries(Level
 		Object
 		Utils)
+
+install(TARGETS Level DESTINATION "${CMAKE_INSTALL_PREFIX}/lib")

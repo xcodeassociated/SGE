@@ -99,3 +99,5 @@ if(WIN32)
 	include(GenerateExportHeader)
 	generate_export_header(Box2D)
 endif()
+
+install(TARGETS Box2D DESTINATION "${CMAKE_INSTALL_PREFIX}/lib")

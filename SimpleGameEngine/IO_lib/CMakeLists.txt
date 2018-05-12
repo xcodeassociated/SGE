@@ -25,3 +25,5 @@ target_link_libraries(IO
 		Object
 		Utils
 		${SDL2_LIBRARY})
+
+install(TARGETS IO DESTINATION "${CMAKE_INSTALL_PREFIX}/lib")
