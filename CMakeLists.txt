@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 project(SGE-ZombieGame)
   
-option(CMAKE_BUILD_TYPE "Default project build type: Debug")
-
 ## Package Manager option handling section
 option(PACKAGE_MANAGER "Default project package manager default: NONE" NONE)
 
