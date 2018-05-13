@@ -80,7 +80,7 @@ if (UNIX)
 	elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
         message(STATUS "Darwin")
 
-        set(CMAKE_MACOSX_RPATH ON)
+        set(CMAKE_MACOSX_RPATH OFF)
 	endif()
 
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive")
