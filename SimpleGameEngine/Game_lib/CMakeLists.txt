@@ -20,6 +20,8 @@ add_library (ActionHandler ${ActionHandlerSOURCES})
 
 target_link_libraries(ActionHandler Action)
 
+install(TARGETS ActionHandler DESTINATION "${CMAKE_INSTALL_PREFIX}/lib")
+
 add_library (Game
 		${GameSOURCES}
 		${InputHandlerSOURCES}

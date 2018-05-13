@@ -26,7 +26,6 @@ else()
 endif()
 
 set(SGE_DIR "SimpleGameEngine")
-set(Game_DIR "ZombieGame")
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/$<CONFIG>")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/$<CONFIG>")
@@ -152,9 +151,7 @@ elseif(PKG STREQUAL "LOCAL")
 
     set(INSTALL_RPATH_USE_LINK_PATH TRUE)
 
-    set(BOOST_ROOT "${CMAKE_SOURCE_DIR}/${SETUP_BUILD_DIR}/boost")
-	set(BOOST_LIBRARYDIR "${BOOST_ROOT}/lib")
-	set(BOOST_INCLUDEDIR "${BOOOT_ROOT}/include/boost-1_65_1")
+    set(BOOST_ROOT "${SETUP_BUILD_DIR}/boost")
 	
 	if (WIN32 AND NOT Boost_COMPILER)
 		message(WARNING "On windows, please pass `Boost_COMPILER` (e.g. -DBoost_COMPILER=-vc1413 -- for VS2017)")
@@ -321,7 +318,7 @@ include_directories(${SGE_DIR}/Renderer_lib/WindowManager)
 include_directories(${SGE_DIR}/Scene_lib/Scene)
 
 include_directories(${SGE_DIR}/ThirdParty_Librarys/PicoPNG) 
-include_directories(${SGE_DIR}/ThirdParty_Librarys/Box2D) 
+include_directories(${SGE_DIR}/ThirdParty_Librarys/Box2D)
 
 include_directories(${SGE_DIR}/Utils_lib)
 include_directories(${SGE_DIR}/Utils_lib/Timing)
@@ -329,7 +326,6 @@ include_directories(${SGE_DIR}/Utils_lib/Utils)
 include_directories(${SGE_DIR}/Utils_lib/Logger)
 
 add_subdirectory(${SGE_DIR})
-add_subdirectory(${Game_DIR})
 
 message(STATUS "CMAKE_MODULE_LINKER_FLAGS: ${CMAKE_MODULE_LINKER_FLAGS}")
 message(STATUS "CMAKE_SHARED_LINKER_FLAGS: ${CMAKE_SHARED_LINKER_FLAGS}")
