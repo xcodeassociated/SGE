@@ -1,12 +1,19 @@
 cmake_minimum_required(VERSION 3.5)
 project(SGE)
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMakeModules")
+
 include(CMakeModules/sge_debug_info.cmake)
 
 option(PACKAGE_MANAGER "Default project package manager, default: NONE" NONE)
+option(SETUP_BUILD_DIR "Setup project libs path" NONE)
 option(CMAKE_INSTALL_PREFIX "Defines to path in which SGE framework should be installed, default: NONE" NONE)
+option(CMAKE_TOOLCHAIN_FILE "CMake toolchain file defines build configuration" NONE)
 
 set(MASTER_BUILD_TYPES "Debug Release RelWithDebInfo MinSizeRel")
+string(REPLACE " " ";" MASTER_BUILD_TYPES_AVAILABLE ${MASTER_BUILD_TYPES})
+set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ${MASTER_BUILD_TYPES_AVAILABLE})
+
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
 	set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build -- release is default. Other: ${MASTER_BUILD_TYPES}.")
 	message(STATUS "Setting default CMake build type: ${CMAKE_BUILD_TYPE}")
@@ -14,28 +21,21 @@ else()
 	set(CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE} CACHE STRING "Choose the type of build -- release is default. Other: ${MASTER_BUILD_TYPES}.")
 	message(STATUS "Provided CMake build type: ${CMAKE_BUILD_TYPE}")
 endif()
-string(REPLACE " " ";" MASTER_BUILD_TYPES_AVAILABLE ${MASTER_BUILD_TYPES})
-set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ${MASTER_BUILD_TYPES_AVAILABLE})
 
 if (NOT PACKAGE_MANAGER)
 	message(WARNING "Option PACKAGE_MANAGER not passed, setting: NONE")
 	set(PACKAGE_MANAGER "NONE")
 endif()
-set(PKG "")
-if (${PACKAGE_MANAGER} STREQUAL "Conan" OR ${PACKAGE_MANAGER} STREQUAL "conan" OR ${PACKAGE_MANAGER} STREQUAL "CONAN")
-	set(PKG "CONAN")
-elseif(${PACKAGE_MANAGER} STREQUAL "None" OR ${PACKAGE_MANAGER} STREQUAL "none" OR ${PACKAGE_MANAGER} STREQUAL "NONE")
-	set(PKG "NONE")
-elseif(${PACKAGE_MANAGER} STREQUAL "Local" OR ${PACKAGE_MANAGER} STREQUAL "local" OR ${PACKAGE_MANAGER} STREQUAL "LOCAL")
-	set(PKG "LOCAL")
 
+set(PKG_TYPES "None Conan Setup")
+string(REPLACE " " ";" PKG_TYPES_AVAILABLE ${PKG_TYPES})
+set_property(CACHE PACKAGE_MANAGER PROPERTY STRINGS ${PKG_TYPES_AVAILABLE})
+
+if(${PACKAGE_MANAGER} STREQUAL "Setup")
 	if (NOT SETUP_BUILD_DIR)
 		message(WARNING "Option SETUP_BUILD_DIR has not been provided. Using default value: Setup/build")
 		set(SETUP_BUILD_DIR "Setup/build")
 	endif()
-else()
-	message(WARNING "PACKAGE_MANAGER defined error: ${PACKAGE_MANAGER} ${PKG}")
-	return()
 endif()
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/$<CONFIG>")
@@ -115,21 +115,21 @@ elseif(WIN32)
     endif()
 endif()
 
+message(STATUS "Using PACKAGE_MANAGER: ${PACKAGE_MANAGER}")
 
-if (PKG STREQUAL "CONAN")
-	message(STATUS "Using PACKAGE_MANAGER: CONAN")
+if (${PACKAGE_MANAGER} STREQUAL "Conan")
+	message(STATUS "Using PACKAGE_MANAGER: Conan")
 
 	include(${CMAKE_CURRENT_SOURCE_DIR}/conanbuildinfo.cmake)
 	conan_basic_setup()
 
 	include(CMakeModules/sge_common_find.cmake)
-elseif(PKG STREQUAL "LOCAL")
-	message(STATUS "Using PACKAGE_MANAGER: LOCAL")
+elseif(${PACKAGE_MANAGER} STREQUAL "Setup")
 	message(STATUS "SETUP_BUILD_DIR: ${SETUP_BUILD_DIR}")
 
 	include(CMakeModules/sge_setup.cmake)
 else()
-	message(STATUS "Using PACKAGE_MANAGER: NONE")
+	message(STATUS "Using PACKAGE_MANAGER: None")
 	message(STATUS "No ROOT for libs will be set up")
 	message(STATUS "CMAKE_TOOLCHAIN_FILE: ${CMAKE_TOOLCHAIN_FILE}")
 
