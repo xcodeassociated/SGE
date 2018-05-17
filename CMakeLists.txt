@@ -175,47 +175,48 @@ set(SGE_DIR "SimpleGameEngine")
 add_subdirectory(${SGE_DIR})
 
 ## install step
-install(DIRECTORY "${SGE_DIR}/Action_lib/Action"
+install(DIRECTORY "${SGE_DIR}/Action"
 		DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
 		FILES_MATCHING
 		PATTERN "*.h*")
-install(DIRECTORY "${SGE_DIR}/IO_lib/"
-		DESTINATION "${CMAKE_INSTALL_PREFIX}/include/IO"
-		FILES_MATCHING
-		PATTERN "*.h*")
-install(DIRECTORY "${SGE_DIR}/Level_lib/"
-		DESTINATION "${CMAKE_INSTALL_PREFIX}/include/Level"
-		FILES_MATCHING
-		PATTERN "*.h*")
-install(DIRECTORY "${SGE_DIR}/Logic_lib/Logic/"
-		DESTINATION "${CMAKE_INSTALL_PREFIX}/include/Logic"
-		FILES_MATCHING
-		PATTERN "*.h*")
-install(DIRECTORY "${SGE_DIR}/Object_lib/"
-		DESTINATION "${CMAKE_INSTALL_PREFIX}/include/Object"
-		FILES_MATCHING
-		PATTERN "*.h*")
-install(DIRECTORY "${SGE_DIR}/Game_lib/"
-		DESTINATION "${CMAKE_INSTALL_PREFIX}/include/Game"
-		FILES_MATCHING
-		PATTERN "*.h*")
-install(DIRECTORY "${SGE_DIR}/Renderer_lib/"
-		DESTINATION "${CMAKE_INSTALL_PREFIX}/include/Renderer"
-		FILES_MATCHING
-		PATTERN "*.h*")
-install(DIRECTORY "${SGE_DIR}/Scene_lib/Scene"
+install(DIRECTORY "${SGE_DIR}/IO"
 		DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
 		FILES_MATCHING
 		PATTERN "*.h*")
-install(DIRECTORY "${SGE_DIR}/ThirdParty_Librarys/PicoPNG"
+install(DIRECTORY "${SGE_DIR}/Level"
 		DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
 		FILES_MATCHING
 		PATTERN "*.h*")
-install(DIRECTORY "${SGE_DIR}/ThirdParty_Librarys/Box2D/Box2D"
+install(DIRECTORY "${SGE_DIR}/Logic"
 		DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
 		FILES_MATCHING
 		PATTERN "*.h*")
-install(DIRECTORY "${SGE_DIR}/Utils_lib/"
-		DESTINATION "${CMAKE_INSTALL_PREFIX}/include/Utils"
+install(DIRECTORY "${SGE_DIR}/Object"
+		DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
 		FILES_MATCHING
 		PATTERN "*.h*")
+install(DIRECTORY "${SGE_DIR}/Game"
+		DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
+		FILES_MATCHING
+		PATTERN "*.h*")
+install(DIRECTORY "${SGE_DIR}/Renderer"
+		DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
+		FILES_MATCHING
+		PATTERN "*.h*")
+install(DIRECTORY "${SGE_DIR}/Scene"
+		DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
+		FILES_MATCHING
+		PATTERN "*.h*")
+install(DIRECTORY "${SGE_DIR}/PicoPNG"
+		DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
+		FILES_MATCHING
+		PATTERN "*.h*")
+install(DIRECTORY "${SGE_DIR}/Box2D"
+		DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
+		FILES_MATCHING
+		PATTERN "*.h*")
+install(DIRECTORY "${SGE_DIR}/Utils"
+		DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
+		FILES_MATCHING
+        PATTERN "*.h*")
+
