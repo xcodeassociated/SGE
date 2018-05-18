@@ -2,7 +2,7 @@
 #include "../../PicoPNG/picopng.h"
 #include "../../IO/IOManager/sge_io_manager.hpp"
 #include <stdexcept>
-
+#include <sstream>
 SGE::GLTexture SGE::ImageLoader::loadPNG(const char* filePath)
 {
 	GLTexture texture = {0,0,0};
@@ -14,7 +14,9 @@ SGE::GLTexture SGE::ImageLoader::loadPNG(const char* filePath)
 
 	if (SGE::IOManager::readFileToBuffer(filePath, in) == false)
 	{
-		throw std::runtime_error{"Failed to load PNG file to buffer!"};
+		std::stringstream msg;
+		msg << "Failed to load PNG file to buffer! " << filePath;
+		throw std::runtime_error{msg.str()};
 	}
 
 	int errorCode = decodePNG(out, width, height, &(in[0]), in.size());

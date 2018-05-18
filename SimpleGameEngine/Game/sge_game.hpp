@@ -119,6 +119,11 @@ namespace SGE
          */
         float fps = 0;
 
+		/**
+		 * \brief
+		 */
+        std::string game_path = "";
+
         /**
          * \brief
          */
@@ -164,6 +169,18 @@ namespace SGE
 		*/
 		bool init(float fps, const std::string& glslPath);
 
+		/**
+		* \brief
+		* \return
+		*/
+		void setGamePath(const std::string& path);
+
+		/**
+		* \brief
+		* \return
+		*/
+		std::string getGamePath() const;
+
 	    /**
 	     * \brief 
 	     * \param bind 
@@ -182,7 +199,7 @@ namespace SGE
 	     * \param path 
 	     * \return 
 	     */
-	    Object* textureObject(Object* o, std::string path = "");
+	    Object* textureObject(Object* o, const std::string& texture_file);
 
 	    /**
 	     * \brief 

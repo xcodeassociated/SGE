@@ -50,6 +50,17 @@ bool SGE::Game::isOnScene() const
 	return this->OnScene;
 }
 
+void SGE::Game::setGamePath(const std::string& path)
+{
+	if (!path.empty())
+		this->game_path = path;
+}
+
+std::string SGE::Game::getGamePath() const
+{
+	return this->game_path;
+}
+
 void SGE::Game::run()
 {
 	//TODO: this should be executed before - required if we want to swap scene
@@ -211,13 +222,18 @@ void SGE::Game::draw(SGE::Scene* scene)
 	this->renderer->render(scene);
 }
 
-SGE::Object* SGE::Game::textureObject(SGE::Object *object, std::string path)
+SGE::Object* SGE::Game::textureObject(SGE::Object *object, const std::string& texture_file)
 {
-	// TODO: Check if file exists!
-
-	if (!path.empty())
+	if (!texture_file.empty())
 	{
-		object->texture = this->resourceManager->getTexture(path.c_str());
+	    std::string file_absolute_path = "";
+	    if (texture_file[0] != '/')
+        {
+        	file_absolute_path = this->game_path + texture_file;
+        }else
+            file_absolute_path = texture_file;
+
+		object->texture = this->resourceManager->getTexture(file_absolute_path.c_str());
 		object->hasTexture = true;
 	}
 	else
