@@ -38,13 +38,13 @@ void SGE::CameraHandler::setPosition(glm::vec2 pos) noexcept
 	this->setPosition(int(pos.x), int(pos.y));
 }
 
-glm::vec2 SGE::CameraHandler::getScreenToWorld(glm::vec2 pos) const noexcept
+glm::vec2 SGE::CameraHandler::getScreenToWorld(glm::vec2 screen, glm::vec2 pos) const noexcept
 {
-	return SGE::screenToWorld(pos, this->camera->getPosition(), (double)this->camera->getScale());
+	return SGE::screenToWorld(screen, pos, this->camera->getPosition(), (double)this->camera->getScale());
 }
 
-glm::vec2 SGE::CameraHandler::getScreenToWorld(int _x, int _y) const noexcept
+glm::vec2 SGE::CameraHandler::getScreenToWorld(glm::vec2 screen, int _x, int _y) const noexcept
 {
-	return this->getScreenToWorld({ _x, _y });
+	return this->getScreenToWorld(screen, { _x, _y });
 }
 

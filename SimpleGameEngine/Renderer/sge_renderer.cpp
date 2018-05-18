@@ -7,14 +7,15 @@
 #include "SpriteBatch/sge_sprite_batch.hpp"
 #include "Shaders/sge_shader.hpp"
 #include "../Scene/sge_scene.hpp"
-#include "../sge_macro.hpp"
 #include "ResourceManager/sge_resource_manager.hpp"
 
 #include <glm/glm.hpp>
 #include <SDL.h>
 
-SGE::Renderer::Renderer(std::pair<int, int> res, WindowManager* w, CameraHandler* c, ResourceManager* resourceManager) noexcept :
-width(res.first),
+SGE::Renderer::Renderer(const std::string& _vert, const std::string& _frag, std::pair<int, int> res, WindowManager* w, CameraHandler* c, ResourceManager* resourceManager) noexcept :
+    vert(_vert),
+    frag(_frag),
+    width(res.first),
     height(res.second),
     resourceManager(resourceManager),
     window_manager(w),
@@ -27,7 +28,10 @@ void SGE::Renderer::initShader()
 {
     this->shaderProgram = new Shader();
 
-    this->shaderProgram->doShaders(VERT, FRAG);
+    if (this->vert.empty() || this->frag.empty())
+        throw std::runtime_error{"vert or frag missing"};
+
+    this->shaderProgram->doShaders(this->vert.c_str(), this->frag.c_str());
 
     this->shaderProgram->addAttribute("vertexPosition");
     this->shaderProgram->addAttribute("vertexColor");

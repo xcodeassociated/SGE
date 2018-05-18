@@ -19,7 +19,7 @@ namespace SGE
 	 * \param scale 
 	 * \return 
 	 */
-	glm::vec2 screenToWorld(glm::vec2 _screenCoords, glm::vec2 coords, double scale);
+	glm::vec2 screenToWorld(glm::vec2 screen, glm::vec2 _screenCoords, glm::vec2 coords, double scale);
 }
 
 #endif /* sge_path_h */

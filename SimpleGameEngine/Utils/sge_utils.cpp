@@ -2,8 +2,6 @@
 
 #include <SDL2/SDL.h>
 
-#include "../sge_macro.hpp"
-
 const std::string& SGE::getPath()
 {
 	static std::string base_path = []()-> std::string
@@ -25,10 +23,10 @@ const std::string& SGE::getPath()
 }
 
 //TODO Make scale float?
-glm::vec2 SGE::screenToWorld(glm::vec2 _screenCoords, glm::vec2 coords, double scale)
+glm::vec2 SGE::screenToWorld(glm::vec2 screen, glm::vec2 _screenCoords, glm::vec2 coords, double scale)
 {
-	_screenCoords.y = SCREEN_HEIGHT - _screenCoords.y;
-    _screenCoords -= glm::vec2(SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.5);
+	_screenCoords.y = screen.y - _screenCoords.y;
+    _screenCoords -= glm::vec2(screen.x * 0.5, screen.y * 0.5);
 	_screenCoords /= scale;
 	_screenCoords += coords;
 

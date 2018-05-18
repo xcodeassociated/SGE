@@ -18,7 +18,7 @@
 std::shared_ptr<SGE::Logger> SGE::Game::logger = SGE::LoggerFactory::create_logger("Game");
 std::shared_ptr<SGE::LoggerError> SGE::Game::logger_err = SGE::LoggerFactory::create_logger_error("Game_ERROR");
 
-bool SGE::Game::init(float fps)
+bool SGE::Game::init(float fps, const std::string& glslPath)
 {
 	std::pair<int, int> resolution = this->director->getResolution();
 
@@ -28,10 +28,16 @@ bool SGE::Game::init(float fps)
 	this->window_manager->createWindow();
 
 	this->camera_handler = new CameraHandler(resolution);
-	this->camera_handler->setPosition(this->camera_handler->getScreenToWorld(0, 0));
+	this->camera_handler->setPosition(this->camera_handler->getScreenToWorld({resolution.first, resolution.second}, 0, 0));
 	this->camera_handler->setScale(.5f);
 
-	this->renderer = new Renderer(resolution, this->window_manager, this->camera_handler, this->resourceManager);
+	if (glslPath.empty())
+		throw std::runtime_error{"glsl path empty"};
+
+	const auto vert = glslPath + "/colorShader.vert";
+	const auto frag = glslPath + "/colorShader.frag";
+
+	this->renderer = new Renderer(vert, frag, resolution, this->window_manager, this->camera_handler, this->resourceManager);
 
 	this->input_handler = new InputHandler(this);
     this->action_handler = new ActionHandler();
@@ -81,6 +87,14 @@ SGE::Game* SGE::Game::getGame()
 {
 	static Game* game = new Game();
 	return game;
+}
+
+void setGLSLPath(const char* path)
+{
+	if (path == nullptr)
+		throw std::runtime_error{"Empty GLSL path"};
+
+
 }
 
 void SGE::Game::mapAction(const SGE::InputBinder& bind)

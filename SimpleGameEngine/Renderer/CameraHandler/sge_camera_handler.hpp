@@ -81,13 +81,13 @@ namespace SGE
          * \brief 
          * \return 
          */
-        glm::vec2 getScreenToWorld(glm::vec2) const noexcept;
+        glm::vec2 getScreenToWorld(glm::vec2 screen, glm::vec2) const noexcept;
 
 	    /**
          * \brief 
          * \return 
          */
-        glm::vec2 getScreenToWorld(int, int) const noexcept;
+        glm::vec2 getScreenToWorld(glm::vec2 screen, int, int) const noexcept;
 
     };
 

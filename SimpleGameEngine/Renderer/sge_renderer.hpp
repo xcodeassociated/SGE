@@ -2,6 +2,7 @@
 #define SGE_RENDERER_HPP
 
 #include <algorithm>
+#include <string>
 
 namespace SGE
 {
@@ -51,6 +52,9 @@ namespace SGE
          */
         Scene* current = nullptr;
 
+        std::string vert = "";
+        std::string frag = "";
+
 	    /**
          * \brief 
          */
@@ -65,7 +69,8 @@ namespace SGE
 	    /**
          * \brief 
          */
-        Renderer(std::pair<int, int>, WindowManager *, CameraHandler *, ResourceManager* resourceManager) noexcept;
+        Renderer(const std::string& _vert, const std::string& _frag, std::pair<int, int>,
+                WindowManager *, CameraHandler *, ResourceManager* resourceManager) noexcept;
 
 	    /**
          * \brief 

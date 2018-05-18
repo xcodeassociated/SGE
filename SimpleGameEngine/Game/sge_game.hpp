@@ -162,7 +162,7 @@ namespace SGE
 		* \brief
 		* \return
 		*/
-		bool init(float fps);
+		bool init(float fps, const std::string& glslPath);
 
 	    /**
 	     * \brief 

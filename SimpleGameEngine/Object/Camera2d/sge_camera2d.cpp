@@ -65,7 +65,7 @@ void SGE::Camera2d::update()
 
 glm::vec2 SGE::Camera2d::screenToWorld(glm::vec2 coords)
 {
-	return SGE::screenToWorld(coords, this->getPosition(), double(scale));
+	return SGE::screenToWorld({this->box[0], this->box[1]}, coords, this->getPosition(), double(scale));
 }
 
 int SGE::Camera2d::getWidth() const
