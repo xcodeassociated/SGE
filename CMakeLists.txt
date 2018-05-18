@@ -15,7 +15,7 @@ string(REPLACE " " ";" MASTER_BUILD_TYPES_AVAILABLE ${MASTER_BUILD_TYPES})
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ${MASTER_BUILD_TYPES_AVAILABLE})
 
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
-	set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build -- release is default. Other: ${MASTER_BUILD_TYPES}.")
+	set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build -- Release is default. Other: ${MASTER_BUILD_TYPES}.")
 	message(STATUS "Setting default CMake build type: ${CMAKE_BUILD_TYPE}")
 else()
 	set(CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE} CACHE STRING "Choose the type of build -- release is default. Other: ${MASTER_BUILD_TYPES}.")
@@ -57,7 +57,7 @@ if (BUILD_SHARED_LIBS AND WIN32)
 	add_definitions(-DSGE_SHARED)
 endif()
 
-if (UNIX)
+if (NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
     set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
 
@@ -74,7 +74,6 @@ if (UNIX)
 	endif()
 
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive")
-
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
     set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} -O3")
@@ -82,40 +81,27 @@ if (UNIX)
 	set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
     set(CMAKE_C_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
     set(CMAKE_C_FLAGS_RELWITHDEBINFO "${CMAKE_C_FLAGS_RELWITHDEBINFO} -O3")
+else()
+	message (STATUS "MSVC ${MSVC_VERSION}v")
+	set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
-elseif(WIN32)
-    message(STATUS "WINDOWS")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
+	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Od /W2")
+	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2")
+	set(CMAKE_CXX_FLAGS_RELWITHDEBINFO  "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /O2")
 
-    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-        message (STATUS "MSVC ${MSVC_VERSION}v")
+	set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} /MP")
+	set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Od /W2")
+	set(CMAKE_C_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2")
+	set(CMAKE_C_FLAGS_RELWITHDEBINFO "${CMAKE_C_FLAGS_RELWITHDEBINFO} /O2")
 
-        set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+	set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT SGE-ZombieGame)
+	link_directories("${CMAKE_CURRENT_BINARY_DIR}/lib")
 
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
-		set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Od /W2")
-        set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2")
-        set(CMAKE_CXX_FLAGS_RELWITHDEBINFO  "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /O2")
-
-        set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} /MP")
-		set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Od /W2")
-        set(CMAKE_C_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2")
-        set(CMAKE_C_FLAGS_RELWITHDEBINFO "${CMAKE_C_FLAGS_RELWITHDEBINFO} /O2")
-
-        set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT SGE-ZombieGame)
-        link_directories("${CMAKE_CURRENT_BINARY_DIR}/lib")
-
-        include_directories("${CMAKE_CURRENT_BINARY_DIR}/SimpleGameEngine/Logic_lib")
-        include_directories("${CMAKE_CURRENT_BINARY_DIR}/SimpleGameEngine/Utils_lib")
-        include_directories("${CMAKE_CURRENT_BINARY_DIR}/SimpleGameEngine/ThirdParty_Librarys/Box2D")
-
-    else()
-		## TODO: Add support for MinGW on Windows platform
-        status(FATAL_ERROR "Other compiler than MSVC in curentley not supported for Windows build!")
-        return()
-    endif()
+	include_directories("${CMAKE_CURRENT_BINARY_DIR}/SimpleGameEngine/Logic_lib")
+	include_directories("${CMAKE_CURRENT_BINARY_DIR}/SimpleGameEngine/Utils_lib")
+	include_directories("${CMAKE_CURRENT_BINARY_DIR}/SimpleGameEngine/ThirdParty_Librarys/Box2D")
 endif()
-
-message(STATUS "Using PACKAGE_MANAGER: ${PACKAGE_MANAGER}")
 
 if (${PACKAGE_MANAGER} STREQUAL "Conan")
 	message(STATUS "Using PACKAGE_MANAGER: Conan")
@@ -136,9 +122,6 @@ else()
 	include(CMakeModules/sge_common_find.cmake)
 endif()
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMakeModules")
-
-## Boost:
 find_package(Boost COMPONENTS date_time program_options system filesystem REQUIRED)
 if(NOT Boost_FOUND)
 	message(Error "Boost not found")
@@ -147,7 +130,6 @@ else()
 	link_directories(${Boost_LIBRARY_DIRS})
 endif()
 
-# SDL:
 find_package(SDL2 REQUIRED)
 if (NOT SDL2_FOUND)
 	message(Error "SDL2 not found")
@@ -158,7 +140,6 @@ else()
 	add_definitions(${SDL2_DEFINITIONS})
 endif()
 
-## OpenGL:
 find_package(OpenGL REQUIRED)
 if(NOT OpenGL_FOUND)
         message(Error "OpenGL not found")
@@ -174,49 +155,4 @@ set(SGE_DIR "SimpleGameEngine")
 
 add_subdirectory(${SGE_DIR})
 
-## install step
-install(DIRECTORY "${SGE_DIR}/Action"
-		DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
-		FILES_MATCHING
-		PATTERN "*.h*")
-install(DIRECTORY "${SGE_DIR}/IO"
-		DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
-		FILES_MATCHING
-		PATTERN "*.h*")
-install(DIRECTORY "${SGE_DIR}/Level"
-		DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
-		FILES_MATCHING
-		PATTERN "*.h*")
-install(DIRECTORY "${SGE_DIR}/Logic"
-		DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
-		FILES_MATCHING
-		PATTERN "*.h*")
-install(DIRECTORY "${SGE_DIR}/Object"
-		DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
-		FILES_MATCHING
-		PATTERN "*.h*")
-install(DIRECTORY "${SGE_DIR}/Game"
-		DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
-		FILES_MATCHING
-		PATTERN "*.h*")
-install(DIRECTORY "${SGE_DIR}/Renderer"
-		DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
-		FILES_MATCHING
-		PATTERN "*.h*")
-install(DIRECTORY "${SGE_DIR}/Scene"
-		DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
-		FILES_MATCHING
-		PATTERN "*.h*")
-install(DIRECTORY "${SGE_DIR}/PicoPNG"
-		DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
-		FILES_MATCHING
-		PATTERN "*.h*")
-install(DIRECTORY "${SGE_DIR}/Box2D"
-		DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
-		FILES_MATCHING
-		PATTERN "*.h*")
-install(DIRECTORY "${SGE_DIR}/Utils"
-		DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
-		FILES_MATCHING
-        PATTERN "*.h*")
-
+include(CMakeModules/sge_install.cmake)
