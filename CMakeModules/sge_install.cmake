@@ -26,6 +26,14 @@ install(DIRECTORY "${SGE_DIR}/Renderer"
         DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
         FILES_MATCHING
         PATTERN "*.h*")
+install(DIRECTORY "${SGE_DIR}/Renderer"
+        DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
+        FILES_MATCHING
+        PATTERN "*.frag")
+install(DIRECTORY "${SGE_DIR}/Renderer"
+        DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
+        FILES_MATCHING
+        PATTERN "*.vert")
 install(DIRECTORY "${SGE_DIR}/Scene"
         DESTINATION "${CMAKE_INSTALL_PREFIX}/include"
         FILES_MATCHING
