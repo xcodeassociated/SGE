@@ -153,6 +153,9 @@ include(CMakeModules/sge_status.cmake)
 
 set(SGE_DIR "SimpleGameEngine")
 
+if (WIN32 AND BUILD_SHARED_LIBS)
+	include_directories(${CMAKE_BINARY_DIR}/exports)
+endif()
 add_subdirectory(${SGE_DIR})
 
 include(CMakeModules/sge_install.cmake)

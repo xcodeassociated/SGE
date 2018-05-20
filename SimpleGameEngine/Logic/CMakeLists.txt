@@ -39,9 +39,9 @@ target_link_libraries(Logic
 		ActionHandler
 		Utils)
 		
-if(WIN32 AND BUILD_SHARED_LIBS)
+if(WIN32)
 	include(GenerateExportHeader)
-	generate_export_header(Logic)
+	generate_export_header(Logic EXPORT_FILE_NAME ${CMAKE_BINARY_DIR}/exports/logic_export.h)
 endif()
 
 install(TARGETS Logic DESTINATION "${CMAKE_INSTALL_PREFIX}/lib")

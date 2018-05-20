@@ -97,7 +97,7 @@ add_library(Box2D ${Box2DSOURCES})
 
 if(WIN32)
 	include(GenerateExportHeader)
-	generate_export_header(Box2D)
+	generate_export_header(Box2D EXPORT_FILE_NAME ${CMAKE_BINARY_DIR}/exports/box2d_export.h)
 endif()
 
 install(TARGETS Box2D DESTINATION "${CMAKE_INSTALL_PREFIX}/lib")

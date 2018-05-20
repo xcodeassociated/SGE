@@ -19,9 +19,9 @@ target_link_libraries(Utils
 		${Boost_LIBRARIES}
 		${SDL2_LIBRARY})
 		
-if(WIN32 AND BUILD_SHARED_LIBS)
+if(WIN32)
 	include(GenerateExportHeader)
-	generate_export_header(Utils)
+	generate_export_header(Utils EXPORT_FILE_NAME ${CMAKE_BINARY_DIR}/exports/utils_export.h)
 endif()
 
 install(TARGETS Utils DESTINATION "${CMAKE_INSTALL_PREFIX}/lib")
