@@ -7,8 +7,7 @@
 #include <gl/GL.h>
 #endif
 
-SGE::WindowManager::WindowManager(std::pair<int, int> resolution) noexcept : width(resolution.first), height(resolution.second) {
-}
+SGE::WindowManager::WindowManager(std::pair<int, int> resolution) noexcept : width(resolution.first), height(resolution.second) {}
 
 void SGE::WindowManager::createWindow() {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)

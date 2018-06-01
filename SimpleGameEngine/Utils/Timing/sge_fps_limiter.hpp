@@ -29,67 +29,26 @@ namespace SGE
 
     UTILS_EXPORT float delta_time;
 
-	/**
-     * \brief 
-     */
     class FpsLimiter {
-	    /**
-	     * \brief 
-	     */
-	    float _fps;
-	    /**
-	     * \brief 
-	     */
-	    float _maxFPS;
-	    /**
-	     * \brief 
-	     */
-	    float _frameTime;
-	    /**
-	     * \brief 
-	     */
-	    unsigned int _startTicks;
+	    float _fps = 0;
+
+	    float _maxFPS = 0;
+	
+	    float _frameTime = 0;
+	
+	    unsigned int _startTicks = 0;
 
 		boost::posix_time::ptime time;
 
-	    /**
-	     * \brief 
-	     */
 	    void calculateFPS();
 
     public:
-
-	    /**
-	     * \brief 
-	     */
-	    FpsLimiter();
-
-	    /**
-	     * \brief 
-	     */
-	    ~FpsLimiter();
-
-	    /**
-	     * \brief 
-	     * \param maxFPS 
-	     */
 	    void init(float maxFPS);
 
-	    /**
-	     * \brief 
-	     * \param maxFPS 
-	     */
 	    void setMaxFPS(float maxFPS);
 
-	    /**
-	     * \brief 
-	     */
 	    void begin();
 
-	    /**
-	     * \brief 
-	     * \return 
-	     */
 	    float end();
 
 		void reset();

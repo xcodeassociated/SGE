@@ -1,9 +1,9 @@
 #include "sge_camera2d.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
-#include "../../Utils/sge_utils.hpp"
+#include "../Utils/sge_utils.hpp"
 
-SGE::Camera2d::Camera2d(unsigned _width, unsigned _height): Object(0.f, 0.f), cameraMatrix(1.f), matUpdate(true)
+SGE::Camera2d::Camera2d(unsigned _width, unsigned _height): cameraMatrix(1.f), matUpdate(true)
 {
 	this->box[0] = _width;
 	this->box[1] = _height;
@@ -11,13 +11,8 @@ SGE::Camera2d::Camera2d(unsigned _width, unsigned _height): Object(0.f, 0.f), ca
 	this->orthoMatrix = glm::ortho(0.0f, (float)this->box[0], 0.0f, (float)this->box[1]);
 }
 
-SGE::Camera2d::~Camera2d()
-{
-}
-
 void SGE::Camera2d::setPosition(float x, float y)
 {
-	this->Object::setPosition(x, y);
 	this->matUpdate = true;
 }
 

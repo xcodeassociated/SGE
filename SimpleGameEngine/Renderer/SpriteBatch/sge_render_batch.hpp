@@ -9,32 +9,16 @@
 
 namespace SGE
 {
-	/**
-     * \brief 
-     */
     class RenderBatch
     {
     public:
-	    /**
-         * \brief 
-         * \param Offset 
-         * \param NumVertices 
-         * \param Texture 
-         */
-        RenderBatch(GLuint Offset, GLuint NumVertices, GLuint Texture) : offset(Offset), numVertices(NumVertices), texture(Texture) {
-        }
-	    /**
-         * \brief 
-         */
-        GLuint offset;
-	    /**
-         * \brief 
-         */
-        GLuint numVertices;
-	    /**
-         * \brief 
-         */
-        GLuint texture;
+        RenderBatch(GLuint Offset, GLuint NumVertices, GLuint Texture) : offset(Offset), numVertices(NumVertices), texture(Texture) {}
+
+        GLuint offset = 0;
+
+        GLuint numVertices = 0;
+
+        GLuint texture = 0;
     };
 
 }

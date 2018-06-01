@@ -6,19 +6,8 @@
 
 namespace SGE
 {
-	/**
-	 * \brief 
-	 * \return 
-	 */
 	const std::string& getPath();
 
-	/**
-	 * \brief 
-	 * \param _screenCoords 
-	 * \param coords 
-	 * \param scale 
-	 * \return 
-	 */
 	glm::vec2 screenToWorld(glm::vec2 screen, glm::vec2 _screenCoords, glm::vec2 coords, double scale);
 }
 

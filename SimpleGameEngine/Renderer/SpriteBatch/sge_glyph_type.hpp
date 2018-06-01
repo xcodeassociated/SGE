@@ -7,9 +7,6 @@
 
 namespace SGE
 {
-	/**
-     * \brief 
-     */
     enum class GlyphSortType
     {
         NONE,

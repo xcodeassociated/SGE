@@ -9,32 +9,12 @@
 
 namespace SGE
 {
-	/**
-     * \brief 
-     * \return 
-     */
     Shape* getShapeless();
-
-	/**
-     * \brief 
-     */
-    class Shapeless : public Shape
+    
+	class Shapeless : public Shape
     {
-	    /**
-         * \brief 
-         */
-        Shapeless();
-
     public:
-        //Single Flyweight for no shape objects?
-	    /**
-         * \brief 
-         * \return 
-         */
         friend Shape* getShapeless();
     };
-
 }
-
-
 #endif //SGE_ZOMBIEGAME_SGE_SHAPELESS_HPP

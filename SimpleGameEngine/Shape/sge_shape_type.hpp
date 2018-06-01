@@ -7,12 +7,9 @@
 
 namespace SGE
 {
-	/**
-     * \brief 
-     */
     enum class ShapeType : char
     {
-        Circle,
+        Circle = 0,
         Rectangle,
         None
     };

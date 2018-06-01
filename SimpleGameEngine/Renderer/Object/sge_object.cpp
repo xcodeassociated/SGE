@@ -18,7 +18,8 @@ SGE::Object::Object(float x, float y, bool draw, Shape* shape): X(x), Y(y), draw
 
 SGE::Object::~Object()
 {
-	if (this->shape->isDisposable()) delete this->shape;
+	if (this->shape->isDisposable()) 
+		delete this->shape;
 }
 
 float SGE::Object::getX() const noexcept

@@ -2,14 +2,6 @@
 #include <GL/glew.h>
 #include <algorithm>
 
-SGE::SpriteBatch::SpriteBatch(): _vbo(0), _vao(0)
-{
-}
-
-SGE::SpriteBatch::~SpriteBatch()
-{
-}
-
 void SGE::SpriteBatch::init()
 {
 	createVertexArray();

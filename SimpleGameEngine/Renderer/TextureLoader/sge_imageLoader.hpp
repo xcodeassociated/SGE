@@ -9,20 +9,10 @@
 #ifndef sge_imageLoader_h
 #define sge_imageLoader_h
 
-#include "../../Object/sge_object.hpp"
-
 namespace SGE
 {
-	/**
-     * \brief 
-     */
     struct ImageLoader
 	{
-	    /**
-	     * \brief 
-	     * \param filePath 
-	     * \return 
-	     */
 	    static SGE::GLTexture loadPNG(const char* filePath);
     };
 }

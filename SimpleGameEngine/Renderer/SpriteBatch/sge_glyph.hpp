@@ -5,39 +5,23 @@
 #ifndef SGE_ZOMBIEGAME_SGE_GLYPH_HPP
 #define SGE_ZOMBIEGAME_SGE_GLYPH_HPP
 
-#include "../Sprite/sge_vertex.hpp"
+#include <GL/glew.h>
+#include "../Vertex/sge_vertex.hpp"
 
 namespace SGE
 {
-	/**
-     * \brief 
-     */
     struct Glyph
     {
-	    /**
-         * \brief 
-         */
-        GLuint texture;
-	    /**
-         * \brief 
-         */
-        float depth;
+        GLuint texture = 0;
 
-	    /**
-         * \brief 
-         */
+        float depth = 0;
+
         Vertex topLeft;
-	    /**
-         * \brief 
-         */
+
         Vertex bottomLeft;
-	    /**
-         * \brief 
-         */
+
         Vertex topRight;
-	    /**
-         * \brief 
-         */
+
         Vertex bottomRight;
     };
 

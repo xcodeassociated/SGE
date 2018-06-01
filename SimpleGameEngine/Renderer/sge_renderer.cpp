@@ -20,9 +20,7 @@ SGE::Renderer::Renderer(const std::string& _vert, const std::string& _frag, std:
     resourceManager(resourceManager),
     window_manager(w),
     camera_handler(c)
-{
-    ;
-}
+{}
 
 void SGE::Renderer::initShader()
 {

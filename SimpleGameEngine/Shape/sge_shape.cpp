@@ -8,10 +8,6 @@ SGE::Shape::Shape(ShapeType type, bool disposable): type(type), disposable(dispo
 {
 }
 
-SGE::Shape::~Shape()
-{
-}
-
 SGE::ShapeType SGE::Shape::getType() const
 {
 	return this->type;

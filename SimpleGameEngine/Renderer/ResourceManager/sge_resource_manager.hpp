@@ -14,57 +14,24 @@
 
 namespace SGE
 {
-    
-	/**
-     * \brief 
-     */
+
     class ResourceManager
 	{
-	    /**
-         * \brief 
-         */
         SGE::TextureCache* textureCache = nullptr;
-    
-	    /**
-         * \brief 
-         */
+  
         static ResourceManager* p_inst;
-	    /**
-         * \brief 
-         */
+
         static int arc;
 
-	    /**
-	     * \brief 
-	     */
-	    ResourceManager();
-	    /**
-	     * \brief 
-	     */
+	    ResourceManager() = default;
+
 	    ResourceManager(const ResourceManager&);
 
-	    /**
-	     * \brief 
-	     */
-	    ~ResourceManager();
-
     public:
-	    /**
-	     * \brief 
-	     * \return 
-	     */
 	    static ResourceManager* getSingleton();
 
-	    /**
-	     * \brief 
-	     */
 	    void kill();
 
-	    /**
-	     * \brief 
-	     * \param texture 
-	     * \return 
-	     */
 	    SGE::GLTexture getTexture(const char* texture);
     };
     

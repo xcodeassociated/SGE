@@ -1,13 +1,5 @@
 #include "sge_input_manager.hpp"
 
-SGE::InputManager::InputManager(): keyMap({})
-{
-}
-
-SGE::InputManager::~InputManager()
-{
-}
-
 void SGE::InputManager::pressKey(unsigned _keyID)
 {
 	this->keyMap[_keyID] = true;

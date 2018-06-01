@@ -15,49 +15,25 @@ struct SDL_Window;
 
 namespace SGE
 {
-	/**
-     * \brief 
-     */
+
     class WindowManager
     {
-	    /**
-         * \brief 
-         */
         SDL_Window* window = nullptr;
-	    /**
-	     * \brief 
-	     */
+	
 	    int width = 0;
-	    /**
-	     * \brief 
-	     */
+	
 	    int height = 0;
 
     public:
-	    /**
-         * \brief 
-         */
+	
         WindowManager(std::pair<int, int>) noexcept;
 
-	    /**
-         * \brief 
-         */
         void createWindow();
 
-	    /**
-         * \brief 
-         */
         void showWindow() noexcept;
 
-	    /**
-         * \brief 
-         */
         void finalizeWindow() noexcept;
 
-	    /**
-         * \brief 
-         * \return 
-         */
         SDL_Window* getWindow() noexcept;
 	    bool isHidden() const;
     };

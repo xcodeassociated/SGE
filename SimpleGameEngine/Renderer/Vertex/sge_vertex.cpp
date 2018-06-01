@@ -4,35 +4,13 @@ SGE::Position::Position(float _x, float _y): x(_x), y(_y)
 {
 }
 
-SGE::Position::Position()
-{
-}
-
-SGE::Position::~Position()
-{
-}
 
 SGE::Color::Color(unsigned char _r, unsigned char _g, unsigned char _b, unsigned char _a): r(_r), g(_g), b(_b), a(_a)
 {
 }
 
-SGE::Color::Color()
-{
-}
-
-SGE::Color::~Color()
-{
-}
 
 SGE::UV::UV(float _u, float _v): u(_u), v(_v)
-{
-}
-
-SGE::UV::UV()
-{
-}
-
-SGE::UV::~UV()
 {
 }
 
