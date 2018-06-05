@@ -1,6 +1,3 @@
-set (LoggerSOURCES
-		Logger/sge_logger.hpp
-		Logger/sge_logger.cpp)
 
 set (TimingSOURCES
 		Timing/sge_fps_limiter.hpp
@@ -11,7 +8,6 @@ set (UtilsSOURCES
 		sge_utils.cpp)
 
 add_library (Utils
-		${LoggerSOURCES}
 		${TimingSOURCES}
 		${UtilsSOURCES})
 		

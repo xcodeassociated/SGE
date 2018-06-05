@@ -14,7 +14,9 @@ namespace SGE
 	class Shapeless : public Shape
     {
     public:
+        Shapeless();
         friend Shape* getShapeless();
     };
 }
+
 #endif //SGE_ZOMBIEGAME_SGE_SHAPELESS_HPP

@@ -15,7 +15,7 @@ namespace SGE
 
     public:
 
-        Circle() = default;
+        Circle();
 
         Circle(const Circle&) = default;
 	

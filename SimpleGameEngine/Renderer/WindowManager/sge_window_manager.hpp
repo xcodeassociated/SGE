@@ -19,13 +19,10 @@ namespace SGE
     class WindowManager
     {
         SDL_Window* window = nullptr;
-	
 	    int width = 0;
-	
 	    int height = 0;
 
     public:
-	
         WindowManager(std::pair<int, int>) noexcept;
 
         void createWindow();

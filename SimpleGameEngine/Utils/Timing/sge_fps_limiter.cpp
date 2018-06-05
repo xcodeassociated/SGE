@@ -54,14 +54,6 @@ void SGE::FpsLimiter::calculateFPS()
 	}
 }
 
-SGE::FpsLimiter::FpsLimiter()
-{
-}
-
-SGE::FpsLimiter::~FpsLimiter()
-{
-}
-
 void SGE::FpsLimiter::init(float maxFPS)
 {
 	setMaxFPS(maxFPS);

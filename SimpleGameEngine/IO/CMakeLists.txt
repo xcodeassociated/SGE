@@ -2,10 +2,6 @@ set (IOSOURCES_InputManager
 		InputManager/sge_input_manager.hpp
 		InputManager/sge_input_manager.cpp)
 
-set (IOSOURCES_IOManager
-		IOManager/sge_io_manager.hpp
-		IOManager/sge_io_manager.cpp)
-
 set (IOSOURCES_KeyboardState
 		Key/sge_key.hpp
 		KeyboardState/sge_keyboard_state.hpp
@@ -17,12 +13,10 @@ set (IOSOURCES_Mouse
 
 add_library(IO
 		${IOSOURCES_InputManager}
-		${IOSOURCES_IOManager}
 		${IOSOURCES_KeyboardState}
 		${IOSOURCES_Mouse})
 		
 target_link_libraries(IO
-		Object
 		Utils
 		${SDL2_LIBRARY})
 

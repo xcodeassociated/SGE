@@ -49,8 +49,6 @@ void SGE::WindowManager::createWindow() {
 	GLuint VertexArrayID;
 	glGenVertexArrays(1, &VertexArrayID);
 	glBindVertexArray(VertexArrayID);
-
-
 }
 
 void SGE::WindowManager::showWindow() noexcept {

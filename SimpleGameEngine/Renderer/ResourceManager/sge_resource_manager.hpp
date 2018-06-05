@@ -10,7 +10,7 @@
 #define sge_resource_manager_h
 
 #include "../TextureCache/sge_texture_cache.hpp"
-
+#include "../../Sprite/Texture/sge_texture.hpp"
 
 namespace SGE
 {
@@ -23,9 +23,11 @@ namespace SGE
 
         static int arc;
 
-	    ResourceManager() = default;
+	    ResourceManager();
 
 	    ResourceManager(const ResourceManager&);
+
+	    virtual ~ResourceManager();
 
     public:
 	    static ResourceManager* getSingleton();

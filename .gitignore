@@ -1,7 +1,7 @@
 conanbuildinfo.cmake
 conaninfo.txt
 
-# Compiled Object files
+# Compiled Sprite files
 *.slo
 *.lo
 *.o
@@ -33,6 +33,7 @@ conaninfo.txt
 
 # idea Clion
 */.idea/
+Setup/.idea/
 
 # build dir
 build/*

@@ -9,63 +9,26 @@
 #ifndef sge_texture_cache_h
 #define sge_texture_cache_h
 
+#include "../../Sprite/Texture/sge_texture.hpp"
 #include <map>
-#include "../../Object/sge_object.hpp"
 
 namespace SGE
 {
-	/**
-     * \brief 
-     */
     class TextureCache
 	{
-        
-	    /**
-         * \brief 
-         */
         std::map<std::string, GLTexture> textureMap;
-
-	    /**
-         * \brief 
-         */
         static TextureCache* p_inst;
-	    /**
-         * \brief 
-         */
         static int arc;
 
-	    /**
-	     * \brief 
-	     */
 	    TextureCache();
-
-	    /**
-	     * \brief 
-	     */
 	    TextureCache(const TextureCache&);
-
-	    /**
-	     * \brief 
-	     */
-	    ~TextureCache();
+	    virtual ~TextureCache();
 
     public:
-	    /**
-	     * \brief 
-	     * \return 
-	     */
 	    static TextureCache* getSingleton();
 
-	    /**
-	     * \brief 
-	     */
 	    void kill();
 
-	    /**
-	     * \brief 
-	     * \param _key 
-	     * \return 
-	     */
 	    SGE::GLTexture getTexture(const char* _key);
     };
 

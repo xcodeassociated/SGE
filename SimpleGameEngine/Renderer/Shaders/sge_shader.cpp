@@ -1,4 +1,5 @@
 #include "sge_shader.hpp"
+
 #include <fstream>
 #include <vector>
 #include <iostream>
@@ -38,14 +39,6 @@ bool SGE::Shader::compileShader(std::string _filePath, GLuint& _id)
 		return false;
 	}
 	return true;
-}
-
-SGE::Shader::Shader()
-{
-}
-
-SGE::Shader::~Shader()
-{
 }
 
 GLint SGE::Shader::getUniformLocation(const char* uniformName)

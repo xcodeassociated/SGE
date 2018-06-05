@@ -1,18 +1,19 @@
 #include "sge_renderer.hpp"
-#include "../Object/Shape/sge_shape_rectangle.hpp"
-#include "../Object/Shape/sge_shape_circle.hpp"
+#include "../Shape/sge_shape_rectangle.hpp"
+#include "../Shape/sge_shape_circle.hpp"
+#include "../Camera2d/sge_camera2d.hpp"
+#include "../Sprite/sge_sprite.hpp"
 #include "WindowManager/sge_window_manager.hpp"
-#include "../Object/Camera2d/sge_camera2d.hpp"
 #include "CameraHandler/sge_camera_handler.hpp"
 #include "SpriteBatch/sge_sprite_batch.hpp"
 #include "Shaders/sge_shader.hpp"
-#include "../Scene/sge_scene.hpp"
 #include "ResourceManager/sge_resource_manager.hpp"
 
 #include <glm/glm.hpp>
 #include <SDL.h>
 
-SGE::Renderer::Renderer(const std::string& _vert, const std::string& _frag, std::pair<int, int> res, WindowManager* w, CameraHandler* c, ResourceManager* resourceManager) noexcept :
+SGE::Renderer::Renderer(const std::string& _vert, const std::string& _frag, std::pair<int, int> res,
+                        WindowManager* w, CameraHandler* c, ResourceManager* resourceManager)  :
     vert(_vert),
     frag(_frag),
     width(res.first),
@@ -49,7 +50,7 @@ void SGE::Renderer::spriteBatchInit()
 
 void SGE::Renderer::render(SGE::Scene* scene)
 {
-    this->current = scene;
+    //this->current = scene;
 
     glClearDepth(1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -86,6 +87,7 @@ void SGE::Renderer::render(SGE::Scene* scene)
 
 void SGE::Renderer::renderLevel()
 {
+    /*
     assert(this->current);
 
     static glm::vec4 uv(0.0f, 0.0f, 1.0f, 1.0f);
@@ -112,16 +114,17 @@ void SGE::Renderer::renderLevel()
         e.texture = this->resourceManager->getTexture(e.getPath().c_str());
         this->sceneBatch->draw(destRect, uv, e.texture.id, 0.0f, color);
     });
+     */
 }
 
-void SGE::Renderer::renderObjects()
-{
+void SGE::Renderer::renderObjects() {
+    /*
     this->camera_handler->updateCamera();
 
     static glm::vec4 uv(0.0f, 0.0f, 1.0f, 1.0f);
     static SGE::Color color(255, 255, 255, 255);
 
-    std::vector<Object*>& objects = this->current->getObjects();
+    std::vector<Sprite*>& objects = this->current->getObjects();
     Rectangle* rect = nullptr;
     Circle* circle = nullptr;
 
@@ -152,5 +155,6 @@ void SGE::Renderer::renderObjects()
 				break;
         }
     }
+     */
 }
 

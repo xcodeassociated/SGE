@@ -1,6 +1,6 @@
 #include "sge_camera_handler.hpp"
 #include "../../Utils/sge_utils.hpp"
-#include "../../Object/Camera2d/sge_camera2d.hpp"
+#include "../../Camera2d/sge_camera2d.hpp"
 #include <iostream>
 
 SGE::CameraHandler::CameraHandler(std::pair<int, int> resolution) noexcept

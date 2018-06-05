@@ -33,11 +33,3 @@ void SGE::Vertex::setUV(float u, float v)
 	uv.u = u;
 	uv.v = v;
 }
-
-SGE::Vertex::Vertex()
-{
-}
-
-SGE::Vertex::~Vertex()
-{
-}

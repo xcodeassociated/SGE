@@ -16,19 +16,14 @@ namespace SGE
 {
     class Shader
 	{
-
 	    GLuint programID = 0;
-
 	    GLuint vertexShaderID = 0;
-
 	    GLuint fragmentShaderID = 0;
 
 	    unsigned short arrtibute_count = 0;
 
 	    bool isCompiled = false;
-
 	    bool isAttributed = false;
-
 	    bool isLinked = false;
 
 	    bool compileShader(std::string _filePath, GLuint& _id);

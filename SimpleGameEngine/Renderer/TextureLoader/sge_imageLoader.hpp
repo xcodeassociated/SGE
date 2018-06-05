@@ -9,6 +9,8 @@
 #ifndef sge_imageLoader_h
 #define sge_imageLoader_h
 
+#include "../../Sprite/Texture/sge_texture.hpp"
+
 namespace SGE
 {
     struct ImageLoader

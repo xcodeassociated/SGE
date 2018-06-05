@@ -15,13 +15,10 @@ namespace SGE
 {
     class Camera2d final
 	{
-
 		float X = 0.f;
-
 		float Y = 0.f;    
  
         glm::mat4 cameraMatrix;
-
         glm::mat4 orthoMatrix;
 
         float scale = 1.0f;
@@ -36,11 +33,11 @@ namespace SGE
 
 		~Camera2d() = default;
 
-	    void setPosition(float x, float y) override;
+	    void setPosition(float x, float y);
 
 		void setPosition(glm::vec2 _position);
 
-	    glm::vec2 getPosition() const noexcept override;
+	    glm::vec2 getPosition() const noexcept;
 	    
     	void setScale(float _scale);
 	

@@ -18,12 +18,9 @@ set (ShadersSOURCES
 		Shaders/sge_shader.hpp
 		Shaders/sge_shader.cpp)
 
-set (SpriteSOURCES
-		Sprite/sge_sprite.hpp
-		Sprite/sge_sprite.cpp
-		Sprite/sge_vertex.hpp
-		Sprite/sge_vertex.cpp
-		Sprite/sge_vertex_data.hpp)
+set (VertexSOURCES
+		Vertex/sge_vertex.hpp
+		Vertex/sge_vertex.cpp)
 
 set (SpriteBatchSOURCES
 		SpriteBatch/sge_sprite_batch.hpp
@@ -40,24 +37,28 @@ set (TextureLoaderSOURCES
 		TextureLoader/sge_imageLoader.hpp
 		TextureLoader/sge_imageLoader.cpp)
 
+set (IOManagerSOURCES
+		IOManager/sge_io_manager.hpp
+		IOManager/sge_io_manager.cpp)
+
 add_library (Renderer
 		${RendererSOURCES}
 		${ResourceManagerSOURCES}
 		${ShadersSOURCES}
-		${SpriteSOURCES}
+		${VertexSOURCES}
 		${SpriteBatchSOURCES}
 		${TextureCacheSOURCES}
 		${TextureLoaderSOURCES}
 		${CameraHandlerSOURCES}
-		${WindowManagerSOURCES})
+		${WindowManagerSOURCES}
+		${IOManagerSOURCES})
 		
 target_link_libraries(Renderer
-		Level
-		Scene
-		Object
+		Sprite
+		Shape
 		Utils
+		Camera2d
 		PicoPNG
-		IO
 		Utils
 		${OPENGL_LIBRARIES}
 		${GLEW_LIBRARIES})

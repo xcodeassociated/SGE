@@ -15,7 +15,7 @@ namespace SGE
         float height = 0.f;
 
     public:
-		Rectangle() = default;
+		Rectangle();
 
         Rectangle(const Rectangle&) = default;
 

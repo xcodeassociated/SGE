@@ -1,8 +1,11 @@
 #include "sge_imageLoader.hpp"
 #include "../../PicoPNG/picopng.h"
-#include "../../IO/IOManager/sge_io_manager.hpp"
+#include "../IOManager/sge_io_manager.hpp"
+#include "../../Sprite/Texture/sge_texture.hpp"
+
 #include <stdexcept>
 #include <sstream>
+
 SGE::GLTexture SGE::ImageLoader::loadPNG(const char* filePath)
 {
 	GLTexture texture = {0,0,0};

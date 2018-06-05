@@ -9,7 +9,6 @@
 #ifndef sge_camera_handler_h
 #define sge_camera_handler_h
 
-#include "../../Object/sge_object.hpp"
 #include <glm/glm.hpp>
 #include <utility>
 
@@ -20,11 +19,8 @@ namespace SGE
     class CameraHandler
     {
         Camera2d* camera = nullptr;
-
 	    int x = 0;
-
 	    int y = 0;
-
 	    double scale = .0f;
 
     public:

@@ -24,7 +24,6 @@ namespace SGE
 
         Vertex bottomRight;
     };
-
 }
 
 #endif //SGE_ZOMBIEGAME_SGE_GLYPH_HPP

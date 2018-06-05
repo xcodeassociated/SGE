@@ -1,5 +1,6 @@
 #include "sge_texture_cache.hpp"
 #include "../TextureLoader/sge_imageLoader.hpp"
+
 #include <string>
 
 int SGE::TextureCache::arc = 0;

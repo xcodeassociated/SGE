@@ -1,7 +1,7 @@
 #include "sge_camera2d.hpp"
+#include "../Utils/sge_utils.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
-#include "../Utils/sge_utils.hpp"
 
 SGE::Camera2d::Camera2d(unsigned _width, unsigned _height): cameraMatrix(1.f), matUpdate(true)
 {

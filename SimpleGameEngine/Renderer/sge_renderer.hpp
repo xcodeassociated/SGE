@@ -19,17 +19,11 @@ namespace SGE
 	    int height = 0;
 
 		ResourceManager* resourceManager = nullptr;
-
         SpriteBatch* sceneBatch = nullptr;
-
         SpriteBatch* objectBatch = nullptr;
-
         CameraHandler* camera_handler = nullptr;
-	 
         Shader* shaderProgram = nullptr;
-	
         WindowManager* window_manager = nullptr;
-	
 
         std::string vert = "";
         std::string frag = "";
@@ -40,7 +34,7 @@ namespace SGE
 
     public:
         Renderer(const std::string& _vert, const std::string& _frag, std::pair<int, int>,
-                WindowManager *, CameraHandler *, ResourceManager* resourceManager) noexcept;
+                WindowManager *, CameraHandler *, ResourceManager* resourceManager);
 
 
         void initShader();
