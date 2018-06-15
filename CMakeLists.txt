@@ -23,6 +23,9 @@ string(REPLACE " " ";" MASTER_BUILD_TYPES_AVAILABLE ${MASTER_BUILD_TYPES})
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
 	set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build -- Release is default. Other: ${MASTER_BUILD_TYPES}.")
 	message(STATUS "Setting default CMake build type: ${CMAKE_BUILD_TYPE}")
+elseif(NOT CMAKE_BUILD_TYPE)
+	set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build -- Release is default. Other: ${MASTER_BUILD_TYPES}.")
+	message(STATUS "Setting default CMake build type: ${CMAKE_BUILD_TYPE}")
 else()
 	set(CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE} CACHE STRING "Choose the type of build -- release is default. Other: ${MASTER_BUILD_TYPES}.")
 	message(STATUS "Provided CMake build type: ${CMAKE_BUILD_TYPE}")
@@ -53,11 +56,6 @@ set(CMAKE_INSTALL_RPATH_USE_LINK_PATH ON)
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_CXX_STANDARD 14)
-
-if (NOT CMAKE_BUILD_TYPE)
-    message(STATUS "No build type selected -- default is Debug")
-    set(CMAKE_BUILD_TYPE "Debug")
-endif()
 
 message(STATUS "BUILD TYPE: ${CMAKE_BUILD_TYPE}")
 
