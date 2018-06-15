@@ -5,14 +5,20 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMakeModules")
 
 include(CMakeModules/sge_debug_info.cmake)
 
-option(PACKAGE_MANAGER "Default project package manager, default: NONE" NONE)
-option(SETUP_BUILD_DIR "Setup project libs path" NONE)
-option(CMAKE_INSTALL_PREFIX "Defines to path in which SGE framework should be installed, default: NONE" NONE)
-option(CMAKE_TOOLCHAIN_FILE "CMake toolchain file defines build configuration" NONE)
+#option(PACKAGE_MANAGER "Default project package manager, default: NONE" NONE)
+#option(SETUP_BUILD_DIR "Setup project libs path" NONE)
+#option(CMAKE_INSTALL_PREFIX "Defines to path in which SGE framework should be installed, default: NONE" NONE)
+#option(CMAKE_TOOLCHAIN_FILE "CMake toolchain file defines build configuration" NONE)
+
+
+set(SETUP_BUILD_DIR NONE CACHE PATH "Setup project libs path")
+set(CMAKE_INSTALL_PREFIX NONE CACHE PATH "Defines to path in which SGE framework should be installed, default: NONE")
+set(CMAKE_TOOLCHAIN_FILE NONE CACHE FILEPATH "CMake toolchain file defines build configuration")
+set(PACKAGE_MANAGER NONE CACHE STRING "Default project package manager, default: NONE")
+set_property(CACHE PACKAGE_MANAGER PROPERTY STRINGS None Conan Setup)
 
 set(MASTER_BUILD_TYPES "Debug Release RelWithDebInfo MinSizeRel")
 string(REPLACE " " ";" MASTER_BUILD_TYPES_AVAILABLE ${MASTER_BUILD_TYPES})
-set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ${MASTER_BUILD_TYPES_AVAILABLE})
 
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
 	set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build -- Release is default. Other: ${MASTER_BUILD_TYPES}.")
@@ -21,6 +27,9 @@ else()
 	set(CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE} CACHE STRING "Choose the type of build -- release is default. Other: ${MASTER_BUILD_TYPES}.")
 	message(STATUS "Provided CMake build type: ${CMAKE_BUILD_TYPE}")
 endif()
+
+#not throwing anymore
+set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ${MASTER_BUILD_TYPES_AVAILABLE})
 
 if (NOT PACKAGE_MANAGER)
 	message(WARNING "Option PACKAGE_MANAGER not passed, setting: NONE")
@@ -95,7 +104,7 @@ else()
 	set(CMAKE_C_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2")
 	set(CMAKE_C_FLAGS_RELWITHDEBINFO "${CMAKE_C_FLAGS_RELWITHDEBINFO} /O2")
 
-	set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT SGE-ZombieGame)
+	set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT "ALL_BUILD")
 	link_directories("${CMAKE_CURRENT_BINARY_DIR}/lib")
 endif()
 
@@ -109,6 +118,7 @@ if (${PACKAGE_MANAGER} STREQUAL "Conan")
 elseif(${PACKAGE_MANAGER} STREQUAL "Setup")
 	message(STATUS "SETUP_BUILD_DIR: ${SETUP_BUILD_DIR}")
 
+	#Throws GLM not found, yet it appears to be found later.
 	include(CMakeModules/sge_setup.cmake)
 else()
 	message(STATUS "Using PACKAGE_MANAGER: None")
