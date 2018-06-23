@@ -8,6 +8,10 @@ SGE::CameraHandler::CameraHandler(std::pair<int, int> resolution) noexcept
 	this->camera = new Camera2d(resolution.first, resolution.second);
 }
 
+SGE::CameraHandler::CameraHandler(Camera2d* camera2d) noexcept : camera(camera2d)
+{
+}
+
 SGE::Camera2d* SGE::CameraHandler::getCamera()
 {
 	return this->camera;

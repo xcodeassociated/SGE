@@ -13,7 +13,7 @@
 
 namespace SGE
 {
-    class Camera2d final
+    class Camera2d
 	{
 		float X = 0.f;
 		float Y = 0.f;    

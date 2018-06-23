@@ -25,6 +25,7 @@ namespace SGE
 
     public:
         CameraHandler(std::pair<int, int>) noexcept;
+		CameraHandler(Camera2d* camera2d) noexcept;
 
         Camera2d* getCamera();
 
