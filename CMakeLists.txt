@@ -62,16 +62,21 @@ if (NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
 
     if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-        message(STATUS "Linux")
+    	message(STATUS "Linux")
+	
+			set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -ldl -fPIC")
+			set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -pthread -ldl -fPIC")
 
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fext-numeric-literals -pthread -ldl")
-        set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -fext-numeric-literals -pthread -ldl")
-    
-	elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+			if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+				set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fext-numeric-literals")
+				set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -fext-numeric-literals")
+			endif()
+
+    elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
         message(STATUS "Darwin")
 
         set(CMAKE_MACOSX_RPATH OFF)
-	endif()
+    endif()
 
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
