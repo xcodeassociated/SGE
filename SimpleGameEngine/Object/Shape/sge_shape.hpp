@@ -55,6 +55,10 @@ namespace SGE
 		 */
 		ShapeType getType() const;
 
+
+		virtual float getWidth() const = 0;
+		virtual float getHeight() const = 0;
+
 		//Checks if object shape is disposable
 		/**
 		 * \brief 

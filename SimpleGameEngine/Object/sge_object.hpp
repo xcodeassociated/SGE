@@ -155,6 +155,12 @@ namespace SGE
 		virtual Shape* getShape() noexcept;
 
 		/**
+		* \brief
+		* \return
+		*/
+		virtual void setShape(Shape* newShape) noexcept;
+
+		/**
 		 * \brief 
 		 * \return 
 		 * \todo Rework Lock system

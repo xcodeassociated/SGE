@@ -21,6 +21,16 @@ float SGE::Circle::getRadius() const
     return this->radius;
 }
 
+float SGE::Circle::getHeight() const
+{
+	return this->radius*2.f;
+}
+
+float SGE::Circle::getWidth() const
+{
+	return this->radius*2.f;
+}
+
 void SGE::Circle::setRadius(float radius)
 {
     this->radius = radius;

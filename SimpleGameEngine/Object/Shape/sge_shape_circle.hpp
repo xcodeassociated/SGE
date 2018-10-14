@@ -47,6 +47,9 @@ namespace SGE
          */
         float getRadius() const;
 
+	    float getHeight() const override;
+		float getWidth() const override;
+
 	    /**
          * \brief 
          * \param radius 

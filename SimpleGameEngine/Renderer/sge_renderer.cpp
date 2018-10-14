@@ -96,20 +96,26 @@ void SGE::Renderer::renderLevel()
     std::vector<BackgroundElement>& background = this->current->getLevel().getBackground();
     std::vector<WorldElement>& world = this->current->getLevel().getWorld();
 
-    Rectangle* tile = reinterpret_cast<Rectangle*>(getBaseTileShape());
-    const float width = tile->getWidth();
-    const float height = tile->getHeight();
+	Shape* shape = nullptr;
+	float width = 0.f;
+	float height = 0.f;
 
-    std::for_each(background.begin(), background.end(), [=](BackgroundElement& e) {
+    std::for_each(background.begin(), background.end(), [&](BackgroundElement& e) {
 		if (!(e.getVisible() && e.getDrawable()))
 			return;
+		shape = e.getShape();
+		width = shape->getWidth();
+		height = shape->getHeight();
         glm::vec4 destRect(e.getX() - width*.5f, e.getY() - height*.5f, width, height);
         this->sceneBatch->draw(destRect, uv, e.texture.id, 0.0f, color);
     });
 
-    std::for_each(world.begin(), world.end(), [=](WorldElement& e) {
+    std::for_each(world.begin(), world.end(), [&](WorldElement& e) {
 		if (!(e.getVisible() && e.getDrawable()))
 			return;
+		shape = e.getShape();
+		width = shape->getWidth();
+		height = shape->getHeight();
         glm::vec4 destRect(e.getX() - width*.5f, e.getY() - height*.5f, width, height);
         e.texture = this->resourceManager->getTexture(e.getPath().c_str());
         this->sceneBatch->draw(destRect, uv, e.texture.id, 0.0f, color);

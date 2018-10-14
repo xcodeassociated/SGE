@@ -32,6 +32,9 @@ namespace SGE
          * \return 
          */
         friend Shape* getShapeless();
+
+	    virtual float getWidth() const override;
+	    virtual float getHeight() const override;
     };
 
 }

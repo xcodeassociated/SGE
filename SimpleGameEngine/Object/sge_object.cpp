@@ -67,6 +67,15 @@ SGE::Shape* SGE::Object::getShape() noexcept
 	return this->shape;
 }
 
+void SGE::Object::setShape(Shape* newShape) noexcept
+{
+	if(this->shape->isDisposable())
+	{
+		delete this->shape;
+	}
+	this->shape = newShape;
+}
+
 SGE::LogicPriority SGE::Object::getLock() const noexcept
 {
 	return lock;
