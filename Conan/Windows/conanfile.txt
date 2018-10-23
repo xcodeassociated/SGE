@@ -12,8 +12,8 @@ Boost:shared=False
 sdl2:shared=False
 
 [imports]
-.\*, *.pdb -> ./bin
-bin, *.dll -> ./bin # Copies all dll files from the package "bin" folder to my project "bin" folder
+bin, *.pdb -> ./bin @ keep_path=False
+lib, *.pdb -> ./bin @ keep_path=False
 
 ## Works as of conan 1.8.4
 ## conan remote add <REMOTE> https://api.bintray.com/conan/bincrafters/public-conan
