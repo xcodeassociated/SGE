@@ -1,7 +1,7 @@
 [requires]
-glew/2.0.0-1@lasote/vcpkg
-glm/master@g-truc/stable
-SDL2/2.0.5@lasote/ci
+glew/2.1.0@bincrafters/stable
+glm/0.9.9.1@g-truc/stable
+sdl2/2.0.8@bincrafters/stable
 Boost/1.64.0@conan/stable
 
 [generators]
@@ -9,10 +9,12 @@ cmake
 
 [options]
 Boost:shared=False
-SDL2:shared=False
+sdl2:shared=False
 
 [imports]
 bin, *.dll -> ./bin # Copies all dll files from the package "bin" folder to my project "bin" folder
 
-## Tested on Conan version 0.28.0: https://github.com/conan-io/conan/releases/download/0.28.0/conan-win_0_28_0.exe
+## Works as of conan 1.8.4
+## conan remote add <REMOTE> https://api.bintray.com/conan/bincrafters/public-conan
 ## To run install: conan install Conan\Windows\ --build missing
+## debug: conan install Conan\Windows\ -s build_type=Debug
