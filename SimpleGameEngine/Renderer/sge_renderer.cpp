@@ -107,7 +107,7 @@ void SGE::Renderer::renderLevel()
 		width = shape->getWidth();
 		height = shape->getHeight();
         glm::vec4 destRect(e.getXGLM() - width*.5f, e.getYGLM() - height*.5f, width, height);
-        this->sceneBatch->draw(destRect, uv, e.texture.id, 0.0f, color);
+        this->sceneBatch->draw(destRect, uv, e.getTexture().id, 0.0f, color);
     });
 
     std::for_each(world.begin(), world.end(), [&](WorldElement& e) {
@@ -117,8 +117,11 @@ void SGE::Renderer::renderLevel()
 		width = shape->getWidth();
 		height = shape->getHeight();
         glm::vec4 destRect(e.getXGLM() - width*.5f, e.getYGLM() - height*.5f, width, height);
-        e.texture = this->resourceManager->getTexture(e.getPath().c_str());
-        this->sceneBatch->draw(destRect, uv, e.texture.id, 0.0f, color);
+		if(!e.isTextured())
+		{
+			e.setTexture(this->resourceManager->getTexture(e.getPath().c_str()));
+		}
+        this->sceneBatch->draw(destRect, uv, e.getTexture().id, 0.0f, color);
     });
 }
 
@@ -146,14 +149,14 @@ void SGE::Renderer::renderObjects()
 				circle = reinterpret_cast<Circle*>(id->getShape());
 				const float radius = circle->getRadius();
 				destRect = { id->getXGLM() - radius, id->getYGLM() - radius, radius*2.f, radius*2.f };
-				this->objectBatch->draw(destRect, uv, id->texture.id, .0f, color);
+				this->objectBatch->draw(destRect, uv, id->getTexture().id, .0f, color);
 				break;
 			}
 			case ShapeType::Rectangle:
 			{
 				rect = reinterpret_cast<Rectangle*>(id->getShape());
 				destRect = { id->getXGLM() - rect->getWidth()*.5f, id->getYGLM() - rect->getHeight()*.5f, rect->getWidth(), rect->getHeight() };
-				this->objectBatch->draw(destRect, uv, id->texture.id, .0f, color);
+				this->objectBatch->draw(destRect, uv, id->getTexture().id, .0f, color);
 				break;
 			}
 			default:

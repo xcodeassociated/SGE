@@ -126,7 +126,26 @@ void SGE::Object::setLock(const LogicPriority& lock) noexcept
 	this->lock = lock;
 }
 
+void SGE::Object::setTextured(bool b)
+{
+	this->textured = b;
+}
+
+bool SGE::Object::isTextured() const
+{
+	return this->textured;
+}
+
 SGE::VoidObject::VoidObject(): Object()
 {
 }
 
+SGE::GLTexture SGE::Object::getTexture() const
+{
+	return this->texture;
+}
+
+void SGE::Object::setTexture(GLTexture texture)
+{
+	this->texture = texture;
+}

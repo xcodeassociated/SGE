@@ -46,16 +46,11 @@ namespace SGE
 		*/
 		bool drawable = false;
 		bool visible = false;
-	public:
-		bool hasTexture = false;
-		/**
-		* \brief
-		*/
+		bool textured = false;
 		GLTexture texture = {0,0,0};
-		/**
-		* \brief
-		*/
-		const char* path = nullptr;
+	public:
+		GLTexture getTexture() const;
+		void setTexture(GLTexture texture);
 		/**
 		 * \brief 
 		 */
@@ -171,8 +166,12 @@ namespace SGE
 		 * \param lock 
 		 */
 		virtual void setLock(const LogicPriority& lock) noexcept;
-    };
-	
+
+		void setTextured(bool b);
+
+		bool isTextured() const;
+	};
+
 	/**
 	 * \brief 
 	 * \todo Shouldn't this be a separate file?

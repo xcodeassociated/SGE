@@ -233,8 +233,8 @@ SGE::Object* SGE::Game::textureObject(SGE::Object *object, const std::string& te
         }else
             file_absolute_path = texture_file;
 
-		object->texture = this->resourceManager->getTexture(file_absolute_path.c_str());
-		object->hasTexture = true;
+		object->setTexture(this->resourceManager->getTexture(file_absolute_path.c_str()));
+		object->setTextured(true);
 	}
 	else
 		throw std::runtime_error{"Object texture path string empty"};

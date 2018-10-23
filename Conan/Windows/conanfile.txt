@@ -12,6 +12,7 @@ Boost:shared=False
 sdl2:shared=False
 
 [imports]
+.\*, *.pdb -> ./bin
 bin, *.dll -> ./bin # Copies all dll files from the package "bin" folder to my project "bin" folder
 
 ## Works as of conan 1.8.4
