@@ -14,10 +14,10 @@ add_library (Utils
 		${LoggerSOURCES}
 		${TimingSOURCES}
 		${UtilsSOURCES})
-		
-target_link_libraries(Utils
+
+target_link_libraries(Utils PUBLIC
 		${Boost_LIBRARIES}
-		${SDL2_LIBRARY})
+		SDL2::SDL2-static)
 		
 if(WIN32)
 	include(GenerateExportHeader)
