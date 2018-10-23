@@ -18,7 +18,7 @@ SGE::Reactive::Reactive(float x, float y, bool draw, b2Body* body) : Object(x,y,
 void SGE::Reactive::setBody(b2Body* b2Body)
 {
 	this->body = b2Body;
-	this->body->SetTransform(b2Vec2(this->X, this->Y), this->body->GetAngle());
+	this->body->SetTransform(this->getPosition(), this->body->GetAngle());
 	this->body->SetUserData(this);
 }
 
@@ -32,23 +32,23 @@ const b2Body* SGE::Reactive::getBody() const
 	return this->body;
 }
 
-glm::vec2 SGE::Reactive::getPosition() const noexcept
+glm::vec2 SGE::Reactive::getPositionGLM() const noexcept
 {
 	auto pos = this->body->GetPosition();
 	return glm::vec2(pos.x, pos.y);
 }
 
-void SGE::Reactive::setPosition(float x, float y)
+void SGE::Reactive::setPositionGLM(float x, float y)
 {
 	this->body->SetTransform(b2Vec2(x, y), this->body->GetAngle());
 }
 
-float SGE::Reactive::getX() const noexcept
+float SGE::Reactive::getXGLM() const noexcept
 {
 	return this->body->GetPosition().x;
 }
 
-float SGE::Reactive::getY() const noexcept
+float SGE::Reactive::getYGLM() const noexcept
 {
 	return this->body->GetPosition().y;
 }

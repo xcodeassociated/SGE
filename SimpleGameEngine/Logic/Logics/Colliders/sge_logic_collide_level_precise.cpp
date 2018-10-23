@@ -16,7 +16,7 @@ void SGE::Logics::PreciseLevelCollider::performLogic()
 	glm::vec2 tileShape = {getBaseTileShape()->getWidth(), getBaseTileShape()->getHeight()};
 	glm::vec2 move = {0,0};
 	glm::vec2 tilePos = {0,0};
-	glm::vec2 objPos = oponent->getPosition();
+	glm::vec2 objPos = oponent->getPositionGLM();
 	bool collided = false;
 	switch (oponent->getShape()->getType())
 	{
@@ -26,7 +26,7 @@ void SGE::Logics::PreciseLevelCollider::performLogic()
 			for (auto& tile : this->objs)
 			{
 				glm::vec2 halfs = tileShape * 0.5f;
-				tilePos = tile.getPosition();
+				tilePos = tile.getPositionGLM();
 				if (std::abs(objPos.x - tilePos.x) < circle->getRadius() + halfs.x
 					&& std::abs(objPos.y - tilePos.y) < circle->getRadius() + halfs.y)
 				{

@@ -15,22 +15,16 @@ SGE::Camera2d::~Camera2d()
 {
 }
 
-void SGE::Camera2d::setPosition(float x, float y)
+void SGE::Camera2d::setPositionGLM(float x, float y)
 {
-	this->Object::setPosition(x, y);
+	this->Object::setPositionGLM(x, y);
 	this->matUpdate = true;
 }
 
 void SGE::Camera2d::setPosition(glm::vec2 _position)
 {
-	this->Y = _position.y;
-	this->X = _position.x;
+	this->Object::setPositionGLM(_position);
 	this->matUpdate = true;
-}
-
-glm::vec2 SGE::Camera2d::getPosition() const noexcept
-{
-	return glm::vec2{this->X,this->Y};
 }
 
 void SGE::Camera2d::setScale(float _scale)
@@ -53,7 +47,7 @@ void SGE::Camera2d::update()
 {
 	if (this->matUpdate)
 	{
-		glm::vec3 translate(- this->X + (this->box[0] / 2), - this->Y + (this->box[1] / 2), 0.0f);
+		glm::vec3 translate(- this->getXGLM() + (this->box[0] / 2), - this->getYGLM() + (this->box[1] / 2), 0.0f);
 		this->cameraMatrix = glm::translate(this->orthoMatrix, translate);
 
 		glm::vec3 scale_vec(this->scale, this->scale, 0.0f);
@@ -65,7 +59,7 @@ void SGE::Camera2d::update()
 
 glm::vec2 SGE::Camera2d::screenToWorld(glm::vec2 coords)
 {
-	return SGE::screenToWorld({this->box[0], this->box[1]}, coords, this->getPosition(), double(scale));
+	return SGE::screenToWorld({this->box[0], this->box[1]}, coords, this->getPositionGLM(), double(scale));
 }
 
 int SGE::Camera2d::getWidth() const

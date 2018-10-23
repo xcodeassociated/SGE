@@ -10,7 +10,7 @@
 #define SpriteBatch_h
 
 #include "../Sprite/sge_vertex.hpp"
-#include <glm/detail/type_vec4.hpp>
+#include <glm/vec4.hpp>
 #include <GL/glew.h>
 #include <vector>
 

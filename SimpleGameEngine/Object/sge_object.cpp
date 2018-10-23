@@ -1,34 +1,40 @@
 #include "sge_object.hpp"
 
-SGE::Object::Object(float x, float y): X(x), Y(y)
+SGE::Object::Object(float x, float y): Object(b2Vec2{x,y})
 {
 }
 
-SGE::Object::Object(float x, float y, Shape* shape): X(x), Y(y), shape(shape)
+SGE::Object::Object(b2Vec2 position) : position(position)
 {
 }
 
-SGE::Object::Object(float x, float y, bool draw): X(x), Y(y), drawable(draw)
+SGE::Object::Object(b2Vec2 position, Shape* shape): position(position), shape(shape)
 {
 }
 
-SGE::Object::Object(float x, float y, bool draw, Shape* shape): X(x), Y(y), drawable(draw), shape(shape)
+SGE::Object::Object(b2Vec2 position, bool draw): position{position}, drawable(draw)
+{
+}
+
+SGE::Object::Object(b2Vec2 position, bool draw, Shape* shape): position(position), shape(shape), drawable(draw)
+{
+}
+
+SGE::Object::Object(float x, float y, Shape* shape): Object(b2Vec2{x,y}, shape)
+{
+}
+
+SGE::Object::Object(float x, float y, bool draw): Object(b2Vec2{x,y}, draw)
+{
+}
+
+SGE::Object::Object(float x, float y, bool draw, Shape* shape): Object(b2Vec2{x,y},draw,shape)
 {
 }
 
 SGE::Object::~Object()
 {
 	if (this->shape->isDisposable()) delete this->shape;
-}
-
-float SGE::Object::getX() const noexcept
-{
-	return this->X;
-}
-
-float SGE::Object::getY() const noexcept
-{
-	return this->Y;
 }
 
 void SGE::Object::setDrawable(bool b) noexcept
@@ -51,15 +57,49 @@ bool SGE::Object::getVisible() const noexcept
 	return this->visible;
 }
 
-void SGE::Object::setPosition(float x, float y)
+b2Vec2 SGE::Object::getPosition() const noexcept
 {
-	this->X = x;
-	this->Y = y;
+	return this->position;
 }
 
-glm::vec2 SGE::Object::getPosition() const noexcept
+glm::vec2 SGE::Object::getPositionGLM() const noexcept
 {
-	return glm::vec2(this->X, this->Y);
+	return glm::vec2(this->position.x * 64.f, this->position.y * 64.f);
+}
+
+float SGE::Object::getX() const noexcept
+{
+	return this->position.x;
+}
+
+float SGE::Object::getXGLM() const noexcept
+{
+	return this->position.x*64.f;
+}
+
+float SGE::Object::getY() const noexcept
+{
+	return this->position.y * 64.f;
+}
+
+float SGE::Object::getYGLM() const noexcept
+{
+	return this->position.y * 64.f;
+}
+
+void SGE::Object::setPosition(b2Vec2 pos)
+{
+	this->position = pos;
+}
+
+void SGE::Object::setPositionGLM(float x, float y)
+{
+	this->position = b2Vec2{x/64.f, y/64.f};
+}
+
+void SGE::Object::setPositionGLM(glm::vec2 pos)
+{
+	this->position = b2Vec2{pos.x/64.f, pos.y/64.f};
 }
 
 SGE::Shape* SGE::Object::getShape() noexcept

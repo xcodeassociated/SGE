@@ -7,8 +7,8 @@
 
 SGE::Action* SGE::Logics::Collide::RectangleCollisionVec(Object* still, Object* toMove)
 {
-	float vx = toMove->getX() - still->getX();
-	float vy = toMove->getY() - still->getY();
+	float vx = toMove->getXGLM() - still->getXGLM();
+	float vy = toMove->getYGLM() - still->getYGLM();
 	float penx = (reinterpret_cast<Rectangle*>(toMove->getShape())->getWidth() + reinterpret_cast<Rectangle*>(still->getShape())->getWidth()) * 0.5f - std::abs(vx);
 	float peny = (reinterpret_cast<Rectangle*>(toMove->getShape())->getHeight() + reinterpret_cast<Rectangle*>(still->getShape())->getHeight()) * 0.5f - std::abs(vy);
 	if (penx < peny)
@@ -19,7 +19,7 @@ SGE::Action* SGE::Logics::Collide::RectangleCollisionVec(Object* still, Object* 
 
 SGE::Action* SGE::Logics::Collide::CircleCollisionVec(Object* still, Object* toMove)
 {
-	glm::vec2 pen = toMove->getPosition() - still->getPosition();
+	glm::vec2 pen = toMove->getPositionGLM() - still->getPositionGLM();
 	float dist = reinterpret_cast<Circle*>(toMove->getShape())->getRadius() + reinterpret_cast<Circle*>(still->getShape())->getRadius();
 	float l = glm::length(pen);
 	pen *= ((dist - l) / l);
@@ -29,10 +29,10 @@ SGE::Action* SGE::Logics::Collide::CircleCollisionVec(Object* still, Object* toM
 SGE::Action* SGE::Logics::Collide::CircleToRectCollisionVec(Object* still, Object* toMove)
 {
 	glm::vec2 halfs(reinterpret_cast<Rectangle*>(still->getShape())->getWidth() * .5f, reinterpret_cast<Rectangle*>(still->getShape())->getHeight() * .5f);
-	glm::vec2 difference = toMove->getPosition() - still->getPosition();
+	glm::vec2 difference = toMove->getPositionGLM() - still->getPositionGLM();
 	glm::vec2 clamps = glm::clamp(difference, -halfs, halfs);
-	halfs = still->getPosition() + clamps;
-	difference = toMove->getPosition() - halfs;
+	halfs = still->getPositionGLM() + clamps;
+	difference = toMove->getPositionGLM() - halfs;
 	const float l = glm::length(difference);
 	difference *= ((reinterpret_cast<Circle*>(toMove->getShape())->getRadius() - l) / l);
 	return new ACTION::Move(toMove, difference.x, difference.y, true);
@@ -48,8 +48,8 @@ bool SGE::Logics::Collide::collideWithSameShape(Object* self, Object* oponent)
 		{
 			Circle* selfCircle = reinterpret_cast<Circle*>(self->getShape());
 			Circle* oponCircle = reinterpret_cast<Circle*>(oponent->getShape());
-			glm::vec2 selfPos = self->getPosition();
-			glm::vec2 oponPos = oponent->getPosition();
+			glm::vec2 selfPos = self->getPositionGLM();
+			glm::vec2 oponPos = oponent->getPositionGLM();
 			if (glm::length(selfPos - oponPos) < (selfCircle->getRadius() + oponCircle->getRadius()))
 			{
 				return true;
@@ -61,8 +61,8 @@ bool SGE::Logics::Collide::collideWithSameShape(Object* self, Object* oponent)
 		{
 			Rectangle* selfRect = reinterpret_cast<Rectangle*>(self->getShape());
 			Rectangle* oponRect = reinterpret_cast<Rectangle*>(oponent->getShape());
-			return (std::abs(self->getX() - oponent->getX()) * 2 < selfRect->getWidth() + oponRect->getWidth()
-				&& std::abs(self->getY() - oponent->getY()) * 2 < selfRect->getHeight() + oponRect->getHeight());
+			return (std::abs(self->getXGLM() - oponent->getXGLM()) * 2 < selfRect->getWidth() + oponRect->getWidth()
+				&& std::abs(self->getYGLM() - oponent->getYGLM()) * 2 < selfRect->getHeight() + oponRect->getHeight());
 		}
 		break;
 
@@ -93,15 +93,15 @@ bool SGE::Logics::Collide::collideWithDifferentShape(Object* self, Object* opone
 		{
 			circle = reinterpret_cast<Circle*>(self->getShape());
 			rect = reinterpret_cast<Rectangle*>(oponent->getShape());
-			circlePos = self->getPosition();
-			rectPos = oponent->getPosition();
+			circlePos = self->getPositionGLM();
+			rectPos = oponent->getPositionGLM();
 		}
 		else
 		{
 			circle = reinterpret_cast<Circle*>(oponent->getShape());
 			rect = reinterpret_cast<Rectangle*>(self->getShape());
-			circlePos = oponent->getPosition();
-			rectPos = self->getPosition();
+			circlePos = oponent->getPositionGLM();
+			rectPos = self->getPositionGLM();
 		}
 		//Quick AABB-AABB test;
 		if (std::abs(circlePos.x - rectPos.x) < circle->getRadius() + rect->getWidth() * .5f
@@ -137,15 +137,15 @@ bool SGE::Logics::Collide::collideWithEdgesDifferentShape(Object* self, Object* 
 		{
 			circle = reinterpret_cast<Circle*>(self->getShape());
 			rect = reinterpret_cast<Rectangle*>(oponent->getShape());
-			circlePos = self->getPosition();
-			rectPos = oponent->getPosition();
+			circlePos = self->getPositionGLM();
+			rectPos = oponent->getPositionGLM();
 		}
 		else
 		{
 			circle = reinterpret_cast<Circle*>(oponent->getShape());
 			rect = reinterpret_cast<Rectangle*>(self->getShape());
-			circlePos = oponent->getPosition();
-			rectPos = self->getPosition();
+			circlePos = oponent->getPositionGLM();
+			rectPos = self->getPositionGLM();
 		}
 		//Quick AABB-AABB test;
 		if (std::abs(circlePos.x - rectPos.x) <= circle->getRadius() + rect->getWidth() * .5f

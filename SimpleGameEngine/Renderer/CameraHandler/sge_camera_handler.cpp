@@ -40,7 +40,7 @@ void SGE::CameraHandler::setPosition(glm::vec2 pos) noexcept
 
 glm::vec2 SGE::CameraHandler::getScreenToWorld(glm::vec2 screen, glm::vec2 pos) const noexcept
 {
-	return SGE::screenToWorld(screen, pos, this->camera->getPosition(), (double)this->camera->getScale());
+	return SGE::screenToWorld(screen, pos, this->camera->getPositionGLM(), (double)this->camera->getScale());
 }
 
 glm::vec2 SGE::CameraHandler::getScreenToWorld(glm::vec2 screen, int _x, int _y) const noexcept

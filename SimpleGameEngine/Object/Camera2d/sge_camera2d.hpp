@@ -59,19 +59,13 @@ namespace SGE
 	     * \param x 
 	     * \param y 
 	     */
-	    void setPosition(float x, float y) override;
+	    void setPositionGLM(float x, float y) override;
 
 	    /**
 	     * \brief 
 	     * \param _position 
 	     */
 	    void setPosition(glm::vec2 _position);
-
-	    /**
-	     * \brief 
-	     * \return 
-	     */
-	    glm::vec2 getPosition() const noexcept override;
 
 	    /**
 	     * \brief 

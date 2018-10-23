@@ -6,6 +6,7 @@
 #include "Shape/sge_shape.hpp"
 #include "Shape/sge_shapeless.hpp"
 #include "sge_logic_priority.hpp"
+#include "Box2D/Common/b2Math.h"
 
 namespace SGE
 {
@@ -31,20 +32,7 @@ namespace SGE
     private:
         
 	protected:
-		/**
-		 * \brief 
-		 */
-		float X = 0.f;
-		/**
-		 * \brief 
-		 */
-		float Y = 0.f;
-		/**
-		 * \brief 
-		 */
-		bool drawable = false;
-
-		bool visible = false;
+		b2Vec2 position = b2Vec2_zero;
 		/**
 		 * \brief 
 		 */
@@ -53,10 +41,21 @@ namespace SGE
 		 * \brief 
 		 */
 		LogicPriority lock = LogicPriority::None;
-
+		/**
+		* \brief
+		*/
+		bool drawable = false;
+		bool visible = false;
 	public:
 		bool hasTexture = false;
-
+		/**
+		* \brief
+		*/
+		GLTexture texture = {0,0,0};
+		/**
+		* \brief
+		*/
+		const char* path = nullptr;
 		/**
 		 * \brief 
 		 */
@@ -67,6 +66,7 @@ namespace SGE
 		 * \param y 
 		 */
 		Object(float x, float y);
+		explicit Object(b2Vec2 position);
 		/**
 		 * \brief 
 		 * \param x 
@@ -74,6 +74,7 @@ namespace SGE
 		 * \param shape 
 		 */
 		Object(float x, float y, Shape* shape);
+		Object(b2Vec2 position, Shape* shape);
 		/**
 		 * \brief 
 		 * \param x 
@@ -81,6 +82,7 @@ namespace SGE
 		 * \param draw 
 		 */
 		Object(float x, float y, bool draw);
+		Object(b2Vec2 position, bool draw);
 		/**
 		 * \brief 
 		 * \param x 
@@ -89,30 +91,24 @@ namespace SGE
 		 * \param shape 
 		 */
 		Object(float x, float y, bool draw, Shape* shape);
+		Object(b2Vec2 position, bool draw, Shape* shape);
 		/**
 		 * \brief 
 		 */
 		virtual ~Object() = 0;
 
 		/**
-         * \brief 
-         */
-        GLTexture texture = {0,0,0};
-		/**
-         * \brief 
-         */
-        const char* path = nullptr;
-
-		/**
 		 * \brief 
 		 * \return 
 		 */
+		virtual float getXGLM() const noexcept;
 		virtual float getX() const noexcept;
 
 		/**
 		 * \brief 
 		 * \return 
 		 */
+		virtual float getYGLM() const noexcept;
 		virtual float getY() const noexcept;
 
 		/**
@@ -140,13 +136,16 @@ namespace SGE
 		 * \param x 
 		 * \param y 
 		 */
-		virtual void setPosition(float x, float y);
+		virtual void setPositionGLM(float x, float y);
+		virtual void setPositionGLM(glm::vec2 vec);
+		virtual void setPosition(b2Vec2 vec);
 
 		/**
 		 * \brief 
 		 * \return 
 		 */
-		virtual glm::vec2 getPosition() const noexcept;
+		virtual glm::vec2 getPositionGLM() const noexcept;
+		virtual b2Vec2 getPosition() const noexcept;
 
 		/**
 		 * \brief 

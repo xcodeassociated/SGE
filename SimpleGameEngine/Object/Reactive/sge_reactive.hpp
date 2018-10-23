@@ -26,13 +26,13 @@ namespace SGE
 
 		const b2Body* getBody() const;
 
-	    virtual glm::vec2 getPosition() const noexcept override;
+	    virtual glm::vec2 getPositionGLM() const noexcept override;
 
-	    virtual void setPosition(float x, float y) override;
+	    virtual void setPositionGLM(float x, float y) override;
 
-	    virtual float getX() const noexcept override;
+	    virtual float getXGLM() const noexcept override;
 
-	    virtual float getY() const noexcept override;
+	    virtual float getYGLM() const noexcept override;
 
 	    b2Fixture* addFixture(const b2FixtureDef& fixtureDef);
 
