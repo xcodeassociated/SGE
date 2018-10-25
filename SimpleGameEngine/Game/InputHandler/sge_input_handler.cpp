@@ -63,7 +63,8 @@ void SGE::InputHandler::pollEvents() noexcept
 		switch (event.type) {
 			case SDL_QUIT:
 			{
-				this->game->windowClosing();
+				this->game->stop();
+				this->game->hide();
 			}break;
 
 			case SDL_KEYDOWN:

@@ -156,6 +156,7 @@ namespace SGE
         
 	public:
 		void run();
+	    void hide();
 
 	    /**
 	     * \brief 

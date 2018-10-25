@@ -48,6 +48,7 @@ namespace SGE
          * \brief 
          */
         void showWindow() noexcept;
+	    void hideWindow();
 
 	    /**
          * \brief 

@@ -87,6 +87,12 @@ void SGE::Game::run()
 		this->loop();
 		this->currentScene->state = SceneState::Ready;
 	}
+	this->windowClosing();
+}
+
+void SGE::Game::hide()
+{
+	this->window_manager->hideWindow();
 }
 
 SGE::Camera2d* SGE::Game::getCamera()
@@ -161,6 +167,7 @@ void SGE::Game::loop()
 		this->limiter->begin();
 		{
 			this->input_handler->pollEvents();
+			if (!this->playing) return;
 			this->performLogics();
 			this->performActions();
 			this->draw(this->currentScene);
