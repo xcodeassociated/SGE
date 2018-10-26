@@ -8,14 +8,14 @@
 namespace SGE
 {
 	/**
-     * \brief 
-     */
-    enum class ShapeType : char
-    {
-        Circle,
-        Rectangle,
-        None
-    };
+	 * \brief
+	 */
+	enum class ShapeType: char
+	{
+		Circle,
+		Rectangle,
+		None
+	};
 }
 
-#endif //SGE_ZOMBIEGAME_SGE_SHAPE_TYPE_HPP
+#endif //SGE_SHAPE_TYPE_HPP

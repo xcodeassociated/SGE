@@ -2,9 +2,8 @@
 #include "../../../Object/Shape/sge_shape.hpp"
 
 SGE::Logics::BasicLevelCollider::BasicLevelCollider(Object* object, std::vector<WorldElement>& objects, const collisionFunc& _onCollision)
-		: Collide(LogicPriority::Highest), onCollision(_onCollision), object(object), objs(objects)
-{
-}
+	: Collide(LogicPriority::Highest), onCollision(_onCollision), object(object), objs(objects)
+{}
 
 void SGE::Logics::BasicLevelCollider::performLogic()
 {
@@ -14,14 +13,14 @@ void SGE::Logics::BasicLevelCollider::performLogic()
 
 	bool collision = false;
 
-	for (unsigned int i = 0; i < this->objs.size(); ++i)
+	for(unsigned int i = 0; i < this->objs.size(); ++i)
 	{
-		if (selfShape->getType() == oponentShape->getType())
+		if(selfShape->getType() == oponentShape->getType())
 			collision = this->collideWithSameShape(&objs[i], oponent);
 		else
 			collision = this->collideWithDifferentShape(&objs[i], oponent);
 
-		if (collision)
+		if(collision)
 		{
 			Action* aid = this->onCollision(&objs[i], this->object);
 			this->sendAction(aid);

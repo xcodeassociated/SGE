@@ -10,7 +10,7 @@ SGE::Action* SGE::Logics::Collide::RectangleCollisionVec(Object* still, Object* 
 	float vy = toMove->getYGLM() - still->getYGLM();
 	float penx = toMove->getShape()->getWidth() + still->getShape()->getWidth() * 0.5f - std::abs(vx);
 	float peny = toMove->getShape()->getHeight() + still->getShape()->getHeight() * 0.5f - std::abs(vy);
-	if (penx < peny)
+	if(penx < peny)
 		return new ACTION::Move(toMove, (vx > 0 ? penx : -penx), 0, true);
 	else
 		return new ACTION::Move(toMove, 0, (vy > 0 ? peny : -peny), true);
@@ -41,33 +41,33 @@ bool SGE::Logics::Collide::collideWithSameShape(Object* self, Object* oponent)
 {
 	ShapeType commonShape = self->getShape()->getType();
 
-	switch (commonShape)
+	switch(commonShape)
 	{
 	case ShapeType::Circle:
+	{
+		Shape* selfCircle = self->getShape();
+		Shape* oponCircle = oponent->getShape();
+		glm::vec2 selfPos = self->getPositionGLM();
+		glm::vec2 oponPos = oponent->getPositionGLM();
+		if(glm::length(selfPos - oponPos) < (selfCircle->getRadius() + oponCircle->getRadius()))
 		{
-			Shape* selfCircle = self->getShape();
-			Shape* oponCircle = oponent->getShape();
-			glm::vec2 selfPos = self->getPositionGLM();
-			glm::vec2 oponPos = oponent->getPositionGLM();
-			if (glm::length(selfPos - oponPos) < (selfCircle->getRadius() + oponCircle->getRadius()))
-			{
-				return true;
-			}
+			return true;
 		}
-		break;
+	}
+	break;
 
 	case ShapeType::Rectangle:
-		{
-			Shape* selfRect = self->getShape();
-			Shape* oponRect = oponent->getShape();
-			return (std::abs(self->getXGLM() - oponent->getXGLM()) * 2 < selfRect->getWidth() + oponRect->getWidth()
+	{
+		Shape* selfRect = self->getShape();
+		Shape* oponRect = oponent->getShape();
+		return (std::abs(self->getXGLM() - oponent->getXGLM()) * 2 < selfRect->getWidth() + oponRect->getWidth()
 				&& std::abs(self->getYGLM() - oponent->getYGLM()) * 2 < selfRect->getHeight() + oponRect->getHeight());
-		}
-		break;
+	}
+	break;
 
 	case ShapeType::None:
-		{
-		}
+	{
+	}
 	}
 
 	return false;;
@@ -78,20 +78,20 @@ bool SGE::Logics::Collide::collideWithDifferentShape(Object* self, Object* opone
 	ShapeType selfShapeType = self->getShape()->getType();
 	ShapeType oponentShapeType = oponent->getShape()->getType();
 
-	if (selfShapeType == ShapeType::None || oponentShapeType == ShapeType::None)
+	if(selfShapeType == ShapeType::None || oponentShapeType == ShapeType::None)
 		return false;
 	Shape* circle = nullptr;
 	glm::vec2 circlePos;
 	Shape* rect = nullptr;
 	glm::vec2 rectPos;
 
-	if ((selfShapeType == ShapeType::Circle && oponentShapeType == ShapeType::Rectangle) || (selfShapeType == ShapeType::Rectangle && oponentShapeType == ShapeType::Circle))
+	if((selfShapeType == ShapeType::Circle && oponentShapeType == ShapeType::Rectangle) || (selfShapeType == ShapeType::Rectangle && oponentShapeType == ShapeType::Circle))
 	{
 		//Set up data for collision;
-		if (selfShapeType == ShapeType::Circle)
+		if(selfShapeType == ShapeType::Circle)
 		{
 			circle = self->getShape();
-			rect =oponent->getShape();
+			rect = oponent->getShape();
 			circlePos = self->getPositionGLM();
 			rectPos = oponent->getPositionGLM();
 		}
@@ -103,8 +103,8 @@ bool SGE::Logics::Collide::collideWithDifferentShape(Object* self, Object* opone
 			rectPos = self->getPositionGLM();
 		}
 		//Quick AABB-AABB test;
-		if (std::abs(circlePos.x - rectPos.x) < circle->getRadius() + rect->getWidth() * .5f
-			&& std::abs(circlePos.y - rectPos.y) < circle->getRadius() + rect->getHeight() * .5f)
+		if(std::abs(circlePos.x - rectPos.x) < circle->getRadius() + rect->getWidth() * .5f
+		   && std::abs(circlePos.y - rectPos.y) < circle->getRadius() + rect->getHeight() * .5f)
 		{
 			glm::vec2 halfs(rect->getWidth() * .5f, rect->getHeight() * .5f);
 			glm::vec2 difference = circlePos - rectPos;
@@ -122,17 +122,17 @@ bool SGE::Logics::Collide::collideWithEdgesDifferentShape(Object* self, Object* 
 	ShapeType selfShapeType = self->getShape()->getType();
 	ShapeType oponentShapeType = oponent->getShape()->getType();
 
-	if (selfShapeType == ShapeType::None || oponentShapeType == ShapeType::None)
+	if(selfShapeType == ShapeType::None || oponentShapeType == ShapeType::None)
 		return false;
 	Shape* circle = nullptr;
 	glm::vec2 circlePos;
 	Shape* rect = nullptr;
 	glm::vec2 rectPos;
 
-	if ((selfShapeType == ShapeType::Circle && oponentShapeType == ShapeType::Rectangle) || (selfShapeType == ShapeType::Rectangle && oponentShapeType == ShapeType::Circle))
+	if((selfShapeType == ShapeType::Circle && oponentShapeType == ShapeType::Rectangle) || (selfShapeType == ShapeType::Rectangle && oponentShapeType == ShapeType::Circle))
 	{
 		//Set up data for collision;
-		if (selfShapeType == ShapeType::Circle)
+		if(selfShapeType == ShapeType::Circle)
 		{
 			circle = self->getShape();
 			rect = oponent->getShape();
@@ -147,8 +147,8 @@ bool SGE::Logics::Collide::collideWithEdgesDifferentShape(Object* self, Object* 
 			rectPos = self->getPositionGLM();
 		}
 		//Quick AABB-AABB test;
-		if (std::abs(circlePos.x - rectPos.x) <= circle->getRadius() + rect->getWidth() * .5f
-			&& std::abs(circlePos.y - rectPos.y) <= circle->getRadius() + rect->getHeight() * .5f)
+		if(std::abs(circlePos.x - rectPos.x) <= circle->getRadius() + rect->getWidth() * .5f
+		   && std::abs(circlePos.y - rectPos.y) <= circle->getRadius() + rect->getHeight() * .5f)
 		{
 			glm::vec2 halfs(rect->getWidth() * .5f, rect->getHeight() * .5f);
 			glm::vec2 difference = circlePos - rectPos;
@@ -161,6 +161,5 @@ bool SGE::Logics::Collide::collideWithEdgesDifferentShape(Object* self, Object* 
 	return false;
 }
 
-SGE::Logics::Collide::Collide(const LogicPriority& logicPriority) : Logic(logicPriority)
-{
-}
+SGE::Logics::Collide::Collide(const LogicPriority& logicPriority): Logic(logicPriority)
+{}
