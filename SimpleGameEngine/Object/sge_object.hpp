@@ -4,7 +4,6 @@
 #include <glm/vec2.hpp>
 #include <GL/glew.h>
 #include "Shape/sge_shape.hpp"
-#include "Shape/sge_shapeless.hpp"
 #include "sge_logic_priority.hpp"
 #include "Box2D/Common/b2Math.h"
 
@@ -35,7 +34,7 @@ namespace SGE
 		/**
 		 * \brief 
 		 */
-		Shape* shape = getShapeless();
+		Shape* shape = Shape::Shapeless();
 		/**
 		 * \brief 
 		 */

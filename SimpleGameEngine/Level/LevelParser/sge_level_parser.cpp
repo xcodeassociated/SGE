@@ -1,5 +1,5 @@
 #include "sge_level_parser.hpp"
-#include "../../Object/Shape/sge_shape_rectangle.hpp"
+#include "../../Object/Shape/sge_shape.hpp"
 #include <fstream>
 #include <cctype>
 
@@ -22,7 +22,7 @@ SGE::LevelParser::LevelParser(const char* path, const std::map<char, std::string
 
 SGE::Level SGE::LevelParser::parse()
 {
-	Rectangle* tile = reinterpret_cast<Rectangle*>(getBaseTileShape());
+	Shape* tile = Shape::BaseTile();
 	const float width = tile->getWidth();
 	const float height = tile->getHeight();
 	Level lev(this->levelData[0].size(), this->levelData.size());

@@ -1,7 +1,6 @@
 #include "sge_background_element.hpp"
-#include "../Shape/sge_shape_rectangle.hpp"
 
-SGE::BackgroundElement::BackgroundElement(float x, float y, std::string path): Object(x, y, true, getBaseTileShape()), path(path)
+SGE::BackgroundElement::BackgroundElement(float x, float y, std::string path): Object(x, y, true, SGE::Shape::BaseTile()), path(path)
 {
 }
 

@@ -14,9 +14,7 @@ set (LogicsCollidersSOURCES
 		Logics/Colliders/sge_logic_collide_group.hpp
 		Logics/Colliders/sge_logic_collide_group.cpp
 		Logics/Colliders/sge_logic_collide_level.hpp
-		Logics/Colliders/sge_logic_collide_level.cpp
-		Logics/Colliders/sge_logic_collide_level_precise.hpp
-		Logics/Colliders/sge_logic_collide_level_precise.cpp)
+		Logics/Colliders/sge_logic_collide_level.cpp)
 
 set (LogicMoversSOURCES
 		Logics/Movers/sge_logic_move.hpp

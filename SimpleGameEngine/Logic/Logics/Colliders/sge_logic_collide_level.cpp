@@ -1,5 +1,5 @@
 #include "sge_logic_collide_level.hpp"
-#include "../../../Object/Shape/sge_shape_rectangle.hpp"
+#include "../../../Object/Shape/sge_shape.hpp"
 
 SGE::Logics::BasicLevelCollider::BasicLevelCollider(Object* object, std::vector<WorldElement>& objects, const collisionFunc& _onCollision)
 		: Collide(LogicPriority::Highest), onCollision(_onCollision), object(object), objs(objects)
@@ -9,7 +9,7 @@ SGE::Logics::BasicLevelCollider::BasicLevelCollider(Object* object, std::vector<
 void SGE::Logics::BasicLevelCollider::performLogic()
 {
 	Object* oponent = this->object;
-	Shape* selfShape = getBaseTileShape();
+	Shape* selfShape = Shape::BaseTile();
 	Shape* oponentShape = oponent->getShape();
 
 	bool collision = false;

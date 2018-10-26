@@ -1,6 +1,5 @@
 #include "sge_renderer.hpp"
-#include "../Object/Shape/sge_shape_rectangle.hpp"
-#include "../Object/Shape/sge_shape_circle.hpp"
+#include "../Object/Shape/sge_shape.hpp"
 #include "WindowManager/sge_window_manager.hpp"
 #include "../Object/Camera2d/sge_camera2d.hpp"
 #include "CameraHandler/sge_camera_handler.hpp"
@@ -100,29 +99,29 @@ void SGE::Renderer::renderLevel()
 	float width = 0.f;
 	float height = 0.f;
 
-    std::for_each(background.begin(), background.end(), [&](BackgroundElement& e) {
+    for(BackgroundElement& e : background) {
 		if (!(e.getVisible() && e.getDrawable()))
 			return;
 		shape = e.getShape();
-		width = shape->getWidth();
-		height = shape->getHeight();
+		width = shape->getWidthGLM();
+		height = shape->getHeightGLM();
         glm::vec4 destRect(e.getXGLM() - width*.5f, e.getYGLM() - height*.5f, width, height);
         this->sceneBatch->draw(destRect, uv, e.getTexture().id, 0.0f, color);
-    });
+	};
 
-    std::for_each(world.begin(), world.end(), [&](WorldElement& e) {
+    for(WorldElement& e: world) {
 		if (!(e.getVisible() && e.getDrawable()))
 			return;
 		shape = e.getShape();
-		width = shape->getWidth();
-		height = shape->getHeight();
+		width = shape->getWidthGLM();
+		height = shape->getHeightGLM();
         glm::vec4 destRect(e.getXGLM() - width*.5f, e.getYGLM() - height*.5f, width, height);
 		if(!e.isTextured())
 		{
 			e.setTexture(this->resourceManager->getTexture(e.getPath().c_str()));
 		}
         this->sceneBatch->draw(destRect, uv, e.getTexture().id, 0.0f, color);
-    });
+	};
 }
 
 void SGE::Renderer::renderObjects()
@@ -133,8 +132,6 @@ void SGE::Renderer::renderObjects()
     static SGE::Color color(255, 255, 255, 255);
 
     std::vector<Object*>& objects = this->current->getObjects();
-    Rectangle* rect = nullptr;
-    Circle* circle = nullptr;
 
     glm::vec4 destRect(.0f, .0f, .0f, .0f);
 
@@ -142,26 +139,9 @@ void SGE::Renderer::renderObjects()
     {
 		if (!(id->getVisible() && id->getDrawable()))
 			continue;
-        switch (id->getShape()->getType())
-		{
-			case ShapeType::Circle:
-			{
-				circle = reinterpret_cast<Circle*>(id->getShape());
-				const float radius = circle->getRadius();
-				destRect = { id->getXGLM() - radius, id->getYGLM() - radius, radius*2.f, radius*2.f };
-				this->objectBatch->draw(destRect, uv, id->getTexture().id, .0f, color);
-				break;
-			}
-			case ShapeType::Rectangle:
-			{
-				rect = reinterpret_cast<Rectangle*>(id->getShape());
-				destRect = { id->getXGLM() - rect->getWidth()*.5f, id->getYGLM() - rect->getHeight()*.5f, rect->getWidth(), rect->getHeight() };
-				this->objectBatch->draw(destRect, uv, id->getTexture().id, .0f, color);
-				break;
-			}
-			default:
-				break;
-        }
+		auto shape = id->getShape();
+		destRect = { id->getXGLM() - shape->getWidthGLM()*.5f, id->getYGLM() - shape->getHeightGLM()*.5f, shape->getWidthGLM(), shape->getHeightGLM() };
+		this->objectBatch->draw(destRect, uv, id->getTexture().id, .0f, color);
     }
 }
 

@@ -25,14 +25,7 @@ set (ObjectReactiveSOURCES
 
 set (ObjectShapeSOURCES
 		Shape/sge_shape.hpp
-		Shape/sge_shape.cpp
-		Shape/sge_shape_type.hpp
-		Shape/sge_shape_circle.hpp
-		Shape/sge_shape_circle.cpp
-		Shape/sge_shape_rectangle.hpp
-		Shape/sge_shape_rectangle.cpp
-		Shape/sge_shapeless.hpp
-		Shape/sge_shapeless.cpp)
+		Shape/sge_shape_type.hpp)
 
 add_library (Object
 		${ObjectCameraSOURCES}
