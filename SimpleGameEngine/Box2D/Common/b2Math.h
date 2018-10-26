@@ -19,6 +19,7 @@
 #ifndef B2_MATH_H
 #define B2_MATH_H
 
+//@ Added code
 #ifdef _WIN32
 	#ifdef SGE_SHARED
 		#include <box2d_export.h>
@@ -66,7 +67,7 @@ struct b2Vec2
 	b2Vec2() {}
 
 	/// Construct using coordinates.
-	b2Vec2(float32 xIn, float32 yIn) : x(xIn), y(yIn) {}
+	constexpr b2Vec2(float32 xIn, float32 yIn) : x(xIn), y(yIn) {}
 
 	/// Set this vector to all zeros.
 	void SetZero() { x = 0.0f; y = 0.0f; }
@@ -78,7 +79,7 @@ struct b2Vec2
 	b2Vec2 operator -() const { b2Vec2 v; v.Set(-x, -y); return v; }
 	
 	/// Read from and indexed element.
-	float32 operator () (int32 i) const
+	constexpr float32 operator () (int32 i) const
 	{
 		return (&x)[i];
 	}
@@ -115,7 +116,7 @@ struct b2Vec2
 
 	/// Get the length squared. For performance, use this instead of
 	/// b2Vec2::Length (if possible).
-	float32 LengthSquared() const
+	constexpr float32 LengthSquared() const
 	{
 		return x * x + y * y;
 	}
@@ -142,12 +143,29 @@ struct b2Vec2
 	}
 
 	/// Get the skew vector such that dot(skew_vec, other) == cross(vec, other)
-	b2Vec2 Skew() const
+	constexpr b2Vec2 Skew() const
 	{
 		return b2Vec2(-y, x);
 	}
 
 	float32 x, y;
+
+	//@ Added code
+	float Orientation() const
+	{
+		return b2Atan2(y, x);
+	}
+
+	void Truncate(float max)
+	{
+		if(this->LengthSquared() > max*max)
+		{
+			this->Normalize();
+			this->operator*=(max);
+		}
+	}
+
+
 };
 
 /// A 2D column vector with 3 elements.

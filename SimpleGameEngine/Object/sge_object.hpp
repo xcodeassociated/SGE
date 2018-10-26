@@ -29,10 +29,9 @@ namespace SGE
 	 */
 	class Object
 	{
-    private:
-        
 	protected:
 		b2Vec2 position = b2Vec2_zero;
+		float orientation = 0.f;
 		/**
 		 * \brief 
 		 */
@@ -142,6 +141,8 @@ namespace SGE
 		virtual glm::vec2 getPositionGLM() const noexcept;
 		virtual b2Vec2 getPosition() const noexcept;
 
+		float getOrientation() const;
+		void setOrientation(float orientation);
 		/**
 		 * \brief 
 		 * \return 
