@@ -76,7 +76,10 @@ struct b2Vec2
 	void Set(float32 x_, float32 y_) { x = x_; y = y_; }
 
 	/// Negate this vector.
-	b2Vec2 operator -() const { b2Vec2 v; v.Set(-x, -y); return v; }
+	constexpr b2Vec2 operator -() const
+	{
+		return{-x, -y};
+	}
 	
 	/// Read from and indexed element.
 	constexpr float32 operator () (int32 i) const
@@ -431,34 +434,34 @@ struct b2Sweep
 BOX2D_EXPORT extern const b2Vec2 b2Vec2_zero;
 
 /// Perform the dot product on two vectors.
-inline float32 b2Dot(const b2Vec2& a, const b2Vec2& b)
+inline constexpr float32 b2Dot(const b2Vec2& a, const b2Vec2& b)
 {
 	return a.x * b.x + a.y * b.y;
 }
 
 /// Perform the cross product on two vectors. In 2D this produces a scalar.
-inline float32 b2Cross(const b2Vec2& a, const b2Vec2& b)
+inline constexpr float32 b2Cross(const b2Vec2& a, const b2Vec2& b)
 {
 	return a.x * b.y - a.y * b.x;
 }
 
 /// Perform the cross product on a vector and a scalar. In 2D this produces
 /// a vector.
-inline b2Vec2 b2Cross(const b2Vec2& a, float32 s)
+inline constexpr b2Vec2 b2Cross(const b2Vec2& a, float32 s)
 {
 	return b2Vec2(s * a.y, -s * a.x);
 }
 
 /// Perform the cross product on a scalar and a vector. In 2D this produces
 /// a vector.
-inline b2Vec2 b2Cross(float32 s, const b2Vec2& a)
+inline constexpr b2Vec2 b2Cross(float32 s, const b2Vec2& a)
 {
 	return b2Vec2(-s * a.y, s * a.x);
 }
 
 /// Multiply a matrix times a vector. If a rotation matrix is provided,
 /// then this transforms the vector from one frame to another.
-inline b2Vec2 b2Mul(const b2Mat22& A, const b2Vec2& v)
+inline constexpr b2Vec2 b2Mul(const b2Mat22& A, const b2Vec2& v)
 {
 	return b2Vec2(A.ex.x * v.x + A.ey.x * v.y, A.ex.y * v.x + A.ey.y * v.y);
 }
@@ -471,28 +474,28 @@ inline b2Vec2 b2MulT(const b2Mat22& A, const b2Vec2& v)
 }
 
 /// Add two vectors component-wise.
-inline b2Vec2 operator + (const b2Vec2& a, const b2Vec2& b)
+inline constexpr b2Vec2 operator + (const b2Vec2& a, const b2Vec2& b)
 {
 	return b2Vec2(a.x + b.x, a.y + b.y);
 }
 
 /// Subtract two vectors component-wise.
-inline b2Vec2 operator - (const b2Vec2& a, const b2Vec2& b)
+inline constexpr b2Vec2 operator - (const b2Vec2& a, const b2Vec2& b)
 {
 	return b2Vec2(a.x - b.x, a.y - b.y);
 }
 
-inline b2Vec2 operator * (float32 s, const b2Vec2& a)
+inline constexpr b2Vec2 operator * (float32 s, const b2Vec2& a)
 {
 	return b2Vec2(s * a.x, s * a.y);
 }
 
-inline bool operator == (const b2Vec2& a, const b2Vec2& b)
+inline constexpr bool operator == (const b2Vec2& a, const b2Vec2& b)
 {
 	return a.x == b.x && a.y == b.y;
 }
 
-inline bool operator != (const b2Vec2& a, const b2Vec2& b)
+inline constexpr bool operator != (const b2Vec2& a, const b2Vec2& b)
 {
 	return a.x != b.x || a.y != b.y;
 }
@@ -564,7 +567,7 @@ inline b2Vec3 b2Mul(const b2Mat33& A, const b2Vec3& v)
 }
 
 /// Multiply a matrix times a vector.
-inline b2Vec2 b2Mul22(const b2Mat33& A, const b2Vec2& v)
+inline constexpr b2Vec2 b2Mul22(const b2Mat33& A, const b2Vec2& v)
 {
 	return b2Vec2(A.ex.x * v.x + A.ey.x * v.y, A.ex.y * v.x + A.ey.y * v.y);
 }
@@ -596,13 +599,13 @@ inline b2Rot b2MulT(const b2Rot& q, const b2Rot& r)
 }
 
 /// Rotate a vector
-inline b2Vec2 b2Mul(const b2Rot& q, const b2Vec2& v)
+inline constexpr b2Vec2 b2Mul(const b2Rot& q, const b2Vec2& v)
 {
 	return b2Vec2(q.c * v.x - q.s * v.y, q.s * v.x + q.c * v.y);
 }
 
 /// Inverse rotate a vector
-inline b2Vec2 b2MulT(const b2Rot& q, const b2Vec2& v)
+inline constexpr b2Vec2 b2MulT(const b2Rot& q, const b2Vec2& v)
 {
 	return b2Vec2(q.c * v.x + q.s * v.y, -q.s * v.x + q.c * v.y);
 }
@@ -646,12 +649,12 @@ inline b2Transform b2MulT(const b2Transform& A, const b2Transform& B)
 }
 
 template <typename T>
-inline T b2Abs(T a)
+inline constexpr T b2Abs(T a)
 {
 	return a > T(0) ? a : -a;
 }
 
-inline b2Vec2 b2Abs(const b2Vec2& a)
+inline constexpr b2Vec2 b2Abs(const b2Vec2& a)
 {
 	return b2Vec2(b2Abs(a.x), b2Abs(a.y));
 }
@@ -662,34 +665,34 @@ inline b2Mat22 b2Abs(const b2Mat22& A)
 }
 
 template <typename T>
-inline T b2Min(T a, T b)
+inline constexpr T b2Min(T a, T b)
 {
 	return a < b ? a : b;
 }
 
-inline b2Vec2 b2Min(const b2Vec2& a, const b2Vec2& b)
+inline constexpr b2Vec2 b2Min(const b2Vec2& a, const b2Vec2& b)
 {
 	return b2Vec2(b2Min(a.x, b.x), b2Min(a.y, b.y));
 }
 
 template <typename T>
-inline T b2Max(T a, T b)
+inline constexpr T b2Max(T a, T b)
 {
 	return a > b ? a : b;
 }
 
-inline b2Vec2 b2Max(const b2Vec2& a, const b2Vec2& b)
+inline constexpr b2Vec2 b2Max(const b2Vec2& a, const b2Vec2& b)
 {
 	return b2Vec2(b2Max(a.x, b.x), b2Max(a.y, b.y));
 }
 
 template <typename T>
-inline T b2Clamp(T a, T low, T high)
+inline constexpr T b2Clamp(T a, T low, T high)
 {
 	return b2Max(low, b2Min(a, high));
 }
 
-inline b2Vec2 b2Clamp(const b2Vec2& a, const b2Vec2& low, const b2Vec2& high)
+inline constexpr b2Vec2 b2Clamp(const b2Vec2& a, const b2Vec2& low, const b2Vec2& high)
 {
 	return b2Max(low, b2Min(a, high));
 }
