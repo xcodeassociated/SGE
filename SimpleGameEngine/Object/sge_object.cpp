@@ -71,7 +71,7 @@ float SGE::Object::getXGLM() const noexcept
 
 float SGE::Object::getY() const noexcept
 {
-	return this->position.y * 64.f;
+	return this->position.y;
 }
 
 float SGE::Object::getYGLM() const noexcept

@@ -80,6 +80,8 @@ void SGE::FpsLimiter::begin()
 	boost::posix_time::time_duration diff = now - this->time;
 	this->time = now;
     delta_time = diff.total_milliseconds() * 0.001f;
+	//Prevent overtime from debug.
+	delta_time = delta_time > 1.f ? 1.f / _maxFPS : delta_time;
 }
 
 float SGE::FpsLimiter::end()
