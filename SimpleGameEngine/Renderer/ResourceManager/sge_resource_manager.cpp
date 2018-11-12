@@ -36,6 +36,7 @@ void SGE::ResourceManager::kill()
 	if (SGE::ResourceManager::arc == 0)
 	{
 		delete this;
+		ResourceManager::p_inst = nullptr;
 	}
 }
 

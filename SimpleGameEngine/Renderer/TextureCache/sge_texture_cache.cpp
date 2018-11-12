@@ -36,6 +36,7 @@ void SGE::TextureCache::kill()
 	if (SGE::TextureCache::arc == 0)
 	{
 		delete this;
+		TextureCache::p_inst = nullptr;
 	}
 }
 

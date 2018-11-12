@@ -8,7 +8,7 @@ SGE::Camera2d::Camera2d(unsigned _width, unsigned _height): Object(0.f, 0.f), ca
 	this->box[0] = _width;
 	this->box[1] = _height;
 
-	this->orthoMatrix = glm::ortho(0.0f, (float)this->box[0], 0.0f, (float)this->box[1]);
+	this->orthoMatrix = glm::ortho(0.0f, float(this->box[0]), 0.0f, float(this->box[1]));
 }
 
 SGE::Camera2d::~Camera2d()
