@@ -124,6 +124,11 @@ void SGE::Game::unmapAction(const SGE::InputBinder& bind)
 	this->input_handler->unmapAction(bind);
 }
 
+void SGE::Game::unmapAll()
+{
+	this->input_handler->clear();
+}
+
 void SGE::Game::finalize()
 {
 	SDL_Quit();

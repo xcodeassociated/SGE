@@ -143,7 +143,9 @@ namespace SGE
         DisplaySwitch = SDLK_DISPLAYSWITCH,
         AltErase = SDLK_ALTERASE,
 
-        MOUSE_LEFT_BUTTON = -10
+        MB_Left = -1,
+		MB_Middle = -2,
+		MB_Right = -3,
     };
 
 }

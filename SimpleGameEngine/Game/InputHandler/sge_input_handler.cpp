@@ -80,12 +80,13 @@ void SGE::InputHandler::pollEvents() noexcept
 			case SDL_MOUSEBUTTONDOWN:
 			{
 				this->mouseHandler->setMouseCoords({ event.motion.x, event.motion.y });
-				this->pressKey(Key(-10));
+				this->pressKey(Key(-char(event.button.type)));
 			}break;
 
 			case SDL_MOUSEBUTTONUP:
 			{
 			}break;
+			default:break;
 		}
 	}
 }

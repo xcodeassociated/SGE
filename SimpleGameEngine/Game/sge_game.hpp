@@ -157,6 +157,7 @@ namespace SGE
 	public:
 		void run();
 	    void hide();
+	    void unmapAll();
 
 	    /**
 	     * \brief 
