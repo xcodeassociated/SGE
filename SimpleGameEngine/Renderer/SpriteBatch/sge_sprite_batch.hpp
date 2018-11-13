@@ -260,7 +260,13 @@ namespace SGE
 
 		void prepareBatch()
 		{
-
+			this->spriteData.clear();
+			for(Object* o: this->batchedObjects)
+			{
+				if (!o->getDrawable() || !o->getVisible())
+					continue;
+				this->spriteData.emplace_back(o->getPositionGLM(), o->getScaleGLM(), ...);
+			}
 		}
 	};
 
