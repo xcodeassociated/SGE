@@ -187,8 +187,8 @@ namespace SGE
 		* \brief
 		* \return
 		*/
-		std::string getGamePath() const;
-	    std::string getShadersPath() const;
+		const std::string& getGamePath() const;
+	    const std::string& getShadersPath() const;
 
 	    /**
 	     * \brief 

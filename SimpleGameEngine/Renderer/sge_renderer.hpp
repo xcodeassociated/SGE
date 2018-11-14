@@ -31,7 +31,7 @@ namespace SGE
 			bool dirty = false;
 			~SceneBatches()
 			{
-				for(RealSpriteBatch* b: batches)
+				for(RealSpriteBatch* b : batches)
 				{
 					delete b;
 				}
@@ -49,7 +49,7 @@ namespace SGE
 		{}
 		~BatchRenderer()
 		{
-			for(auto batches: batchedScenes)
+			for(auto batches : batchedScenes)
 			{
 				delete batches.second;
 			}
@@ -88,11 +88,11 @@ namespace SGE
 			GLuint MUBO = programMUBOs[programID];
 			if(MUBO == 0)
 			{
-				programMUBOs[programID] = batch->initalizeMUBO();
+				programMUBOs[programID] = batch->initializeMUBO();
 			}
 			else
 			{
-				batch->initalizeMUBO(MUBO);
+				batch->initializeMUBO(MUBO);
 			}
 			batch->texture = this->resManager->getTexture((Game::getGame()->getGamePath() + texture).c_str());
 			return this->addBatch(batch);
@@ -104,6 +104,7 @@ namespace SGE
 			if(res != cur->batchLookup.end())
 			{
 				cur->batches.erase(std::find(cur->batches.begin(), cur->batches.end(), res->second));
+				delete res->second;
 				cur->batchLookup.erase(res);
 			}
 		}
@@ -118,13 +119,32 @@ namespace SGE
 			return nullptr;
 		}
 
+		void clearBatchedObjects() const
+		{
+			for(RealSpriteBatch* b : cur->batches)
+			{
+				b->batchedObjects.clear();
+			}
+		}
+
+		void deleteSceneBatch(Scene* scene)
+		{
+			auto res = batchedScenes.find(scene);
+			if(res != batchedScenes.end())
+			{
+				if(cur == res->second) cur = nullptr;
+				delete res->second;
+				batchedScenes.erase(res);
+			}
+		}
+
 		static GLuint getProgramID(const std::string& vertPath, const std::string& fragPath)
 		{
 			Shader program;
 			if(vertPath.empty() || fragPath.empty())
 				throw std::runtime_error{"vert or frag missing"};
-
-			program.compileShaders(vertPath.c_str(), fragPath.c_str());
+			Game* game = Game::getGame();
+			program.compileShaders((game->getShadersPath() + vertPath).c_str(), (game->getShadersPath() + fragPath).c_str());
 			program.linkShaders();
 			return program.getProgramId();
 		}
@@ -132,7 +152,7 @@ namespace SGE
 		void updateCamera()
 		{
 			this->camHandler->updateCamera();
-			for(auto pair: this->programMUBOs)
+			for(auto pair : this->programMUBOs)
 			{
 				glm::mat4 cameraMatrix = this->camHandler->getCameraMatrix();
 				glBindBuffer(GL_UNIFORM_BUFFER, pair.second);

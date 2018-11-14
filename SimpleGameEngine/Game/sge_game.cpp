@@ -62,12 +62,12 @@ void SGE::Game::setShadersPath(const std::string& path)
 		this->shader_path = path;
 }
 
-std::string SGE::Game::getGamePath() const
+const std::string& SGE::Game::getGamePath() const
 {
 	return this->game_path;
 }
 
-std::string SGE::Game::getShadersPath() const
+const std::string& SGE::Game::getShadersPath() const
 {
 	return this->shader_path;
 }

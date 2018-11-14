@@ -54,7 +54,7 @@ namespace SGE
 		const bool uvBatch;
 		bool batched = false;
 		bool initialized = false;
-		
+
 		RealSpriteBatch(GLuint program, size_t batchSize, bool uvBatch = false, bool staticBatch = false)
 			: batchMaxCount(batchSize), batchMaxSize(batchSize * sizeof(Sprite)), program(program), staticBatch(staticBatch), uvBatch(uvBatch)
 		{
@@ -67,15 +67,28 @@ namespace SGE
 		}
 
 	public:
-		GLuint initalizeSampler(GLint wrap = GL_REPEAT,
-								GLint magFilter = GL_LINEAR,
-								GLint minFilter = GL_LINEAR_MIPMAP_LINEAR)
+		GLuint initializeSampler(GLint wrap = GL_REPEAT,
+								 GLint magFilter = GL_LINEAR,
+								 GLint minFilter = GL_LINEAR_MIPMAP_LINEAR)
 		{
 			glGenSamplers(1, &this->sampler);
 			glSamplerParameteri(this->sampler, GL_TEXTURE_WRAP_S, wrap);
 			glSamplerParameteri(this->sampler, GL_TEXTURE_WRAP_T, wrap);
 			glSamplerParameteri(this->sampler, GL_TEXTURE_MAG_FILTER, magFilter);
 			glSamplerParameteri(this->sampler, GL_TEXTURE_MIN_FILTER, minFilter);
+			return this->sampler;
+		}
+
+		GLuint initializeSampler(GLuint Sampler)
+		{
+			if(sampler != 0)
+			{
+				this->sampler = sampler;
+			}
+			else
+			{
+				this->initializeSampler();
+			}
 			return this->sampler;
 		}
 
@@ -99,16 +112,16 @@ namespace SGE
 
 				glEnableVertexArrayAttrib(this->VAO, posAttrib);
 				glVertexAttribPointer(posAttrib, 2, GL_FLOAT, false, sizeof(Sprite), reinterpret_cast<GLvoid*>(offsetof(Sprite, position)));
-				glVertexAttribDivisor(posAttrib, 6u);
+				glVertexAttribDivisor(posAttrib, 4u);
 				glEnableVertexArrayAttrib(this->VAO, scaleAttrib);
 				glVertexAttribPointer(scaleAttrib, 2, GL_FLOAT, false, sizeof(Sprite), reinterpret_cast<GLvoid*>(offsetof(Sprite, scale)));
-				glVertexAttribDivisor(scaleAttrib, 6u);
+				glVertexAttribDivisor(scaleAttrib, 4u);
 				glEnableVertexArrayAttrib(this->VAO, rotAttrib);
 				glVertexAttribPointer(rotAttrib, 1, GL_FLOAT, false, sizeof(Sprite), reinterpret_cast<GLvoid*>(offsetof(Sprite, rotation)));
-				glVertexAttribDivisor(rotAttrib, 6u);
+				glVertexAttribDivisor(rotAttrib, 4u);
 				glEnableVertexArrayAttrib(this->VAO, layerAttrib);
 				glVertexAttribPointer(layerAttrib, 1, GL_FLOAT, false, sizeof(Sprite), reinterpret_cast<GLvoid*>(offsetof(Sprite, layer)));
-				glVertexAttribDivisor(layerAttrib, 6u);
+				glVertexAttribDivisor(layerAttrib, 4u);
 
 				if(uvBatch)
 				{
@@ -190,22 +203,23 @@ namespace SGE
 			return this->IBO;
 		}
 
-		GLuint initalizeMUBO(GLuint MUBO = 0)
+		GLuint initializeMUBO(GLuint MUBO = 0)
 		{
 			if(MUBO != 0)
 			{
 				this->MUBO = MUBO;
+				GLuint UBI = glGetUniformBlockIndex(this->program, "uMatrix");
+				glUniformBlockBinding(this->program, UBI, Const::MUBB);
 			}
 			else
 			{
-				using namespace Const;
 				GLuint UBI = glGetUniformBlockIndex(this->program, "uMatrix");
 				glGenBuffers(1, &this->MUBO);
-				glUniformBlockBinding(this->program, UBI, MUBB);
+				glUniformBlockBinding(this->program, UBI, Const::MUBB);
 				glBindBuffer(GL_UNIFORM_BUFFER, this->MUBO);
 				glBufferData(GL_UNIFORM_BUFFER, sizeof(glm::mat4), nullptr, GL_STREAM_DRAW);
 				glBindBuffer(GL_UNIFORM_BUFFER, 0);
-				glBindBufferBase(GL_UNIFORM_BUFFER, MUBB, this->MUBO);
+				glBindBufferBase(GL_UNIFORM_BUFFER, Const::MUBB, this->MUBO);
 			}
 			return this->MUBO;
 		}
@@ -226,11 +240,11 @@ namespace SGE
 			}
 			if(this->sampler == 0)
 			{
-				initalizeSampler();
+				initializeSampler();
 			}
 			if(this->MUBO == 0)
 			{
-				initalizeMUBO();
+				initializeMUBO();
 			}
 			if(this->VAO == 0)
 			{
@@ -254,11 +268,11 @@ namespace SGE
 			}
 			this->spriteData.clear();
 			this->uvData.clear();
-			for(Object* o: this->batchedObjects)
+			for(Object* o : this->batchedObjects)
 			{
-				if (!o->getDrawable() || !o->getVisible())
+				if(!o->getDrawable() || !o->getVisible())
 					continue;
-				this->spriteData.emplace_back(o->getPositionGLM(), o->getScaleGLM(),o->getOrientation(), o->getLayer());
+				this->spriteData.emplace_back(o->getPositionGLM(), o->getScaleGLM(), o->getOrientation(), o->getLayer());
 			}
 			glBindBuffer(GL_ARRAY_BUFFER, this->SBO);
 			glBufferSubData(GL_ARRAY_BUFFER, 0, this->spriteData.size() * sizeof(Sprite), this->spriteData.data());
@@ -272,7 +286,7 @@ namespace SGE
 					//TODO setting UVs
 				}
 			}
-			
+
 			this->batched = true;
 		}
 
@@ -283,11 +297,12 @@ namespace SGE
 			glBindVertexArray(this->VAO);
 			glUniform1i(this->samplerLocation, 0);
 			glBindBufferBase(GL_UNIFORM_BUFFER, MUBB, this->MUBO);
-			glEnableVertexArrayAttrib(this->VAO, 0);
+			glBindSampler(0, this->sampler);
 			glDrawElements(GL_TRIANGLES, this->spriteData.size() * 6u, GL_UNSIGNED_SHORT, nullptr);
-			
+
 			glBindVertexArray(0);
 			glBindBufferBase(GL_UNIFORM_BUFFER, MUBB, 0);
+			glBindSampler(0, 0);
 		}
 
 		void addObject(Object* o)
@@ -308,113 +323,113 @@ namespace SGE
 		/**
 	 * \brief
 	 */
-		class SpriteBatch
-		{
-		public:
-			/**
-		 * \brief
-		 */
-			SpriteBatch();
+	class SpriteBatch
+	{
+	public:
+		/**
+	 * \brief
+	 */
+		SpriteBatch();
 
-			/**
-		 * \brief
-		 */
-			~SpriteBatch();
+		/**
+	 * \brief
+	 */
+		~SpriteBatch();
 
-			/**
-		 * \brief
-		 */
-			void init();
+		/**
+	 * \brief
+	 */
+		void init();
 
-			/**
-		 * \brief
-		 * \param sortType
-		 */
-			void begin(GlyphSortType sortType = GlyphSortType::TEXTURE);
+		/**
+	 * \brief
+	 * \param sortType
+	 */
+		void begin(GlyphSortType sortType = GlyphSortType::TEXTURE);
 
-			/**
-		 * \brief
-		 */
-			void end();
+		/**
+	 * \brief
+	 */
+		void end();
 
-			/**
-		 * \brief
-		 * \param destRect
-		 * \param uvRect
-		 * \param texture
-		 * \param depth
-		 * \param color
-		 */
-			void draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const Color& color);
+		/**
+	 * \brief
+	 * \param destRect
+	 * \param uvRect
+	 * \param texture
+	 * \param depth
+	 * \param color
+	 */
+		void draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const Color& color);
 
-			/**
-		 * \brief
-		 */
-			void renderBatch();
+		/**
+	 * \brief
+	 */
+		void renderBatch();
 
-		private:
-			/**
-		 * \brief
-		 */
-			void createRenderBatches();
+	private:
+		/**
+	 * \brief
+	 */
+		void createRenderBatches();
 
-			/**
-		 * \brief
-		 */
-			void createVertexArray();
+		/**
+	 * \brief
+	 */
+		void createVertexArray();
 
-			/**
-		 * \brief
-		 */
-			void sortGlyphs();
+		/**
+	 * \brief
+	 */
+		void sortGlyphs();
 
-			/**
-		 * \brief
-		 * \param a
-		 * \param b
-		 * \return
-		 */
-			static bool compareFrontToBack(Glyph* a, Glyph* b);
+		/**
+	 * \brief
+	 * \param a
+	 * \param b
+	 * \return
+	 */
+		static bool compareFrontToBack(Glyph* a, Glyph* b);
 
-			/**
-		 * \brief
-		 * \param a
-		 * \param b
-		 * \return
-		 */
-			static bool compareBackToFront(Glyph* a, Glyph* b);
+		/**
+	 * \brief
+	 * \param a
+	 * \param b
+	 * \return
+	 */
+		static bool compareBackToFront(Glyph* a, Glyph* b);
 
-			/**
-		 * \brief
-		 * \param a
-		 * \param b
-		 * \return
-		 */
-			static bool compareTexture(Glyph* a, Glyph* b);
+		/**
+	 * \brief
+	 * \param a
+	 * \param b
+	 * \return
+	 */
+		static bool compareTexture(Glyph* a, Glyph* b);
 
-			/**
-		 * \brief
-		 */
-			GLuint _vbo;
-			/**
-		 * \brief
-		 */
-			GLuint _vao;
+		/**
+	 * \brief
+	 */
+		GLuint _vbo;
+		/**
+	 * \brief
+	 */
+		GLuint _vao;
 
-			/**
-		 * \brief
-		 */
-			GlyphSortType _sortType;
+		/**
+	 * \brief
+	 */
+		GlyphSortType _sortType;
 
-			/**
-		 * \brief
-		 */
-			std::vector<Glyph*> _glyphs;
-			/**
-		 * \brief
-		 */
-			std::vector<RenderBatch> _renderBatches;
-		};
-		}
+		/**
+	 * \brief
+	 */
+		std::vector<Glyph*> _glyphs;
+		/**
+	 * \brief
+	 */
+		std::vector<RenderBatch> _renderBatches;
+	};
+}
 
 #endif /* SpriteBatch_h */
