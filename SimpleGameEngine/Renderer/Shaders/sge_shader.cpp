@@ -53,11 +53,10 @@ GLint SGE::Shader::getUniformLocation(const char* uniformName)
 	GLint location = glGetUniformLocation(this->programID, uniformName);
 	if (location == static_cast<GLint>(GL_INVALID_INDEX))
         throw std::runtime_error{"Cannot get Uniform Location"};
-
 	return location;
 }
 
-void SGE::Shader::doShaders(const char* _vertexShaderFile, const char* _fragmentShaderFile)
+void SGE::Shader::compileShaders(const char* _vertexShaderFile, const char* _fragmentShaderFile)
 {
 	this->programID = glCreateProgram();
 
@@ -91,7 +90,7 @@ void SGE::Shader::addAttribute(const char* attributeName)
 
 bool SGE::Shader::linkShaders()
 {
-	if (this->isCompiled && this->isAttributed)
+	if (this->isCompiled)
 	{
 		glAttachShader(this->programID, this->vertexShaderID);
 		glAttachShader(this->programID, this->fragmentShaderID);

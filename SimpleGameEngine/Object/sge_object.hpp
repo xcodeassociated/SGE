@@ -31,6 +31,7 @@ namespace SGE
 	protected:
 		b2Vec2 position = b2Vec2_zero;
 		float orientation = 0.f;
+		float layer = 0.f;
 		/**
 		 * \brief
 		 */
@@ -170,6 +171,26 @@ namespace SGE
 		void setTextured(bool b);
 
 		bool isTextured() const;
+
+		b2Vec2 getScale() const
+		{
+			return b2Vec2{this->shape->getWidth(), this->shape->getHeight()};
+		}
+
+		float getLayer() const
+		{
+			return layer;
+		}
+
+		void setLayer(float layer)
+		{
+			this->layer = layer;
+		}
+
+		glm::vec2 getScaleGLM() const
+		{
+			return glm::vec2{this->shape->getWidth(), this->shape->getHeight()};
+		}
 	};
 
 	/**

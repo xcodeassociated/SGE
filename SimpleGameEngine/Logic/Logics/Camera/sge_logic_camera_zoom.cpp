@@ -10,12 +10,12 @@ SGE::Logics::CameraZoom::CameraZoom(Camera2d* camera, const float speed, const f
 
 void SGE::Logics::CameraZoom::performLogic()
 {
-	auto scale = this->cameraObject->getScale();
+	auto scale = this->cameraObject->getCameraScale();
 
 	if (isPressed(this->zoomIn)) scale += this->speed*delta_time;
 	if (this->minZoom < scale) scale = this->minZoom;
 	if (isPressed(this->zoomOut)) scale -= this->speed*delta_time;
 	if (this->maxZoom > scale) scale = this->maxZoom;
 
-	this->cameraObject->setScale(scale);
+	this->cameraObject->setCameraScale(scale);
 }

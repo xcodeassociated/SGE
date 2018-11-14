@@ -15,7 +15,7 @@ SGE::Camera2d* SGE::CameraHandler::getCamera()
 
 void SGE::CameraHandler::setScale(double _scale) noexcept
 {
-	this->camera->setScale(_scale);
+	this->camera->setCameraScale(_scale);
 }
 
 void SGE::CameraHandler::setPosition(int _x, int _y) noexcept
@@ -40,7 +40,7 @@ void SGE::CameraHandler::setPosition(glm::vec2 pos) noexcept
 
 glm::vec2 SGE::CameraHandler::getScreenToWorld(glm::vec2 screen, glm::vec2 pos) const noexcept
 {
-	return SGE::screenToWorld(screen, pos, this->camera->getPositionGLM(), (double)this->camera->getScale());
+	return SGE::screenToWorld(screen, pos, this->camera->getPositionGLM(), (double)this->camera->getCameraScale());
 }
 
 glm::vec2 SGE::CameraHandler::getScreenToWorld(glm::vec2 screen, int _x, int _y) const noexcept

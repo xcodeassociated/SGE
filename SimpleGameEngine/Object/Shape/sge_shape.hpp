@@ -32,7 +32,7 @@ namespace SGE
 		constexpr Shape(const Shape&) = default;
 		static Shape* BaseTile()
 		{
-			static Shape baseTile(ShapeType::Rectangle, 1.f, 1.f, sqrt(2.f), false);
+			static Shape baseTile(ShapeType::Rectangle, 1.f, 1.f, sqrt(0.5f), false);
 			return &baseTile;
 		}
 

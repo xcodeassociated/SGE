@@ -32,7 +32,6 @@ namespace SGE
 	     * \brief 
 	     */
 	    int height = 0;
-
     public:
 	    /**
          * \brief 
@@ -47,8 +46,8 @@ namespace SGE
 	    /**
          * \brief 
          */
-        void showWindow() noexcept;
-	    void hideWindow() noexcept;
+        void showWindow() const noexcept;
+	    void hideWindow() const noexcept;
 
 	    /**
          * \brief 
@@ -59,8 +58,9 @@ namespace SGE
          * \brief 
          * \return 
          */
-        SDL_Window* getWindow() noexcept;
+        SDL_Window* getWindow() const noexcept;
 	    bool isHidden() const;
+		void swapWindow() const;
     };
 
 }

@@ -54,26 +54,32 @@ void SGE::WindowManager::createWindow() {
 
 }
 
-void SGE::WindowManager::showWindow() noexcept {
+void SGE::WindowManager::showWindow() const noexcept {
 	SDL_ShowWindow(this->window);
 }
 
 
-void SGE::WindowManager::hideWindow() noexcept {
+void SGE::WindowManager::hideWindow() const noexcept {
 	SDL_HideWindow(this->window);
 }
 
 void SGE::WindowManager::finalizeWindow() noexcept {
 	SDL_DestroyWindow(this->window);
+	this->window = nullptr;
 }
 
-SDL_Window* SGE::WindowManager::getWindow() noexcept {
+SDL_Window* SGE::WindowManager::getWindow() const noexcept {
 	return this->window;
 }
 
 bool SGE::WindowManager::isHidden() const
 {
 	return SDL_WINDOW_HIDDEN & SDL_GetWindowFlags(this->window);
+}
+
+void SGE::WindowManager::swapWindow() const
+{
+	SDL_GL_SwapWindow(this->window);
 }
 
 

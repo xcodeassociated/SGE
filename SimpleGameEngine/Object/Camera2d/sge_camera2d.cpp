@@ -27,13 +27,13 @@ void SGE::Camera2d::setPosition(glm::vec2 _position)
 	this->matUpdate = true;
 }
 
-void SGE::Camera2d::setScale(float _scale)
+void SGE::Camera2d::setCameraScale(float _scale)
 {
 	this->scale = _scale;
 	this->matUpdate = true;
 }
 
-float SGE::Camera2d::getScale() const
+float SGE::Camera2d::getCameraScale() const
 {
 	return this->scale;
 }

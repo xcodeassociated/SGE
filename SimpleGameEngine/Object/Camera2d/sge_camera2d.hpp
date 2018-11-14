@@ -71,13 +71,13 @@ namespace SGE
 	     * \brief 
 	     * \param _scale 
 	     */
-	    void setScale(float _scale);
+	    void setCameraScale(float _scale);
 
 	    /**
 	     * \brief 
 	     * \return 
 	     */
-	    float getScale() const;
+	    float getCameraScale() const;
 
 	    /**
 	     * \brief 

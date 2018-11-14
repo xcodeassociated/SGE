@@ -34,10 +34,10 @@ bool SGE::Game::init(float fps, const std::string& glslPath)
 	if (glslPath.empty())
 		throw std::runtime_error{"glsl path empty"};
 
-	const auto vert = glslPath + "/colorShader.vert";
-	const auto frag = glslPath + "/colorShader.frag";
+	const auto vert = glslPath + "/BatchShader.vert";
+	const auto frag = glslPath + "/BatchShader.frag";
 
-	this->renderer = new Renderer(vert, frag, resolution, this->window_manager, this->camera_handler, this->resourceManager);
+	this->renderer = new BatchRenderer(this->camera_handler, this->resourceManager, this->window_manager);
 
 	this->input_handler = new InputHandler(this);
     this->action_handler = new ActionHandler();
@@ -56,16 +56,28 @@ void SGE::Game::setGamePath(const std::string& path)
 		this->game_path = path;
 }
 
+void SGE::Game::setShadersPath(const std::string& path)
+{
+	if(!path.empty())
+		this->shader_path = path;
+}
+
 std::string SGE::Game::getGamePath() const
 {
 	return this->game_path;
 }
 
+std::string SGE::Game::getShadersPath() const
+{
+	return this->shader_path;
+}
+
+
 void SGE::Game::run()
 {
-	//TODO: this should be executed before - required if we want to swap scene
-	this->renderer->initShader();
-	this->renderer->spriteBatchInit();
+	////TODO: this should be executed before - required if we want to swap scene
+	//this->renderer->initShader();
+	//this->renderer->spriteBatchInit();
 	//TODO delay it a bit more
 	this->running = true;
 	while(this->running)
@@ -74,9 +86,9 @@ void SGE::Game::run()
 		this->action_handler->setActions(this->currentScene->getActions());
 		if(this->currentScene->state != SceneState::Ready)
 		{
+			this->renderer->setScene(this->currentScene);
 			this->director->loadScene(this->currentScene);
 		}
-		//Do something with renderer
 		if(this->window_manager->isHidden())
 		{
 			this->window_manager->showWindow();
@@ -90,12 +102,12 @@ void SGE::Game::run()
 	this->windowClosing();
 }
 
-void SGE::Game::hide()
+void SGE::Game::hide() const
 {
 	this->window_manager->hideWindow();
 }
 
-SGE::Camera2d* SGE::Game::getCamera()
+SGE::Camera2d* SGE::Game::getCamera() const
 {
 	return this->camera_handler->getCamera();
 }

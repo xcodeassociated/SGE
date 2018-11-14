@@ -10,7 +10,7 @@ namespace SGE
 	class Director;
     class Game;
     class InputHandler;
-    class Renderer;
+    class BatchRenderer;
     class WindowManager;
     class CameraHandler;
     class InputBinder;
@@ -66,7 +66,7 @@ namespace SGE
 	    /**
 		 * \brief 
 		 */
-		Renderer* renderer = nullptr;
+		BatchRenderer* renderer = nullptr;
 	    /**
          * \brief 
          */
@@ -123,6 +123,7 @@ namespace SGE
 		 * \brief
 		 */
         std::string game_path = "";
+		std::string shader_path = "";
 
         /**
          * \brief
@@ -156,8 +157,12 @@ namespace SGE
         
 	public:
 		void run();
-	    void hide();
+	    void hide() const;
 	    void unmapAll();
+	    SGE::BatchRenderer* getRenderer() const
+	    {
+			return this->renderer;
+	    }
 
 	    /**
 	     * \brief 
@@ -176,12 +181,14 @@ namespace SGE
 		* \return
 		*/
 		void setGamePath(const std::string& path);
+		void setShadersPath(const std::string& path);
 
 		/**
 		* \brief
 		* \return
 		*/
 		std::string getGamePath() const;
+	    std::string getShadersPath() const;
 
 	    /**
 	     * \brief 
@@ -223,7 +230,7 @@ namespace SGE
 	     * \brief 
 	     * \return 
 	     */
-		Camera2d* getCamera();
+		Camera2d* getCamera() const;
 
 	    /**
 	     * \brief 

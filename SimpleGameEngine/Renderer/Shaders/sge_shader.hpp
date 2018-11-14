@@ -23,6 +23,13 @@ namespace SGE
 	     * \brief 
 	     */
 	    GLuint programID = 0;
+    public:
+	    GLuint getProgramId() const
+	    {
+		    return programID;
+	    }
+
+    private:
 	    /**
 	     * \brief 
 	     */
@@ -79,7 +86,7 @@ namespace SGE
 	     * \param _vertexShaderFile 
 	     * \param _fragmentShaderFile 
 	     */
-	    void doShaders(const char* _vertexShaderFile, const char* _fragmentShaderFile);
+	    void compileShaders(const char* _vertexShaderFile, const char* _fragmentShaderFile);
 
 	    /**
 	     * \brief 

@@ -4,9 +4,9 @@ in vec2 fragUV;
 
 out vec4 color;
 
-uniform sampler2D mySampler;
+uniform sampler2D textureSampler;
 
 void main()
 {
-    color = texture(mySampler, fragUV);
+    color = texture(textureSampler, fragUV);
 }

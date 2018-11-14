@@ -30,7 +30,7 @@ void SGE::Renderer::initShader()
 	if(this->vert.empty() || this->frag.empty())
 		throw std::runtime_error{"vert or frag missing"};
 
-	this->shaderProgram->doShaders(this->vert.c_str(), this->frag.c_str());
+	this->shaderProgram->compileShaders(this->vert.c_str(), this->frag.c_str());
 
 	this->shaderProgram->addAttribute("vertexPosition");
 	this->shaderProgram->addAttribute("vertexColor");
