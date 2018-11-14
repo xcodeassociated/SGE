@@ -101,7 +101,7 @@ SGE::Shape* SGE::Object::getShape() noexcept
 
 void SGE::Object::setShape(Shape* newShape) noexcept
 {
-	if(this->shape->isDisposable())
+	if(this->shape && this->shape->isDisposable())
 	{
 		delete this->shape;
 	}

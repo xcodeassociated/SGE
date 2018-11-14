@@ -44,7 +44,8 @@ void SGE::WindowManager::createWindow() {
 	const GLubyte* render = glGetString(GL_RENDERER);
 	const char* glRenderChar = reinterpret_cast<const char*>(render);
 
-	glEnable(GL_BLEND);
+	//glEnable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	GLuint VertexArrayID;

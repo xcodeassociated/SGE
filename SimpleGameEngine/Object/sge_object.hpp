@@ -44,7 +44,7 @@ namespace SGE
 		* \brief
 		*/
 		bool drawable = false;
-		bool visible = false;
+		bool visible = true;
 		bool textured = false;
 		GLTexture texture = {0,0,0};
 	public:

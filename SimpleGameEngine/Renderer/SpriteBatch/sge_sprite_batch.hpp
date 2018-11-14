@@ -112,16 +112,16 @@ namespace SGE
 
 				glEnableVertexArrayAttrib(this->VAO, posAttrib);
 				glVertexAttribPointer(posAttrib, 2, GL_FLOAT, false, sizeof(Sprite), reinterpret_cast<GLvoid*>(offsetof(Sprite, position)));
-				glVertexAttribDivisor(posAttrib, 4u);
+				glVertexAttribDivisor(posAttrib, 1u);
 				glEnableVertexArrayAttrib(this->VAO, scaleAttrib);
 				glVertexAttribPointer(scaleAttrib, 2, GL_FLOAT, false, sizeof(Sprite), reinterpret_cast<GLvoid*>(offsetof(Sprite, scale)));
-				glVertexAttribDivisor(scaleAttrib, 4u);
+				glVertexAttribDivisor(scaleAttrib, 1u);
 				glEnableVertexArrayAttrib(this->VAO, rotAttrib);
 				glVertexAttribPointer(rotAttrib, 1, GL_FLOAT, false, sizeof(Sprite), reinterpret_cast<GLvoid*>(offsetof(Sprite, rotation)));
-				glVertexAttribDivisor(rotAttrib, 4u);
+				glVertexAttribDivisor(rotAttrib, 1u);
 				glEnableVertexArrayAttrib(this->VAO, layerAttrib);
 				glVertexAttribPointer(layerAttrib, 1, GL_FLOAT, false, sizeof(Sprite), reinterpret_cast<GLvoid*>(offsetof(Sprite, layer)));
-				glVertexAttribDivisor(layerAttrib, 4u);
+				glVertexAttribDivisor(layerAttrib, 1u);
 
 				if(uvBatch)
 				{
@@ -298,7 +298,8 @@ namespace SGE
 			glUniform1i(this->samplerLocation, 0);
 			glBindBufferBase(GL_UNIFORM_BUFFER, MUBB, this->MUBO);
 			glBindSampler(0, this->sampler);
-			glDrawElements(GL_TRIANGLES, this->spriteData.size() * 6u, GL_UNSIGNED_SHORT, nullptr);
+			//glDrawElements(GL_TRIANGLES, this->spriteData.size() * 6u, GL_UNSIGNED_SHORT, nullptr);
+			glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr, this->spriteData.size());
 
 			glBindVertexArray(0);
 			glBindBufferBase(GL_UNIFORM_BUFFER, MUBB, 0);
