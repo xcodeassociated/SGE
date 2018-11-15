@@ -21,6 +21,7 @@
 #include "Object/sge_object.hpp"
 #include <mat4x2.hpp>
 #include <iostream>
+#include <algorithm>
 
 namespace SGE
 {
@@ -313,11 +314,7 @@ namespace SGE
 
 		void removeObject(Object* o)
 		{
-			this->batchedObjects.erase
-			(
-				std::find(this->batchedObjects.begin(), this->batchedObjects.end(), o),
-				this->batchedObjects.end()
-			);
+			this->batchedObjects.erase(std::remove(this->batchedObjects.begin(), this->batchedObjects.end(), o),this->batchedObjects.end());
 		}
 	};
 
