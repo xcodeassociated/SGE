@@ -46,7 +46,7 @@ void SGE::WindowManager::createWindow() {
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_ALPHA_TEST);
-	glAlphaFunc(GL_GREATER, 0.2f);
+	glAlphaFunc(GL_GREATER, 0.6f);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
