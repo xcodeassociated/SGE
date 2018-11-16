@@ -110,25 +110,24 @@ namespace SGE
 				glBindVertexArray(this->VAO);
 				glBindBuffer(GL_ARRAY_BUFFER, this->SBO);
 				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->IBO);
-
-				glEnableVertexArrayAttrib(this->VAO, posAttrib);
+				glEnableVertexAttribArray(posAttrib);
 				glVertexAttribPointer(posAttrib, 2, GL_FLOAT, false, sizeof(Sprite), reinterpret_cast<GLvoid*>(offsetof(Sprite, position)));
 				glVertexAttribDivisor(posAttrib, 1u);
-				glEnableVertexArrayAttrib(this->VAO, scaleAttrib);
+				glEnableVertexAttribArray(scaleAttrib);
 				glVertexAttribPointer(scaleAttrib, 2, GL_FLOAT, false, sizeof(Sprite), reinterpret_cast<GLvoid*>(offsetof(Sprite, scale)));
 				glVertexAttribDivisor(scaleAttrib, 1u);
-				glEnableVertexArrayAttrib(this->VAO, rotAttrib);
+				glEnableVertexAttribArray(rotAttrib);
 				glVertexAttribPointer(rotAttrib, 1, GL_FLOAT, false, sizeof(Sprite), reinterpret_cast<GLvoid*>(offsetof(Sprite, rotation)));
 				glVertexAttribDivisor(rotAttrib, 1u);
-				glEnableVertexArrayAttrib(this->VAO, layerAttrib);
+				glEnableVertexAttribArray(layerAttrib);
 				glVertexAttribPointer(layerAttrib, 1, GL_FLOAT, false, sizeof(Sprite), reinterpret_cast<GLvoid*>(offsetof(Sprite, layer)));
 				glVertexAttribDivisor(layerAttrib, 1u);
 
 				if(uvBatch)
 				{
 					glBindBuffer(GL_ARRAY_BUFFER, this->UVBO);
-					glEnableVertexArrayAttrib(this->VAO, uvAttrib);
-					glVertexAttribPointer(uvAttrib, 2, GL_FLOAT, false, 2, nullptr);
+					glEnableVertexAttribArray(uvAttrib);
+					glVertexAttribPointer(uvAttrib, 2, GL_FLOAT, false, sizeof(glm::vec2), nullptr);
 				}
 				this->samplerLocation = glGetUniformLocation(this->program, "textureSampler");
 				glActiveTexture(GL_TEXTURE0);
