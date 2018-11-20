@@ -94,6 +94,7 @@ void SGE::Game::run()
 			this->window_manager->showWindow();
 		}
 		this->OnScene = true;
+		this->renderer->setScene(this->currentScene);
 		this->currentScene->onDraw();
 		this->currentScene->state = SceneState::Playing;
 		this->loop();
@@ -190,19 +191,20 @@ void SGE::Game::loop()
 			this->draw(this->currentScene);
 		}
 		this->fps = this->limiter->end();
-
+#ifndef NDEBUG
 		//static int frameCounter = 0;
 		//frameCounter++;
 		//if (frameCounter == 100) {
 		//	frameCounter = 0;
 		static float time_counter = 0.f;
 		time_counter += delta_time;
-		while (time_counter > 1.f)
+		while (time_counter > 60.f)
 		{
 			*logger << "fps: " << this->fps << std::endl;
 			*logger << "delta_time: " << delta_time << std::endl;
-			time_counter -= 1.f;
+			time_counter = 0.f;
 		}
+#endif
 	}
 }
 

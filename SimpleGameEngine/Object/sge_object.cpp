@@ -99,6 +99,11 @@ SGE::Shape* SGE::Object::getShape() noexcept
 	return this->shape;
 }
 
+const SGE::Shape* SGE::Object::getShape() const noexcept
+{
+	return this->shape;
+}
+
 void SGE::Object::setShape(Shape* newShape) noexcept
 {
 	if(this->shape && this->shape->isDisposable())

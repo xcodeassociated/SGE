@@ -147,7 +147,8 @@ namespace SGE
 		 * \brief
 		 * \return
 		 */
-		virtual Shape* getShape() noexcept;
+		Shape* getShape() noexcept;
+		const SGE::Shape* getShape() const noexcept;
 
 		/**
 		* \brief
