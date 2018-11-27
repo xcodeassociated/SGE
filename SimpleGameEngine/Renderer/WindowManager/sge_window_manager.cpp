@@ -72,7 +72,7 @@ SDL_Window* SGE::WindowManager::getWindow() const noexcept {
 
 bool SGE::WindowManager::isHidden() const
 {
-	return SDL_WINDOW_HIDDEN & SDL_GetWindowFlags(this->window);
+	return 0 != (SDL_WINDOW_HIDDEN & SDL_GetWindowFlags(this->window));
 }
 
 void SGE::WindowManager::swapWindow() const

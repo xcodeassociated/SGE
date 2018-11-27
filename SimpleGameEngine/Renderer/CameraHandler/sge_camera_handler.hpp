@@ -54,7 +54,7 @@ namespace SGE
 	    /**
          * \brief 
          */
-        void setScale(double) noexcept;
+        void setScale(float) noexcept;
 
 	    /**
          * \brief 

@@ -5,5 +5,5 @@
 bool SGE::isPressed(SGE::Key key)
 {
 	static const Uint8* const state = SDL_GetKeyboardState(nullptr);
-	return state[SDL_GetScancodeFromKey(SDL_Keycode(key))];
+	return 1 == state[SDL_GetScancodeFromKey(SDL_Keycode(key))];
 }

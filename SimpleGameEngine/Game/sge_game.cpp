@@ -192,10 +192,6 @@ void SGE::Game::loop()
 		}
 		this->fps = this->limiter->end();
 #ifndef NDEBUG
-		//static int frameCounter = 0;
-		//frameCounter++;
-		//if (frameCounter == 100) {
-		//	frameCounter = 0;
 		static float time_counter = 0.f;
 		time_counter += delta_time;
 		while (time_counter > 60.f)

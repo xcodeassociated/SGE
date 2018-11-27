@@ -299,7 +299,7 @@ namespace SGE
 			glBindBufferBase(GL_UNIFORM_BUFFER, MUBB, this->MUBO);
 			glBindSampler(0, this->sampler);
 			//glDrawElements(GL_TRIANGLES, this->spriteData.size() * 6u, GL_UNSIGNED_SHORT, nullptr);
-			glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr, this->spriteData.size());
+			glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr, GLsizei(this->spriteData.size()));
 
 			glBindVertexArray(0);
 			glBindBufferBase(GL_UNIFORM_BUFFER, MUBB, 0);

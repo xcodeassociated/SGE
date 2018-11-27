@@ -13,7 +13,7 @@ SGE::Camera2d* SGE::CameraHandler::getCamera()
 	return this->camera;
 }
 
-void SGE::CameraHandler::setScale(double _scale) noexcept
+void SGE::CameraHandler::setScale(float _scale) noexcept
 {
 	this->camera->setCameraScale(_scale);
 }
