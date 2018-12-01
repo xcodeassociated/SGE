@@ -9,6 +9,15 @@
 #ifndef SpriteBatch_h
 #define SpriteBatch_h
 
+<<<<<<< HEAD
+=======
+#include "../Sprite/sge_vertex.hpp"
+#include <glm/glm.hpp>
+#include <glm/detail/type_vec4.hpp>
+#include <GL/glew.h>
+#include <vector>
+
+>>>>>>> 25cc2ef... fix macOS compilation by adding glm included required by clang-7
 #include "sge_glyph_type.hpp"
 #include "sge_glyph.hpp"
 #include "sge_render_batch.hpp"
