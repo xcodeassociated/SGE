@@ -1,6 +1,8 @@
 #include "sge_sprite_batch.hpp"
-#include <GL/glew.h>
 #include <algorithm>
+#include <GL/glew.h>
+#include <glm/glm.hpp>
+#include <glm/detail/type_vec4.hpp>
 
 SGE::SpriteBatch::SpriteBatch(): _vbo(0), _vao(0)
 {
