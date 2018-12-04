@@ -185,16 +185,16 @@ namespace SGE
 			else
 			{
 				std::vector<GLushort> indexes;
-				indexes.reserve(batchMaxCount * 6);
-				for(GLushort i = 0; i != batchMaxCount; ++i)
-				{
-					indexes.push_back(i * 4 + 0);
-					indexes.push_back(i * 4 + 1);
-					indexes.push_back(i * 4 + 2);
-					indexes.push_back(i * 4 + 2);
-					indexes.push_back(i * 4 + 3);
-					indexes.push_back(i * 4 + 0);
-				}
+				indexes.reserve(6u);
+				//for(GLushort i = 0; i != batchMaxCount; ++i)
+				//{
+					indexes.push_back(/*i * 4 + */0);
+					indexes.push_back(/*i * 4 + */1);
+					indexes.push_back(/*i * 4 + */2);
+					indexes.push_back(/*i * 4 + */2);
+					indexes.push_back(/*i * 4 + */3);
+					indexes.push_back(/*i * 4 + */0);
+				//}
 				glGenBuffers(1, &this->IBO);
 				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->IBO);
 				glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexes.size() * 2, indexes.data(), GL_STATIC_DRAW);
