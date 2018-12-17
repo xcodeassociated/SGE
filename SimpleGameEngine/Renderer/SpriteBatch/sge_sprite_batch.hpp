@@ -67,6 +67,13 @@ namespace SGE
 			}
 		}
 
+		virtual ~RealSpriteBatch()
+		{
+			GLuint buffers[] = {this->IBO, this->SBO, this->MUBO, this->UVBO};
+			glDeleteVertexArrays(1, &this->VAO);
+			glDeleteBuffers(4, buffers);
+			glDeleteSamplers(1, &this->sampler);
+		}
 	public:
 		GLuint initializeSampler(GLint wrap = GL_REPEAT,
 								 GLint magFilter = GL_LINEAR,
@@ -93,7 +100,7 @@ namespace SGE
 			return this->sampler;
 		}
 
-		GLuint initializeVAO(GLuint VAO = 0)
+		virtual GLuint initializeVAO(GLuint VAO = 0)
 		{
 			if(VAO != 0)
 			{
@@ -197,7 +204,7 @@ namespace SGE
 				//}
 				glGenBuffers(1, &this->IBO);
 				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->IBO);
-				glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexes.size() * 2, indexes.data(), GL_STATIC_DRAW);
+				glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexes.size() * sizeof(GLushort), indexes.data(), GL_STATIC_DRAW);
 				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 			}
 			return this->IBO;
@@ -258,7 +265,7 @@ namespace SGE
 			return program;
 		}
 
-		void prepareBatch()
+		virtual void prepareBatch()
 		{
 			if(staticBatch && batched)
 				return;
@@ -290,7 +297,7 @@ namespace SGE
 			this->batched = true;
 		}
 
-		void renderBatch() const
+		virtual void renderBatch() const
 		{
 			//Assume program, texture are bound
 			using namespace Const;
@@ -306,12 +313,12 @@ namespace SGE
 			glBindSampler(0, 0);
 		}
 
-		void addObject(Object* o)
+		virtual void addObject(Object* o)
 		{
 			this->batchedObjects.push_back(o);
 		}
 
-		void removeObject(Object* o)
+		virtual void removeObject(Object* o)
 		{
 			this->batchedObjects.erase(std::remove(this->batchedObjects.begin(), this->batchedObjects.end(), o),this->batchedObjects.end());
 		}

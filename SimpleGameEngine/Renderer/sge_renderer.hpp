@@ -98,6 +98,23 @@ namespace SGE
 			return this->addBatch(batch);
 		}
 
+		template<typename Batch>
+		typename std::enable_if<std::is_base_of<RealSpriteBatch, Batch>::value,size_t>::type newBatch(GLuint programID, const std::string& texture, size_t batchSize, bool uvBatch = false, bool staticBatch = false)
+		{
+			RealSpriteBatch* batch = new Batch(programID, batchSize, uvBatch, staticBatch);
+			GLuint MUBO = programMUBOs[programID];
+			if(MUBO == 0)
+			{
+				programMUBOs[programID] = batch->initializeMUBO();
+			}
+			else
+			{
+				batch->initializeMUBO(MUBO);
+			}
+			batch->texture = this->resManager->getTexture((Game::getGame()->getGamePath() + texture).c_str());
+			return this->addBatch(batch);
+		}
+
 		void deleteBatch(size_t batchName)
 		{
 			auto res = cur->batchLookup.find(batchName);
