@@ -1,14 +1,16 @@
-#version 330
+#version 330 core
 
 layout(location = 0) in vec2 spritePos;
 layout(location = 1) in vec2 spriteScale;
 layout(location = 2) in float spriteRot;
 layout(location = 3) in float spriteLayer;
-layout(location = 4) in vec2 verPos[4];
+layout(location = 4) in vec2 verPos1;
+layout(location = 5) in vec2 verPos2;
+layout(location = 6) in vec2 verPos3;
+layout(location = 7) in vec2 verPos4;
 
 out vec2 fragUV;
 
-const vec2 UV[4] = vec2[4](vec2(0.0, 0.0), vec2(0.0, 1.0), vec2(1.0, 1.0), vec2(1.0, 0.0));
 const float inv = 1.0/64.0;
 
 layout(std140) uniform uMatrix
@@ -24,6 +26,7 @@ vec2 rotate(vec2 vec, float radian)
 
 void main()
 {
+	vec2 verPos[4] = vec2[](verPos1, verPos2, verPos3, verPos4);
     int Corner = int(mod(gl_VertexID, 4));
     gl_Position.xy = (Matrix.PV * vec4(rotate(verPos[Corner] * spriteScale, spriteRot) + spritePos, 0.0, 1.0)).xy;
     gl_Position.z = spriteLayer;
