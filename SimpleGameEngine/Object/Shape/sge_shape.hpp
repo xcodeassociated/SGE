@@ -30,6 +30,7 @@ namespace SGE
 	public:
 		~Shape() = default;
 		constexpr Shape(const Shape&) = default;
+		
 		static Shape* BaseTile()
 		{
 			static Shape baseTile(ShapeType::Rectangle, 1.f, 1.f, sqrt(0.5f), false);
@@ -51,6 +52,12 @@ namespace SGE
 		{
 			return new Shape(ShapeType::Rectangle, width, height, 0.5f*sqrt(width*width+height*height), disposable);
 		}
+
+		static Shape* Quad(float radius, float width, float height, bool disposable = false)
+		{
+			return new  Shape(ShapeType::Quad, width, height, radius, disposable);
+		}
+
 		/**
 		 * \brief 
 		 * \return 

@@ -14,6 +14,7 @@ namespace SGE
 	{
 		Circle,
 		Rectangle,
+		Quad,
 		None
 	};
 }
