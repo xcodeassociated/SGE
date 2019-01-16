@@ -31,26 +31,19 @@ namespace SGE
 
     class FpsLimiter {
 	    float _fps = 0;
-
 	    float _maxFPS = 0;
-	
 	    float _frameTime = 0;
-	
 	    unsigned int _startTicks = 0;
-
 		boost::posix_time::ptime time;
 
 	    void calculateFPS();
 
     public:
 	    void init(float maxFPS);
-
 	    void setMaxFPS(float maxFPS);
 
 	    void begin();
-
 	    float end();
-
 		void reset();
     };
     

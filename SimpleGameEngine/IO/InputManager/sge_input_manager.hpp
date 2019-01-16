@@ -18,11 +18,8 @@ namespace SGE
         std::unordered_map<unsigned int, bool> keyMap;
         
     public:
-
 	    void pressKey(unsigned int _keyID);
-
 	    void releaseKey(unsigned int _keyID);
-
 	    bool isKeyPressed(unsigned int _keyID);
     };
 

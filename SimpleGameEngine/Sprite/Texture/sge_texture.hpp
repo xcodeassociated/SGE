@@ -13,7 +13,6 @@ namespace SGE {
         unsigned int height;
     };
 
-
     struct Texture
     {
         std::string path = "";

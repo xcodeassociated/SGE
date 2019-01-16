@@ -16,19 +16,14 @@ namespace SGE
 
     public:
 		Rectangle();
-
         Rectangle(const Rectangle&) = default;
-
         Rectangle(float width, float height);
-
         Rectangle(float width, float height, bool disposable);
 
         float getWidth() const;
-
         void setWidth(const float width);
 
         float getHeight() const;
-
         void setHeight(const float height);
     };
 

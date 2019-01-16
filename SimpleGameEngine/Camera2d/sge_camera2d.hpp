@@ -22,25 +22,18 @@ namespace SGE
         glm::mat4 orthoMatrix;
 
         float scale = 1.0f;
-
         bool matUpdate = false;
-
         int box[2];
         
     public:
-
 	    Camera2d(unsigned int _width, unsigned int _height);
-
 		~Camera2d() = default;
 
 	    void setPosition(float x, float y);
-
 		void setPosition(glm::vec2 _position);
-
 	    glm::vec2 getPosition() const noexcept;
 	    
     	void setScale(float _scale);
-	
 	    float getScale() const;
 
 	    const glm::mat4& getCameraMatrix() const;

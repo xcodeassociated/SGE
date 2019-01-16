@@ -22,7 +22,7 @@ namespace SGE
 		Shape(ShapeType type, bool disposable);
 
 	public:
-		virtual ~Shape();
+		virtual ~Shape() = default;
 
 		ShapeType getType() const;
 

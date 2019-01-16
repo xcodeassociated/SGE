@@ -10,6 +10,6 @@ SGE::Shape* SGE::getShapeless()
     return &s;
 }
 
-SGE::Shapeless::Shapeless(): Shape(ShapeType::None, false)
+SGE::Shapeless::Shapeless() : Shape(ShapeType::None, false)
 {
 }

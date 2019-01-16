@@ -1,7 +1,7 @@
 add_subdirectory(Sprite)
 add_subdirectory(Shape)
 add_subdirectory(Camera2d)
-add_subdirectory(Renderer)
+add_subdirectory(RenderSystem)
 add_subdirectory(IO)
 add_subdirectory(Utils)
 add_subdirectory(PicoPNG)

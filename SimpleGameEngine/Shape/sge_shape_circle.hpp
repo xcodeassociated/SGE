@@ -14,17 +14,12 @@ namespace SGE
         float radius = 0.f;
 
     public:
-
         Circle();
-
         Circle(const Circle&) = default;
-	
         Circle(float radius);
-
         Circle(float radius, bool disposable);
 
         float getRadius() const;
-
         void setRadius(float radius);
     };
 
