@@ -1,5 +1,5 @@
-#include "../Key/sge_key.hpp"
 #include "sge_keyboard_state.hpp"
+#include "../Key/sge_key.hpp"
 
 #include <SDL2/SDL.h>
 

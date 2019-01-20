@@ -11,6 +11,8 @@
 
 #include "../../Sprite/Texture/sge_texture.hpp"
 
+#include <vector>
+
 namespace SGE
 {
     struct ImageLoader

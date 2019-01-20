@@ -8,6 +8,10 @@
 #include "Shaders/sge_shader.hpp"
 
 #include <utility>
+#include <string>
+#include <vector>
+#include <stdexcept>
+
 #include <glm/glm.hpp>
 #include <SDL.h>
 
