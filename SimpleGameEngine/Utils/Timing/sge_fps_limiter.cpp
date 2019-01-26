@@ -6,7 +6,7 @@
 #endif
 
 #if defined(_WIN32)
-	#if !defined(SGE_SHARED)
+	#if !defined(SHARED)
 		float SGE::delta_time = 0;
 	#endif
 #endif

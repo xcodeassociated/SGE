@@ -10,7 +10,7 @@
 #define Timing_h
 
 #ifdef _WIN32
-	#ifdef SGE_SHARED
+	#ifdef SHARED
 		#include <utils_export.h>
 	#else
 		#define UTILS_EXPORT extern
