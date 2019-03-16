@@ -1,3 +1,6 @@
+# mac os
+.DS_Store
+
 conanbuildinfo.cmake
 conaninfo.txt
 
