@@ -37,11 +37,11 @@ namespace SGE
             std::vector<std::string> shadersAttributes = {"vertexPosition", "vertexColor", "vertexUV"});
 
         void setContext(Camera2d* camera, float clearDepth = 1.0f, 
-            GLbitfield mask = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT, GLuint texture = 0);
+            GLbitfield mask = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         void usetContext(GLuint texture);
-        void render(Sprite* sprite, UV uv, Color color, 
-            glm::vec4 destRect = glm::vec4(.0f, .0f, .0f, .0f));
+
+        void render(Sprite* sprite, const glm::vec4& uv, Color color, glm::vec4 destRect);
     };
 
 }

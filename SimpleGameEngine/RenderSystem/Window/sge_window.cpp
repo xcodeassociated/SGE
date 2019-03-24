@@ -11,7 +11,7 @@
 SGE::Window::Window(std::pair<int, int> resolution) noexcept 
 	: width(resolution.first), height(resolution.second) {}
 
-void SGE::Window::createWindow() {
+void SGE::Window::createWindow(SGE::Color color) {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 		throw std::runtime_error{"SDL init filed"};
 
@@ -34,7 +34,7 @@ void SGE::Window::createWindow() {
 	if (glewCheck != GLEW_OK)
 		throw std::runtime_error{"GLEW init filed"};
 
-	glClearColor(.7f, .7f, .7f, 1.0f);
+	glClearColor(color.r, color.g, color.b, color.a);
 
 //	if (SDL_GL_SetSwapInterval(-1) != 0)
 //		throw std::runtime_error{ "SDL_GL_SetSwapInterval not supported" };

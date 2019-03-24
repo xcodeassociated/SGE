@@ -10,12 +10,12 @@
 #define sge_window_h
 
 #include <utility>
+#include <Color/sge_color.hpp>
 
 struct SDL_Window;
 
 namespace SGE
 {
-
     class Window
     {
         SDL_Window* window = nullptr;
@@ -25,13 +25,12 @@ namespace SGE
     public:
         Window(std::pair<int, int>) noexcept;
 
-        void createWindow();
+        void createWindow(SGE::Color color);
         void showWindow() noexcept;
         void finalizeWindow() noexcept;
         SDL_Window* getWindow() noexcept;
 	    bool isHidden() const;
     };
-
 }
 
 #endif /* sge_window_h */
