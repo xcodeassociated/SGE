@@ -53,7 +53,7 @@ namespace SGE
 		virtual Shape* getShape() const noexcept;
 
 		virtual Texture* getTexture() const noexcept;
-		virtual void setTeexture(Texture* texture) noexcept;
+		virtual void setTexture(Texture* texture) noexcept;
     };
 	
 	class VoidSprite : public Sprite

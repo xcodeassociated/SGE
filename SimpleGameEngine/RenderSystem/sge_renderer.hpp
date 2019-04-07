@@ -11,6 +11,8 @@
 #include <string>
 #include <vector>
 
+#include <SDL.h>
+
 namespace SGE
 {
     class Window;
@@ -39,7 +41,7 @@ namespace SGE
         void setContext(Camera2d* camera, float clearDepth = 1.0f, 
             GLbitfield mask = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        void usetContext(GLuint texture);
+        void usetContext(GLuint texture, SDL_Window* window);
 
         void render(Sprite* sprite, const glm::vec4& uv, Color color, glm::vec4 destRect);
     };

@@ -74,14 +74,14 @@ void SGE::Renderer::setContext(Camera2d* camera, float clearDepth, GLbitfield ma
     // render sprites here ...
 }
 
-void SGE::Renderer::usetContext(GLuint texture)
+void SGE::Renderer::usetContext(GLuint texture, SDL_Window* window)
 {
     this->objectBatch->end();
     this->objectBatch->renderBatch();
 
     glBindTexture(GL_TEXTURE_2D, texture);
     this->shaderProgram->unuse();
-    //swap SDL window here ...
+	SDL_GL_SwapWindow(window);
 }
 
 void SGE::Renderer::render(Sprite* sprite, const glm::vec4& uv, Color color, glm::vec4 destRect)

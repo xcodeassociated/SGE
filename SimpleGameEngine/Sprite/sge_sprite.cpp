@@ -81,7 +81,7 @@ SGE::Texture* SGE::Sprite::getTexture() const noexcept
 	return this->texture;
 }
 
-void SGE::Sprite::setTeexture(Texture* texture) noexcept
+void SGE::Sprite::setTexture(Texture* texture) noexcept
 {
 	this->texture = texture;
 }
