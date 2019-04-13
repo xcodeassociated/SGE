@@ -12,7 +12,7 @@ SGE::Sprite::Sprite(float x, float y, Shape* shape): X(x), Y(y), shape(shape)
 {
 }
 
-SGE::Sprite::Sprite(float x, float y, Shape* shape, Texture* texture): X(x), Y(y), shape(shape), texture(texture)
+SGE::Sprite::Sprite(float x, float y, Shape* shape, Texture* texture): X(x), Y(y), shape(shape), texture(texture), hasTexture(true)
 {
 }
 
@@ -83,6 +83,7 @@ SGE::Texture* SGE::Sprite::getTexture() const noexcept
 
 void SGE::Sprite::setTexture(Texture* texture) noexcept
 {
+	this->hasTexture = true;
 	this->texture = texture;
 }
 
@@ -90,4 +91,3 @@ void SGE::Sprite::setTexture(Texture* texture) noexcept
 SGE::VoidSprite::VoidSprite() : Sprite()
 {
 }
-

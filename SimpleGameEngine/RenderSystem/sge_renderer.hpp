@@ -43,7 +43,7 @@ namespace SGE
 
         void usetContext(GLuint texture, SDL_Window* window);
 
-        void render(Sprite* sprite, const glm::vec4& uv, Color color, glm::vec4 destRect);
+        void render(Sprite* sprite, const glm::vec4& uv, Color color);
     };
 
 }

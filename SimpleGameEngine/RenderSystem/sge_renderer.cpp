@@ -22,13 +22,8 @@ SGE::Renderer::Renderer(const std::string& _vert, const std::string& _frag, std:
     width(res.first),
     height(res.second)
 {
-//    try
-//    {
-        this->initShader(std::forward<std::vector<std::string>>(shadersAttributes));
-        this->spriteBatchInit();
-//    }
-//    catch (...) 
-//    {}
+    this->initShader(std::forward<std::vector<std::string>>(shadersAttributes));
+    this->spriteBatchInit();
 }
 
 void SGE::Renderer::initShader(std::vector<std::string> && shadersAttributes)
@@ -84,7 +79,7 @@ void SGE::Renderer::usetContext(GLuint texture, SDL_Window* window)
 	SDL_GL_SwapWindow(window);
 }
 
-void SGE::Renderer::render(Sprite* sprite, const glm::vec4& uv, Color color, glm::vec4 destRect)
+void SGE::Renderer::render(Sprite* sprite, const glm::vec4& uv, Color color)
 {
         assert(sprite);
 
@@ -97,23 +92,19 @@ void SGE::Renderer::render(Sprite* sprite, const glm::vec4& uv, Color color, glm
 			{
 				Circle* circle = reinterpret_cast<Circle*>(sprite->getShape());
 				const float radius = circle->getRadius();
-			
-            	destRect = { sprite->getX() - radius, sprite->getY() - radius, 
+            	glm::vec4 destRect = { sprite->getX() - radius, sprite->getY() - radius, 
                     radius * 2.f, radius * 2.f };
 
-				this->objectBatch->draw(destRect, uv, sprite->getTexture()->texture.id, .0f, color);
-
+				this->objectBatch->draw(destRect, uv, sprite->getTexture()->texture.id, 0, color);
 				break;
 			}
 			case ShapeType::Rectangle:
 			{
 				Rectangle* rect = reinterpret_cast<Rectangle*>(sprite->getShape());
-
-				destRect = { sprite->getX() - rect->getWidth()*.5f, 
+				glm::vec4 destRect = { sprite->getX() - rect->getWidth()*.5f, 
                     sprite->getY() - rect->getHeight() * .5f, rect->getWidth(), rect->getHeight() };
 
-				this->objectBatch->draw(destRect, uv, sprite->getTexture()->texture.id, .0f, color);
-
+				this->objectBatch->draw(destRect, uv, sprite->getTexture()->texture.id, 0, color);
 				break;
 			}
 			default:

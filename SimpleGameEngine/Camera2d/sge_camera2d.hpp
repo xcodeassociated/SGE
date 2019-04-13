@@ -30,7 +30,7 @@ namespace SGE
 		~Camera2d() = default;
 
 	    void setPosition(float x, float y);
-		void setPosition(glm::vec2 _position);
+        void setPosition(glm::vec2 _position);
 	    glm::vec2 getPosition() const noexcept;
 	    
     	void setScale(float _scale);

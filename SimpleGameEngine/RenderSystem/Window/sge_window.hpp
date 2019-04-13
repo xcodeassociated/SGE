@@ -23,12 +23,13 @@ namespace SGE
 	    int height = 0;
 
     public:
-        Window(std::pair<int, int>) noexcept;
-
+        Window(std::pair<int, int>);
+        virtual ~Window();
+        
         void createWindow(SGE::Color color);
-        void showWindow() noexcept;
-        void finalizeWindow() noexcept;
-        SDL_Window* getWindow() noexcept;
+        void showWindow();
+        void finalizeWindow();
+        SDL_Window* getWindow();
 	    bool isHidden() const;
     };
 }

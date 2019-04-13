@@ -35,9 +35,6 @@ namespace SGE
 		Sprite(float x, float y, bool draw, Shape* shape);
 	
 		virtual ~Sprite();
-
-        const char* path = nullptr;
-
 		virtual float getX() const noexcept;
 		virtual float getY() const noexcept;
 

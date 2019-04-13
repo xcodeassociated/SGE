@@ -37,19 +37,19 @@ void SGE::SpriteBatch::draw(const glm::vec4& destRect, const glm::vec4& uvRect, 
 	newGlyph->texture = texture;
 	newGlyph->depth = depth;
 
-	newGlyph->topLeft.color = color;
+	newGlyph->topLeft.setColor(color.r, color.g, color.b, color.a);
 	newGlyph->topLeft.setPosition(destRect.x, destRect.y + destRect.w);
 	newGlyph->topLeft.setUV(uvRect.x, uvRect.y + uvRect.w);
 
-	newGlyph->bottomLeft.color = color;
+	newGlyph->bottomLeft.setColor(color.r, color.g, color.b, color.a);
 	newGlyph->bottomLeft.setPosition(destRect.x, destRect.y);
 	newGlyph->bottomLeft.setUV(uvRect.x, uvRect.y);
 
-	newGlyph->bottomRight.color = color;
+	newGlyph->bottomRight.setColor(color.r, color.g, color.b, color.a);
 	newGlyph->bottomRight.setPosition(destRect.x + destRect.z, destRect.y);
 	newGlyph->bottomRight.setUV(uvRect.x + uvRect.z, uvRect.y);
 
-	newGlyph->topRight.color = color;
+	newGlyph->topRight.setColor(color.r, color.g, color.b, color.a);
 	newGlyph->topRight.setPosition(destRect.x + destRect.z, destRect.y + destRect.w);
 	newGlyph->topRight.setUV(uvRect.x + uvRect.z, uvRect.y + uvRect.w);
 
