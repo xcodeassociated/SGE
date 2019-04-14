@@ -10,7 +10,6 @@ namespace SGE
 
         UV(float _u, float _v) : u(_u), v(_v) {};
         UV() = default;
-        virtual ~UV() = default;
     };
 }
 
