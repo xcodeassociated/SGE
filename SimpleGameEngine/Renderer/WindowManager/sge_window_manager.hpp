@@ -61,6 +61,7 @@ namespace SGE
         SDL_Window* getWindow() const noexcept;
 	    bool isHidden() const;
 		void swapWindow() const;
+		void raiseWindow();
     };
 
 }

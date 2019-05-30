@@ -80,4 +80,7 @@ void SGE::WindowManager::swapWindow() const
 	SDL_GL_SwapWindow(this->window);
 }
 
-
+void SGE::WindowManager::raiseWindow()
+{
+	SDL_RaiseWindow(this->window);
+}

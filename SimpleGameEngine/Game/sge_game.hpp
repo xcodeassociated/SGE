@@ -220,6 +220,8 @@ namespace SGE
 	     */
 	    void windowClosing();
 
+		void raiseWindow();
+
 	    /**
 	     * \brief 
 	     * \return 

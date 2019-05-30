@@ -155,6 +155,11 @@ void SGE::Game::windowClosing()
 	this->stop();
 }
 
+void SGE::Game::raiseWindow()
+{
+	this->window_manager->raiseWindow();
+}
+
 SGE::ActionHandler* SGE::Game::getActionHandler()
 {
 	return this->action_handler;
