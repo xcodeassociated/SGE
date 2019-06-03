@@ -199,7 +199,7 @@ void SGE::Game::loop()
 #ifndef NDEBUG
 		static float time_counter = 0.f;
 		time_counter += delta_time;
-		while (time_counter > 60.f)
+		while (time_counter > 600.f)
 		{
 			*logger << "fps: " << this->fps << std::endl;
 			*logger << "delta_time: " << delta_time << std::endl;
