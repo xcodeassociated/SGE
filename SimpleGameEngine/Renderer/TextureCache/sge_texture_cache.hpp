@@ -9,6 +9,8 @@
 #ifndef sge_texture_cache_h
 #define sge_texture_cache_h
 
+
+#include <string>
 #include <map>
 #include "../../Object/sge_object.hpp"
 
