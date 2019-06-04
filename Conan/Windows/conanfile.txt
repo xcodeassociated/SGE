@@ -2,9 +2,7 @@
 glew/2.1.0@bincrafters/stable
 glm/0.9.9.1@g-truc/stable
 sdl2/2.0.8@bincrafters/stable
-boost/1.68.0@conan/stable
-## boost_date_time/1.66.0@bincrafters/stable
-## boost_config/1.66.0@bincrafters/stable
+boost/[>=1.68.0]@conan/stable
 lua/5.3.4@zimmerk/stable
 
 [generators]
